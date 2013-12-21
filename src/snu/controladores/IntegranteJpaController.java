@@ -11,22 +11,26 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.entidades.Integrante;
 
 /**
- * Classe que controla o gerenciamento da persistência dos integrantes
  *
  * @author Washington Luis
  */
 public class IntegranteJpaController implements Serializable {
 
-    public IntegranteJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+    private static IntegranteJpaController instance;
     private EntityManagerFactory emf = null;
+
+    private IntegranteJpaController() {
+        if (this.emf == null) {
+            this.emf = Persistence.createEntityManagerFactory("SNUPU");
+        }
+    }
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -136,4 +140,11 @@ public class IntegranteJpaController implements Serializable {
         }
     }
 
+    public static IntegranteJpaController getInstance() {
+        if (instance != null) {
+            return instance;
+        } else {
+            return new IntegranteJpaController();
+        }
+    }
 }

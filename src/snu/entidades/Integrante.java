@@ -30,6 +30,7 @@ public class Integrante implements Serializable {
     private Long id;
     private String nome;
     private Sexo sexo;
+    private String email;
     
     @Temporal(TemporalType.DATE)
     @Column(name = "data_nascimento")
