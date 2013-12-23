@@ -6,11 +6,16 @@
 package snu.fronteiras.controladores;
 
 import com.sun.deploy.util.FXLoader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -54,6 +59,7 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem itemSobre;
 
     private void initComponents() {
+        
     }
 
     @Override
@@ -61,9 +67,20 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("" + url + " " + rb);
         initComponents();
     }
-    
+
     @FXML
     private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/CadastrarIntegrante.fxml"));
+        Parent root = null; 
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Limpa o conteúdo anterior e carrega a página
+        contentAnchorPane.getChildren().clear();
+        contentAnchorPane.getChildren().add(root);
     }
 
     @FXML

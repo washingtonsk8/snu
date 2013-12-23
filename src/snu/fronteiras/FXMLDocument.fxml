@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="464.99980000000505" prefWidth="702.9998779296875" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.FXMLDocumentController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.FXMLDocumentController">
   <children>
-    <MenuBar fx:id="menubar" layoutX="0.0" layoutY="0.0" prefWidth="702.9998779296875">
+    <MenuBar fx:id="menubar" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" prefWidth="800.0">
       <menus>
         <Menu mnemonicParsing="false" text="Integrante" fx:id="menuIntegrante">
           <items>
@@ -34,6 +35,13 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane id="contentAnchor" fx:id="contentAnchorPane" layoutX="0.0" layoutY="24.0" prefHeight="440.9999000000025" prefWidth="703.0" />
+    <AnchorPane id="contentAnchor" fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="content">
+      <stylesheets>
+        <URL value="@css/fxmldocument.css" />
+      </stylesheets>
+    </AnchorPane>
   </children>
+  <stylesheets>
+    <URL value="@css/fxmldocument.css" />
+  </stylesheets>
 </AnchorPane>

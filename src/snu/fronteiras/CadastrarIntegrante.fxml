@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickFromContentCadastrarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.CadastrarIntegranteController">
+  <children>
+    <Label id="lblCadastrarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Cadastrar Novo Integrante" textAlignment="LEFT" wrapText="false">
+      <stylesheets>
+        <URL value="@css/contents.css" />
+        <URL value="@css/cadastrarintegrante.css" />
+      </stylesheets>
+    </Label>
+    <Label fx:id="lblNome" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="13.0" layoutY="80.0" onMouseClicked="#onMouseClickFromLblNome" prefWidth="150.0" text="Nome:" textFill="BLACK" textOverrun="ELLIPSIS">
+      <effect>
+        <Glow />
+      </effect>
+      <font>
+        <Font size="16.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField fx:id="fldNome" layoutX="185.0" layoutY="80.0" onAction="#onActionFromFldNome" prefWidth="400.0" />
+    <Label fx:id="lblSexo" alignment="CENTER_RIGHT" focusTraversable="false" font="$x1" layoutX="13.0" layoutY="120.0" onMouseClicked="#onMouseClickFromLblSexo" prefWidth="150.0" text="Sexo:" textFill="BLACK" textOverrun="ELLIPSIS">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <RadioButton fx:id="radioFeminino" layoutX="185.0" layoutY="123.0" mnemonicParsing="false" onAction="#onActionFromRadioFeminino" text="Feminino" />
+    <RadioButton fx:id="radioMasculino" layoutX="269.0" layoutY="123.0" mnemonicParsing="false" onAction="#onActionFromRadioMasculino" text="Masculino" />
+    <Label fx:id="lblDataNascimento" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="160.0" onMouseClicked="#onMouseClickFromDataNascimento" prefWidth="150.0" text="Data de Nascimento:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <Label fx:id="lblIdade" disable="true" layoutX="350.0" layoutY="163.0" prefWidth="150.0" text="">
+      <font>
+        <Font size="14.0" fx:id="x2" />
+      </font>
+    </Label>
+    <Label fx:id="lblEndereco" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="200.0" onMouseClicked="#onMouseClickFromLblEndereco" prefWidth="150.0" text="Endereço:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <TextField fx:id="fldEndereco" layoutX="185.0" layoutY="200.0" onAction="#onActionFromFldEndereco" prefWidth="400.0" />
+    <Label fx:id="lblTelefoneResidencial" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="240.0" onMouseClicked="#onMouseClickFromLblTelefoneResidencial" prefWidth="150.0" text="Tel. Residencial:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <TextField fx:id="fldTelefoneResidencial" layoutX="185.0" layoutY="240.0" onAction="#onActionFromFldTelefoneResidencial" prefWidth="150.0" />
+    <Label fx:id="lblTelefoneCelular" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="280.0" onMouseClicked="#onMouseClickFromLblTelefoneCelular" prefWidth="150.0" text="Tel. Celular:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <TextField fx:id="fldTelefoneCelular" layoutX="185.0" layoutY="280.0" onAction="#onActionFromFldTelefoneCelular" prefWidth="150.0" />
+    <Label fx:id="lblTelefoneComercial" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="320.0" onMouseClicked="#onMouseClickFromLblTelefoneComercial" prefWidth="150.0" text="Tel. Comercial:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <TextField fx:id="fldTelefoneComercial" layoutX="185.0" layoutY="320.0" onAction="#onActionFromFldTelefoneComercial" prefWidth="150.0" />
+    <Label fx:id="lblDataEntrada" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="400.0" onMouseClicked="#onMouseClickFromDataEntrada" prefWidth="150.0" text="Data de Entrada:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <Label fx:id="lblIdadeMinisterial" disable="true" font="$x2" layoutX="350.0" layoutY="403.0" onMouseClicked="#onMouseClickFromIdadeMinisterial" prefWidth="150.0" text="" />
+    <Label fx:id="lblEmail" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="360.0" onMouseClicked="#onMouseClickFromLblEmail" prefWidth="150.0" text="E-mail:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <TextField fx:id="fldEmail" layoutX="185.0" layoutY="360.0" onAction="#onActionFromFldEmail" prefWidth="400.0" />
+    <Label fx:id="lblFuncaoPrincipal" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="440.0" onMouseClicked="#onMouseClickFromLblFuncaoPrincipal" prefWidth="149.9998779296875" text="Função Principal:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <Label fx:id="lblFuncaoSecundaria" alignment="CENTER_RIGHT" font="$x1" layoutX="13.0" layoutY="480.0" onMouseClicked="#onMouseClickFromLblFuncaoSecundaria" prefWidth="150.0" text="Função Secundária:" textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <ComboBox fx:id="comboFuncaoPrincipal" layoutX="185.0" layoutY="440.0" onAction="#onActionFromComboFuncaoPrincipal" prefHeight="22.0" prefWidth="150.0" />
+    <ComboBox fx:id="comboFuncaoSecundaria" layoutX="185.0" layoutY="480.0" onAction="#onActionFromComboFuncaoSecundaria" prefHeight="22.0" prefWidth="150.0" />
+    <Button fx:id="btnSalvar" cache="true" font="$x1" layoutX="686.0" layoutY="523.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
+    <Label layoutX="163.0" layoutY="75.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+      <effect>
+        <Glow />
+      </effect>
+      <font>
+        <Font size="20.0" fx:id="x3" />
+      </font>
+    </Label>
+    <Label font="$x3" layoutX="163.0" layoutY="115.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <Label font="$x3" layoutX="163.0" layoutY="195.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+    <Label font="$x3" layoutX="163.0" layoutY="435.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+      <effect>
+        <Glow />
+      </effect>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@css/cadastrarintegrante.css" />
+  </stylesheets>
+</AnchorPane>

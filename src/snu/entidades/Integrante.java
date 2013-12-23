@@ -31,41 +31,46 @@ public class Integrante implements Serializable {
     private String nome;
     private Sexo sexo;
     private String email;
-    
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_entrada")
+    private Date dataEntrada;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "data_nascimento")
     private Date dataNascimento;
-    
-    private Integer idade;
-    
+
     @Column(name = "telefone_residencial")
     private String telefoneResidencial;
-    
+
     @Column(name = "telefone_celular")
     private String telefoneCelular;
-    
+
     @Column(name = "telefone_comercial")
     private String telefoneComercial;
     private String endereco;
-    private TipoIntegrante tipo;
     
-    @Column(name = "tipo_adicional")
-    private TipoIntegrante tipoAdicional;
+    @Column(name = "funcao_primaria")
+    private FuncaoIntegrante funcaoPrimaria;
+
+    @Column(name = "funcao_secundaria")
+    private FuncaoIntegrante funcaoSecundaria;
 
     public Integrante() {
     }
 
-    public Integrante(String nome, Sexo sexo, Date dataNascimento, Integer idade, String telefoneResidencial, String telefoneCelular, String telefoneComercial, String endereco, TipoIntegrante tipo, TipoIntegrante tipoAdicional) {
+    public Integrante(String nome, Sexo sexo, String email, Date dataEntrada, Date dataNascimento, String telefoneResidencial, String telefoneCelular, String telefoneComercial, String endereco, FuncaoIntegrante tipo, FuncaoIntegrante tipoAdicional) {
         this.nome = nome;
         this.sexo = sexo;
+        this.email = email;
+        this.dataEntrada = dataEntrada;
         this.dataNascimento = dataNascimento;
-        this.idade = idade;
         this.telefoneResidencial = telefoneResidencial;
         this.telefoneCelular = telefoneCelular;
         this.telefoneComercial = telefoneComercial;
         this.endereco = endereco;
-        this.tipo = tipo;
-        this.tipoAdicional = tipoAdicional;
+        this.funcaoPrimaria = tipo;
+        this.funcaoSecundaria = tipoAdicional;
     }
 
     public Long getId() {
@@ -100,14 +105,6 @@ public class Integrante implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
     public String getTelefoneResidencial() {
         return telefoneResidencial;
     }
@@ -140,20 +137,36 @@ public class Integrante implements Serializable {
         this.endereco = endereco;
     }
 
-    public TipoIntegrante getTipo() {
-        return tipo;
+    public FuncaoIntegrante getFuncaoPrimaria() {
+        return funcaoPrimaria;
     }
 
-    public void setTipo(TipoIntegrante tipo) {
-        this.tipo = tipo;
+    public void setFuncaoPrimaria(FuncaoIntegrante funcaoPrimaria) {
+        this.funcaoPrimaria = funcaoPrimaria;
     }
 
-    public TipoIntegrante getTipoAdicional() {
-        return tipoAdicional;
+    public FuncaoIntegrante getFuncaoSecundaria() {
+        return funcaoSecundaria;
     }
 
-    public void setTipoAdicional(TipoIntegrante tipoAdicional) {
-        this.tipoAdicional = tipoAdicional;
+    public void setFuncaoSecundaria(FuncaoIntegrante funcaoSecundaria) {
+        this.funcaoSecundaria = funcaoSecundaria;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     @Override
@@ -178,7 +191,7 @@ public class Integrante implements Serializable {
 
     @Override
     public String toString() {
-        return "Integrante{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", idade=" + idade + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular=" + telefoneCelular + ", telefoneComercial=" + telefoneComercial + ", endereco=" + endereco + ", tipo=" + tipo + ", tipoAdicional=" + tipoAdicional + '}';
+        return "Integrante{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", email=" + email + ", dataEntrada=" + dataEntrada + ", dataNascimento=" + dataNascimento + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular=" + telefoneCelular + ", telefoneComercial=" + telefoneComercial + ", endereco=" + endereco + ", tipo=" + funcaoPrimaria + ", tipoAdicional=" + funcaoSecundaria + '}';
     }
 
 }

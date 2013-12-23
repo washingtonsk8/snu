@@ -1,0 +1,44 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.util;
+
+import eu.schudt.javafx.controls.calendar.DatePicker;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * Classe criada para realizar operações em datas
+ *
+ * @author Washington Luis
+ */
+public class DataUtil {
+
+    public static DatePicker getDatePicker() {
+        DatePicker dp = new DatePicker();
+        dp.setDateFormat(DateFormat.getDateInstance(DateFormat.MEDIUM, new Locale("pt", "BR")));
+        dp.getCalendarView().todayButtonTextProperty().set("Hoje");
+        dp.getCalendarView().setShowWeeks(false);
+        dp.getStylesheets().add("/snu/fronteiras/css/datePicker.css");
+        return dp;
+    }
+
+    public static Integer getIdade(Date dataPassada) {
+        Calendar cData = Calendar.getInstance();
+        Calendar cDataAtual = Calendar.getInstance();
+        cData.setTime(dataPassada);
+        cData.set(Calendar.YEAR, cDataAtual.get(Calendar.YEAR));
+
+        Integer idade = cData.after(cDataAtual) ? -1 : 0;
+
+        cData.setTime(dataPassada);
+
+        idade += cDataAtual.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
+        
+        return idade;
+    }
+}
