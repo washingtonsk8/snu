@@ -39,6 +39,6 @@ public class DataUtil {
 
         idade += cDataAtual.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
         
-        return idade;
+        return idade > 0? idade : 0;
     }
 }

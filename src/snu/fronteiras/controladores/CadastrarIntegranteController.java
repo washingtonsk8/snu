@@ -6,28 +6,32 @@
 package snu.fronteiras.controladores;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.scene.paint.Color;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.InputMethodRequests;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -36,6 +40,8 @@ import snu.entidades.FuncaoIntegrante;
 import snu.entidades.Integrante;
 import snu.entidades.Sexo;
 import snu.util.DataUtil;
+import snu.util.RegexUtil;
+import snu.util.StringUtil;
 
 /**
  * FXML Controller class
@@ -111,37 +117,49 @@ public class CadastrarIntegranteController implements Initializable {
             FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
             FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
             FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
+    @FXML
+    private Font x3;
+    @FXML
+    private Button btnLimpar;
 
-    private void initComponents() {
-        final ToggleGroup grupo = new ToggleGroup();
-        
-        this.radioFeminino.setToggleGroup(grupo);
-        this.radioMasculino.setToggleGroup(grupo);
-        
-        this.fldNome.setPromptText("Nome Completo do Integrante");
-        this.fldEndereco.setPromptText("Nome da Rua, N° - Bairro, Cidade");
-        this.fldTelefoneResidencial.setPromptText("(__) ____-____");
-        this.fldTelefoneCelular.setPromptText("(__) ____-____");
-        this.fldTelefoneComercial.setPromptText("(__) ____-____");
+    private Effect invalidEffect = new DropShadow(BlurType.GAUSSIAN, Color.RED, 15, 0.0, 0, 0);
+    private Effect validEffect = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
 
-        //Adicionando a lista no combo
-        this.comboFuncaoPrincipal.setItems(this.funcoesIntegrante);
-        this.comboFuncaoSecundaria.setItems(this.funcoesIntegrante);
+    private void definirAtividadeDeFocoDosCampos() {
+        //Campo de e-mail
+        this.fldEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean valorAntigo, Boolean novoValor) {
+                if (!novoValor) {
+                    if (!StringUtil.isVazia(fldEmail.getText()) && !RegexUtil.validarEmail(fldEmail.getText())) {
+                        fldEmail.setEffect(invalidEffect);
+                    } else {
+                        fldEmail.setEffect(null);
+                    }
+                } else {
+                    if (!RegexUtil.validarEmail(fldEmail.getText())) {
+                        fldEmail.setEffect(invalidEffect);
+                    } else {
+                        fldEmail.setEffect(validEffect);
+                    }
+                }
+            }
+        });
 
+    }
+
+    private void resetarCamposDeData() {
         //Formatando o DatePicker de Nascimento
         this.dpDataNascimento = DataUtil.getDatePicker();
         this.dpDataNascimento.setLayoutX(185);
         this.dpDataNascimento.setLayoutY(160);
         this.dpDataNascimento.setMaxWidth(150);
         this.dpDataNascimento.setPromptText("DD/MM/AAAA");
-
         this.dpDataNascimento.selectedDateProperty().addListener(new ChangeListener<Date>() {
             @Override
             public void changed(ObservableValue<? extends Date> observable, Date valorAntigo, Date novaDataNascimento) {
                 lblIdade.setText(DataUtil.getIdade(novaDataNascimento) + " anos");
             }
         });
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
 
         //Formatando o DatePicker de Entrada
         this.dpDataEntrada = DataUtil.getDatePicker();
@@ -156,14 +174,37 @@ public class CadastrarIntegranteController implements Initializable {
                 lblIdadeMinisterial.setText(DataUtil.getIdade(novaDataEntrada) + " anos de ministério");
             }
         });
+    }
+
+    private void initComponents() {
+        final ToggleGroup grupo = new ToggleGroup();
+
+        this.radioFeminino.setToggleGroup(grupo);
+        this.radioMasculino.setToggleGroup(grupo);
+
+        this.fldNome.setPromptText("Nome Completo do Integrante");
+        this.fldEndereco.setPromptText("Nome da Rua, N° - Bairro, Cidade");
+        this.fldEmail.setPromptText("login@exemplo.com");
+        this.fldTelefoneResidencial.setPromptText("(__) ____-____");
+        this.fldTelefoneCelular.setPromptText("(__) ____-____");
+        this.fldTelefoneComercial.setPromptText("(__) ____-____");
+
+        //Adicionando a lista no combo
+        this.comboFuncaoPrincipal.setItems(this.funcoesIntegrante);
+        this.comboFuncaoSecundaria.setItems(this.funcoesIntegrante);
+
+        resetarCamposDeData();
+        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
         this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
+
+        definirAtividadeDeFocoDosCampos();
 
         //Define a existência de um novo cadastro
         this.integranteRow = new Integrante();
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -171,7 +212,7 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromLblNome(MouseEvent event) {
+    private void onMouseClickedFromLblNome(MouseEvent event) {
         this.fldNome.requestFocus();
     }
 
@@ -180,25 +221,33 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromLblSexo(MouseEvent event) {
+    private void onMouseClickedFromLblSexo(MouseEvent event) {
         this.radioFeminino.requestFocus();
     }
 
     @FXML
     private void onActionFromRadioFeminino(ActionEvent event) {
+        this.radioFeminino.setEffect(null);
+        this.radioMasculino.setEffect(null);
     }
 
     @FXML
     private void onActionFromRadioMasculino(ActionEvent event) {
+        this.radioFeminino.setEffect(null);
+        this.radioMasculino.setEffect(null);
     }
 
     @FXML
-    private void onMouseClickFromDataNascimento(MouseEvent event) {
+    private void onMouseClickedFromLblDataNascimento(MouseEvent event) {
         this.dpDataNascimento.requestFocus();
     }
 
     @FXML
-    private void onMouseClickFromLblEndereco(MouseEvent event) {
+    private void onMouseClickedFromIdade(MouseEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromLblEndereco(MouseEvent event) {
         this.fldEndereco.requestFocus();
     }
 
@@ -207,7 +256,7 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromLblTelefoneResidencial(MouseEvent event) {
+    private void onMouseClickedFromLblTelefoneResidencial(MouseEvent event) {
         this.fldTelefoneResidencial.requestFocus();
     }
 
@@ -216,7 +265,7 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromLblTelefoneCelular(MouseEvent event) {
+    private void onMouseClickedFromLblTelefoneCelular(MouseEvent event) {
         this.fldTelefoneCelular.requestFocus();
     }
 
@@ -225,7 +274,7 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromLblTelefoneComercial(MouseEvent event) {
+    private void onMouseClickedFromLblTelefoneComercial(MouseEvent event) {
         this.fldTelefoneComercial.requestFocus();
     }
 
@@ -234,7 +283,7 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromLblEmail(MouseEvent event) {
+    private void onMouseClickedFromLblEmail(MouseEvent event) {
         this.fldEmail.requestFocus();
     }
 
@@ -243,27 +292,31 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickFromIdadeMinisterial(MouseEvent event) {
-
-    }
-
-    @FXML
-    private void onMouseClickFromDataEntrada(MouseEvent event) {
+    private void onMouseClickedFromLblDataEntrada(MouseEvent event) {
         this.dpDataEntrada.requestFocus();
     }
 
     @FXML
-    private void onMouseClickFromLblFuncaoPrincipal(MouseEvent event) {
+    private void onMouseClickedFromIdadeMinisterial(MouseEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromLblFuncaoPrincipal(MouseEvent event) {
         this.comboFuncaoPrincipal.requestFocus();
     }
 
     @FXML
-    private void onMouseClickFromLblFuncaoSecundaria(MouseEvent event) {
+    private void onMouseClickedFromLblFuncaoSecundaria(MouseEvent event) {
         this.comboFuncaoSecundaria.requestFocus();
     }
 
     @FXML
-    private void onActionFromComboFuncaoPrincipal(ActionEvent event) {
+    private void onActionFromComboFuncaoPrincipal(ActionEvent event) {        
+        this.comboFuncaoPrincipal.setEffect(null);
+        this.lblFuncaoSecundaria.setDisable(false);
+        this.lblFuncaoSecundaria.setOpacity(1);
+        this.comboFuncaoSecundaria.setDisable(false);
+        this.comboFuncaoSecundaria.setOpacity(1);
     }
 
     @FXML
@@ -271,27 +324,116 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnSalvar(ActionEvent event) {
-        this.integranteRow.setNome(this.fldNome.getText());
-        this.integranteRow.setDataNascimento(this.dpDataNascimento.getSelectedDate());
-        this.integranteRow.setEmail(this.fldEmail.getText());
-        this.integranteRow.setDataEntrada(this.dpDataEntrada.getSelectedDate());
-        this.integranteRow.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
-        this.integranteRow.setTelefoneCelular(this.fldTelefoneCelular.getText());
-        this.integranteRow.setTelefoneComercial(this.fldTelefoneComercial.getText());
-        this.integranteRow.setTelefoneResidencial(this.fldTelefoneResidencial.getText());
-        this.integranteRow.setEndereco(this.fldEndereco.getText());
-        this.integranteRow.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
-        this.integranteRow.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
-                
-        //Persistindo no banco
-        IntegranteJpaController.getInstance().create(integranteRow);
-        System.out.println(integranteRow);
+    private void onMouseClickedFromContentCadastrarIntegrante(MouseEvent event) {
+        this.contentCadastrarIntegrante.requestFocus();
     }
 
     @FXML
-    private void onMouseClickFromContentCadastrarIntegrante(MouseEvent event) {
-        this.contentCadastrarIntegrante.requestFocus();
+    private void onKeyTypedFromFldNome(KeyEvent event) {        
+        this.fldNome.setEffect(null);
+    }
+
+    @FXML
+    private void onKeyTypedFromFldEndereco(KeyEvent event) {
+        this.fldEndereco.setEffect(null);
+    }
+
+    @FXML
+    private void onKeyTypedFromFldTelefoneResidencial(KeyEvent event) {
+    }
+
+    @FXML
+    private void onKeyTypedFromFldTelefoneCelular(KeyEvent event) {
+    }
+
+    @FXML
+    private void onKeyTypedFromFldTelefoneComercial(KeyEvent event) {
+    }
+
+    @FXML
+    private void onKeyTypedFromFldEmail(KeyEvent event) {
+        if (!RegexUtil.validarEmail(this.fldEmail.getText())) {
+            this.fldEmail.setEffect(invalidEffect);
+        } else {
+            this.fldEmail.setEffect(validEffect);
+        }
+    }
+
+    @FXML
+    private void onRequestedFromFldEmail(ContextMenuEvent event) {
+        this.fldEmail.setEffect(null);
+    }
+
+    @FXML
+    private void onActionFromBtnLimpar(ActionEvent event) {
+        this.integranteRow = new Integrante();
+
+        this.comboFuncaoPrincipal.setValue(null);
+        this.comboFuncaoSecundaria.setValue(null);
+        this.contentCadastrarIntegrante.getChildren().remove(this.dpDataNascimento);
+        this.contentCadastrarIntegrante.getChildren().remove(this.dpDataEntrada);
+        resetarCamposDeData();
+        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
+        this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
+        this.fldEmail.clear();
+        this.fldNome.clear();
+        this.fldEndereco.clear();
+        this.fldTelefoneCelular.clear();
+        this.fldTelefoneComercial.clear();
+        this.fldTelefoneResidencial.clear();
+        this.radioFeminino.setSelected(false);
+        this.radioMasculino.setSelected(false);
+        this.lblIdade.setText(StringUtil.VAZIA);
+        this.lblIdadeMinisterial.setText(StringUtil.VAZIA);
+    }
+
+    private boolean validarCampos() {
+        boolean validadeDosCampos = true;
+        if (StringUtil.isVazia(this.fldNome.getText())) {
+            this.fldNome.setEffect(invalidEffect);
+            validadeDosCampos = false;
+        }
+        if (!this.radioFeminino.isSelected() && !this.radioMasculino.isSelected()) {
+            this.radioFeminino.setEffect(invalidEffect);
+            this.radioMasculino.setEffect(invalidEffect);
+            validadeDosCampos = false;
+        }
+        if (StringUtil.isVazia(this.fldEndereco.getText())) {
+            this.fldEndereco.setEffect(invalidEffect);
+            validadeDosCampos = false;
+        }
+        if (this.comboFuncaoPrincipal.getValue() == null) {
+            this.comboFuncaoPrincipal.setEffect(invalidEffect);
+            validadeDosCampos = false;
+        }
+        return validadeDosCampos;
+    }
+
+    @FXML
+    private void onActionFromBtnSalvar(ActionEvent event) {
+        if (validarCampos()) {
+            this.integranteRow.setNome(this.fldNome.getText());
+            this.integranteRow.setDataNascimento(this.dpDataNascimento.getSelectedDate());
+            this.integranteRow.setEmail(this.fldEmail.getText());
+            this.integranteRow.setDataEntrada(this.dpDataEntrada.getSelectedDate());
+            this.integranteRow.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
+            this.integranteRow.setTelefoneCelular(this.fldTelefoneCelular.getText());
+            this.integranteRow.setTelefoneComercial(this.fldTelefoneComercial.getText());
+            this.integranteRow.setTelefoneResidencial(this.fldTelefoneResidencial.getText());
+            this.integranteRow.setEndereco(this.fldEndereco.getText());
+            this.integranteRow.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
+            this.integranteRow.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
+
+            //Persistindo no banco
+            IntegranteJpaController.getInstance().create(integranteRow);
+            System.out.println(integranteRow);
+
+            Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
+        }
+    }
+
+    @FXML
+    private void onTextChangedFromComboFuncaoPrincipal(InputMethodEvent event) {
     }
 
 }

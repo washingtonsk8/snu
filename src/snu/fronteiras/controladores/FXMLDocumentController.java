@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores;
 
-import com.sun.deploy.util.FXLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
