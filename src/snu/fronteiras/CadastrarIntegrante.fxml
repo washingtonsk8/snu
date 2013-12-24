@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickedFromContentCadastrarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.CadastrarIntegranteController">
+<AnchorPane fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickedFromContentCadastrarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.CadastrarIntegranteController">
   <children>
     <Label id="lblCadastrarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Cadastrar Novo Integrante" textAlignment="LEFT" wrapText="false">
       <stylesheets>
@@ -123,5 +123,6 @@
   </children>
   <stylesheets>
     <URL value="@css/cadastrarintegrante.css" />
+    <URL value="@css/contents.css" />
   </stylesheets>
 </AnchorPane>

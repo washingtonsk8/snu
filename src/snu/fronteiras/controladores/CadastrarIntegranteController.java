@@ -127,7 +127,7 @@ public class CadastrarIntegranteController implements Initializable {
         //Campo de e-mail
         this.fldEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean valorAntigo, Boolean novoValor) {
-                if (!novoValor) {
+                if (!novoValor) {//Perda de foco
                     if (!StringUtil.isVazia(fldEmail.getText()) && !RegexUtil.validarEmail(fldEmail.getText())) {
                         fldEmail.setEffect(invalidEffect);
                     } else {
@@ -412,7 +412,7 @@ public class CadastrarIntegranteController implements Initializable {
         if (validarCampos()) {
             this.integranteRow.setNome(this.fldNome.getText());
             this.integranteRow.setDataNascimento(this.dpDataNascimento.getSelectedDate());
-            this.integranteRow.setEmail(this.fldEmail.getText());
+            this.integranteRow.setEmail(this.fldEmail.getText().toLowerCase());
             this.integranteRow.setDataEntrada(this.dpDataEntrada.getSelectedDate());
             this.integranteRow.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
             this.integranteRow.setTelefoneCelular(this.fldTelefoneCelular.getText());
@@ -423,7 +423,7 @@ public class CadastrarIntegranteController implements Initializable {
             this.integranteRow.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
 
             //Persistindo no banco
-            IntegranteJpaController.getInstance().create(integranteRow);
+            IntegranteJpaController.getInstancia().create(integranteRow);
             System.out.println(integranteRow);
 
             Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");

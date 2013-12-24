@@ -12,5 +12,16 @@ package snu.entidades;
  */
 public enum Sexo {
 
-    FEMININO, MASCULINO
+    FEMININO("Feminino"), MASCULINO("Masculino");
+    
+    private final String valor;
+
+    private Sexo(String valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return valor;
+    }
 }

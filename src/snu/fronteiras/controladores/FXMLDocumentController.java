@@ -69,13 +69,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/CadastrarIntegrante.fxml"));
-        Parent root = null; 
+        Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //Limpa o conteúdo anterior e carrega a página
         contentAnchorPane.getChildren().clear();
         contentAnchorPane.getChildren().add(root);
@@ -83,19 +83,19 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemVisualizarDados(ActionEvent event) {
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/VisualizarDadosIntegrante.fxml"));
-        Parent root = null; 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/VisualizarDadosIntegrante.fxml"));
+        Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //Limpa o conteúdo anterior e carrega a página
         contentAnchorPane.getChildren().clear();
         contentAnchorPane.getChildren().add(root);
     }
-    
+
     @FXML
     private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
     }

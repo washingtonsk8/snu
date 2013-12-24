@@ -14,6 +14,10 @@ and open the template in the editor.
     -fx-effect: dropshadow(three-pass-box , rgb(0, 0, 0, 0.7), 3, 0.0 , 0 , 1 );
 }
 
+.main{
+    -fx-background-image: url('../images/background4.png');    
+}
+
 label {
     -fx-font-family: "Arial";
     -fx-font-size: 14;

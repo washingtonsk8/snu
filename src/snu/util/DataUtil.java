@@ -7,6 +7,7 @@ package snu.util;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -40,5 +41,13 @@ public class DataUtil {
         idade += cDataAtual.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
         
         return idade > 0? idade : 0;
+    }
+
+    public static String formatarData(Date data) {
+        if(data == null)
+            return null;
+        
+        SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
+        return sdt.format(data);
     }
 }

@@ -11,9 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.Integrante;
@@ -25,13 +25,11 @@ import snu.util.StringUtil;
  */
 public class IntegranteJpaController implements Serializable {
 
-    private static IntegranteJpaController instance;
     private EntityManagerFactory emf = null;
+    private static IntegranteJpaController instancia;
 
     private IntegranteJpaController() {
-        if (this.emf == null) {
-            this.emf = Persistence.createEntityManagerFactory("SNUPU");
-        }
+        this.emf = GerenciadorDeEntidades.getInstancia().getFabrica();
     }
 
     public EntityManager getEntityManager() {
@@ -177,11 +175,10 @@ public class IntegranteJpaController implements Serializable {
         return resultado;
     }
 
-    public static IntegranteJpaController getInstance() {
-        if (instance != null) {
-            return instance;
-        } else {
-            return new IntegranteJpaController();
+    public static IntegranteJpaController getInstancia() {
+        if (instancia == null) {
+            instancia = new IntegranteJpaController();
         }
+        return instancia;
     }
 }

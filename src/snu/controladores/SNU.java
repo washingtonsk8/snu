@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.controladores;
 
 import javafx.application.Application;
@@ -11,19 +10,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import snu.bd.GerenciadorDeEntidades;
 
 /**
  *
  * @author Washington Luis
  */
 public class SNU extends Application {
-    
+    private static final GerenciadorDeEntidades gerenciadorDeEntidades = GerenciadorDeEntidades.getInstancia();
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/FXMLDocument.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setTitle("Sistema Nova Unção");
         stage.setIconified(true);
         stage.setScene(scene);
@@ -42,8 +43,7 @@ public class SNU extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         launch(args);
     }
-    
+
 }
