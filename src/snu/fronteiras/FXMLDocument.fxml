@@ -14,8 +14,8 @@
         <Menu mnemonicParsing="false" text="Integrante" fx:id="menuIntegrante">
           <items>
             <MenuItem id="itemCadastrarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar Novo" fx:id="itemCadastrarIntegrante" />
+            <MenuItem id="itemVisualizarDados" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDados" text="Visualizar Dados" fx:id="itemVisualizarDados" />
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarIntegrante" text="Atualizar Dados" fx:id="itemAtualizarIntegrante" />
-            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemPesquisarIntegrante" text="Pesquisar" fx:id="itemPesquisarIntegrante" />
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemRemoverIntegrante" text="Remover" fx:id="itemRemoverIntegrante" />
           </items>
         </Menu>

@@ -15,7 +15,9 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.controladores.exceptions.NonexistentEntityException;
+import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.Integrante;
+import snu.util.StringUtil;
 
 /**
  *
@@ -138,6 +140,41 @@ public class IntegranteJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    public List<Integrante> findByExample(Integrante integrante) {
+        return null;
+    }
+
+    public List<Integrante> findByParametrosPesquisa(ParametrosPesquisaIntegrante parametrosPesquisa) {
+        List<Integrante> resultado;
+        Query query;
+        String sql;
+        EntityManager em = getEntityManager();
+
+        sql = "SELECT i FROM Integrante i WHERE 1=1 ";
+
+        if (!parametrosPesquisa.getNome().equals(StringUtil.VAZIA)) {
+            sql += " AND i.nome LIKE :nome ";
+        }
+        if (parametrosPesquisa.getFuncaoPrimaria() != null) {
+            sql += " AND i.funcaoPrimaria=:funcaoPrimaria ";
+        }
+
+        em.getTransaction().begin();
+        query = em.createQuery(sql);
+
+        if (!parametrosPesquisa.getNome().equals(StringUtil.VAZIA)) {
+            query.setParameter("nome", "%" + parametrosPesquisa.getNome() + "%");
+        }
+        if (parametrosPesquisa.getFuncaoPrimaria() != null) {
+            query.setParameter("funcaoPrimaria", parametrosPesquisa.getFuncaoPrimaria());
+        }
+
+        resultado = query.getResultList();
+        em.getTransaction().commit();
+
+        return resultado;
     }
 
     public static IntegranteJpaController getInstance() {

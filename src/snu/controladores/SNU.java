@@ -11,12 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import snu.entidades.Integrante;
-import snu.entidades.Sexo;
-import snu.entidades.FuncaoIntegrante;
 
 /**
  *
@@ -31,7 +25,10 @@ public class SNU extends Application {
         Scene scene = new Scene(root);
         
         stage.setTitle("Sistema Nova Unção");
+        stage.setIconified(true);
         stage.setScene(scene);
+        //stage.setMaxWidth(810d);
+        //stage.setMaxHeight(625d);
         //stage.setResizable(false);
         stage.show();
     }

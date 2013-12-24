@@ -39,8 +39,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemAtualizarIntegrante;
     @FXML
-    private MenuItem itemPesquisarIntegrante;
-    @FXML
     private MenuItem itemRemoverIntegrante;
     @FXML
     private Menu menuMusica;
@@ -56,9 +54,10 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem itemAssociarMusica;
     @FXML
     private MenuItem itemSobre;
+    @FXML
+    private MenuItem itemVisualizarDados;
 
     private void initComponents() {
-        
     }
 
     @Override
@@ -83,11 +82,22 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
+    private void onActionFromItemVisualizarDados(ActionEvent event) {
+         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/VisualizarDadosIntegrante.fxml"));
+        Parent root = null; 
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Limpa o conteúdo anterior e carrega a página
+        contentAnchorPane.getChildren().clear();
+        contentAnchorPane.getChildren().add(root);
     }
-
+    
     @FXML
-    private void onActionFromItemPesquisarIntegrante(ActionEvent event) {
+    private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
     }
 
     @FXML
@@ -117,4 +127,5 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void onActionFromItemSobre(ActionEvent event) {
     }
+
 }

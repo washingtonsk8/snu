@@ -20,4 +20,5 @@ public class RegexUtil {
         padrao = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}");
         return padrao.matcher(email.toLowerCase()).matches();
     }
+    
 }
