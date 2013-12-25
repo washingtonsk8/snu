@@ -1,0 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.util;
+
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.paint.Color;
+
+/**
+ * Classe que auxilia na utilização de efeitos
+ *
+ * @author Washington Luis
+ */
+public class EfeitosUtil {
+
+    private static final Effect efeitoCampoInvalido = new DropShadow(BlurType.GAUSSIAN, Color.RED, 15, 0.0, 0, 0);
+    private static final Effect efeitoCampoValido = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
+
+    public static Effect getEfeitoCampoInvalido() {
+        return efeitoCampoInvalido;
+    }
+
+    public static Effect getEfeitoCampoValido() {
+        return efeitoCampoValido;
+    }
+}

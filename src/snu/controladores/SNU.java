@@ -13,10 +13,12 @@ import javafx.stage.Stage;
 import snu.bd.GerenciadorDeEntidades;
 
 /**
+ * Classe que inicializa tudo.
  *
  * @author Washington Luis
  */
 public class SNU extends Application {
+
     private static final GerenciadorDeEntidades gerenciadorDeEntidades = GerenciadorDeEntidades.getInstancia();
 
     @Override

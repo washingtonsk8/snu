@@ -81,20 +81,23 @@ public class VisualizarIntegranteController implements Initializable {
     private Label lblResultadoFuncaoSecundaria;
 
     private Integrante integrante;
-    
-    private AnchorPane origem;
+
+    private VisualizarDadosIntegranteController controladorOrigem;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void initData(Integrante integranteSelecionado, AnchorPane origem) {
+    public void initData(Integrante integranteSelecionado, VisualizarDadosIntegranteController controladorOrigem) {
         this.integrante = integranteSelecionado;
-        this.origem = origem;
-        
+        this.controladorOrigem = controladorOrigem;
+
         this.lblResultadoNome.setText(this.integrante.getNome());
         this.lblResultadoSexo.setText(this.integrante.getSexo().toString());
         this.lblResultadoDataNascimento.setText(DataUtil.formatarData(this.integrante.getDataNascimento()));
@@ -161,7 +164,7 @@ public class VisualizarIntegranteController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.origem);
+        pai.getChildren().add(this.controladorOrigem.getContentVisualizarDadosIntegrante());
     }
 
     @FXML
