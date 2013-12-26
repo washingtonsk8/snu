@@ -67,7 +67,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/CadastrarIntegrante.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
@@ -82,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemVisualizarDados(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/VisualizarDadosIntegrante.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/VisualizarDadosIntegrante.fxml"));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
@@ -97,7 +97,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/AtualizarDadosIntegrante.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/AtualizarDadosIntegrante.fxml"));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
@@ -112,7 +112,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemRemoverIntegrante(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/RemoverIntegrante.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/RemoverIntegrante.fxml"));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();

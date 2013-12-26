@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snu.entidades;
+package snu.entidades.integrante;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -49,16 +49,34 @@ public class Integrante implements Serializable {
     @Column(name = "telefone_comercial")
     private String telefoneComercial;
     private String endereco;
-    
+
     @Column(name = "funcao_primaria")
     private FuncaoIntegrante funcaoPrimaria;
 
     @Column(name = "funcao_secundaria")
     private FuncaoIntegrante funcaoSecundaria;
 
+    /**
+     * Construtor padrão
+     */
     public Integrante() {
     }
 
+    /**
+     * Construtor
+     *
+     * @param nome
+     * @param sexo
+     * @param email
+     * @param dataEntrada
+     * @param dataNascimento
+     * @param telefoneResidencial
+     * @param telefoneCelular
+     * @param telefoneComercial
+     * @param endereco
+     * @param tipo
+     * @param tipoAdicional
+     */
     public Integrante(String nome, Sexo sexo, String email, Date dataEntrada, Date dataNascimento, String telefoneResidencial, String telefoneCelular, String telefoneComercial, String endereco, FuncaoIntegrante tipo, FuncaoIntegrante tipoAdicional) {
         this.nome = nome;
         this.sexo = sexo;

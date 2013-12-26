@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickedFromContentCadastrarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.CadastrarIntegranteController">
+<AnchorPane fx:id="contentAtualizarIntegrante" onMouseClicked="#onMouseClickedFromContentAtualizarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.AtualizarIntegranteController">
   <children>
-    <Label id="lblCadastrarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Cadastrar Novo Integrante" textAlignment="LEFT" wrapText="false">
+    <Label id="lblAtualizarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Atualizar Integrante" textAlignment="LEFT" wrapText="false">
       <stylesheets>
-        <URL value="@css/contents.css" />
-        <URL value="@css/cadastrarintegrante.css" />
+        <URL value="@../../css/contents.css" />
+        <URL value="@../../css/integrante/atualizarintegrante.css" />
       </stylesheets>
     </Label>
     <Label fx:id="lblNome" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="13.0" layoutY="80.0" onMouseClicked="#onMouseClickedFromLblNome" prefWidth="150.0" text="Nome:" textFill="BLACK" textOverrun="ELLIPSIS">
@@ -120,9 +120,10 @@
       </effect>
     </Label>
     <Button fx:id="btnLimpar" cache="true" font="$x1" layoutX="566.0" layoutY="523.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+    <Button fx:id="btnVoltar" cache="true" font="$x1" layoutX="446.0" layoutY="523.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
   </children>
   <stylesheets>
-    <URL value="@css/cadastrarintegrante.css" />
-    <URL value="@css/contents.css" />
+    <URL value="@../../css/integrante/atualizarintegrante.css" />
+    <URL value="@../../css/contents.css" />
   </stylesheets>
 </AnchorPane>

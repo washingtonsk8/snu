@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentVisualizarDadosIntegrante" onMouseClicked="#onMouseClickedFromContentVisualizarDadosIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.VisualizarDadosIntegranteController">
+<AnchorPane fx:id="contentRemoverIntegrante" onMouseClicked="#onMouseClickedFromContentRemoverIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.RemoverIntegranteController">
   <children>
-    <Label id="lblVisualizarDadosIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Dados" textAlignment="LEFT" wrapText="false">
+    <Label id="lblRemoverIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Remover Integrante" textAlignment="LEFT" wrapText="false">
       <stylesheets>
-        <URL value="@css/contents.css" />
-        <URL value="@css/visualizardadosintegrante.css" />
+        <URL value="@../../css/contents.css" />
+        <URL value="@../../css/integrante/atualizardadosintegrante.css" />
       </stylesheets>
     </Label>
     <Label fx:id="lblNome" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="14.0" layoutY="80.0" onMouseClicked="#onMouseClickedFromLblNome" prefWidth="120.0" text="Nome:" textFill="BLACK" textOverrun="ELLIPSIS">
@@ -33,7 +33,7 @@
       </effect>
     </Label>
     <ComboBox fx:id="comboFuncaoPrincipal" layoutX="155.0" layoutY="120.0" onAction="#onActionFromComboFuncaoPrincipal" prefHeight="22.0" prefWidth="150.0" />
-    <Button fx:id="btnPesquisar" cache="true" font="$x1" layoutX="686.0" layoutY="160.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
+    <Button fx:id="btnRemover" cache="true" font="$x1" layoutX="606.0" layoutY="160.0" mnemonicParsing="false" onAction="#onActionFromBtnRemover" prefHeight="40.0" prefWidth="180.0" text="Remover Selecionado" textFill="BLACK" />
     <TableView fx:id="tblIntegrantes" layoutX="14.0" layoutY="230.0" onMouseClicked="#onMouseClickedFromTblIntegrantes" prefHeight="333.0" prefWidth="772.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="230.0" text="Nome" fx:id="clnNome" />
@@ -43,9 +43,10 @@
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Função Principal" fx:id="clnFuncaoPrincipal" />
       </columns>
     </TableView>
+    <Button fx:id="btnPesquisar" cache="true" font="$x1" layoutX="486.0" layoutY="160.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
   </children>
   <stylesheets>
-    <URL value="@css/visualizardadosintegrante.css" />
-    <URL value="@css/contents.css" />
+    <URL value="@../../css/integrante/removerintegrante.css" />
+    <URL value="@../../css/contents.css" />
   </stylesheets>
 </AnchorPane>

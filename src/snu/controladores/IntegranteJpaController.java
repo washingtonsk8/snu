@@ -16,20 +16,26 @@ import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
-import snu.entidades.Integrante;
+import snu.entidades.integrante.Integrante;
 import snu.util.StringUtil;
 
 /**
+ * Classe controladora das atividades de persistência da entidade Integrante
  *
  * @author Washington Luis
  */
 public class IntegranteJpaController implements Serializable {
 
-    private EntityManagerFactory emf = null;
+    /**
+     * Fábrica Singleton do sistema
+     */
+    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
     private static IntegranteJpaController instancia;
 
+    /**
+     * Construtor da classe Singleton
+     */
     private IntegranteJpaController() {
-        this.emf = GerenciadorDeEntidades.getInstancia().getFabrica();
     }
 
     public EntityManager getEntityManager() {
@@ -144,6 +150,12 @@ public class IntegranteJpaController implements Serializable {
         return null;
     }
 
+    /**
+     * Obtém lista de Integrantes a partir dos parâmetros de pesquisa
+     *
+     * @param parametrosPesquisa
+     * @return
+     */
     public List<Integrante> findByParametrosPesquisa(ParametrosPesquisaIntegrante parametrosPesquisa) {
         List<Integrante> resultado;
         Query query;
@@ -175,6 +187,11 @@ public class IntegranteJpaController implements Serializable {
         return resultado;
     }
 
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
     public static IntegranteJpaController getInstancia() {
         if (instancia == null) {
             instancia = new IntegranteJpaController();

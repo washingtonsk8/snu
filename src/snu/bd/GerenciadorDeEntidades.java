@@ -15,16 +15,32 @@ import javax.persistence.Persistence;
  */
 public class GerenciadorDeEntidades {
 
+    /**
+     * Fábrica de gerenciador de entidades
+     */
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SNUPU");
     private static GerenciadorDeEntidades instancia;
 
+    /**
+     * Construtor padrão da classe Singleton
+     */
     public GerenciadorDeEntidades() {
     }
 
+    /**
+     * Retorna a fábrica da classe
+     *
+     * @return
+     */
     public EntityManagerFactory getFabrica() {
         return this.emf;
     }
 
+    /**
+     * Retorna a instância Singleton
+     *
+     * @return
+     */
     public static synchronized GerenciadorDeEntidades getInstancia() {
         if (instancia == null) {
             instancia = new GerenciadorDeEntidades();

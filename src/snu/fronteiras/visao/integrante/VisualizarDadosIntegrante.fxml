@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentAtualizarDadosIntegrante" onMouseClicked="#onMouseClickedFromContentAtualizarDadosIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.AtualizarDadosIntegranteController">
+<AnchorPane fx:id="contentVisualizarDadosIntegrante" onMouseClicked="#onMouseClickedFromContentVisualizarDadosIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.VisualizarDadosIntegranteController">
   <children>
-    <Label id="lblAtualizarDadosIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Atualizar Dados" textAlignment="LEFT" wrapText="false">
+    <Label id="lblVisualizarDadosIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Dados" textAlignment="LEFT" wrapText="false">
       <stylesheets>
-        <URL value="@css/contents.css" />
-        <URL value="@css/atualizardadosintegrante.css" />
+        <URL value="@../../css/contents.css" />
+        <URL value="@../../css/integrante/visualizardadosintegrante.css" />
       </stylesheets>
     </Label>
     <Label fx:id="lblNome" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="14.0" layoutY="80.0" onMouseClicked="#onMouseClickedFromLblNome" prefWidth="120.0" text="Nome:" textFill="BLACK" textOverrun="ELLIPSIS">
@@ -45,7 +45,7 @@
     </TableView>
   </children>
   <stylesheets>
-    <URL value="@css/atualizardadosintegrante.css" />
-    <URL value="@css/contents.css" />
+    <URL value="@../../css/integrante/visualizardadosintegrante.css" />
+    <URL value="@../../css/contents.css" />
   </stylesheets>
 </AnchorPane>

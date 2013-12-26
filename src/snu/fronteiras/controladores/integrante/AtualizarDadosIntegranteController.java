@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snu.fronteiras.controladores;
+package snu.fronteiras.controladores.integrante;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,10 +18,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,20 +33,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.IntegranteJpaController;
-import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
-import snu.entidades.FuncaoIntegrante;
-import snu.entidades.Integrante;
+import snu.entidades.integrante.FuncaoIntegrante;
+import snu.entidades.integrante.Integrante;
+import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
  * FXML Controller class
  *
  * @author Washington Luis
  */
-public class RemoverIntegranteController implements Initializable {
+public class AtualizarDadosIntegranteController implements Initializable {
 
     @FXML
-    private AnchorPane contentRemoverIntegrante;
+    private AnchorPane contentAtualizarDadosIntegrante;
     @FXML
     private Label lblNome;
     @FXML
@@ -77,8 +79,6 @@ public class RemoverIntegranteController implements Initializable {
             FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
             FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
             FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
-    @FXML
-    private Button btnRemover;
 
     private void initComponents() {
 
@@ -109,6 +109,25 @@ public class RemoverIntegranteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
+    }
+
+    private void carregarAtualizacaoIntegrante(Integrante integranteSelecionado) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/AtualizarIntegrante.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        AtualizarIntegranteController atualizarIntegranteController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarDadosIntegrante.getParent());
+        atualizarIntegranteController.initData(integranteSelecionado, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
     }
 
     @FXML
@@ -145,38 +164,32 @@ public class RemoverIntegranteController implements Initializable {
         this.tblIntegrantes.setItems(this.integrantes);
     }
 
-    @FXML
-    private void onActionFromBtnRemover(ActionEvent event) {
-        Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
-
-        if (integranteSelecionado != null) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
-
-            if (resposta.equals(Dialogs.DialogResponse.YES)) {
-                IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
-                try {
-                    integranteController.destroy(integranteSelecionado.getId());
-                    this.integrantes.remove(integranteSelecionado);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                atualizarTabela();
-            }
-        } else {
-            Dialogs.showWarningDialog(null, "Favor selecionar um Integrante para a exclusão", "Integrante não selecionado", "Aviso");
-        }
-    }
-
-    @FXML
-    private void onMouseClickedFromContentRemoverIntegrante(MouseEvent event) {
-    }
-
     private void onMouseClickedFromContentVisualizarDadosIntegrante(MouseEvent event) {
-        this.contentRemoverIntegrante.requestFocus();
+        this.contentAtualizarDadosIntegrante.requestFocus();
     }
 
     @FXML
     private void onMouseClickedFromTblIntegrantes(MouseEvent event) {
+        Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
+        if (event.getClickCount() == 2 && integranteSelecionado != null) {
+            carregarAtualizacaoIntegrante(integranteSelecionado);
+        }
+    }
+
+    @FXML
+    private void onMouseClickedFromContentAtualizarDadosIntegrante(MouseEvent event) {
+    }
+
+    public AnchorPane getContentAtualizarDadosIntegrante() {
+        return contentAtualizarDadosIntegrante;
+    }
+
+    public TableView<Integrante> getTblIntegrantes() {
+        return tblIntegrantes;
+    }
+
+    public ObservableList<Integrante> getIntegrantes() {
+        return integrantes;
     }
 
     public void atualizarTabela() {
@@ -199,5 +212,4 @@ public class RemoverIntegranteController implements Initializable {
             }
         });
     }
-
 }

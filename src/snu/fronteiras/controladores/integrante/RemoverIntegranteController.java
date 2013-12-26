@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snu.fronteiras.controladores;
+package snu.fronteiras.controladores.integrante;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,19 +31,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.IntegranteJpaController;
+import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
-import snu.entidades.FuncaoIntegrante;
-import snu.entidades.Integrante;
+import snu.entidades.integrante.FuncaoIntegrante;
+import snu.entidades.integrante.Integrante;
 
 /**
  * FXML Controller class
  *
  * @author Washington Luis
  */
-public class VisualizarDadosIntegranteController implements Initializable {
+public class RemoverIntegranteController implements Initializable {
 
     @FXML
-    private AnchorPane contentVisualizarDadosIntegrante;
+    private AnchorPane contentRemoverIntegrante;
     @FXML
     private Label lblNome;
     @FXML
@@ -76,6 +77,8 @@ public class VisualizarDadosIntegranteController implements Initializable {
             FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
             FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
             FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
+    @FXML
+    private Button btnRemover;
 
     private void initComponents() {
 
@@ -84,7 +87,7 @@ public class VisualizarDadosIntegranteController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> ov, Boolean valorAntigo, Boolean novoValor) {
                 if (!novoValor) {//Perda de foco
-                    
+
                 }
             }
         });
@@ -98,32 +101,14 @@ public class VisualizarDadosIntegranteController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa a classe de controle.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
-    }
-
-    private void carregarVisualizacaoIntegrante(Integrante integranteSelecionado) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/VisualizarIntegrante.fxml"));
-
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        VisualizarIntegranteController visualizarIntegranteController = fxmlLoader.getController();
-
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentVisualizarDadosIntegrante.getParent());
-        visualizarIntegranteController.initData(integranteSelecionado, this);
-        pai.getChildren().clear();
-        pai.getChildren().add(root);
     }
 
     @FXML
@@ -156,25 +141,63 @@ public class VisualizarDadosIntegranteController implements Initializable {
         parametrosPesquisa.setNome(this.fldNome.getText());
         parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
 
-        integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
-        tblIntegrantes.setItems(integrantes);
+        this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
+        this.tblIntegrantes.setItems(this.integrantes);
     }
 
     @FXML
+    private void onActionFromBtnRemover(ActionEvent event) {
+        Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
+
+        if (integranteSelecionado != null) {
+            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
+
+            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+                IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
+                try {
+                    integranteController.destroy(integranteSelecionado.getId());
+                    this.integrantes.remove(integranteSelecionado);
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                atualizarTabela();
+            }
+        } else {
+            Dialogs.showWarningDialog(null, "Favor selecionar um Integrante para a exclusão", "Integrante não selecionado", "Aviso");
+        }
+    }
+
+    @FXML
+    private void onMouseClickedFromContentRemoverIntegrante(MouseEvent event) {
+    }
+
     private void onMouseClickedFromContentVisualizarDadosIntegrante(MouseEvent event) {
-        this.contentVisualizarDadosIntegrante.requestFocus();
+        this.contentRemoverIntegrante.requestFocus();
     }
 
     @FXML
     private void onMouseClickedFromTblIntegrantes(MouseEvent event) {
-        Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
-        if (event.getClickCount() == 2 && integranteSelecionado != null) {
-            carregarVisualizacaoIntegrante(integranteSelecionado);
-        }
     }
 
-    public AnchorPane getContentVisualizarDadosIntegrante() {
-        return contentVisualizarDadosIntegrante;
+    public void atualizarTabela() {
+        final List<Integrante> items = this.tblIntegrantes.getItems();
+        if (items == null || items.size() == 0) {
+            return;
+        }
+
+        final Integrante item = this.tblIntegrantes.getItems().get(0);
+        items.remove(0);
+        try {//Dorme um pouco para visualizarmos as alterações
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AtualizarDadosIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                items.add(0, item);
+            }
+        });
     }
 
 }

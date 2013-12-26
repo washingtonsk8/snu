@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snu.fronteiras.controladores;
+package snu.fronteiras.controladores.integrante;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,9 +31,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.IntegranteJpaController;
-import snu.entidades.FuncaoIntegrante;
-import snu.entidades.Integrante;
-import snu.entidades.Sexo;
+import snu.entidades.integrante.FuncaoIntegrante;
+import snu.entidades.integrante.Integrante;
+import snu.entidades.integrante.Sexo;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
@@ -42,7 +44,7 @@ import snu.util.StringUtil;
  *
  * @author Washington Luis
  */
-public class CadastrarIntegranteController implements Initializable {
+public class AtualizarIntegranteController implements Initializable {
 
     @FXML
     private Label lblNome;
@@ -62,7 +64,7 @@ public class CadastrarIntegranteController implements Initializable {
     private DatePicker dpDataNascimento;
 
     @FXML
-    private AnchorPane contentCadastrarIntegrante;
+    private AnchorPane contentAtualizarIntegrante;
     @FXML
     private Label lblIdade;
     @FXML
@@ -101,7 +103,6 @@ public class CadastrarIntegranteController implements Initializable {
     @FXML
     private Button btnSalvar;
 
-    private Integrante integranteRow;
     @FXML
     private Label lblEmail;
     @FXML
@@ -116,6 +117,13 @@ public class CadastrarIntegranteController implements Initializable {
     @FXML
     private Button btnLimpar;
 
+    @FXML
+    private Button btnVoltar;
+
+    private Integrante integrante;
+
+    private AtualizarDadosIntegranteController controladorOrigem;
+
     private void definirAtividadeDeFocoDosCampos() {
         //Campo de e-mail
         this.fldEmail.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -128,7 +136,7 @@ public class CadastrarIntegranteController implements Initializable {
                         fldEmail.setEffect(null);
                     }
                 } else {
-                    if (!StringUtil.isVazia(fldEmail.getText()) && !RegexUtil.validarEmail(fldEmail.getText())) {
+                    if (!RegexUtil.validarEmail(fldEmail.getText())) {
                         fldEmail.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
                     } else {
                         fldEmail.setEffect(EfeitosUtil.getEfeitoCampoValido());
@@ -136,6 +144,7 @@ public class CadastrarIntegranteController implements Initializable {
                 }
             }
         });
+
     }
 
     private void resetarCamposDeData() {
@@ -185,13 +194,31 @@ public class CadastrarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setItems(this.funcoesIntegrante);
 
         resetarCamposDeData();
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
+        this.contentAtualizarIntegrante.getChildren().add(this.dpDataNascimento);
+        this.contentAtualizarIntegrante.getChildren().add(this.dpDataEntrada);
 
         definirAtividadeDeFocoDosCampos();
+    }
 
-        //Define a existência de um novo cadastro
-        this.integranteRow = new Integrante();
+    public void initData(Integrante integranteSelecionado, AtualizarDadosIntegranteController controladorOrigem) {
+        this.integrante = integranteSelecionado;
+        this.controladorOrigem = controladorOrigem;
+
+        this.fldNome.setText(this.integrante.getNome());
+        if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
+            this.radioFeminino.setSelected(true);
+        } else {
+            this.radioMasculino.setSelected(true);
+        }
+        this.dpDataNascimento.setSelectedDate(this.integrante.getDataNascimento());
+        this.fldEndereco.setText(this.integrante.getEndereco());
+        this.fldEmail.setText(this.integrante.getEmail());
+        this.fldTelefoneResidencial.setText(this.integrante.getTelefoneResidencial());
+        this.fldTelefoneCelular.setText(this.integrante.getTelefoneCelular());
+        this.fldTelefoneComercial.setText(this.integrante.getTelefoneComercial());
+        this.dpDataEntrada.setSelectedDate(this.integrante.getDataEntrada());
+        this.comboFuncaoPrincipal.setValue(this.integrante.getFuncaoPrimaria());
+        this.comboFuncaoSecundaria.setValue(this.integrante.getFuncaoSecundaria());
     }
 
     /**
@@ -318,8 +345,8 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromContentCadastrarIntegrante(MouseEvent event) {
-        this.contentCadastrarIntegrante.requestFocus();
+    private void onMouseClickedFromContentAtualizarIntegrante(MouseEvent event) {
+        this.contentAtualizarIntegrante.requestFocus();
     }
 
     @FXML
@@ -330,15 +357,6 @@ public class CadastrarIntegranteController implements Initializable {
     @FXML
     private void onKeyTypedFromFldEndereco(KeyEvent event) {
         this.fldEndereco.setEffect(null);
-    }
-
-    @FXML
-    private void onKeyReleasedFromFldEmail(KeyEvent event) {
-        if (!RegexUtil.validarEmail(this.fldEmail.getText())) {
-            this.fldEmail.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
-        } else {
-            this.fldEmail.setEffect(EfeitosUtil.getEfeitoCampoValido());
-        }
     }
 
     @FXML
@@ -354,21 +372,30 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
+    private void onKeyReleasedFromFldEmail(KeyEvent event) {
+        if (!RegexUtil.validarEmail(this.fldEmail.getText())) {
+            this.fldEmail.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+        } else {
+            this.fldEmail.setEffect(EfeitosUtil.getEfeitoCampoValido());
+        }
+    }
+
+    @FXML
     private void onRequestedFromFldEmail(ContextMenuEvent event) {
         this.fldEmail.setEffect(null);
     }
 
     @FXML
     private void onActionFromBtnLimpar(ActionEvent event) {
-        this.integranteRow = new Integrante();
+        this.integrante = new Integrante();
 
         this.comboFuncaoPrincipal.setValue(null);
         this.comboFuncaoSecundaria.setValue(null);
-        this.contentCadastrarIntegrante.getChildren().remove(this.dpDataNascimento);
-        this.contentCadastrarIntegrante.getChildren().remove(this.dpDataEntrada);
+        this.contentAtualizarIntegrante.getChildren().remove(this.dpDataNascimento);
+        this.contentAtualizarIntegrante.getChildren().remove(this.dpDataEntrada);
         resetarCamposDeData();
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
+        this.contentAtualizarIntegrante.getChildren().add(this.dpDataNascimento);
+        this.contentAtualizarIntegrante.getChildren().add(this.dpDataEntrada);
         this.fldEmail.clear();
         this.fldNome.clear();
         this.fldEndereco.clear();
@@ -399,7 +426,7 @@ public class CadastrarIntegranteController implements Initializable {
         if (this.comboFuncaoPrincipal.getValue() == null) {
             this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
             validadeDosCampos = false;
-        }        
+        }
         if (!StringUtil.isVazia(this.fldEmail.getText()) && !RegexUtil.validarEmail(this.fldEmail.getText())) {
             validadeDosCampos = false;
         }
@@ -409,26 +436,45 @@ public class CadastrarIntegranteController implements Initializable {
     @FXML
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
-            this.integranteRow.setNome(this.fldNome.getText());
-            this.integranteRow.setDataNascimento(this.dpDataNascimento.getSelectedDate());
-            this.integranteRow.setEmail(this.fldEmail.getText().toLowerCase());
-            this.integranteRow.setDataEntrada(this.dpDataEntrada.getSelectedDate());
-            this.integranteRow.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
-            this.integranteRow.setTelefoneCelular(this.fldTelefoneCelular.getText());
-            this.integranteRow.setTelefoneComercial(this.fldTelefoneComercial.getText());
-            this.integranteRow.setTelefoneResidencial(this.fldTelefoneResidencial.getText());
-            this.integranteRow.setEndereco(this.fldEndereco.getText());
-            this.integranteRow.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
-            this.integranteRow.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
+            this.integrante.setNome(this.fldNome.getText());
+            this.integrante.setDataNascimento(this.dpDataNascimento.getSelectedDate());
+            this.integrante.setEmail(this.fldEmail.getText().toLowerCase());
+            this.integrante.setDataEntrada(this.dpDataEntrada.getSelectedDate());
+            this.integrante.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
+            this.integrante.setTelefoneCelular(this.fldTelefoneCelular.getText());
+            this.integrante.setTelefoneComercial(this.fldTelefoneComercial.getText());
+            this.integrante.setTelefoneResidencial(this.fldTelefoneResidencial.getText());
+            this.integrante.setEndereco(this.fldEndereco.getText());
+            this.integrante.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
+            this.integrante.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
 
-            //Persistindo no banco
-            IntegranteJpaController.getInstancia().create(integranteRow);
+            try {
+                //Atualizando no banco
+                IntegranteJpaController.getInstancia().edit(integrante);
+            } catch (Exception ex) {
+                Logger.getLogger(AtualizarIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-            Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
-        }
-        else{
+            Dialogs.showInformationDialog(null, "O Integrante foi atualizado com sucesso!", "Sucesso", "Informação");
+
+            //this.controladorOrigem.getTblIntegrantes().setItems(FXCollections.observableArrayList(this.controladorOrigem.getIntegrantes()));
+            //this.controladorOrigem.atualizarTabela();
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
+            pai.getChildren().clear();
+            pai.getChildren().add(this.controladorOrigem.getContentAtualizarDadosIntegrante());
+            this.controladorOrigem.atualizarTabela();
+        } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
         }
+    }
+
+    @FXML
+    private void onActionFromBtnVoltar(ActionEvent event) {
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add(this.controladorOrigem.getContentAtualizarDadosIntegrante());
     }
 
 }

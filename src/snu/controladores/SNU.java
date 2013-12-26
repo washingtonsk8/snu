@@ -19,11 +19,14 @@ import snu.bd.GerenciadorDeEntidades;
  */
 public class SNU extends Application {
 
+    /**
+     * Gerenciador de entidades do entidades do sistema
+     */
     private static final GerenciadorDeEntidades gerenciadorDeEntidades = GerenciadorDeEntidades.getInstancia();
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/visao/FXMLDocument.fxml"));
 
         Scene scene = new Scene(root);
 

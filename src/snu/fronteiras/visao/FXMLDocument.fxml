@@ -37,11 +37,11 @@
     </MenuBar>
     <AnchorPane id="contentAnchor" fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="content">
       <stylesheets>
-        <URL value="@css/fxmldocument.css" />
+        <URL value="@../css/fxmldocument.css" />
       </stylesheets>
     </AnchorPane>
   </children>
   <stylesheets>
-    <URL value="@css/fxmldocument.css" />
+    <URL value="@../css/fxmldocument.css" />
   </stylesheets>
 </AnchorPane>

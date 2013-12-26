@@ -5,7 +5,7 @@
  */
 package snu.dto;
 
-import snu.entidades.FuncaoIntegrante;
+import snu.entidades.integrante.FuncaoIntegrante;
 
 /**
  * Classe utilizada para realizar pesquisas no banco
