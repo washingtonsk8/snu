@@ -427,7 +427,7 @@ public class AtualizarIntegranteController implements Initializable {
             this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
             validadeDosCampos = false;
         }
-        if (!RegexUtil.validarEmail(this.fldEmail.getText())) {
+        if (!StringUtil.isVazia(this.fldEmail.getText()) && !RegexUtil.validarEmail(this.fldEmail.getText())) {
             validadeDosCampos = false;
         }
         return validadeDosCampos;

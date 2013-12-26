@@ -24,7 +24,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -401,7 +400,7 @@ public class CadastrarIntegranteController implements Initializable {
             this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
             validadeDosCampos = false;
         }        
-        if (!RegexUtil.validarEmail(this.fldEmail.getText())) {
+        if (!StringUtil.isVazia(this.fldEmail.getText()) && !RegexUtil.validarEmail(this.fldEmail.getText())) {
             validadeDosCampos = false;
         }
         return validadeDosCampos;
@@ -424,7 +423,6 @@ public class CadastrarIntegranteController implements Initializable {
 
             //Persistindo no banco
             IntegranteJpaController.getInstancia().create(integranteRow);
-            System.out.println(integranteRow);
 
             Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
         }
