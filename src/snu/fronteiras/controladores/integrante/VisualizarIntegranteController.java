@@ -16,8 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.util.DataUtil;
+import snu.util.StringUtil;
 
 /**
  * FXML Controller class
@@ -108,7 +110,9 @@ public class VisualizarIntegranteController implements Initializable {
         this.lblResultadoTelefoneComercial.setText(this.integrante.getTelefoneComercial());
         this.lblResultadoDataEntrada.setText(DataUtil.formatarData(this.integrante.getDataEntrada()));
         this.lblResultadoFuncaoPrincipal.setText(this.integrante.getFuncaoPrimaria().toString());
-        this.lblResultadoFuncaoSecundaria.setText(this.integrante.getFuncaoSecundaria().toString());
+        
+        FuncaoIntegrante funcaoSecundaria = this.integrante.getFuncaoSecundaria();
+        this.lblResultadoFuncaoSecundaria.setText(funcaoSecundaria == null? StringUtil.VAZIA : funcaoSecundaria.toString());
     }
 
     @FXML

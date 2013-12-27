@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.entidades.musica;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import org.hibernate.annotations.ManyToAny;
+import snu.dto.EntidadeTom;
 import snu.entidades.integrante.Integrante;
 
 /**
@@ -18,20 +19,74 @@ import snu.entidades.integrante.Integrante;
  * @author Washington Luis
  */
 @Entity
-public class AssociacaoIntegranteMusica {
+public class AssociacaoIntegranteMusica implements Serializable {
+
     @EmbeddedId
     public AssociacaoIntegranteMusicaId id;
-    
+
     @MapsId("integrante")
     @ManyToOne
     private Integrante integrante;
-    
+
     @MapsId("tom")
-    @ManyToOne
-    private Tom tom;
-    
+    private EntidadeTom tom;
+
     @MapsId("musica")
     @ManyToOne
     private Musica musica;
+
+    public AssociacaoIntegranteMusicaId getId() {
+        return id;
+    }
+
+    public void setId(AssociacaoIntegranteMusicaId id) {
+        this.id = id;
+    }
+
+    public Integrante getIntegrante() {
+        return integrante;
+    }
+
+    public void setIntegrante(Integrante integrante) {
+        this.integrante = integrante;
+    }
+
+    public EntidadeTom getTom() {
+        return tom;
+    }
+
+    public void setTom(EntidadeTom tom) {
+        this.tom = tom;
+    }
     
+    public Musica getMusica() {
+        return musica;
+    }
+
+    public void setMusica(Musica musica) {
+        this.musica = musica;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AssociacaoIntegranteMusica other = (AssociacaoIntegranteMusica) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 }

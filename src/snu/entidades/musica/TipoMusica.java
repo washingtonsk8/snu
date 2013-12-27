@@ -33,6 +33,14 @@ public enum TipoMusica {
      */
     OFERTORIO("Ofertório"),
     /**
+     * Música de paz
+     */
+    PAZ("Paz"),
+    /**
+     * Música de santo
+     */
+    SANTO("Santo"),
+    /**
      * Música de comunhão
      */
     COMUNHAO("Comunhão"),
@@ -53,17 +61,29 @@ public enum TipoMusica {
      */
     LOUVOR("Louvor"),
     /**
-     * Música para adoração ao santíssimo
+     * Música para adoração ao santíssimo (Crisma)
      */
     ADORACAO("Adoração"),
+    /**
+     * Música tocada em uma palestra (Crisma)
+     */
+    PALESTRA("Palestra"),
     /**
      * Música do tipo resposta
      */
     RESPOSTA("Resposta"),
     /**
+     * Música do tipo oração
+     */
+    ORACAO("Oração"),
+    /**
      * Música do tipo especial
      */
-    ESPECIAL("Especial");
+    ESPECIAL("Especial"),
+    /**
+     * Música que não se enquadra em nenhuma opção acima
+     */
+    OUTRA("Outra");
 
     private final String valor;
 
@@ -73,6 +93,6 @@ public enum TipoMusica {
 
     @Override
     public String toString() {
-        return "TipoMusica{" + "valor=" + valor + '}';
+        return valor;
     }
 }

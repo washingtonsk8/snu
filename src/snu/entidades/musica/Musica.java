@@ -7,7 +7,11 @@ package snu.entidades.musica;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,13 +32,24 @@ public class Musica implements Serializable {
 
     private String autor;
     private String titulo;
+    
+    @ElementCollection(targetClass = String.class)
     private List<String> leiturasAssociadas;
+    
+    @Enumerated(EnumType.STRING)
     private Tom tom;
+    
+    @Enumerated(EnumType.STRING)
     private Afinacao afinacao;
+    
+    @ElementCollection(targetClass = TipoMusica.class)
+    @Enumerated(EnumType.STRING)
     private List<TipoMusica> tipos;
     
-    @OneToMany(mappedBy = "musica")
-    private List<AssociacaoIntegranteMusica> associacoes;    
+    @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AssociacaoIntegranteMusica> associacoes; 
+    
+    private String conteudo;   
 
     public Long getId() {
         return id;
@@ -90,6 +105,22 @@ public class Musica implements Serializable {
 
     public void setTipos(List<TipoMusica> tipos) {
         this.tipos = tipos;
+    }
+
+    public List<AssociacaoIntegranteMusica> getAssociacoes() {
+        return associacoes;
+    }
+
+    public void setAssociacoes(List<AssociacaoIntegranteMusica> associacoes) {
+        this.associacoes = associacoes;
+    }
+
+    public String getConteudo() {
+        return conteudo;
+    }
+
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
     }
 
     @Override

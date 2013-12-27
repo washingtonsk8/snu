@@ -23,6 +23,6 @@ public enum Afinacao {
 
     @Override
     public String toString() {
-        return "Afinacao{" + "valor=" + valor + '}';
+        return valor;
     }
 }

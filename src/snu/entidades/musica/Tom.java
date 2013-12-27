@@ -22,6 +22,6 @@ public enum Tom {
 
     @Override
     public String toString() {
-        return "Tom{" + "valor=" + valor + '}';
+        return valor;
     }
 }

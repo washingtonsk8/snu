@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import snu.dto.EntidadeTom;
 import snu.entidades.integrante.Integrante;
 
 /**
@@ -23,17 +24,41 @@ public class AssociacaoIntegranteMusicaId implements Serializable {
     private Integrante integrante;
 
     @ManyToOne
-    private Tom tom;
+    private EntidadeTom tom;
 
     @ManyToOne
     private Musica musica;
 
+    public Integrante getIntegrante() {
+        return integrante;
+    }
+
+    public void setIntegrante(Integrante integrante) {
+        this.integrante = integrante;
+    }
+
+    public EntidadeTom getTom() {
+        return tom;
+    }
+
+    public void setTom(EntidadeTom tom) {
+        this.tom = tom;
+    }
+    
+    public Musica getMusica() {
+        return musica;
+    }
+
+    public void setMusica(Musica musica) {
+        this.musica = musica;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.integrante);
-        hash = 41 * hash + Objects.hashCode(this.tom);
-        hash = 41 * hash + Objects.hashCode(this.musica);
+        hash = 83 * hash + Objects.hashCode(this.integrante);
+        hash = 83 * hash + Objects.hashCode(this.tom);
+        hash = 83 * hash + Objects.hashCode(this.musica);
         return hash;
     }
 
@@ -57,4 +82,5 @@ public class AssociacaoIntegranteMusicaId implements Serializable {
         }
         return true;
     }
+
 }

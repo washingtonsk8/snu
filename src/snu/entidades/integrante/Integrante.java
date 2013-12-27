@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +31,8 @@ public class Integrante implements Serializable {
     @Column(name = "id_integrante")
     private Long id;
     private String nome;
+    
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
     private String email;
 
@@ -51,9 +55,11 @@ public class Integrante implements Serializable {
     private String endereco;
 
     @Column(name = "funcao_primaria")
+    @Enumerated(EnumType.STRING)
     private FuncaoIntegrante funcaoPrimaria;
 
     @Column(name = "funcao_secundaria")
+    @Enumerated(EnumType.STRING)
     private FuncaoIntegrante funcaoSecundaria;
 
     /**
