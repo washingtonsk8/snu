@@ -179,23 +179,23 @@ public class RemoverIntegranteController implements Initializable {
     private void onMouseClickedFromTblIntegrantes(MouseEvent event) {
     }
 
-    public void atualizarTabela() {
-        final List<Integrante> items = this.tblIntegrantes.getItems();
-        if (items == null || items.size() == 0) {
+    private void atualizarTabela() {
+        final List<Integrante> itens = this.tblIntegrantes.getItems();
+        if (itens == null || itens.isEmpty()) {
             return;
         }
 
         final Integrante item = this.tblIntegrantes.getItems().get(0);
-        items.remove(0);
+        itens.remove(0);
         try {//Dorme um pouco para visualizarmos as alterações
             Thread.sleep(300);
         } catch (InterruptedException ex) {
-            Logger.getLogger(AtualizarDadosIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                items.add(0, item);
+                itens.add(0, item);
             }
         });
     }

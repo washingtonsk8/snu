@@ -28,6 +28,13 @@ public class EntidadeTom implements Serializable {
     @Enumerated
     private Tom tom;
 
+    public EntidadeTom() {
+    }
+       
+    public EntidadeTom(Tom tom){
+        this.tom = tom;
+    }
+
     public Long getId() {
         return id;
     }

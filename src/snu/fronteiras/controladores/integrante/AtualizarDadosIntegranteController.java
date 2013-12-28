@@ -193,13 +193,13 @@ public class AtualizarDadosIntegranteController implements Initializable {
     }
 
     public void atualizarTabela() {
-        final List<Integrante> items = this.tblIntegrantes.getItems();
-        if (items == null || items.size() == 0) {
+        final List<Integrante> itens = this.tblIntegrantes.getItems();
+        if (itens == null || itens.isEmpty()) {
             return;
         }
 
         final Integrante item = this.tblIntegrantes.getItems().get(0);
-        items.remove(0);
+        itens.remove(0);
         try {//Dorme um pouco para visualizarmos as alterações
             Thread.sleep(300);
         } catch (InterruptedException ex) {
@@ -208,7 +208,7 @@ public class AtualizarDadosIntegranteController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                items.add(0, item);
+                itens.add(0, item);
             }
         });
     }
