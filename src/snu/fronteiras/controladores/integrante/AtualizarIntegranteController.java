@@ -131,15 +131,15 @@ public class AtualizarIntegranteController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean valorAntigo, Boolean novoValor) {
                 if (!novoValor) {//Perda de foco
                     if (!StringUtil.isVazia(fldEmail.getText()) && !RegexUtil.validarEmail(fldEmail.getText())) {
-                        fldEmail.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+                        fldEmail.setEffect(EfeitosUtil.getEfeitoInvalido());
                     } else {
                         fldEmail.setEffect(null);
                     }
                 } else {
                     if (!RegexUtil.validarEmail(fldEmail.getText())) {
-                        fldEmail.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+                        fldEmail.setEffect(EfeitosUtil.getEfeitoInvalido());
                     } else {
-                        fldEmail.setEffect(EfeitosUtil.getEfeitoCampoValido());
+                        fldEmail.setEffect(EfeitosUtil.getEfeitoValido());
                     }
                 }
             }
@@ -151,7 +151,7 @@ public class AtualizarIntegranteController implements Initializable {
         //Formatando o DatePicker de Nascimento
         this.dpDataNascimento = DataUtil.getDatePicker();
         this.dpDataNascimento.setLayoutX(185);
-        this.dpDataNascimento.setLayoutY(160);
+        this.dpDataNascimento.setLayoutY(140);
         this.dpDataNascimento.setMaxWidth(150);
         this.dpDataNascimento.setPromptText("DD/MM/AAAA");
         this.dpDataNascimento.selectedDateProperty().addListener(new ChangeListener<Date>() {
@@ -164,7 +164,7 @@ public class AtualizarIntegranteController implements Initializable {
         //Formatando o DatePicker de Entrada
         this.dpDataEntrada = DataUtil.getDatePicker();
         this.dpDataEntrada.setLayoutX(185);
-        this.dpDataEntrada.setLayoutY(400);
+        this.dpDataEntrada.setLayoutY(380);
         this.dpDataEntrada.setMaxWidth(150);
         this.dpDataEntrada.setPromptText("DD/MM/AAAA");
 
@@ -374,9 +374,9 @@ public class AtualizarIntegranteController implements Initializable {
     @FXML
     private void onKeyReleasedFromFldEmail(KeyEvent event) {
         if (!RegexUtil.validarEmail(this.fldEmail.getText())) {
-            this.fldEmail.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+            this.fldEmail.setEffect(EfeitosUtil.getEfeitoInvalido());
         } else {
-            this.fldEmail.setEffect(EfeitosUtil.getEfeitoCampoValido());
+            this.fldEmail.setEffect(EfeitosUtil.getEfeitoValido());
         }
     }
 
@@ -411,20 +411,20 @@ public class AtualizarIntegranteController implements Initializable {
     private boolean validarCampos() {
         boolean validadeDosCampos = true;
         if (StringUtil.isVazia(this.fldNome.getText())) {
-            this.fldNome.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+            this.fldNome.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
         if (!this.radioFeminino.isSelected() && !this.radioMasculino.isSelected()) {
-            this.radioFeminino.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
-            this.radioMasculino.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+            this.radioFeminino.setEffect(EfeitosUtil.getEfeitoInvalido());
+            this.radioMasculino.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
         if (StringUtil.isVazia(this.fldEndereco.getText())) {
-            this.fldEndereco.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+            this.fldEndereco.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
         if (this.comboFuncaoPrincipal.getValue() == null) {
-            this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoCampoInvalido());
+            this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
         if (!StringUtil.isVazia(this.fldEmail.getText()) && !RegexUtil.validarEmail(this.fldEmail.getText())) {
@@ -457,8 +457,6 @@ public class AtualizarIntegranteController implements Initializable {
 
             Dialogs.showInformationDialog(null, "O Integrante foi atualizado com sucesso!", "Sucesso", "Informação");
 
-            //this.controladorOrigem.getTblIntegrantes().setItems(FXCollections.observableArrayList(this.controladorOrigem.getIntegrantes()));
-            //this.controladorOrigem.atualizarTabela();
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
             pai.getChildren().clear();

@@ -17,14 +17,20 @@ import javafx.scene.paint.Color;
  */
 public class EfeitosUtil {
 
-    private static final Effect efeitoCampoInvalido = new DropShadow(BlurType.GAUSSIAN, Color.RED, 15, 0.0, 0, 0);
-    private static final Effect efeitoCampoValido = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
+    private static final Effect efeitoInvalido = new DropShadow(BlurType.GAUSSIAN, Color.RED, 15, 0.0, 0, 0);
+    private static final Effect efeitoValido = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
+    private static final Effect efeitoAviso = new DropShadow(BlurType.GAUSSIAN, Color.YELLOW, 15, 0.0, 0, 0);
 
-    public static Effect getEfeitoCampoInvalido() {
-        return efeitoCampoInvalido;
+    public static Effect getEfeitoInvalido() {
+        return efeitoInvalido;
     }
 
-    public static Effect getEfeitoCampoValido() {
-        return efeitoCampoValido;
+    public static Effect getEfeitoValido() {
+        return efeitoValido;
     }
+
+    public static Effect getEfeitoAviso() {
+        return efeitoAviso;
+    }
+        
 }

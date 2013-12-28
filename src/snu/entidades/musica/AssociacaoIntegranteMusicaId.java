@@ -7,6 +7,7 @@ package snu.entidades.musica;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import snu.dto.EntidadeTom;
@@ -23,7 +24,7 @@ public class AssociacaoIntegranteMusicaId implements Serializable {
     @ManyToOne
     private Integrante integrante;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private EntidadeTom tom;
 
     @ManyToOne

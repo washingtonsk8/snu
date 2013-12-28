@@ -7,8 +7,15 @@ package snu.entidades.musica;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import snu.dto.EntidadeTom;
@@ -21,25 +28,26 @@ import snu.entidades.integrante.Integrante;
 @Entity
 public class AssociacaoIntegranteMusica implements Serializable {
 
-    @EmbeddedId
-    public AssociacaoIntegranteMusicaId id;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @MapsId("integrante")
     @ManyToOne
     private Integrante integrante;
 
-    @MapsId("tom")
-    private EntidadeTom tom;
+    @Enumerated(EnumType.STRING)
+    private Tom tom;
 
-    @MapsId("musica")
     @ManyToOne
+    @JoinColumn(name = "musica_id")
     private Musica musica;
 
-    public AssociacaoIntegranteMusicaId getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(AssociacaoIntegranteMusicaId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,11 +59,11 @@ public class AssociacaoIntegranteMusica implements Serializable {
         this.integrante = integrante;
     }
 
-    public EntidadeTom getTom() {
+    public Tom getTom() {
         return tom;
     }
 
-    public void setTom(EntidadeTom tom) {
+    public void setTom(Tom tom) {
         this.tom = tom;
     }
     

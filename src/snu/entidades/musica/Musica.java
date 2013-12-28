@@ -6,12 +6,14 @@
 package snu.entidades.musica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,11 +48,18 @@ public class Musica implements Serializable {
     @Enumerated(EnumType.STRING)
     private List<TipoMusica> tipos;
     
-    @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
+            targetEntity = AssociacaoIntegranteMusica.class, fetch = FetchType.LAZY)
     private List<AssociacaoIntegranteMusica> associacoes; 
     
-    private String conteudo;   
+    private String conteudo;
 
+    public Musica() {
+        this.associacoes = new ArrayList<>();
+        this.leiturasAssociadas = new ArrayList<>();
+        this.tipos = new ArrayList<>();
+    }
+    
     public Long getId() {
         return id;
     }
