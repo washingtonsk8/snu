@@ -35,6 +35,7 @@ import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
+import snu.entidades.integrante.Sexo;
 
 /**
  * FXML Controller class
@@ -150,7 +151,12 @@ public class RemoverIntegranteController implements Initializable {
         Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
 
         if (integranteSelecionado != null) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
+            Dialogs.DialogResponse resposta;
+            if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
+                resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
+            } else {
+                resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
+            }
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
                 IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();

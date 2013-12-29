@@ -115,7 +115,7 @@ public class VisualizarDadosIntegranteController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VisualizarDadosIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         VisualizarIntegranteController visualizarIntegranteController = fxmlLoader.getController();

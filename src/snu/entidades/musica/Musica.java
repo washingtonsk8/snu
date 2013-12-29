@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +18,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import snu.entidades.musica.popups.Autor;
 
 /**
  * Classe que define uma música na visão do ministério
@@ -32,26 +36,30 @@ public class Musica implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String autor;
-    private String titulo;
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
     
+    private String titulo;
+
     @ElementCollection(targetClass = String.class)
     private List<String> leiturasAssociadas;
-    
+
     @Enumerated(EnumType.STRING)
     private Tom tom;
-    
+
     @Enumerated(EnumType.STRING)
     private Afinacao afinacao;
-    
+
     @ElementCollection(targetClass = TipoMusica.class)
     @Enumerated(EnumType.STRING)
     private List<TipoMusica> tipos;
-    
+
     @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
             targetEntity = AssociacaoIntegranteMusica.class, fetch = FetchType.LAZY)
-    private List<AssociacaoIntegranteMusica> associacoes; 
-    
+    private List<AssociacaoIntegranteMusica> associacoes;
+
+    @Column(columnDefinition = "LONGTEXT")
     private String conteudo;
 
     public Musica() {
@@ -59,7 +67,7 @@ public class Musica implements Serializable {
         this.leiturasAssociadas = new ArrayList<>();
         this.tipos = new ArrayList<>();
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -68,11 +76,11 @@ public class Musica implements Serializable {
         this.id = id;
     }
 
-    public String getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 

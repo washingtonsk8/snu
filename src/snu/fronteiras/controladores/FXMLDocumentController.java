@@ -21,6 +21,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 
 /**
+ * Classe que controla a tela principal do programa
  *
  * @author Washington Luis
  */
@@ -43,19 +44,25 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Menu menuMusica;
     @FXML
-    private MenuItem itemCriarDocumento;
-    @FXML
-    private MenuItem itemInserirMusica;
-    @FXML
     private MenuItem itemPesquisarMusica;
     @FXML
     private MenuItem itemAtualizarMusica;
     @FXML
-    private MenuItem itemAssociarMusica;
-    @FXML
     private MenuItem itemSobre;
     @FXML
     private MenuItem itemVisualizarDados;
+    @FXML
+    private MenuItem itemRemoverMusica;
+    @FXML
+    private MenuItem itemGerenciarAutores;
+    @FXML
+    private MenuItem itemAfinador;
+    @FXML
+    private MenuItem itemMissaMaker;
+    @FXML
+    private Menu menuUtilitarios;
+    @FXML
+    private MenuItem itemCriarMusica;
 
     private void initComponents() {
     }
@@ -126,7 +133,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemCriarDocumento(ActionEvent event) {
+    private void onActionFromItemCriarMusica(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/CriarMusica.fxml"));
         Parent root = null;
         try {
@@ -141,11 +148,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemInserirMusica(ActionEvent event) {
-    }
-
-    @FXML
-    private void onActionFromPesquisarMusica(ActionEvent event) {
+    private void onActionFromItemPesquisarMusica(ActionEvent event) {
     }
 
     @FXML
@@ -153,11 +156,22 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemAssociarMusica(ActionEvent event) {
+    private void onActionFromItemRemoverMusica(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemGerenciarAutores(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemAfinador(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemMissaMaker(ActionEvent event) {
     }
 
     @FXML
     private void onActionFromItemSobre(ActionEvent event) {
     }
-
 }

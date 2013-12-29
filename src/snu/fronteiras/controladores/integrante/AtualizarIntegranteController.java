@@ -455,7 +455,11 @@ public class AtualizarIntegranteController implements Initializable {
                 Logger.getLogger(AtualizarIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            Dialogs.showInformationDialog(null, "O Integrante foi atualizado com sucesso!", "Sucesso", "Informação");
+            if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
+                Dialogs.showInformationDialog(null, "Os dados da Integrante foram atualizados com sucesso!", "Sucesso", "Informação");
+            } else {
+                Dialogs.showInformationDialog(null, "Os dados do Integrante foram atualizados com sucesso!", "Sucesso", "Informação");
+            }
 
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());

@@ -3,37 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snu.dto;
+package snu.entidades.musica.popups;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import snu.entidades.musica.Tom;
+import javax.persistence.OneToMany;
+import snu.entidades.musica.Musica;
 
 /**
  *
  * @author Washington Luis
  */
 @Entity
-public class EntidadeTom implements Serializable {
+public class Autor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Enumerated
-    private Tom tom;
+    private String nome;
 
-    public EntidadeTom() {
-    }
-       
-    public EntidadeTom(Tom tom){
-        this.tom = tom;
-    }
+    @OneToMany(mappedBy = "autor", targetEntity = Musica.class, fetch = FetchType.LAZY)
+    private List<Musica> musicasDeAutoria;
 
     public Long getId() {
         return id;
@@ -43,12 +40,20 @@ public class EntidadeTom implements Serializable {
         this.id = id;
     }
 
-    public Tom getTom() {
-        return tom;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTom(Tom tom) {
-        this.tom = tom;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Musica> getMusicasDeAutoria() {
+        return musicasDeAutoria;
+    }
+
+    public void setMusicasDeAutoria(List<Musica> musicasDeAutoria) {
+        this.musicasDeAutoria = musicasDeAutoria;
     }
 
     @Override
@@ -61,10 +66,10 @@ public class EntidadeTom implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntidadeTom)) {
+        if (!(object instanceof Autor)) {
             return false;
         }
-        EntidadeTom other = (EntidadeTom) object;
+        Autor other = (Autor) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -73,7 +78,6 @@ public class EntidadeTom implements Serializable {
 
     @Override
     public String toString() {
-        return "EntidadeTom{" + "id=" + id + ", tom=" + tom + '}';
+        return "Autor{" + "id=" + id + ", nome=" + nome + ", musicasDeAutoria=" + musicasDeAutoria + '}';
     }
-
 }

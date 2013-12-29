@@ -21,11 +21,18 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Música" fx:id="menuMusica">
           <items>
-            <MenuItem id="itemCriarDocumento" mnemonicParsing="false" onAction="#onActionFromItemCriarDocumento" text="Criar Novo Documento" fx:id="itemCriarDocumento" />
-            <MenuItem id="itemInserirMusica" mnemonicParsing="false" onAction="#onActionFromItemInserirMusica" text="Inserir" fx:id="itemInserirMusica" />
-            <MenuItem mnemonicParsing="false" onAction="#onActionFromPesquisarMusica" text="Pesquisar" fx:id="itemPesquisarMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemCriarMusica" text="Criar" fx:id="itemCriarMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemPesquisarMusica" text="Pesquisar" fx:id="itemPesquisarMusica" />
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarMusica" text="Atualizar" fx:id="itemAtualizarMusica" />
-            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAssociarMusica" text="Associar" fx:id="itemAssociarMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemRemoverMusica" text="Remover" fx:id="itemRemoverMusica" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemGerenciarAutores" text="Gerenciar Autores" fx:id="itemGerenciarAutores" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Utilitários" fx:id="menuUtilitarios">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAfinador" text="Afinador" fx:id="itemAfinador" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemMissaMaker" text="Missa Maker" fx:id="itemMissaMaker" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Ajuda">

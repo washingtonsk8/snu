@@ -36,7 +36,6 @@ import snu.controladores.IntegranteJpaController;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
-import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -118,7 +117,7 @@ public class AtualizarDadosIntegranteController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AtualizarDadosIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         AtualizarIntegranteController atualizarIntegranteController = fxmlLoader.getController();

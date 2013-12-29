@@ -5,6 +5,7 @@
  */
 package snu.fronteiras.controladores.musica;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +19,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -30,7 +36,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
@@ -40,6 +51,8 @@ import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
+import snu.entidades.musica.popups.Autor;
+import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
@@ -155,6 +168,11 @@ public class CriarMusicaController implements Initializable {
     private final ObservableList<Afinacao> afinacoesMusica
             = FXCollections.observableArrayList(Afinacao.CFBbEbGC, Afinacao.DGCFAD,
                     Afinacao.DbGbBEAbDb, Afinacao.EADGBE, Afinacao.EbAbDbGbBbEb);
+    @FXML
+    private Button btnSelecionarAutor;
+
+    @FXML
+    private AnchorPane popupSelecionarAutor;
 
     /**
      * Inicializa os componentes
@@ -173,6 +191,9 @@ public class CriarMusicaController implements Initializable {
 
         //Coloca os tons na combo para associação
         this.comboTomAssociacao.setItems(this.tonsMusica);
+
+        //Definir impossibilidade de edição do campo autor
+        this.fldAutor.setEditable(false);
 
         //Faz pesquisa no banco pelos integrantes presentes e pega o nome
         for (Integrante integrante : this.integrantesAssociados) {
@@ -215,6 +236,8 @@ public class CriarMusicaController implements Initializable {
         this.tiposMusica.add(this.checkOracao);
         this.tiposMusica.add(this.checkEspecial);
         this.tiposMusica.add(this.checkOutra);
+
+        this.btnSelecionarAutor.requestFocus();
     }
 
     /**
@@ -224,6 +247,10 @@ public class CriarMusicaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         initComponents();
+    }
+
+    public AnchorPane getContentCriarMusica() {
+        return contentCriarMusica;
     }
 
     @FXML
@@ -509,6 +536,25 @@ public class CriarMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnEscreverConteudo(ActionEvent event) {
+        //Apaga efeitos anteriores
+        this.btnEscreverConteudo.setEffect(null);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/EscreverMusica.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        EscreverMusicaController escreverMusicaController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
+        escreverMusicaController.initData(musica, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
     }
 
     private boolean validarCampos() {
@@ -553,7 +599,7 @@ public class CriarMusicaController implements Initializable {
     @FXML
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
-            this.musica.setAutor(this.fldAutor.getText());
+            this.musica.setAutor(new Autor());//TODO: Consertar
             this.musica.setTitulo(this.fldTitulo.getText());
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
@@ -602,6 +648,36 @@ public class CriarMusicaController implements Initializable {
                 itens.add(0, item);
             }
         });
+    }
+
+    @FXML
+    private void onActionFromBtnSelecionarAutor(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml"));
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Inicializa os dados passando a música por parâmetro
+        SelecionarAutorController selecionarAutorController = fxmlLoader.getController();
+        selecionarAutorController.initData(this.musica);
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Seleção de Autor");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+
+        //Após a seleção do autor, atualiza o campo
+        Autor autorSelecionado = this.musica.getAutor();
+        if (autorSelecionado != null) {
+            this.fldAutor.setText(autorSelecionado.getNome());
+        }
+        this.fldTitulo.requestFocus();//Coloca o foco no campo de título
     }
 
 }

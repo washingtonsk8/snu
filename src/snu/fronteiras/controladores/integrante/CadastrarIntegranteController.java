@@ -9,8 +9,6 @@ import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -425,10 +423,14 @@ public class CadastrarIntegranteController implements Initializable {
 
             //Persistindo no banco
             IntegranteJpaController.getInstancia().create(this.integranteRow);
-            
+                        
+            if (this.integranteRow.getSexo().equals(Sexo.FEMININO)) {
+                Dialogs.showInformationDialog(null, "A Integrante foi salva com sucesso!", "Sucesso", "Informação");
+            } else {
+                Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
+            }
             //Define a existência de um novo cadastro
             this.integranteRow = new Integrante();
-            Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
         } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
         }
