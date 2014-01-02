@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
+import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 
 /**
  * FXML Controller class
@@ -37,7 +38,7 @@ public class EscreverMusicaController implements Initializable {
     @FXML
     private Button btnCancelar;
     
-    private CriarMusicaController controladorOrigem;
+    private ControladorDeConteudoInterface controladorOrigem;
     
     private Musica musica;
     
@@ -49,7 +50,7 @@ public class EscreverMusicaController implements Initializable {
         // TODO
     }    
 
-    public void initData(Musica musica, CriarMusicaController controladorOrigem){
+    public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem){
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
         
@@ -63,7 +64,7 @@ public class EscreverMusicaController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentCriarMusica());
+        pai.getChildren().add(this.controladorOrigem.getContentPane());
     }
 
     @FXML
@@ -71,7 +72,7 @@ public class EscreverMusicaController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentCriarMusica());
+        pai.getChildren().add(this.controladorOrigem.getContentPane());
     }
     
 }

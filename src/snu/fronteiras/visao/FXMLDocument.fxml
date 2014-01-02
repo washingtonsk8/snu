@@ -22,9 +22,10 @@
         <Menu mnemonicParsing="false" text="Música" fx:id="menuMusica">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemCriarMusica" text="Criar" fx:id="itemCriarMusica" />
-            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemPesquisarMusica" text="Pesquisar" fx:id="itemPesquisarMusica" />
-            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarMusica" text="Atualizar" fx:id="itemAtualizarMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosMusica" text="Visualizar Dados" fx:id="itemVisualizarDadosMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarDadosMusica" text="Atualizar Dados" fx:id="itemAtualizarDadosMusica" />
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemRemoverMusica" text="Remover" fx:id="itemRemoverMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemGerarImpressao" text="Gerar Impressão" fx:id="itemGerarImpressao" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemGerenciarAutores" text="Gerenciar Autores" fx:id="itemGerenciarAutores" />
           </items>

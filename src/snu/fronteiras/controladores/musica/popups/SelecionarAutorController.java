@@ -10,8 +10,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -27,7 +25,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -35,11 +32,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
-import org.hibernate.sql.ordering.antlr.OrderingSpecification;
 import snu.controladores.AutorJpaController;
 import snu.entidades.musica.Musica;
-import snu.entidades.musica.popups.Autor;
+import snu.entidades.musica.Autor;
 
 /**
  * FXML Controller class
@@ -128,7 +123,6 @@ public class SelecionarAutorController implements Initializable {
 
     @FXML
     private void onActionFromFldPesquisarAutor(ActionEvent event) {
-        System.out.println("ACTION FLD PESQUISAR");
     }
 
     @FXML

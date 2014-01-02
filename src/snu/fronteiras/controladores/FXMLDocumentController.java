@@ -44,10 +44,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Menu menuMusica;
     @FXML
-    private MenuItem itemPesquisarMusica;
-    @FXML
-    private MenuItem itemAtualizarMusica;
-    @FXML
     private MenuItem itemSobre;
     @FXML
     private MenuItem itemVisualizarDados;
@@ -63,6 +59,12 @@ public class FXMLDocumentController implements Initializable {
     private Menu menuUtilitarios;
     @FXML
     private MenuItem itemCriarMusica;
+    @FXML
+    private MenuItem itemVisualizarDadosMusica;
+    @FXML
+    private MenuItem itemAtualizarDadosMusica;
+    @FXML
+    private MenuItem itemGerarImpressao;
 
     private void initComponents() {
     }
@@ -148,15 +150,30 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemPesquisarMusica(ActionEvent event) {
+    private void onActionFromItemVisualizarDadosMusica(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/VisualizarDadosMusica.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
     }
 
     @FXML
-    private void onActionFromItemAtualizarMusica(ActionEvent event) {
+    private void onActionFromItemAtualizarDadosMusica(ActionEvent event) {
     }
 
     @FXML
     private void onActionFromItemRemoverMusica(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemGerarImpressao(ActionEvent event) {
     }
 
     @FXML

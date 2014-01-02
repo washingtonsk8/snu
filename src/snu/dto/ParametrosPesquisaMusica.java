@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.dto;
+
+import java.util.List;
+import snu.entidades.musica.TipoMusica;
+
+/**
+ * Classe utilizada para realizar pesquisas no banco
+ *
+ * @author Washington Luis
+ */
+public class ParametrosPesquisaMusica {
+
+    private String nomeAutor;
+    private String titulo;
+    private List<String> leiturasAssociadas;
+    private String trecho;
+    private List<TipoMusica> tipos;
+
+    public String getNomeAutor() {
+        return nomeAutor;
+    }
+
+    public void setNomeAutor(String nomeAutor) {
+        this.nomeAutor = nomeAutor;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public List<String> getLeiturasAssociadas() {
+        return leiturasAssociadas;
+    }
+
+    public void setLeiturasAssociadas(List<String> leiturasAssociadas) {
+        this.leiturasAssociadas = leiturasAssociadas;
+    }
+
+    public String getTrecho() {
+        return trecho;
+    }
+
+    public void setTrecho(String trecho) {
+        this.trecho = trecho;
+    }
+
+    public List<TipoMusica> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<TipoMusica> tipos) {
+        this.tipos = tipos;
+    }
+}

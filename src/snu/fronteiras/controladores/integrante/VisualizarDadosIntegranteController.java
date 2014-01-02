@@ -34,7 +34,6 @@ import snu.controladores.IntegranteJpaController;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
-import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
  * FXML Controller class
@@ -77,6 +76,8 @@ public class VisualizarDadosIntegranteController implements Initializable {
             FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
             FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
             FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
+    @FXML
+    private Font x2;
 
     private void initComponents() {
 
@@ -168,6 +169,7 @@ public class VisualizarDadosIntegranteController implements Initializable {
 
     @FXML
     private void onMouseClickedFromTblIntegrantes(MouseEvent event) {
+        this.tblIntegrantes.requestFocus();
         Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2 && integranteSelecionado != null) {
             carregarVisualizacaoIntegrante(integranteSelecionado);

@@ -21,7 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import snu.entidades.musica.popups.Autor;
 
 /**
  * Classe que define uma música na visão do ministério

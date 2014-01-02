@@ -58,7 +58,7 @@ import snu.util.StringUtil;
  *
  * @author Washington Luis
  */
-public class CriarMusicaController implements Initializable, ControladorDeConteudoInterface {
+public class AtualizarMusicaController implements Initializable, ControladorDeConteudoInterface {
 
     @FXML
     private Label lblLeituras;
@@ -147,7 +147,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private Label lblTomAssociacao;
     @FXML
-    private AnchorPane contentCriarMusica;
+    private AnchorPane contentAtualizarMusica;
 
     private List<CheckBox> tiposMusica;
 
@@ -253,7 +253,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
      */
     @Override
     public AnchorPane getContentPane() {
-        return contentCriarMusica;
+        return contentAtualizarMusica;
     }
 
     @FXML
@@ -292,8 +292,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
-    private void onMouseClickedFromContentCriarMusica(MouseEvent event) {
-        this.contentCriarMusica.requestFocus();
+    private void onMouseClickedFromContentAtualizarMusica(MouseEvent event) {
+        this.contentAtualizarMusica.requestFocus();
     }
 
     @FXML
@@ -548,13 +548,13 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         EscreverMusicaController escreverMusicaController = fxmlLoader.getController();
 
         //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
@@ -602,23 +602,12 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
+            this.musica.setAutor(new Autor());//TODO: Consertar
             this.musica.setTitulo(this.fldTitulo.getText());
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());
-
-            String campoLeiturasAssociadas = this.fldLeituras.getText();
-
-            if (!campoLeiturasAssociadas.isEmpty()) {
-                List<String> leiturasAssociadas = Arrays.asList(campoLeiturasAssociadas.split(";"));
-
-                for (String leituraAssociada : leiturasAssociadas) {
-                    leituraAssociada = leituraAssociada.trim();
-                }
-                this.musica.setLeiturasAssociadas(leiturasAssociadas);
-            } else {
-                this.musica.setLeiturasAssociadas(new ArrayList<String>());
-            }
+            this.musica.setLeiturasAssociadas(Arrays.asList(this.fldLeituras.getText().split(";")));
 
             if (this.musica.getId() == null) {
                 //Persistindo no banco
@@ -628,7 +617,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     //Atualizando no banco
                     MusicaJpaController.getInstancia().edit(this.musica);
                 } catch (Exception ex) {
-                    Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -651,6 +640,11 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
         final AssociacaoIntegranteMusica item = this.tblAssociacoes.getItems().get(0);
         itens.remove(0);
+        try {//Dorme um pouco para visualizarmos as alterações
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -666,7 +660,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         try {
             root = (AnchorPane) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //Inicializa os dados passando a música por parâmetro

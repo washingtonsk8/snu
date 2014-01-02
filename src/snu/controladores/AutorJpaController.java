@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
-import snu.entidades.musica.popups.Autor;
+import snu.entidades.musica.Autor;
 
 /**
  *

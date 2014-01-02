@@ -17,7 +17,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
+import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
+import snu.util.StringUtil;
 
 /**
  * Classe controladora das atividades de persistência da entidade Música
@@ -51,21 +53,21 @@ public class MusicaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             /*List<AssociacaoIntegranteMusica> attachedAssociacoes = new ArrayList<>();
-            for (AssociacaoIntegranteMusica associacoesAssociacaoIntegranteMusicaToAttach : musica.getAssociacoes()) {
-                associacoesAssociacaoIntegranteMusicaToAttach = em.getReference(associacoesAssociacaoIntegranteMusicaToAttach.getClass(), associacoesAssociacaoIntegranteMusicaToAttach.getId());
-                attachedAssociacoes.add(associacoesAssociacaoIntegranteMusicaToAttach);
-            }
-            musica.setAssociacoes(attachedAssociacoes);*/
+             for (AssociacaoIntegranteMusica associacoesAssociacaoIntegranteMusicaToAttach : musica.getAssociacoes()) {
+             associacoesAssociacaoIntegranteMusicaToAttach = em.getReference(associacoesAssociacaoIntegranteMusicaToAttach.getClass(), associacoesAssociacaoIntegranteMusicaToAttach.getId());
+             attachedAssociacoes.add(associacoesAssociacaoIntegranteMusicaToAttach);
+             }
+             musica.setAssociacoes(attachedAssociacoes);*/
             em.persist(musica);
             /*for (AssociacaoIntegranteMusica associacoesAssociacaoIntegranteMusica : musica.getAssociacoes()) {
-                Musica oldMusicaOfAssociacoesAssociacaoIntegranteMusica = associacoesAssociacaoIntegranteMusica.getMusica();
-                associacoesAssociacaoIntegranteMusica.setMusica(musica);
-                associacoesAssociacaoIntegranteMusica = em.merge(associacoesAssociacaoIntegranteMusica);
-                if (oldMusicaOfAssociacoesAssociacaoIntegranteMusica != null) {
-                    oldMusicaOfAssociacoesAssociacaoIntegranteMusica.getAssociacoes().remove(associacoesAssociacaoIntegranteMusica);
-                    oldMusicaOfAssociacoesAssociacaoIntegranteMusica = em.merge(oldMusicaOfAssociacoesAssociacaoIntegranteMusica);
-                }
-            }*/
+             Musica oldMusicaOfAssociacoesAssociacaoIntegranteMusica = associacoesAssociacaoIntegranteMusica.getMusica();
+             associacoesAssociacaoIntegranteMusica.setMusica(musica);
+             associacoesAssociacaoIntegranteMusica = em.merge(associacoesAssociacaoIntegranteMusica);
+             if (oldMusicaOfAssociacoesAssociacaoIntegranteMusica != null) {
+             oldMusicaOfAssociacoesAssociacaoIntegranteMusica.getAssociacoes().remove(associacoesAssociacaoIntegranteMusica);
+             oldMusicaOfAssociacoesAssociacaoIntegranteMusica = em.merge(oldMusicaOfAssociacoesAssociacaoIntegranteMusica);
+             }
+             }*/
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -81,32 +83,32 @@ public class MusicaJpaController implements Serializable {
             em.getTransaction().begin();
             Musica persistentMusica = em.find(Musica.class, musica.getId());
             /*List<AssociacaoIntegranteMusica> associacoesOld = persistentMusica.getAssociacoes();
-            List<AssociacaoIntegranteMusica> associacoesNew = musica.getAssociacoes();
-            List<AssociacaoIntegranteMusica> attachedAssociacoesNew = new ArrayList<AssociacaoIntegranteMusica>();
-            for (AssociacaoIntegranteMusica associacoesNewAssociacaoIntegranteMusicaToAttach : associacoesNew) {
-                associacoesNewAssociacaoIntegranteMusicaToAttach = em.getReference(associacoesNewAssociacaoIntegranteMusicaToAttach.getClass(), associacoesNewAssociacaoIntegranteMusicaToAttach.getId());
-                attachedAssociacoesNew.add(associacoesNewAssociacaoIntegranteMusicaToAttach);
-            }
-            associacoesNew = attachedAssociacoesNew;
-            musica.setAssociacoes(associacoesNew);*/
+             List<AssociacaoIntegranteMusica> associacoesNew = musica.getAssociacoes();
+             List<AssociacaoIntegranteMusica> attachedAssociacoesNew = new ArrayList<AssociacaoIntegranteMusica>();
+             for (AssociacaoIntegranteMusica associacoesNewAssociacaoIntegranteMusicaToAttach : associacoesNew) {
+             associacoesNewAssociacaoIntegranteMusicaToAttach = em.getReference(associacoesNewAssociacaoIntegranteMusicaToAttach.getClass(), associacoesNewAssociacaoIntegranteMusicaToAttach.getId());
+             attachedAssociacoesNew.add(associacoesNewAssociacaoIntegranteMusicaToAttach);
+             }
+             associacoesNew = attachedAssociacoesNew;
+             musica.setAssociacoes(associacoesNew);*/
             musica = em.merge(musica);
-           /* for (AssociacaoIntegranteMusica associacoesOldAssociacaoIntegranteMusica : associacoesOld) {
-                if (!associacoesNew.contains(associacoesOldAssociacaoIntegranteMusica)) {
-                    associacoesOldAssociacaoIntegranteMusica.setMusica(null);
-                    associacoesOldAssociacaoIntegranteMusica = em.merge(associacoesOldAssociacaoIntegranteMusica);
-                }
-            }
-            for (AssociacaoIntegranteMusica associacoesNewAssociacaoIntegranteMusica : associacoesNew) {
-                if (!associacoesOld.contains(associacoesNewAssociacaoIntegranteMusica)) {
-                    Musica oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica = associacoesNewAssociacaoIntegranteMusica.getMusica();
-                    associacoesNewAssociacaoIntegranteMusica.setMusica(musica);
-                    associacoesNewAssociacaoIntegranteMusica = em.merge(associacoesNewAssociacaoIntegranteMusica);
-                    if (oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica != null && !oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica.equals(musica)) {
-                        oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica.getAssociacoes().remove(associacoesNewAssociacaoIntegranteMusica);
-                        oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica = em.merge(oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica);
-                    }
-                }
-            }*/
+            /* for (AssociacaoIntegranteMusica associacoesOldAssociacaoIntegranteMusica : associacoesOld) {
+             if (!associacoesNew.contains(associacoesOldAssociacaoIntegranteMusica)) {
+             associacoesOldAssociacaoIntegranteMusica.setMusica(null);
+             associacoesOldAssociacaoIntegranteMusica = em.merge(associacoesOldAssociacaoIntegranteMusica);
+             }
+             }
+             for (AssociacaoIntegranteMusica associacoesNewAssociacaoIntegranteMusica : associacoesNew) {
+             if (!associacoesOld.contains(associacoesNewAssociacaoIntegranteMusica)) {
+             Musica oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica = associacoesNewAssociacaoIntegranteMusica.getMusica();
+             associacoesNewAssociacaoIntegranteMusica.setMusica(musica);
+             associacoesNewAssociacaoIntegranteMusica = em.merge(associacoesNewAssociacaoIntegranteMusica);
+             if (oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica != null && !oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica.equals(musica)) {
+             oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica.getAssociacoes().remove(associacoesNewAssociacaoIntegranteMusica);
+             oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica = em.merge(oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica);
+             }
+             }
+             }*/
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -194,6 +196,36 @@ public class MusicaJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    public List<Musica> findMusicasByParametrosPesquisa(ParametrosPesquisaMusica parametrosPesquisa) {
+        List<Musica> resultado;
+        Query query;
+        String sql;
+        EntityManager em = getEntityManager();
+
+        sql = "SELECT m FROM Musica m WHERE 1=1 ";
+
+        if (!parametrosPesquisa.getNomeAutor().equals(StringUtil.VAZIA)) {
+            sql += " AND m.autor.nome LIKE :nomeAutor ";
+        }
+        if (!parametrosPesquisa.getTitulo().equals(StringUtil.VAZIA)) {
+            sql += " AND m.titulo LIKE :titulo ";
+        }
+
+        em.getTransaction().begin();
+        query = em.createQuery(sql);
+
+        if (!parametrosPesquisa.getNomeAutor().equals(StringUtil.VAZIA)) {
+            query.setParameter("nomeAutor", "%" + parametrosPesquisa.getNomeAutor() + "%");
+        }
+        if (!parametrosPesquisa.getTitulo().equals(StringUtil.VAZIA)) {
+            query.setParameter("titulo", "%" + parametrosPesquisa.getTitulo() + "%");
+        }
+
+        resultado = query.getResultList();
+        em.getTransaction().commit();
+        return resultado;
     }
 
     /**
