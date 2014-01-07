@@ -39,6 +39,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.entidades.integrante.Integrante;
@@ -51,6 +52,7 @@ import snu.entidades.musica.Autor;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
+import snu.util.ListaUtil;
 import snu.util.StringUtil;
 
 /**
@@ -133,8 +135,6 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private CheckBox checkOutra;
     @FXML
-    private Button btnEscreverConteudo;
-    @FXML
     private Button btnAdicionarAssociacao;
     @FXML
     private Button btnRemoverAssociacao;
@@ -148,14 +148,18 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private Label lblTomAssociacao;
     @FXML
     private AnchorPane contentAtualizarMusica;
+    @FXML
+    private Button btnSelecionarAutor;
+    @FXML
+    private Button btnAtualizarConteudo;
+    @FXML
+    private Button btnSalvarAtleracoes;
 
-    private List<CheckBox> tiposMusica;
+    private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
     private ObservableList<AssociacaoIntegranteMusica> itensAssociacao;
 
     private List<Integrante> integrantesAssociados;
-
-    private Musica musica;
 
     private final ObservableList<Tom> tonsMusica
             = FXCollections.observableArrayList(Tom.C, Tom.C_SUSTENIDO, Tom.D,
@@ -165,11 +169,10 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private final ObservableList<Afinacao> afinacoesMusica
             = FXCollections.observableArrayList(Afinacao.CFBbEbGC, Afinacao.DGCFAD,
                     Afinacao.DbGbBEAbDb, Afinacao.EADGBE, Afinacao.EbAbDbGbBbEb);
-    @FXML
-    private Button btnSelecionarAutor;
 
-    @FXML
-    private AnchorPane popupSelecionarAutor;
+    private Musica musica;
+
+    private AtualizarDadosMusicaController controladorOrigem;
 
     /**
      * Inicializa os componentes
@@ -180,7 +183,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.musica = new Musica();
         this.itensAssociacao = FXCollections.observableArrayList();
         this.integrantesAssociados = IntegranteJpaController.getInstancia().findIntegranteEntities();
-        this.tiposMusica = new ArrayList<>();
+        this.parTiposMusicaCheckBoxes = new ArrayList<>();
 
         this.comboTom.setItems(this.tonsMusica);//Coloca os tons na combo
         this.comboAfinacao.setItems(this.afinacoesMusica);//Coloca as afinações na combo
@@ -215,30 +218,55 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         });
 
         //Adicionando as checkboxes na lista
-        this.tiposMusica.add(this.checkEntrada);
-        this.tiposMusica.add(this.checkPerdao);
-        this.tiposMusica.add(this.checkGloria);
-        this.tiposMusica.add(this.checkAclamacao);
-        this.tiposMusica.add(this.checkOfertorio);
-        this.tiposMusica.add(this.checkPaz);
-        this.tiposMusica.add(this.checkSanto);
-        this.tiposMusica.add(this.checkComunhao);
-        this.tiposMusica.add(this.checkAcaoDeGracas);
-        this.tiposMusica.add(this.checkFinal);
-        this.tiposMusica.add(this.checkReflexao);
-        this.tiposMusica.add(this.checkLouvor);
-        this.tiposMusica.add(this.checkAdoracao);
-        this.tiposMusica.add(this.checkPalestra);
-        this.tiposMusica.add(this.checkResposta);
-        this.tiposMusica.add(this.checkOracao);
-        this.tiposMusica.add(this.checkEspecial);
-        this.tiposMusica.add(this.checkOutra);
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ENTRADA, this.checkEntrada));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PERDAO, this.checkPerdao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.GLORIA, this.checkGloria));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACLAMACAO, this.checkAclamacao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OFERTORIO, this.checkOfertorio));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PAZ, this.checkPaz));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.SANTO, this.checkSanto));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.COMUNHAO, this.checkComunhao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACAO_DE_GRACAS, this.checkAcaoDeGracas));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.FINAL, this.checkFinal));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.REFLEXAO, this.checkReflexao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.LOUVOR, this.checkLouvor));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ADORACAO, this.checkAdoracao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PALESTRA, this.checkPalestra));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.RESPOSTA, this.checkResposta));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ORACAO, this.checkOracao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
         this.btnSelecionarAutor.requestFocus();
     }
 
+    public void initData(Musica musica, AtualizarDadosMusicaController controladorOrigem) {
+        this.musica = musica;
+        this.controladorOrigem = controladorOrigem;
+
+        this.comboAfinacao.setValue(musica.getAfinacao());
+        this.fldAutor.setText(musica.getAutor().getNome());
+        this.fldLeituras.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas()));
+
+        List<TipoMusica> tiposMusica = musica.getTipos();
+
+        for (Pair<TipoMusica, CheckBox> tipoMusica : this.parTiposMusicaCheckBoxes) {
+            if (tiposMusica.contains(tipoMusica.getKey())) {
+                tipoMusica.getValue().setSelected(true);
+            }
+        }
+
+        this.fldTitulo.setText(musica.getTitulo());
+        this.comboTom.setValue(musica.getTom());
+        this.itensAssociacao.addAll(musica.getAssociacoes());
+        this.tblAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
+    }
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -538,9 +566,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     }
 
     @FXML
-    private void onActionFromBtnEscreverConteudo(ActionEvent event) {
+    private void onActionFromBtnAtualizarConteudo(ActionEvent event) {
         //Apaga efeitos anteriores
-        this.btnEscreverConteudo.setEffect(null);
+        this.btnAtualizarConteudo.setEffect(null);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/EscreverMusica.fxml"));
 
@@ -587,70 +615,16 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             this.comboAfinacao.setEffect(null);
         }
         if (this.musica.getTipos().isEmpty()) {
-            for (CheckBox checkBox : tiposMusica) {
-                checkBox.setEffect(EfeitosUtil.getEfeitoInvalido());
+            for (Pair<TipoMusica, CheckBox> tipoMusica : parTiposMusicaCheckBoxes) {
+                tipoMusica.getValue().setEffect(EfeitosUtil.getEfeitoInvalido());
             }
             validadeDosCampos = false;
         } else {
-            for (CheckBox checkBox : tiposMusica) {
-                checkBox.setEffect(null);
+            for (Pair<TipoMusica, CheckBox> tipoMusica : parTiposMusicaCheckBoxes) {
+                tipoMusica.getValue().setEffect(null);
             }
         }
         return validadeDosCampos;
-    }
-
-    @FXML
-    private void onActionFromBtnSalvar(ActionEvent event) {
-        if (validarCampos()) {
-            this.musica.setAutor(new Autor());//TODO: Consertar
-            this.musica.setTitulo(this.fldTitulo.getText());
-            this.musica.setAssociacoes(this.itensAssociacao);
-            this.musica.setTom(this.comboTom.getValue());
-            this.musica.setAfinacao(this.comboAfinacao.getValue());
-            this.musica.setLeiturasAssociadas(Arrays.asList(this.fldLeituras.getText().split(";")));
-
-            if (this.musica.getId() == null) {
-                //Persistindo no banco
-                MusicaJpaController.getInstancia().create(this.musica);
-            } else {
-                try {
-                    //Atualizando no banco
-                    MusicaJpaController.getInstancia().edit(this.musica);
-                } catch (Exception ex) {
-                    Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            if (this.musica.getConteudo() == null || this.musica.getConteudo().isEmpty()) {
-                Dialogs.showWarningDialog(null, "Não esqueça de escrever o conteúdo da música", "Conselho", "Informação");
-                this.btnEscreverConteudo.setEffect(EfeitosUtil.getEfeitoAviso());
-            }
-
-            Dialogs.showInformationDialog(null, "A música foi salva com sucesso!", "Sucesso", "Informação");
-        } else {
-            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
-        }
-    }
-
-    private void atualizarTabela() {
-        final List<AssociacaoIntegranteMusica> itens = this.tblAssociacoes.getItems();
-        if (itens == null || itens.isEmpty()) {
-            return;
-        }
-
-        final AssociacaoIntegranteMusica item = this.tblAssociacoes.getItems().get(0);
-        itens.remove(0);
-        try {//Dorme um pouco para visualizarmos as alterações
-            Thread.sleep(300);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                itens.add(0, item);
-            }
-        });
     }
 
     @FXML
@@ -683,4 +657,53 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.fldTitulo.requestFocus();//Coloca o foco no campo de título
     }
 
+    @FXML
+    private void onActionFromBtnSalvarAtleracoes(ActionEvent event) {
+        if (validarCampos()) {
+            this.musica.setTitulo(this.fldTitulo.getText());
+            this.musica.setAssociacoes(this.itensAssociacao);
+            this.musica.setTom(this.comboTom.getValue());
+            this.musica.setAfinacao(this.comboAfinacao.getValue());
+            
+            String campoLeiturasAssociadas = this.fldLeituras.getText();
+
+            if (!campoLeiturasAssociadas.isEmpty()) {
+                List<String> leiturasAssociadas = new ArrayList<>();
+
+                for (String leituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
+                    leiturasAssociadas.add(leituraAssociada.trim());
+                }
+                this.musica.setLeiturasAssociadas(leiturasAssociadas);
+            } else {
+                this.musica.setLeiturasAssociadas(new ArrayList<String>());
+            }
+
+            try {
+                //Atualizando no banco
+                MusicaJpaController.getInstancia().edit(this.musica);
+            } catch (Exception ex) {
+                Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Dialogs.showInformationDialog(null, "A Música foi atualizada com sucesso!", "Sucesso", "Informação");
+        } else {
+            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+        }
+    }
+
+    private void atualizarTabela() {
+        final List<AssociacaoIntegranteMusica> itens = this.tblAssociacoes.getItems();
+        if (itens == null || itens.isEmpty()) {
+            return;
+        }
+
+        final AssociacaoIntegranteMusica item = this.tblAssociacoes.getItems().get(0);
+        itens.remove(0);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                itens.add(0, item);
+            }
+        });
+    }
 }

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Classe que define uma música na visão do ministério
@@ -38,7 +38,7 @@ public class Musica implements Serializable {
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;
-    
+
     private String titulo;
 
     @ElementCollection(targetClass = String.class)
@@ -58,13 +58,14 @@ public class Musica implements Serializable {
             targetEntity = AssociacaoIntegranteMusica.class, fetch = FetchType.LAZY)
     private List<AssociacaoIntegranteMusica> associacoes;
 
-    @Column(columnDefinition = "LONGTEXT")
-    private String conteudo;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = DocumentoMusica.class)
+    private DocumentoMusica documentoMusica;
 
     public Musica() {
         this.associacoes = new ArrayList<>();
         this.leiturasAssociadas = new ArrayList<>();
         this.tipos = new ArrayList<>();
+        this.documentoMusica = new DocumentoMusica();
     }
 
     public Long getId() {
@@ -131,12 +132,12 @@ public class Musica implements Serializable {
         this.associacoes = associacoes;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public DocumentoMusica getDocumentoMusica() {
+        return documentoMusica;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setDocumentoMusica(DocumentoMusica documentoMusica) {
+        this.documentoMusica = documentoMusica;
     }
 
     @Override

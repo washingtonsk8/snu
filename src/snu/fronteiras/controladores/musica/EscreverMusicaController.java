@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 
@@ -54,12 +55,12 @@ public class EscreverMusicaController implements Initializable {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
         
-        this.areaEscreverMusica.setText(this.musica.getConteudo());
+        this.areaEscreverMusica.setText(this.musica.getDocumentoMusica().getConteudo());
     }
     
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
-        this.musica.setConteudo(this.areaEscreverMusica.getText());
+        this.musica.getDocumentoMusica().setConteudo(this.areaEscreverMusica.getText());
         
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());

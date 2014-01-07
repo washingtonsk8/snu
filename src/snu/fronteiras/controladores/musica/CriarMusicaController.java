@@ -39,8 +39,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
+import snu.controladores.indexador.IndexadorController;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
@@ -149,7 +151,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private AnchorPane contentCriarMusica;
 
-    private List<CheckBox> tiposMusica;
+    private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
     private ObservableList<AssociacaoIntegranteMusica> itensAssociacao;
 
@@ -180,7 +182,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.musica = new Musica();
         this.itensAssociacao = FXCollections.observableArrayList();
         this.integrantesAssociados = IntegranteJpaController.getInstancia().findIntegranteEntities();
-        this.tiposMusica = new ArrayList<>();
+        this.parTiposMusicaCheckBoxes = new ArrayList<>();
 
         this.comboTom.setItems(this.tonsMusica);//Coloca os tons na combo
         this.comboAfinacao.setItems(this.afinacoesMusica);//Coloca as afinações na combo
@@ -215,24 +217,24 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         });
 
         //Adicionando as checkboxes na lista
-        this.tiposMusica.add(this.checkEntrada);
-        this.tiposMusica.add(this.checkPerdao);
-        this.tiposMusica.add(this.checkGloria);
-        this.tiposMusica.add(this.checkAclamacao);
-        this.tiposMusica.add(this.checkOfertorio);
-        this.tiposMusica.add(this.checkPaz);
-        this.tiposMusica.add(this.checkSanto);
-        this.tiposMusica.add(this.checkComunhao);
-        this.tiposMusica.add(this.checkAcaoDeGracas);
-        this.tiposMusica.add(this.checkFinal);
-        this.tiposMusica.add(this.checkReflexao);
-        this.tiposMusica.add(this.checkLouvor);
-        this.tiposMusica.add(this.checkAdoracao);
-        this.tiposMusica.add(this.checkPalestra);
-        this.tiposMusica.add(this.checkResposta);
-        this.tiposMusica.add(this.checkOracao);
-        this.tiposMusica.add(this.checkEspecial);
-        this.tiposMusica.add(this.checkOutra);
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ENTRADA, this.checkEntrada));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PERDAO, this.checkPerdao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.GLORIA, this.checkGloria));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACLAMACAO, this.checkAclamacao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OFERTORIO, this.checkOfertorio));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PAZ, this.checkPaz));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.SANTO, this.checkSanto));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.COMUNHAO, this.checkComunhao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACAO_DE_GRACAS, this.checkAcaoDeGracas));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.FINAL, this.checkFinal));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.REFLEXAO, this.checkReflexao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.LOUVOR, this.checkLouvor));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ADORACAO, this.checkAdoracao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PALESTRA, this.checkPalestra));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.RESPOSTA, this.checkResposta));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ORACAO, this.checkOracao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
         this.btnSelecionarAutor.requestFocus();
     }
@@ -587,13 +589,13 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             this.comboAfinacao.setEffect(null);
         }
         if (this.musica.getTipos().isEmpty()) {
-            for (CheckBox checkBox : tiposMusica) {
-                checkBox.setEffect(EfeitosUtil.getEfeitoInvalido());
+            for (Pair<TipoMusica, CheckBox> tipoMusica : parTiposMusicaCheckBoxes) {
+                tipoMusica.getValue().setEffect(EfeitosUtil.getEfeitoInvalido());
             }
             validadeDosCampos = false;
         } else {
-            for (CheckBox checkBox : tiposMusica) {
-                checkBox.setEffect(null);
+            for (Pair<TipoMusica, CheckBox> tipoMusica : parTiposMusicaCheckBoxes) {
+                tipoMusica.getValue().setEffect(null);
             }
         }
         return validadeDosCampos;
@@ -610,10 +612,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             String campoLeiturasAssociadas = this.fldLeituras.getText();
 
             if (!campoLeiturasAssociadas.isEmpty()) {
-                List<String> leiturasAssociadas = Arrays.asList(campoLeiturasAssociadas.split(";"));
+                List<String> leiturasAssociadas = new ArrayList<>();
 
-                for (String leituraAssociada : leiturasAssociadas) {
-                    leituraAssociada = leituraAssociada.trim();
+                for (String leituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
+                    leiturasAssociadas.add(leituraAssociada.trim());
                 }
                 this.musica.setLeiturasAssociadas(leiturasAssociadas);
             } else {
@@ -632,12 +634,14 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 }
             }
 
-            if (this.musica.getConteudo() == null || this.musica.getConteudo().isEmpty()) {
+            if (this.musica.getDocumentoMusica().getConteudo() == null || this.musica.getDocumentoMusica().getConteudo().isEmpty()) {
                 Dialogs.showWarningDialog(null, "Não esqueça de escrever o conteúdo da música", "Conselho", "Informação");
                 this.btnEscreverConteudo.setEffect(EfeitosUtil.getEfeitoAviso());
             }
 
-            Dialogs.showInformationDialog(null, "A música foi salva com sucesso!", "Sucesso", "Informação");
+            IndexadorController.getInstancia().indexar(musica);
+            
+            Dialogs.showInformationDialog(null, "A Música foi salva com sucesso!", "Sucesso", "Informação");
         } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
         }

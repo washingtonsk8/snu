@@ -10,7 +10,6 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import snu.entidades.musica.AssociacaoIntegranteMusica;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,6 +18,7 @@ import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
+import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.util.StringUtil;
 
 /**
@@ -212,6 +212,9 @@ public class MusicaJpaController implements Serializable {
         if (!parametrosPesquisa.getTitulo().equals(StringUtil.VAZIA)) {
             sql += " AND m.titulo LIKE :titulo ";
         }
+        if (!parametrosPesquisa.getLeiturasAssociadas().isEmpty()) {
+            sql += " AND leiturasAssociadas MEMBER OF m.leiturasAssociadas ";
+        }
 
         em.getTransaction().begin();
         query = em.createQuery(sql);
@@ -221,6 +224,9 @@ public class MusicaJpaController implements Serializable {
         }
         if (!parametrosPesquisa.getTitulo().equals(StringUtil.VAZIA)) {
             query.setParameter("titulo", "%" + parametrosPesquisa.getTitulo() + "%");
+        }
+        if (!parametrosPesquisa.getLeiturasAssociadas().isEmpty()) {
+            query.setParameter("leiturasAssociadas", parametrosPesquisa.getLeiturasAssociadas());
         }
 
         resultado = query.getResultList();

@@ -37,19 +37,18 @@ import snu.controladores.MusicaJpaController;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
-import snu.util.ListaUtil;
 
 /**
  * FXML Controller class
  *
  * @author Washington Luis
  */
-public class VisualizarDadosMusicaController implements Initializable {
+public class AtualizarDadosMusicaController implements Initializable {
 
     @FXML
-    private AnchorPane contentVisualizarDadosMusica;
+    private AnchorPane contentAtualizarDadosMusica;
     @FXML
-    private Label lblVisualizarDadosMusica;
+    private Label lblAtualizarDadosMusica;
     @FXML
     private TextField fldAutor;
     @FXML
@@ -134,10 +133,15 @@ public class VisualizarDadosMusicaController implements Initializable {
         this.clnLeituras.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
-                String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getLeiturasAssociadas());
+                List<String> leiturasAssociadas = musica.getValue().getLeiturasAssociadas();
+                String apresentacao = "";
 
-                if (!celula.isEmpty()) {
-                    return new SimpleStringProperty(celula);
+                for (String leituraAssociada : leiturasAssociadas) {
+                    apresentacao += leituraAssociada + ", ";
+                }
+
+                if (!leiturasAssociadas.isEmpty()) {
+                    return new SimpleStringProperty(apresentacao.substring(0, apresentacao.length() - 2));
                 } else {
                     return new SimpleStringProperty("Não há leituras associadas");
                 }
@@ -146,9 +150,14 @@ public class VisualizarDadosMusicaController implements Initializable {
         this.clnTipos.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
-                String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getTipos());
+                List<TipoMusica> tiposMusica = musica.getValue().getTipos();
+                String apresentacao = "";
 
-                return new SimpleStringProperty(celula);
+                for (TipoMusica tipoMusica : tiposMusica) {
+                    apresentacao += tipoMusica + ", ";
+                }
+
+                return new SimpleStringProperty(apresentacao.substring(0, apresentacao.length() - 2));
             }
         });
     }
@@ -182,33 +191,30 @@ public class VisualizarDadosMusicaController implements Initializable {
     }
 
     private void carregarVisualizacaoMusica(Musica musicaSelecionada) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/VisualizarMusica.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarMusica.fxml"));
 
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(VisualizarDadosMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AtualizarDadosMusicaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        VisualizarMusicaController visualizarMusicaController = fxmlLoader.getController();
+        AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
 
         //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentVisualizarDadosMusica.getParent());
-        visualizarMusicaController.initData(musicaSelecionada, this);
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarDadosMusica.getParent());
+        atualizarMusicaController.initData(musicaSelecionada, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
     }
 
-    public AnchorPane getContentVisualizarDadosMusica() {
-        return contentVisualizarDadosMusica;
+    public AnchorPane getContentAtualizarDadosMusica() {
+        return contentAtualizarDadosMusica;
     }
 
     /**
      * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -217,8 +223,8 @@ public class VisualizarDadosMusicaController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromContentVisualizarDadosMusica(MouseEvent event) {
-        this.contentVisualizarDadosMusica.requestFocus();
+    private void onMouseClickedFromContentAtualizarDadosMusica(MouseEvent event) {
+        this.contentAtualizarDadosMusica.requestFocus();
     }
 
     @FXML

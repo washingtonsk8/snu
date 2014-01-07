@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores.musica;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,13 +16,13 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.MusicaJpaController;
+import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
@@ -44,12 +44,12 @@ import snu.util.ListaUtil;
  *
  * @author Washington Luis
  */
-public class VisualizarDadosMusicaController implements Initializable {
+public class RemoverMusicaController implements Initializable {
 
     @FXML
-    private AnchorPane contentVisualizarDadosMusica;
+    private AnchorPane contentRemoverMusica;
     @FXML
-    private Label lblVisualizarDadosMusica;
+    private Label lblRemoverMusica;
     @FXML
     private TextField fldAutor;
     @FXML
@@ -120,8 +120,12 @@ public class VisualizarDadosMusicaController implements Initializable {
     private TableColumn<Musica, String> clnLeituras;
     @FXML
     private Button btnPesquisar;
+    @FXML
+    private Button btnRemover;
 
     private List<TipoMusica> tiposMusica;
+
+    private ObservableList<Musica> musicas;
 
     private void initComponents() {
         this.clnAutor.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -174,34 +178,8 @@ public class VisualizarDadosMusicaController implements Initializable {
         parametrosPesquisa.setTitulo(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
 
-        List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
-                .findMusicasByParametrosPesquisa(parametrosPesquisa);
-
-        this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
-        atualizarTabela();
-    }
-
-    private void carregarVisualizacaoMusica(Musica musicaSelecionada) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/VisualizarMusica.fxml"));
-
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(VisualizarDadosMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        VisualizarMusicaController visualizarMusicaController = fxmlLoader.getController();
-
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentVisualizarDadosMusica.getParent());
-        visualizarMusicaController.initData(musicaSelecionada, this);
-        pai.getChildren().clear();
-        pai.getChildren().add(root);
-    }
-
-    public AnchorPane getContentVisualizarDadosMusica() {
-        return contentVisualizarDadosMusica;
+        this.musicas = FXCollections.observableArrayList(MusicaJpaController.getInstancia().findMusicasByParametrosPesquisa(parametrosPesquisa));
+        this.tblMusicas.setItems(this.musicas);
     }
 
     /**
@@ -217,8 +195,8 @@ public class VisualizarDadosMusicaController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromContentVisualizarDadosMusica(MouseEvent event) {
-        this.contentVisualizarDadosMusica.requestFocus();
+    private void onMouseClickedFromContentRemoverMusica(MouseEvent event) {
+        this.contentRemoverMusica.requestFocus();
     }
 
     @FXML
@@ -431,15 +409,33 @@ public class VisualizarDadosMusicaController implements Initializable {
     @FXML
     private void onMouseClickedFromTblMusicas(MouseEvent event) {
         this.tblMusicas.requestFocus();
-        Musica musicaSelecionada = this.tblMusicas.getSelectionModel().getSelectedItem();
-        if (event.getClickCount() == 2 && musicaSelecionada != null) {
-            carregarVisualizacaoMusica(musicaSelecionada);
-        }
     }
 
     @FXML
     private void onActionFromBtnPesquisar(ActionEvent event) {
         pesquisarPorParametros();
+    }
+
+    @FXML
+    private void onActionFromBtnRemover(ActionEvent event) {
+        Musica integranteSelecionado = this.tblMusicas.getSelectionModel().getSelectedItem();
+
+        if (integranteSelecionado != null) {
+            Dialogs.DialogResponse resposta;
+            resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Música?", "Exclusão de Música", "Confirmação");
+
+            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+                try {
+                    MusicaJpaController.getInstancia().destroy(integranteSelecionado.getId());
+                    this.musicas.remove(integranteSelecionado);
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(RemoverMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                atualizarTabela();
+            }
+        } else {
+            Dialogs.showWarningDialog(null, "Favor selecionar uma Música para a exclusão", "Música não selecionada", "Aviso");
+        }
     }
 
     private void atualizarTabela() {

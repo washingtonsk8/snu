@@ -6,6 +6,8 @@
     <class>snu.entidades.musica.Musica</class>
     <class>snu.entidades.musica.AssociacaoIntegranteMusica</class>
     <class>snu.entidades.musica.Autor</class>
+    <class>snu.entidades.musica.DocumentoMusica</class>
+    <class>snu.entidades.musica.indexador.Vocabulo</class>
     <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull"/>

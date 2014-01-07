@@ -7,7 +7,6 @@ package snu.fronteiras.controladores.musica;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
-import snu.entidades.musica.TipoMusica;
+import snu.util.ListaUtil;
 
 /**
  * FXML Controller class
@@ -99,41 +98,22 @@ public class VisualizarMusicaController implements Initializable {
                 return new SimpleStringProperty(associacao.getValue().getTom().toString());
             }
         });
-
-        this.contentVisualizarMusica.requestFocus();
     }
 
     public void initData(Musica musica, VisualizarDadosMusicaController controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
+        
+        String leiturasAssociadas = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas());
 
         this.lblResultadoAfinacao.setText(musica.getAfinacao().toString());
         this.lblResultadoAutor.setText(musica.getAutor().getNome());
-
-        List<String> leiturasAssociadas = musica.getLeiturasAssociadas();
-        String apresentacao = "";
-
-        for (String leituraAssociada : leiturasAssociadas) {
-            apresentacao += leituraAssociada + ", ";
-        }
-
-        if (!leiturasAssociadas.isEmpty()) {
-            this.lblResultadoLeituras.setText(apresentacao.substring(0, apresentacao.length() - 2));
-        } else {
-            this.lblResultadoLeituras.setText("Não há leituras associadas");
-        }
-
-        List<TipoMusica> tiposMusica = musica.getTipos();
-        apresentacao = "";
-
-        for (TipoMusica tipoMusica : tiposMusica) {
-            apresentacao += tipoMusica + ", ";
-        }
-
-        this.lblResultadoTipos.setText(apresentacao.substring(0, apresentacao.length() - 2));
+        this.lblResultadoLeituras.setText((leiturasAssociadas != null && !leiturasAssociadas.isEmpty()) ? leiturasAssociadas : "Não há leituras associadas");
+        this.lblResultadoTipos.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getTipos()));
         this.lblResultadoTitulo.setText(musica.getTitulo());
         this.lblResultadoTom.setText(musica.getTom().toString());
         this.tblResultadoAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
+        this.tblResultadoAssociacoes.setEditable(false);
     }
 
     private void carregarConteudoMusica() {

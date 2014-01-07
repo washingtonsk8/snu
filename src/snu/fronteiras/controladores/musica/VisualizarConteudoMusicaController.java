@@ -45,7 +45,7 @@ public class VisualizarConteudoMusicaController implements Initializable {
 
     public void initData(Musica musica, VisualizarMusicaController controladorOrigem){
         this.controladorOrigem = controladorOrigem;
-        this.areaVisualizarMusica.setText(musica.getConteudo());
+        this.areaVisualizarMusica.setText(musica.getDocumentoMusica().getConteudo());
     }
     
     /**

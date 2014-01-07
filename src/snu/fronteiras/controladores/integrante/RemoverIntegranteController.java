@@ -169,7 +169,7 @@ public class RemoverIntegranteController implements Initializable {
                 atualizarTabela();
             }
         } else {
-            Dialogs.showWarningDialog(null, "Favor selecionar um Integrante para a exclusão", "Integrante não selecionado", "Aviso");
+            Dialogs.showWarningDialog(null, "Favor selecionar um(a) Integrante para a exclusão", "Integrante não selecionado(a)", "Aviso");
         }
     }
 
