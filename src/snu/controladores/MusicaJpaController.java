@@ -215,7 +215,7 @@ public class MusicaJpaController implements Serializable {
         if (!parametrosPesquisa.getLeiturasAssociadas().isEmpty()) {
             sql += " AND leiturasAssociadas MEMBER OF m.leiturasAssociadas ";
         }
-
+        
         em.getTransaction().begin();
         query = em.createQuery(sql);
 

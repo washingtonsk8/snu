@@ -171,7 +171,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private Button btnSelecionarAutor;
 
     @FXML
-    private AnchorPane popupSelecionarAutor;
+    private Button btnCriarNova;
 
     /**
      * Inicializa os componentes
@@ -562,6 +562,57 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         pai.getChildren().add(root);
     }
 
+    @FXML
+    private void onActionFromBtnCriarNova(ActionEvent event) {
+        this.fldAutor.clear();
+        this.fldLeituras.clear();
+        this.fldTitulo.clear();
+        this.comboAfinacao.setValue(null);
+        this.comboTom.setValue(null);
+        this.comboNomeAssociacao.setValue(null);
+        this.comboTomAssociacao.setValue(null);
+        this.itensAssociacao.clear();
+        this.tblAssociacoes.setItems(itensAssociacao);
+        
+        for (Pair<TipoMusica, CheckBox> par : parTiposMusicaCheckBoxes) {
+            par.getValue().setSelected(false);
+        }
+        
+        this.musica = new Musica();
+        
+        this.fldTitulo.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromBtnSelecionarAutor(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml"));
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Inicializa os dados passando a música por parâmetro
+        SelecionarAutorController selecionarAutorController = fxmlLoader.getController();
+        selecionarAutorController.initData(this.musica);
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Seleção de Autor");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+
+        //Após a seleção do autor, atualiza o campo
+        Autor autorSelecionado = this.musica.getAutor();
+        if (autorSelecionado != null) {
+            this.fldAutor.setText(autorSelecionado.getNome());
+        }
+        this.fldTitulo.requestFocus();//Coloca o foco no campo de título
+    }
+
     private boolean validarCampos() {
         boolean validadeDosCampos = true;
         if (StringUtil.isVazia(this.fldAutor.getText())) {
@@ -661,36 +712,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 itens.add(0, item);
             }
         });
-    }
-
-    @FXML
-    private void onActionFromBtnSelecionarAutor(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml"));
-        AnchorPane root = null;
-        try {
-            root = (AnchorPane) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Inicializa os dados passando a música por parâmetro
-        SelecionarAutorController selecionarAutorController = fxmlLoader.getController();
-        selecionarAutorController.initData(this.musica);
-
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Seleção de Autor");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-        dialogStage.setScene(new Scene(root));
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
-
-        //Após a seleção do autor, atualiza o campo
-        Autor autorSelecionado = this.musica.getAutor();
-        if (autorSelecionado != null) {
-            this.fldAutor.setText(autorSelecionado.getNome());
-        }
-        this.fldTitulo.requestFocus();//Coloca o foco no campo de título
     }
 
 }

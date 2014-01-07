@@ -6,16 +6,20 @@
 package snu.entidades.musica.indexador;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import javafx.util.Pair;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -31,13 +35,12 @@ public class Vocabulo implements Serializable {
 
     private String token;
 
-    @ElementCollection
-    @MapKeyColumn(name = "musica_id")
-    @Column(name = "frequencia_token")
-    private Map<Long, Integer> listaInvertida;
+    @OneToMany(mappedBy = "vocabulo", cascade = CascadeType.ALL, orphanRemoval = true,
+            targetEntity = ObjetoListaInvertida.class, fetch = FetchType.EAGER)
+    private List<ObjetoListaInvertida> listaInvertida;
 
     public Vocabulo() {
-        this.listaInvertida = new HashMap<>();
+        this.listaInvertida = new ArrayList<>();
     }
 
     public Long getId() {
@@ -56,11 +59,11 @@ public class Vocabulo implements Serializable {
         this.token = token;
     }
 
-    public Map<Long, Integer> getListaInvertida() {
+    public List<ObjetoListaInvertida> getListaInvertida() {
         return listaInvertida;
     }
 
-    public void setListaInvertida(Map<Long, Integer> listaInvertida) {
+    public void setListaInvertida(List<ObjetoListaInvertida> listaInvertida) {
         this.listaInvertida = listaInvertida;
     }
 

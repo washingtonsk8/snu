@@ -6,20 +6,22 @@
 package snu.controladores;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import snu.entidades.musica.indexador.ObjetoListaInvertida;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import snu.bd.GerenciadorDeEntidades;
-import snu.bd.exceptions.NonexistentEntityException;
+import snu.controladores.exceptions.NonexistentEntityException;
 import snu.entidades.musica.indexador.Vocabulo;
 
 /**
  *
- * @author Washington Luis
+ * @author washi_000
  */
 public class VocabuloJpaController implements Serializable {
 
@@ -40,11 +42,29 @@ public class VocabuloJpaController implements Serializable {
     }
 
     public void create(Vocabulo vocabulo) {
+        if (vocabulo.getListaInvertida() == null) {
+            vocabulo.setListaInvertida(new ArrayList<ObjetoListaInvertida>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            /*List<ObjetoListaInvertida> attachedListaInvertida = new ArrayList<ObjetoListaInvertida>();
+             for (ObjetoListaInvertida listaInvertidaObjetoListaInvertidaToAttach : vocabulo.getListaInvertida()) {
+             listaInvertidaObjetoListaInvertidaToAttach = em.getReference(listaInvertidaObjetoListaInvertidaToAttach.getClass(), listaInvertidaObjetoListaInvertidaToAttach.getId());
+             attachedListaInvertida.add(listaInvertidaObjetoListaInvertidaToAttach);
+             }
+             vocabulo.setListaInvertida(attachedListaInvertida);*/
             em.persist(vocabulo);
+            /*for (ObjetoListaInvertida listaInvertidaObjetoListaInvertida : vocabulo.getListaInvertida()) {
+             Vocabulo oldVocabuloOfListaInvertidaObjetoListaInvertida = listaInvertidaObjetoListaInvertida.getVocabulo();
+             listaInvertidaObjetoListaInvertida.setVocabulo(vocabulo);
+             listaInvertidaObjetoListaInvertida = em.merge(listaInvertidaObjetoListaInvertida);
+             if (oldVocabuloOfListaInvertidaObjetoListaInvertida != null) {
+             oldVocabuloOfListaInvertidaObjetoListaInvertida.getListaInvertida().remove(listaInvertidaObjetoListaInvertida);
+             oldVocabuloOfListaInvertidaObjetoListaInvertida = em.merge(oldVocabuloOfListaInvertidaObjetoListaInvertida);
+             }
+             }*/
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -58,7 +78,34 @@ public class VocabuloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            /*Vocabulo persistentVocabulo = em.find(Vocabulo.class, vocabulo.getId());
+             List<ObjetoListaInvertida> listaInvertidaOld = persistentVocabulo.getListaInvertida();
+             List<ObjetoListaInvertida> listaInvertidaNew = vocabulo.getListaInvertida();
+             List<ObjetoListaInvertida> attachedListaInvertidaNew = new ArrayList<ObjetoListaInvertida>();
+             for (ObjetoListaInvertida listaInvertidaNewObjetoListaInvertidaToAttach : listaInvertidaNew) {
+             listaInvertidaNewObjetoListaInvertidaToAttach = em.getReference(listaInvertidaNewObjetoListaInvertidaToAttach.getClass(), listaInvertidaNewObjetoListaInvertidaToAttach.getId());
+             attachedListaInvertidaNew.add(listaInvertidaNewObjetoListaInvertidaToAttach);
+             }
+             listaInvertidaNew = attachedListaInvertidaNew;
+             vocabulo.setListaInvertida(listaInvertidaNew);*/
             vocabulo = em.merge(vocabulo);
+            /*for (ObjetoListaInvertida listaInvertidaOldObjetoListaInvertida : listaInvertidaOld) {
+             if (!listaInvertidaNew.contains(listaInvertidaOldObjetoListaInvertida)) {
+             listaInvertidaOldObjetoListaInvertida.setVocabulo(null);
+             listaInvertidaOldObjetoListaInvertida = em.merge(listaInvertidaOldObjetoListaInvertida);
+             }
+             }
+             for (ObjetoListaInvertida listaInvertidaNewObjetoListaInvertida : listaInvertidaNew) {
+             if (!listaInvertidaOld.contains(listaInvertidaNewObjetoListaInvertida)) {
+             Vocabulo oldVocabuloOfListaInvertidaNewObjetoListaInvertida = listaInvertidaNewObjetoListaInvertida.getVocabulo();
+             listaInvertidaNewObjetoListaInvertida.setVocabulo(vocabulo);
+             listaInvertidaNewObjetoListaInvertida = em.merge(listaInvertidaNewObjetoListaInvertida);
+             if (oldVocabuloOfListaInvertidaNewObjetoListaInvertida != null && !oldVocabuloOfListaInvertidaNewObjetoListaInvertida.equals(vocabulo)) {
+             oldVocabuloOfListaInvertidaNewObjetoListaInvertida.getListaInvertida().remove(listaInvertidaNewObjetoListaInvertida);
+             oldVocabuloOfListaInvertidaNewObjetoListaInvertida = em.merge(oldVocabuloOfListaInvertidaNewObjetoListaInvertida);
+             }
+             }
+             }*/
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -88,6 +135,11 @@ public class VocabuloJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The vocabulo with id " + id + " no longer exists.", enfe);
             }
+            List<ObjetoListaInvertida> listaInvertida = vocabulo.getListaInvertida();
+            for (ObjetoListaInvertida listaInvertidaObjetoListaInvertida : listaInvertida) {
+                listaInvertidaObjetoListaInvertida.setVocabulo(null);
+                listaInvertidaObjetoListaInvertida = em.merge(listaInvertidaObjetoListaInvertida);
+            }
             em.remove(vocabulo);
             em.getTransaction().commit();
         } finally {
@@ -97,7 +149,7 @@ public class VocabuloJpaController implements Serializable {
         }
     }
 
-    public List<Vocabulo> findVocabularioEntities() {
+    public List<Vocabulo> findVocabuloEntities() {
         return findVocabuloEntities(true, -1, -1);
     }
 
@@ -131,21 +183,24 @@ public class VocabuloJpaController implements Serializable {
     }
 
     public Vocabulo findVocabuloByToken(String token) {
+        List<Vocabulo> listaResultante;
         Vocabulo resultado;
         Query query;
         String sql;
         EntityManager em = getEntityManager();
 
-        sql = "SELECT v FROM Vocabulo v WHERE token = :token";
-
+        sql = "SELECT v FROM Vocabulo v WHERE v.token = :token ";
+        
         em.getTransaction().begin();
         query = em.createQuery(sql);
+
         query.setParameter("token", token);
 
-        List<Vocabulo> listaResultante = query.getResultList();
-        resultado = listaResultante.isEmpty()? null : listaResultante.get(0);
+        listaResultante = query.getResultList();
+
+        resultado = listaResultante.isEmpty() ? null : listaResultante.get(0);
+
         em.getTransaction().commit();
-        
         return resultado;
     }
 

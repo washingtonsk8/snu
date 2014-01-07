@@ -91,10 +91,6 @@
       <Glow />
     </effect>
   </Label>
-  <stylesheets>
-    <URL value="@../../css/musica/criarmusica.css" />
-    <URL value="@../../css/contents.css" />
-  </stylesheets>
   <Button fx:id="btnAdicionarAssociacao" font="$x2" layoutX="586.0" layoutY="400.0" mnemonicParsing="false" onAction="#onActionFromBtnAdicionarAssociacao" prefWidth="90.0" text="Adicionar" textFill="BLACK" />
   <Label id="lblTitulo" fx:id="lblTomAssociacao" alignment="CENTER_RIGHT" font="$x2" layoutX="530.0" layoutY="370.0" onMouseClicked="#onMouseClickedFromLblTitulo" prefHeight="20.0" prefWidth="50.0" text="Tom:" textFill="BLACK">
     <effect>
@@ -138,4 +134,9 @@
       <Glow />
     </effect>
   </Label>
+  <stylesheets>
+    <URL value="@../../css/musica/criarmusica.css" />
+    <URL value="@../../css/contents.css" />
+  </stylesheets>
+  <Button fx:id="btnCriarNova" font="$x2" layoutX="396.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnCriarNova" prefHeight="40.0" prefWidth="100.0" text="Criar Nova" textFill="BLACK" />
 </AnchorPane>

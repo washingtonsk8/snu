@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -23,6 +24,7 @@ import snu.controladores.VocabuloJpaController;
 import snu.entidades.musica.indexador.Vocabulo;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
+import snu.entidades.musica.indexador.ObjetoListaInvertida;
 
 /**
  * Classe que realiza o parsing no documento
@@ -79,14 +81,23 @@ public class Parser {
         for (Map.Entry<String, Integer> entradaToken : vocabuloAnalisado.entrySet()) {
             Vocabulo vocabulo = vocabuloController.findVocabuloByToken(entradaToken.getKey());
             if (vocabulo == null) {
+                ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
                 vocabulo = new Vocabulo();
+                
+                objetoListaInvertida.setVocabulo(vocabulo);
+                objetoListaInvertida.setIdMusica(musica.getId());
+                objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
                 vocabulo.setToken(entradaToken.getKey());
-                vocabulo.getListaInvertida().put(musica.getId(), entradaToken.getValue());
+                vocabulo.getListaInvertida().add(objetoListaInvertida);
 
                 //Persiste no banco
                 vocabuloController.create(vocabulo);
             }else{
-                vocabulo.getListaInvertida().put(musica.getId(), entradaToken.getValue());
+                ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
+                objetoListaInvertida.setVocabulo(vocabulo);
+                objetoListaInvertida.setIdMusica(musica.getId());
+                objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
+                vocabulo.getListaInvertida().add(objetoListaInvertida);
                 try {
                     //Atualiza no banco
                     vocabuloController.edit(vocabulo);
