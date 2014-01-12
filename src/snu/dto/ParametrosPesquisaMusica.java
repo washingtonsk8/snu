@@ -17,7 +17,7 @@ public class ParametrosPesquisaMusica {
 
     private String nomeAutor;
     private String titulo;
-    private List<String> leiturasAssociadas;
+    private String descricaoLeituraAssociadas;
     private String trecho;
     private List<TipoMusica> tipos;
 
@@ -37,12 +37,12 @@ public class ParametrosPesquisaMusica {
         this.titulo = titulo;
     }
 
-    public List<String> getLeiturasAssociadas() {
-        return leiturasAssociadas;
+    public String getDescricaoLeiturasAssociadas() {
+        return descricaoLeituraAssociadas;
     }
 
-    public void setLeiturasAssociadas(List<String> leiturasAssociadas) {
-        this.leiturasAssociadas = leiturasAssociadas;
+    public void setDescricaoLeiturasAssociadas(String descricaoLeiturasAssociadas) {
+        this.descricaoLeituraAssociadas = descricaoLeiturasAssociadas;
     }
 
     public String getTrecho() {

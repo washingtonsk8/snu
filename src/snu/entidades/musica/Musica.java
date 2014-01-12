@@ -41,8 +41,9 @@ public class Musica implements Serializable {
 
     private String titulo;
 
-    @ElementCollection(targetClass = String.class)
-    private List<String> leiturasAssociadas;
+    @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
+            targetEntity = LeituraAssociada.class, fetch = FetchType.LAZY)
+    private List<LeituraAssociada> leiturasAssociadas;
 
     @Enumerated(EnumType.STRING)
     private Tom tom;
@@ -50,15 +51,16 @@ public class Musica implements Serializable {
     @Enumerated(EnumType.STRING)
     private Afinacao afinacao;
 
-    @ElementCollection(targetClass = TipoMusica.class)
-    @Enumerated(EnumType.STRING)
-    private List<TipoMusica> tipos;
+    @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
+            targetEntity = EntidadeTipoMusica.class, fetch = FetchType.LAZY)
+    private List<EntidadeTipoMusica> tipos;
 
     @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
             targetEntity = AssociacaoIntegranteMusica.class, fetch = FetchType.LAZY)
     private List<AssociacaoIntegranteMusica> associacoes;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = DocumentoMusica.class)
+    @JoinColumn(name = "documentomusica_id")
     private DocumentoMusica documentoMusica;
 
     public Musica() {
@@ -92,11 +94,11 @@ public class Musica implements Serializable {
         this.titulo = titulo;
     }
 
-    public List<String> getLeiturasAssociadas() {
+    public List<LeituraAssociada> getLeiturasAssociadas() {
         return leiturasAssociadas;
     }
 
-    public void setLeiturasAssociadas(List<String> leiturasAssociadas) {
+    public void setLeiturasAssociadas(List<LeituraAssociada> leiturasAssociadas) {
         this.leiturasAssociadas = leiturasAssociadas;
     }
 
@@ -117,13 +119,42 @@ public class Musica implements Serializable {
     }
 
     public List<TipoMusica> getTipos() {
-        return tipos;
+        List<TipoMusica> retorno = new ArrayList<>();
+        for (EntidadeTipoMusica entidadeTipoMusica : this.tipos) {
+            retorno.add(entidadeTipoMusica.getValor());
+        }
+        return retorno;
     }
 
     public void setTipos(List<TipoMusica> tipos) {
-        this.tipos = tipos;
+        this.tipos = new ArrayList<>();
+        for (TipoMusica tipoMusica : tipos) {
+            EntidadeTipoMusica novaEntidade = new EntidadeTipoMusica();
+            novaEntidade.setValor(tipoMusica);
+            novaEntidade.setMusica(this);
+            this.tipos.add(novaEntidade);
+        }
     }
 
+    public void adicionarTipo(TipoMusica tipo) {
+        EntidadeTipoMusica novaEntidade = new EntidadeTipoMusica();
+        novaEntidade.setValor(tipo);
+        novaEntidade.setMusica(this);
+        this.tipos.add(novaEntidade);
+    }
+    
+    public void removerTipo(TipoMusica tipo){
+        for (int indiceRemocao = 0; indiceRemocao < this.tipos.size(); indiceRemocao++) {
+            if(this.tipos.get(indiceRemocao).getValor().equals(tipo)){
+                //Remover o indice
+                this.tipos.remove(indiceRemocao);
+                
+                //Quebrar a iteração
+                indiceRemocao = this.tipos.size();
+            }
+        }
+    }
+    
     public List<AssociacaoIntegranteMusica> getAssociacoes() {
         return associacoes;
     }

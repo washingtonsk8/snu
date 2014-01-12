@@ -26,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -80,6 +81,8 @@ public class RemoverIntegranteController implements Initializable {
             FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
     @FXML
     private Button btnRemover;
+    @FXML
+    private Font x2;
 
     private void initComponents() {
 
@@ -101,6 +104,17 @@ public class RemoverIntegranteController implements Initializable {
         this.comboFuncaoPrincipal.setItems(funcoesIntegrante);
     }
 
+    private void pesquisarPorParametros() {
+        ParametrosPesquisaIntegrante parametrosPesquisa = new ParametrosPesquisaIntegrante();
+        IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
+
+        parametrosPesquisa.setNome(this.fldNome.getText());
+        parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
+
+        this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
+        this.tblIntegrantes.setItems(this.integrantes);
+    }
+
     /**
      * Inicializa a classe de controle.
      *
@@ -119,6 +133,7 @@ public class RemoverIntegranteController implements Initializable {
 
     @FXML
     private void onActionFromFldNome(ActionEvent event) {
+        pesquisarPorParametros();
     }
 
     @FXML
@@ -135,15 +150,15 @@ public class RemoverIntegranteController implements Initializable {
     }
 
     @FXML
+    private void onKeyTypedFromComboFuncaoPrincipal(KeyEvent event) {
+        if (event.getCharacter().equals("\n") || event.getCharacter().equals("\r")) {
+            pesquisarPorParametros();
+        }
+    }
+
+    @FXML
     private void onActionFromBtnPesquisar(ActionEvent event) {
-        ParametrosPesquisaIntegrante parametrosPesquisa = new ParametrosPesquisaIntegrante();
-        IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
-
-        parametrosPesquisa.setNome(this.fldNome.getText());
-        parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
-
-        this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
-        this.tblIntegrantes.setItems(this.integrantes);
+        pesquisarPorParametros();
     }
 
     @FXML

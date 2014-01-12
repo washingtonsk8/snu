@@ -6,7 +6,6 @@
 package snu.entidades.musica;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,26 +15,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import snu.entidades.integrante.Integrante;
 
 /**
- * Associações entre integrante e música
+ * Entidade para carregar os tipos de música de modo a serem mapeadas no banco
+ *
  * @author Washington Luis
  */
 @Entity
-@Table(name = "musica_associacoes")
-public class AssociacaoIntegranteMusica implements Serializable {
+@Table(name = "musica_tipos")
+public class EntidadeTipoMusica implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private Integrante integrante;
-
     @Enumerated(EnumType.STRING)
-    private Tom tom;
+    private TipoMusica valor;
 
     @ManyToOne
     @JoinColumn(name = "musica_id")
@@ -49,22 +45,14 @@ public class AssociacaoIntegranteMusica implements Serializable {
         this.id = id;
     }
 
-    public Integrante getIntegrante() {
-        return integrante;
+    public TipoMusica getValor() {
+        return valor;
     }
 
-    public void setIntegrante(Integrante integrante) {
-        this.integrante = integrante;
+    public void setValor(TipoMusica valor) {
+        this.valor = valor;
     }
 
-    public Tom getTom() {
-        return tom;
-    }
-
-    public void setTom(Tom tom) {
-        this.tom = tom;
-    }
-    
     public Musica getMusica() {
         return musica;
     }
@@ -75,24 +63,26 @@ public class AssociacaoIntegranteMusica implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EntidadeTipoMusica)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AssociacaoIntegranteMusica other = (AssociacaoIntegranteMusica) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        EntidadeTipoMusica other = (EntidadeTipoMusica) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return this.valor.toString();
+    }
 }

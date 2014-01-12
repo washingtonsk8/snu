@@ -35,8 +35,10 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.MusicaJpaController;
 import snu.dto.ParametrosPesquisaMusica;
+import snu.entidades.musica.LeituraAssociada;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.util.ListaUtil;
 
 /**
  * FXML Controller class
@@ -56,9 +58,9 @@ public class AtualizarDadosMusicaController implements Initializable {
     @FXML
     private TextField fldTitulo;
     @FXML
-    private Label lblLeituras;
+    private Label lblLeitura;
     @FXML
-    private TextField fldLeituras;
+    private TextField fldLeitura;
     @FXML
     private Font x1;
     @FXML
@@ -123,6 +125,8 @@ public class AtualizarDadosMusicaController implements Initializable {
     private List<TipoMusica> tiposMusica;
 
     private void initComponents() {
+        this.tiposMusica = new ArrayList<>();
+
         this.clnAutor.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
@@ -133,15 +137,10 @@ public class AtualizarDadosMusicaController implements Initializable {
         this.clnLeituras.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
-                List<String> leiturasAssociadas = musica.getValue().getLeiturasAssociadas();
-                String apresentacao = "";
+                String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getLeiturasAssociadas());
 
-                for (String leituraAssociada : leiturasAssociadas) {
-                    apresentacao += leituraAssociada + ", ";
-                }
-
-                if (!leiturasAssociadas.isEmpty()) {
-                    return new SimpleStringProperty(apresentacao.substring(0, apresentacao.length() - 2));
+                if (!celula.isEmpty()) {
+                    return new SimpleStringProperty(celula);
                 } else {
                     return new SimpleStringProperty("Não há leituras associadas");
                 }
@@ -150,14 +149,9 @@ public class AtualizarDadosMusicaController implements Initializable {
         this.clnTipos.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
-                List<TipoMusica> tiposMusica = musica.getValue().getTipos();
-                String apresentacao = "";
+                String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getTipos());
 
-                for (TipoMusica tipoMusica : tiposMusica) {
-                    apresentacao += tipoMusica + ", ";
-                }
-
-                return new SimpleStringProperty(apresentacao.substring(0, apresentacao.length() - 2));
+                return new SimpleStringProperty(celula);
             }
         });
     }
@@ -165,20 +159,7 @@ public class AtualizarDadosMusicaController implements Initializable {
     private void pesquisarPorParametros() {
         ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
         parametrosPesquisa.setNomeAutor(this.fldAutor.getText());
-
-        String campoLeiturasAssociadas = this.fldLeituras.getText();
-
-        if (!campoLeiturasAssociadas.isEmpty()) {
-            List<String> leiturasAssociadas = new ArrayList<>();
-
-            for (String leituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                leiturasAssociadas.add(leituraAssociada.trim());
-            }
-            parametrosPesquisa.setLeiturasAssociadas(leiturasAssociadas);
-        } else {
-            parametrosPesquisa.setLeiturasAssociadas(new ArrayList<String>());
-        }
-
+        parametrosPesquisa.setDescricaoLeiturasAssociadas(this.fldLeitura.getText());
         parametrosPesquisa.setTipos(this.tiposMusica);
         parametrosPesquisa.setTitulo(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
@@ -238,7 +219,7 @@ public class AtualizarDadosMusicaController implements Initializable {
     }
 
     @FXML
-    private void onActionFromFldLeituras(ActionEvent event) {
+    private void onActionFromFldLeitura(ActionEvent event) {
         pesquisarPorParametros();
     }
 
@@ -410,8 +391,8 @@ public class AtualizarDadosMusicaController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromLblLeituras(MouseEvent event) {
-        this.fldLeituras.requestFocus();
+    private void onMouseClickedFromLblLeitura(MouseEvent event) {
+        this.fldLeitura.requestFocus();
     }
 
     @FXML

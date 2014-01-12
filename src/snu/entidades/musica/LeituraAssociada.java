@@ -6,36 +6,29 @@
 package snu.entidades.musica;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import snu.entidades.integrante.Integrante;
 
 /**
- * Associações entre integrante e música
+ * Leituras associadas às músicas
+ *
  * @author Washington Luis
  */
 @Entity
-@Table(name = "musica_associacoes")
-public class AssociacaoIntegranteMusica implements Serializable {
+@Table(name = "musica_leiturasassociadas")
+public class LeituraAssociada implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private Integrante integrante;
-
-    @Enumerated(EnumType.STRING)
-    private Tom tom;
+    private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "musica_id")
@@ -49,22 +42,14 @@ public class AssociacaoIntegranteMusica implements Serializable {
         this.id = id;
     }
 
-    public Integrante getIntegrante() {
-        return integrante;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setIntegrante(Integrante integrante) {
-        this.integrante = integrante;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Tom getTom() {
-        return tom;
-    }
-
-    public void setTom(Tom tom) {
-        this.tom = tom;
-    }
-    
     public Musica getMusica() {
         return musica;
     }
@@ -75,24 +60,27 @@ public class AssociacaoIntegranteMusica implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof LeituraAssociada)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AssociacaoIntegranteMusica other = (AssociacaoIntegranteMusica) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        LeituraAssociada other = (LeituraAssociada) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.descricao;
     }
 
 }

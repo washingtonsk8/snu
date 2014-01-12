@@ -28,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -78,6 +79,8 @@ public class AtualizarDadosIntegranteController implements Initializable {
             FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
             FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
             FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
+    @FXML
+    private Font x2;
 
     private void initComponents() {
 
@@ -129,6 +132,17 @@ public class AtualizarDadosIntegranteController implements Initializable {
         pai.getChildren().add(root);
     }
 
+    private void pesquisarPorParametros() {
+        ParametrosPesquisaIntegrante parametrosPesquisa = new ParametrosPesquisaIntegrante();
+        IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
+
+        parametrosPesquisa.setNome(this.fldNome.getText());
+        parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
+
+        this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
+        this.tblIntegrantes.setItems(this.integrantes);
+    }
+
     @FXML
     private void onMouseClickedFromLblNome(MouseEvent event) {
         this.fldNome.requestFocus();
@@ -136,6 +150,7 @@ public class AtualizarDadosIntegranteController implements Initializable {
 
     @FXML
     private void onActionFromFldNome(ActionEvent event) {
+        pesquisarPorParametros();
     }
 
     @FXML
@@ -152,15 +167,15 @@ public class AtualizarDadosIntegranteController implements Initializable {
     }
 
     @FXML
+    private void onKeyTypedFromComboFuncaoPrincipal(KeyEvent event) {
+        if (event.getCharacter().equals("\n") || event.getCharacter().equals("\r")) {
+            pesquisarPorParametros();
+        }
+    }
+
+    @FXML
     private void onActionFromBtnPesquisar(ActionEvent event) {
-        ParametrosPesquisaIntegrante parametrosPesquisa = new ParametrosPesquisaIntegrante();
-        IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
-
-        parametrosPesquisa.setNome(this.fldNome.getText());
-        parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
-
-        this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
-        this.tblIntegrantes.setItems(this.integrantes);
+        pesquisarPorParametros();
     }
 
     private void onMouseClickedFromContentVisualizarDadosIntegrante(MouseEvent event) {

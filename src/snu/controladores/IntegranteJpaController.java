@@ -6,17 +6,33 @@
 package snu.controladores;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
+import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
+import snu.entidades.musica.Autor;
+import snu.entidades.musica.Autor_;
+import snu.entidades.musica.EntidadeTipoMusica;
+import snu.entidades.musica.EntidadeTipoMusica_;
+import snu.entidades.musica.LeituraAssociada;
+import snu.entidades.musica.LeituraAssociada_;
+import snu.entidades.musica.Musica;
+import snu.entidades.musica.Musica_;
+import snu.entidades.musica.TipoMusica;
 import snu.util.StringUtil;
 
 /**
@@ -157,34 +173,26 @@ public class IntegranteJpaController implements Serializable {
      * @return
      */
     public List<Integrante> findByParametrosPesquisa(ParametrosPesquisaIntegrante parametrosPesquisa) {
-        List<Integrante> resultado;
-        Query query;
-        String sql;
+
         EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        sql = "SELECT i FROM Integrante i WHERE 1=1 ";
+        CriteriaQuery<Integrante> cq = cb.createQuery(Integrante.class);
+        Root<Integrante> integrante = cq.from(Integrante.class);
 
-        if (!parametrosPesquisa.getNome().equals(StringUtil.VAZIA)) {
-            sql += " AND i.nome LIKE :nome ";
+        List<Predicate> predicados = new ArrayList<>();
+
+        if (!StringUtil.isVazia(parametrosPesquisa.getNome())) {
+            predicados.add(cb.like(cb.lower(integrante.<String>get("nome")), "%" + parametrosPesquisa.getNome().toLowerCase() + "%"));
         }
         if (parametrosPesquisa.getFuncaoPrimaria() != null) {
-            sql += " AND i.funcaoPrimaria=:funcaoPrimaria ";
+            predicados.add(cb.equal(integrante.<FuncaoIntegrante>get("funcaoPrimaria"), parametrosPesquisa.getFuncaoPrimaria()));
         }
 
-        em.getTransaction().begin();
-        query = em.createQuery(sql);
+        Predicate[] arrayPredicados = new Predicate[predicados.size()];
+        cq.select(integrante).where(predicados.toArray(arrayPredicados));
 
-        if (!parametrosPesquisa.getNome().equals(StringUtil.VAZIA)) {
-            query.setParameter("nome", "%" + parametrosPesquisa.getNome() + "%");
-        }
-        if (parametrosPesquisa.getFuncaoPrimaria() != null) {
-            query.setParameter("funcaoPrimaria", parametrosPesquisa.getFuncaoPrimaria());
-        }
-
-        resultado = query.getResultList();
-        em.getTransaction().commit();
-
-        return resultado;
+        return em.createQuery(cq).getResultList();
     }
 
     /**

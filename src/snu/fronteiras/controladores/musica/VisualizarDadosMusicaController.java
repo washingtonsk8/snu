@@ -57,9 +57,9 @@ public class VisualizarDadosMusicaController implements Initializable {
     @FXML
     private TextField fldTitulo;
     @FXML
-    private Label lblLeituras;
+    private Label lblLeitura;
     @FXML
-    private TextField fldLeituras;
+    private TextField fldLeitura;
     @FXML
     private Font x1;
     @FXML
@@ -124,6 +124,8 @@ public class VisualizarDadosMusicaController implements Initializable {
     private List<TipoMusica> tiposMusica;
 
     private void initComponents() {
+        this.tiposMusica = new ArrayList<>();
+
         this.clnAutor.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
@@ -156,20 +158,7 @@ public class VisualizarDadosMusicaController implements Initializable {
     private void pesquisarPorParametros() {
         ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
         parametrosPesquisa.setNomeAutor(this.fldAutor.getText());
-
-        String campoLeiturasAssociadas = this.fldLeituras.getText();
-
-        if (!campoLeiturasAssociadas.isEmpty()) {
-            List<String> leiturasAssociadas = new ArrayList<>();
-
-            for (String leituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                leiturasAssociadas.add(leituraAssociada.trim());
-            }
-            parametrosPesquisa.setLeiturasAssociadas(leiturasAssociadas);
-        } else {
-            parametrosPesquisa.setLeiturasAssociadas(new ArrayList<String>());
-        }
-
+        parametrosPesquisa.setDescricaoLeiturasAssociadas(this.fldLeitura.getText());
         parametrosPesquisa.setTipos(this.tiposMusica);
         parametrosPesquisa.setTitulo(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
@@ -232,7 +221,7 @@ public class VisualizarDadosMusicaController implements Initializable {
     }
 
     @FXML
-    private void onActionFromFldLeituras(ActionEvent event) {
+    private void onActionFromFldLeitura(ActionEvent event) {
         pesquisarPorParametros();
     }
 
@@ -404,8 +393,8 @@ public class VisualizarDadosMusicaController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromLblLeituras(MouseEvent event) {
-        this.fldLeituras.requestFocus();
+    private void onMouseClickedFromLblLeitura(MouseEvent event) {
+        this.fldLeitura.requestFocus();
     }
 
     @FXML

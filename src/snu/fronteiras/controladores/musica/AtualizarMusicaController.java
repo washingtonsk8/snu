@@ -49,6 +49,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.entidades.musica.Autor;
+import snu.entidades.musica.LeituraAssociada;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
@@ -347,162 +348,162 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private void onActionFromCheckEntrada(ActionEvent event) {
         if (this.checkEntrada.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.ENTRADA);
+            this.musica.adicionarTipo(TipoMusica.ENTRADA);
         } else {
-            this.musica.getTipos().remove(TipoMusica.ENTRADA);
+            this.musica.removerTipo(TipoMusica.ENTRADA);
         }
     }
 
     @FXML
     private void onActionFromCheckPerdao(ActionEvent event) {
         if (this.checkPerdao.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.PERDAO);
+            this.musica.adicionarTipo(TipoMusica.PERDAO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.PERDAO);
+            this.musica.removerTipo(TipoMusica.PERDAO);
         }
     }
 
     @FXML
     private void onActionFromCheckGloria(ActionEvent event) {
         if (this.checkGloria.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.GLORIA);
+            this.musica.adicionarTipo(TipoMusica.GLORIA);
         } else {
-            this.musica.getTipos().remove(TipoMusica.GLORIA);
+            this.musica.removerTipo(TipoMusica.GLORIA);
         }
     }
 
     @FXML
     private void onActionFromCheckAclamacao(ActionEvent event) {
         if (this.checkAclamacao.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.ACLAMACAO);
+            this.musica.adicionarTipo(TipoMusica.ACLAMACAO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.ACLAMACAO);
+            this.musica.removerTipo(TipoMusica.ACLAMACAO);
         }
     }
 
     @FXML
     private void onActionFromCheckOfertorio(ActionEvent event) {
         if (this.checkOfertorio.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.OFERTORIO);
+            this.musica.adicionarTipo(TipoMusica.OFERTORIO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.OFERTORIO);
+            this.musica.removerTipo(TipoMusica.OFERTORIO);
         }
     }
 
     @FXML
     private void onActionFromCheckPaz(ActionEvent event) {
         if (this.checkPaz.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.PAZ);
+            this.musica.adicionarTipo(TipoMusica.PAZ);
         } else {
-            this.musica.getTipos().remove(TipoMusica.PAZ);
+            this.musica.removerTipo(TipoMusica.PAZ);
         }
     }
 
     @FXML
     private void onActionFromCheckSanto(ActionEvent event) {
         if (this.checkSanto.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.SANTO);
+            this.musica.adicionarTipo(TipoMusica.SANTO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.SANTO);
+            this.musica.removerTipo(TipoMusica.SANTO);
         }
     }
 
     @FXML
     private void onActionFromCheckComunhao(ActionEvent event) {
         if (this.checkComunhao.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.COMUNHAO);
+            this.musica.adicionarTipo(TipoMusica.COMUNHAO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.COMUNHAO);
+            this.musica.removerTipo(TipoMusica.COMUNHAO);
         }
     }
 
     @FXML
     private void onActionFromCheckAcaoDeGracas(ActionEvent event) {
         if (this.checkAcaoDeGracas.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.ACAO_DE_GRACAS);
+            this.musica.adicionarTipo(TipoMusica.ACAO_DE_GRACAS);
         } else {
-            this.musica.getTipos().remove(TipoMusica.ACAO_DE_GRACAS);
+            this.musica.removerTipo(TipoMusica.ACAO_DE_GRACAS);
         }
     }
 
     @FXML
     private void onActionFromCheckFinal(ActionEvent event) {
         if (this.checkFinal.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.FINAL);
+            this.musica.adicionarTipo(TipoMusica.FINAL);
         } else {
-            this.musica.getTipos().remove(TipoMusica.FINAL);
+            this.musica.removerTipo(TipoMusica.FINAL);
         }
     }
 
     @FXML
     private void onActionFromCheckReflexao(ActionEvent event) {
         if (this.checkReflexao.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.REFLEXAO);
+            this.musica.adicionarTipo(TipoMusica.REFLEXAO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.REFLEXAO);
+            this.musica.removerTipo(TipoMusica.REFLEXAO);
         }
     }
 
     @FXML
     private void onActionFromCheckLouvor(ActionEvent event) {
         if (this.checkLouvor.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.LOUVOR);
+            this.musica.adicionarTipo(TipoMusica.LOUVOR);
         } else {
-            this.musica.getTipos().remove(TipoMusica.LOUVOR);
+            this.musica.removerTipo(TipoMusica.LOUVOR);
         }
     }
 
     @FXML
     private void onActionFromCheckAdoracao(ActionEvent event) {
         if (this.checkAdoracao.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.ADORACAO);
+            this.musica.adicionarTipo(TipoMusica.ADORACAO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.ADORACAO);
+            this.musica.removerTipo(TipoMusica.ADORACAO);
         }
     }
 
     @FXML
     private void onActionFromCheckPalestra(ActionEvent event) {
         if (this.checkPalestra.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.PALESTRA);
+            this.musica.adicionarTipo(TipoMusica.PALESTRA);
         } else {
-            this.musica.getTipos().remove(TipoMusica.PALESTRA);
+            this.musica.removerTipo(TipoMusica.PALESTRA);
         }
     }
 
     @FXML
     private void onActionFromCheckResposta(ActionEvent event) {
         if (this.checkResposta.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.RESPOSTA);
+            this.musica.adicionarTipo(TipoMusica.RESPOSTA);
         } else {
-            this.musica.getTipos().remove(TipoMusica.RESPOSTA);
+            this.musica.removerTipo(TipoMusica.RESPOSTA);
         }
     }
 
     @FXML
     private void onActionFromCheckOracao(ActionEvent event) {
         if (this.checkOracao.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.ORACAO);
+            this.musica.adicionarTipo(TipoMusica.ORACAO);
         } else {
-            this.musica.getTipos().remove(TipoMusica.ORACAO);
+            this.musica.removerTipo(TipoMusica.ORACAO);
         }
     }
 
     @FXML
     private void onActionFromCheckEspecial(ActionEvent event) {
         if (this.checkEspecial.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.ESPECIAL);
+            this.musica.adicionarTipo(TipoMusica.ESPECIAL);
         } else {
-            this.musica.getTipos().remove(TipoMusica.ESPECIAL);
+            this.musica.removerTipo(TipoMusica.ESPECIAL);
         }
     }
 
     @FXML
     private void onActionFromCheckOutra(ActionEvent event) {
         if (this.checkOutra.isSelected()) {
-            this.musica.getTipos().add(TipoMusica.OUTRA);
+            this.musica.adicionarTipo(TipoMusica.OUTRA);
         } else {
-            this.musica.getTipos().remove(TipoMusica.OUTRA);
+            this.musica.removerTipo(TipoMusica.OUTRA);
         }
     }
 
@@ -668,14 +669,20 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             String campoLeiturasAssociadas = this.fldLeituras.getText();
 
             if (!campoLeiturasAssociadas.isEmpty()) {
-                List<String> leiturasAssociadas = new ArrayList<>();
+                List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
 
-                for (String leituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                    leiturasAssociadas.add(leituraAssociada.trim());
+                for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
+                    descricaoLeituraAssociada = descricaoLeituraAssociada.trim();
+                    if (!StringUtil.isVazia(descricaoLeituraAssociada)) {
+                        LeituraAssociada leituraAssociada = new LeituraAssociada();
+                        leituraAssociada.setDescricao(descricaoLeituraAssociada);
+                        leituraAssociada.setMusica(this.musica);
+                        leiturasAssociadas.add(leituraAssociada);
+                    }
                 }
                 this.musica.setLeiturasAssociadas(leiturasAssociadas);
             } else {
-                this.musica.setLeiturasAssociadas(new ArrayList<String>());
+                this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
             }
 
             try {

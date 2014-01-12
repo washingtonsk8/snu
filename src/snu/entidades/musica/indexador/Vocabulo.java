@@ -8,24 +8,21 @@ package snu.entidades.musica.indexador;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javafx.util.Pair;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Washington Luis
  */
 @Entity
+@Table(name = "documentomusica_vocabulario")
 public class Vocabulo implements Serializable {
 
     private static final long serialVersionUID = 1L;

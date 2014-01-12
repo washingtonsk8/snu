@@ -11,15 +11,30 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
-import snu.util.StringUtil;
+import snu.entidades.musica.Autor;
+import snu.entidades.musica.Autor_;
+import snu.entidades.musica.EntidadeTipoMusica;
+import snu.entidades.musica.EntidadeTipoMusica_;
+import snu.entidades.musica.LeituraAssociada;
+import snu.entidades.musica.LeituraAssociada_;
+import snu.entidades.musica.Musica_;
+import snu.entidades.musica.TipoMusica;
 
 /**
  * Classe controladora das atividades de persistência da entidade Música
@@ -199,39 +214,40 @@ public class MusicaJpaController implements Serializable {
     }
 
     public List<Musica> findMusicasByParametrosPesquisa(ParametrosPesquisaMusica parametrosPesquisa) {
-        List<Musica> resultado;
-        Query query;
-        String sql;
         EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        sql = "SELECT m FROM Musica m WHERE 1=1 ";
+        CriteriaQuery<Musica> cq = cb.createQuery(Musica.class);
+        Root<Musica> musica = cq.from(Musica.class);
 
-        if (!parametrosPesquisa.getNomeAutor().equals(StringUtil.VAZIA)) {
-            sql += " AND m.autor.nome LIKE :nomeAutor ";
-        }
-        if (!parametrosPesquisa.getTitulo().equals(StringUtil.VAZIA)) {
-            sql += " AND m.titulo LIKE :titulo ";
-        }
-        if (!parametrosPesquisa.getLeiturasAssociadas().isEmpty()) {
-            sql += " AND leiturasAssociadas MEMBER OF m.leiturasAssociadas ";
-        }
-        
-        em.getTransaction().begin();
-        query = em.createQuery(sql);
+        List<Predicate> predicados = new ArrayList<>();
 
-        if (!parametrosPesquisa.getNomeAutor().equals(StringUtil.VAZIA)) {
-            query.setParameter("nomeAutor", "%" + parametrosPesquisa.getNomeAutor() + "%");
+        if (!parametrosPesquisa.getNomeAutor().isEmpty()) {
+            Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
+            predicados.add(cb.like(cb.lower(autor.get(Autor_.nome)), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
         }
-        if (!parametrosPesquisa.getTitulo().equals(StringUtil.VAZIA)) {
-            query.setParameter("titulo", "%" + parametrosPesquisa.getTitulo() + "%");
+        if (!parametrosPesquisa.getTitulo().isEmpty()) {
+            predicados.add(cb.like(cb.lower(musica.get(Musica_.titulo)), "%" + parametrosPesquisa.getTitulo().toLowerCase() + "%"));
         }
-        if (!parametrosPesquisa.getLeiturasAssociadas().isEmpty()) {
-            query.setParameter("leiturasAssociadas", parametrosPesquisa.getLeiturasAssociadas());
+        if (!parametrosPesquisa.getDescricaoLeiturasAssociadas().isEmpty()) {
+            Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);
+            predicados.add(cb.like(cb.lower(leiturasAssociadas.get(LeituraAssociada_.descricao)), "%" + parametrosPesquisa.getDescricaoLeiturasAssociadas().toLowerCase() + "%"));
+        }
+        if (!parametrosPesquisa.getTipos().isEmpty()) {
+            Join<Musica, EntidadeTipoMusica> tiposMusica = musica.join("tipos", JoinType.LEFT);
+            for (TipoMusica tipoMusica : parametrosPesquisa.getTipos()) {
+                Subquery<Musica> subquery = cq.subquery(Musica.class);
+                Root<EntidadeTipoMusica> entidadesTipoMusica = subquery.from(EntidadeTipoMusica.class);
+                subquery.select(entidadesTipoMusica.<Musica>get("musica")).
+                        where(cb.equal(entidadesTipoMusica.get(EntidadeTipoMusica_.valor), tipoMusica));
+                predicados.add(cb.in(tiposMusica.get("musica")).value(subquery));
+            }
         }
 
-        resultado = query.getResultList();
-        em.getTransaction().commit();
-        return resultado;
+        Predicate[] arrayPredicados = new Predicate[predicados.size()];
+        cq.select(musica).distinct(true).where(predicados.toArray(arrayPredicados));
+
+        return em.createQuery(cq).getResultList();
     }
 
     /**
