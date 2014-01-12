@@ -42,6 +42,7 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
+import snu.controladores.indexador.IndexadorController;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
@@ -49,6 +50,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.entidades.musica.Autor;
+import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.LeituraAssociada;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
@@ -175,6 +177,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
     private AtualizarDadosMusicaController controladorOrigem;
 
+    private String conteudoAnterior;
+
     /**
      * Inicializa os componentes
      */
@@ -261,6 +265,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.comboTom.setValue(musica.getTom());
         this.itensAssociacao.addAll(musica.getAssociacoes());
         this.tblAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
+        this.conteudoAnterior = this.musica.getDocumentoMusica().getConteudo();
     }
 
     /**
@@ -665,7 +670,13 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());
-            
+
+            if (!this.conteudoAnterior.equals(this.musica.getDocumentoMusica().getConteudo())) {
+                this.musica.getDocumentoMusica().setQuantidadeTokens(0);
+                this.musica.getDocumentoMusica().setFrequenciaMaximaToken(0);
+                IndexadorController.getInstancia().indexar(this.musica);
+            }
+
             String campoLeiturasAssociadas = this.fldLeituras.getText();
 
             if (!campoLeiturasAssociadas.isEmpty()) {

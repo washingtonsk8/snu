@@ -11,15 +11,12 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
@@ -33,7 +30,6 @@ import snu.entidades.musica.EntidadeTipoMusica;
 import snu.entidades.musica.EntidadeTipoMusica_;
 import snu.entidades.musica.LeituraAssociada;
 import snu.entidades.musica.LeituraAssociada_;
-import snu.entidades.musica.Musica_;
 import snu.entidades.musica.TipoMusica;
 
 /**
@@ -159,6 +155,9 @@ public class MusicaJpaController implements Serializable {
                 associacoesAssociacaoIntegranteMusica = em.merge(associacoesAssociacaoIntegranteMusica);
             }
             em.remove(musica);
+            
+            //Remove as indexações
+            ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(id);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -227,7 +226,7 @@ public class MusicaJpaController implements Serializable {
             predicados.add(cb.like(cb.lower(autor.get(Autor_.nome)), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
         }
         if (!parametrosPesquisa.getTitulo().isEmpty()) {
-            predicados.add(cb.like(cb.lower(musica.get(Musica_.titulo)), "%" + parametrosPesquisa.getTitulo().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(musica.<String>get("titulo")), "%" + parametrosPesquisa.getTitulo().toLowerCase() + "%"));
         }
         if (!parametrosPesquisa.getDescricaoLeiturasAssociadas().isEmpty()) {
             Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);

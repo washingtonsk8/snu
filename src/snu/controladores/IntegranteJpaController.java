@@ -14,25 +14,13 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
-import snu.entidades.musica.Autor;
-import snu.entidades.musica.Autor_;
-import snu.entidades.musica.EntidadeTipoMusica;
-import snu.entidades.musica.EntidadeTipoMusica_;
-import snu.entidades.musica.LeituraAssociada;
-import snu.entidades.musica.LeituraAssociada_;
-import snu.entidades.musica.Musica;
-import snu.entidades.musica.Musica_;
-import snu.entidades.musica.TipoMusica;
 import snu.util.StringUtil;
 
 /**

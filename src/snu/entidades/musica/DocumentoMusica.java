@@ -89,7 +89,7 @@ public class DocumentoMusica implements Serializable {
 
     @Override
     public String toString() {
-        return "snu.entidades.musica.DocumentoMusica[ id=" + id + " ]";
+        return this.conteudo;
     }
 
 }
