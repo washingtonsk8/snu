@@ -242,6 +242,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -669,8 +670,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
 
                 for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                    descricaoLeituraAssociada = descricaoLeituraAssociada.trim();
-                    if (!StringUtil.isVazia(descricaoLeituraAssociada)) {
+                    if (!StringUtil.isVazia(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
                         LeituraAssociada leituraAssociada = new LeituraAssociada();
                         leituraAssociada.setDescricao(descricaoLeituraAssociada);
                         leituraAssociada.setMusica(this.musica);

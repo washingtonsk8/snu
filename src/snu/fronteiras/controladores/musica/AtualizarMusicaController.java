@@ -42,6 +42,8 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
+import snu.controladores.ObjetoListaInvertidaJpaController;
+import snu.controladores.exceptions.NonexistentEntityException;
 import snu.controladores.indexador.IndexadorController;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
@@ -674,6 +676,13 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             if (!this.conteudoAnterior.equals(this.musica.getDocumentoMusica().getConteudo())) {
                 this.musica.getDocumentoMusica().setQuantidadeTokens(0);
                 this.musica.getDocumentoMusica().setFrequenciaMaximaToken(0);
+                this.musica.getDocumentoMusica().setConteudo(conteudoAnterior);
+                try {
+                    //Remove as indexações anteriores
+                    ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(this.musica.getId());
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 IndexadorController.getInstancia().indexar(this.musica);
             }
 
@@ -683,8 +692,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
 
                 for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                    descricaoLeituraAssociada = descricaoLeituraAssociada.trim();
-                    if (!StringUtil.isVazia(descricaoLeituraAssociada)) {
+                    if (!StringUtil.isVazia(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
                         LeituraAssociada leituraAssociada = new LeituraAssociada();
                         leituraAssociada.setDescricao(descricaoLeituraAssociada);
                         leituraAssociada.setMusica(this.musica);

@@ -40,8 +40,6 @@ public class Parser {
     }
 
     public void parse(Musica musica) {
-        System.out.println("[INFO] Indexando a música [" + musica.getId() + "] ");
-
         String content = musica
                 .getDocumentoMusica()
                 .getConteudo()
@@ -61,7 +59,7 @@ public class Parser {
          * Caso não apareça nenhum novo, a frequência máxima de um token em um
          * documento é 1
          */
-        int frequenciaMaximaToken = 1;
+        int frequenciaMaximaToken = tokens.isEmpty()? 0 : 1;
 
         HashMap<String, Integer> vocabuloAnalisado = new HashMap();
         for (String token : tokens) {

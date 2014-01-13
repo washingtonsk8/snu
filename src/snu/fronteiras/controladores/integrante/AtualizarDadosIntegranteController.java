@@ -28,7 +28,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -59,7 +58,6 @@ public class AtualizarDadosIntegranteController implements Initializable {
     private ComboBox<FuncaoIntegrante> comboFuncaoPrincipal;
     @FXML
     private Button btnPesquisar;
-
     @FXML
     private TableColumn<Integrante, String> clnNome;
     @FXML
