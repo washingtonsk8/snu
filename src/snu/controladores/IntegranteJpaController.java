@@ -161,7 +161,7 @@ public class IntegranteJpaController implements Serializable {
      * @return
      */
     public List<Integrante> findByParametrosPesquisa(ParametrosPesquisaIntegrante parametrosPesquisa) {
-
+        
         EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -170,7 +170,7 @@ public class IntegranteJpaController implements Serializable {
 
         List<Predicate> predicados = new ArrayList<>();
 
-        if (!StringUtil.isVazia(parametrosPesquisa.getNome())) {
+        if (StringUtil.hasAlgo(parametrosPesquisa.getNome())) {
             predicados.add(cb.like(cb.lower(integrante.<String>get("nome")), "%" + parametrosPesquisa.getNome().toLowerCase() + "%"));
         }
         if (parametrosPesquisa.getFuncaoPrimaria() != null) {

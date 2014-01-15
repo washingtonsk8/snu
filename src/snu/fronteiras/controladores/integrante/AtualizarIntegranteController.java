@@ -130,7 +130,7 @@ public class AtualizarIntegranteController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean valorAntigo, Boolean novoValor) {
                 if (!novoValor) {//Perda de foco
-                    if (!StringUtil.isVazia(fldEmail.getText()) && !RegexUtil.validarEmail(fldEmail.getText())) {
+                    if (StringUtil.hasAlgo(fldEmail.getText()) && !RegexUtil.validarEmail(fldEmail.getText())) {
                         fldEmail.setEffect(EfeitosUtil.getEfeitoInvalido());
                     } else {
                         fldEmail.setEffect(null);
@@ -427,7 +427,7 @@ public class AtualizarIntegranteController implements Initializable {
             this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
-        if (!StringUtil.isVazia(this.fldEmail.getText()) && !RegexUtil.validarEmail(this.fldEmail.getText())) {
+        if (StringUtil.hasAlgo(this.fldEmail.getText()) && !RegexUtil.validarEmail(this.fldEmail.getText())) {
             validadeDosCampos = false;
         }
         return validadeDosCampos;

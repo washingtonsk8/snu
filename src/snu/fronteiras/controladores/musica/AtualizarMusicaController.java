@@ -52,7 +52,6 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.entidades.musica.Autor;
-import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.LeituraAssociada;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
@@ -692,7 +691,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
 
                 for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                    if (!StringUtil.isVazia(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
+                    if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
                         LeituraAssociada leituraAssociada = new LeituraAssociada();
                         leituraAssociada.setDescricao(descricaoLeituraAssociada);
                         leituraAssociada.setMusica(this.musica);

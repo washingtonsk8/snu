@@ -32,11 +32,10 @@ import snu.entidades.musica.indexador.ObjetoListaInvertida;
  * @author Washington Luis
  */
 public class Parser {
-
     private final BrazilianAnalyzer brazilianAnalyzer;
 
-    public Parser() {
-        this.brazilianAnalyzer = new BrazilianAnalyzer(Version.LUCENE_35, IndexadorController.STOP_WORDS);
+    public Parser(BrazilianAnalyzer brazilianAnalyzer) {
+        this.brazilianAnalyzer = brazilianAnalyzer;
     }
 
     public void parse(Musica musica) {
@@ -84,6 +83,7 @@ public class Parser {
                 
                 objetoListaInvertida.setVocabulo(vocabulo);
                 objetoListaInvertida.setIdMusica(musica.getId());
+                objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
                 objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
                 vocabulo.setToken(entradaToken.getKey());
                 vocabulo.getListaInvertida().add(objetoListaInvertida);
@@ -94,6 +94,7 @@ public class Parser {
                 ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
                 objetoListaInvertida.setVocabulo(vocabulo);
                 objetoListaInvertida.setIdMusica(musica.getId());
+                objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
                 objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
                 vocabulo.getListaInvertida().add(objetoListaInvertida);
                 try {

@@ -35,6 +35,9 @@ public class ObjetoListaInvertida implements Serializable {
     @Column(name = "musica_id")
     private Long idMusica;
 
+    @Column(name = "documentomusica_id")
+    private Long idDocumentoMusica;
+
     @Column(name = "frequencia_token")
     private Integer frequenciaToken;
 
@@ -60,6 +63,14 @@ public class ObjetoListaInvertida implements Serializable {
 
     public void setIdMusica(Long idMusica) {
         this.idMusica = idMusica;
+    }
+
+    public Long getIdDocumentoMusica() {
+        return idDocumentoMusica;
+    }
+
+    public void setIdDocumentoMusica(Long idDocumentoMusica) {
+        this.idDocumentoMusica = idDocumentoMusica;
     }
 
     public Integer getFrequenciaToken() {

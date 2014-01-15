@@ -14,6 +14,10 @@ public class StringUtil {
     public static final String VAZIA = "";
     
     public static boolean isVazia(String string){
-        return string.isEmpty();
+        return string.equals(VAZIA);
+    }
+    
+    public static boolean hasAlgo(String string){
+        return !isVazia(string);
     }
 }

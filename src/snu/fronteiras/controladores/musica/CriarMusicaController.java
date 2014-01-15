@@ -670,7 +670,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
 
                 for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                    if (!StringUtil.isVazia(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
+                    if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
                         LeituraAssociada leituraAssociada = new LeituraAssociada();
                         leituraAssociada.setDescricao(descricaoLeituraAssociada);
                         leituraAssociada.setMusica(this.musica);
