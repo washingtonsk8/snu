@@ -693,12 +693,14 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
+            //TODO: É provável que tenha que ser removido (Se o cara esqueceu, realiza pergunta e leva direto para a atualização)
             if (this.musica.getDocumentoMusica().getConteudo() == null || this.musica.getDocumentoMusica().getConteudo().isEmpty()) {
                 Dialogs.showWarningDialog(null, "Não esqueça de escrever o conteúdo da música", "Conselho", "Informação");
                 this.btnEscreverConteudo.setEffect(EfeitosUtil.getEfeitoAviso());
             }
-
+            
+            //TODO: Remover, pois ao salvar duas vezes, uma indexação duplicada pode ser gerada
             IndexadorController.getInstancia().indexar(musica);
 
             Dialogs.showInformationDialog(null, "A Música foi salva com sucesso!", "Sucesso", "Informação");

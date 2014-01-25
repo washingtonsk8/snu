@@ -7,12 +7,9 @@ package snu.controladores.indexador;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -23,14 +20,13 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.VocabuloJpaController;
 import snu.dto.Pair;
-import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.indexador.ObjetoListaInvertida;
 import snu.entidades.musica.indexador.Vocabulo;
 import snu.util.ProcessadorDeConsultasUtil;
 
 /**
- * Classe que possui as funções para realizar o processaramento de consultas
+ * Classe que possui as funções para realizar o processamento de consultas
  *
  * @author Washington Luis
  */
@@ -43,11 +39,10 @@ public class ProcessadorDeConsultas {
     }
 
     public void processar(String consulta) {
-        consulta = consulta
-                .toLowerCase()//Passa tudo para minúsculo
-                //.replaceAll("\\p{Punct}", " ");//Remove toda a pontuação (menos números)
-                ;
-        List<String> tokens = tokenizeString(IndexadorController.getInstancia().getBrazilianAnalyzer(), consulta);
+        IndexadorController indexadorController = IndexadorController.getInstancia();
+
+        List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
+                indexadorController.preProcessar(consulta));
 
         //Hashing é utilizado para não repetir ids de documentos
         List<Pair<Long, Double>> similaridadesDocumentos = new ArrayList<>();

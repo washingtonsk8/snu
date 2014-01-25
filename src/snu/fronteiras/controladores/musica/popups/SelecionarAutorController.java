@@ -57,6 +57,7 @@ public class SelecionarAutorController implements Initializable {
     private ObservableList<Autor> autores;
 
     private Musica musica;
+    
     @FXML
     private Button btnAdicionarAutor;
 
@@ -173,7 +174,7 @@ public class SelecionarAutorController implements Initializable {
                 }
             }
 
-            //Habilita a visualizaçao do botão de adição de autor inexistente
+            //Habilita a visualização do botão de adição de autor inexistente
             if (autoresFiltrados.isEmpty()) {
                 this.btnAdicionarAutor.setVisible(true);
             } else {

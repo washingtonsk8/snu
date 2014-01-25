@@ -15,9 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.entidades.musica.Autor;
+import snu.entidades.musica.Autor_;
 
 /**
  *
@@ -188,6 +192,21 @@ public class AutorJpaController implements Serializable {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             Root<Autor> rt = cq.from(Autor.class);
             cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public int getMusicasAutoriaCount(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Autor> musica = cq.from(Musica.class);
+            Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
+            cq.select(cb.count(musica)).distinct(true).where(cb.equal(autor.get(Autor_.id), id));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {

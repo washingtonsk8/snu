@@ -13,18 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.util.Version;
 import snu.controladores.DocumentoMusicaJpaController;
 import snu.controladores.VocabuloJpaController;
 import snu.entidades.musica.indexador.Vocabulo;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.indexador.ObjetoListaInvertida;
+import snu.util.MusicaUtil;
 
 /**
  * Classe que realiza o parsing no documento
@@ -32,25 +30,13 @@ import snu.entidades.musica.indexador.ObjetoListaInvertida;
  * @author Washington Luis
  */
 public class Parser {
-    private final BrazilianAnalyzer brazilianAnalyzer;
-
-    public Parser(BrazilianAnalyzer brazilianAnalyzer) {
-        this.brazilianAnalyzer = brazilianAnalyzer;
-    }
 
     public void parse(Musica musica) {
-        String content = musica
-                .getDocumentoMusica()
-                .getConteudo()
-                .toLowerCase()//Passa tudo para minúsculo
-                //.replaceAll("\\p{Punct}", " ");//Remove toda a pontuação (menos números)
-                ;
-
-        /**
-         * Pontuação a ser removida: [ ! " # $ % & ' ( ) * + , \ - . / : ; < = >
-         * ? @ [ \ \\ ] ^ _ ` { | } ~ ]
-         */
-        List<String> tokens = tokenizeString(brazilianAnalyzer, content);
+        IndexadorController indexadorController = IndexadorController.getInstancia();
+        String conteudoMusica = musica.getDocumentoMusica().getConteudo();
+                
+        List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
+                indexadorController.preProcessar(MusicaUtil.removerAcordes(conteudoMusica)));
 
         int quantidadeTokens = 0;
 
@@ -58,7 +44,7 @@ public class Parser {
          * Caso não apareça nenhum novo, a frequência máxima de um token em um
          * documento é 1
          */
-        int frequenciaMaximaToken = tokens.isEmpty()? 0 : 1;
+        int frequenciaMaximaToken = tokens.isEmpty() ? 0 : 1;
 
         HashMap<String, Integer> vocabuloAnalisado = new HashMap();
         for (String token : tokens) {
@@ -80,7 +66,7 @@ public class Parser {
             if (vocabulo == null) {
                 ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
                 vocabulo = new Vocabulo();
-                
+
                 objetoListaInvertida.setVocabulo(vocabulo);
                 objetoListaInvertida.setIdMusica(musica.getId());
                 objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
@@ -90,7 +76,7 @@ public class Parser {
 
                 //Persiste no banco
                 vocabuloController.create(vocabulo);
-            }else{
+            } else {
                 ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
                 objetoListaInvertida.setVocabulo(vocabulo);
                 objetoListaInvertida.setIdMusica(musica.getId());

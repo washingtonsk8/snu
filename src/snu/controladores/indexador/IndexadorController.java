@@ -8,6 +8,7 @@ package snu.controladores.indexador;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.util.Version;
 import snu.entidades.musica.Musica;
+import snu.util.StringUtil;
 
 /**
  * Controlador da Indexação
@@ -17,9 +18,9 @@ import snu.entidades.musica.Musica;
 public class IndexadorController {
 
     private static IndexadorController instancia;
-    
+
     private final BrazilianAnalyzer brazilianAnalyzer;
-    
+
     protected static final String[] STOP_WORDS = {"a", "agora", "ainda", "alguém", "algum",
         "alguma", "algumas", "alguns", "ampla", "amplas", "amplo", "amplos", "ante",
         "antes", "ao", "aos", "após", "aquela", "aquelas", "aquele", "aqueles", "aquilo",
@@ -51,21 +52,32 @@ public class IndexadorController {
         "tudo", "última", "últimas", "último", "últimos", "um", "uma", "umas",
         "uns", "vendo", "ver", "vez", "vindo", "vir", "vos", "vós"};
 
-    private IndexadorController() {
-        this.brazilianAnalyzer = new BrazilianAnalyzer(Version.LUCENE_35, IndexadorController.STOP_WORDS);
+    private IndexadorController() {//TODO: Estudar uso de eliminação de stop words
+        this.brazilianAnalyzer = new BrazilianAnalyzer(Version.LUCENE_35);//, IndexadorController.STOP_WORDS);
     }
-    
-    public void indexar(Musica musica){
-        Parser parser = new Parser(this.brazilianAnalyzer);
-        
+
+    /**
+     * Realiza o pré-processamento padrão na string de entrada
+     *
+     * @param entrada
+     * @return
+     */
+    public String preProcessar(String entrada) {
+        String saida;
+        saida = StringUtil.somenteLetras(entrada, false);//Retira pontuação e (espaços --> false)
+        saida = StringUtil.removerAcentos(saida);//Retira acentuação
+        return saida.toLowerCase();//Passa tudo para minúsculo
+    }
+
+    public void indexar(Musica musica) {
         //Faz o parsing e salva a música
-        parser.parse(musica);
+        new Parser().parse(musica);
     }
 
     public BrazilianAnalyzer getBrazilianAnalyzer() {
         return this.brazilianAnalyzer;
     }
-    
+
     /**
      * Obtém a instância Singleton
      *
