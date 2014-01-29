@@ -31,8 +31,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.AutorJpaController;
+import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.Musica;
+import snu.util.StringUtil;
 
 /**
  * FXML Controller class
@@ -52,49 +54,72 @@ public class GerenciarAutoresController implements Initializable {
     @FXML
     private Button btnAdicionarAutor;
     @FXML
-    private TableView<Autor> tblAutores;
+    private TableView<QuantidadeAutoriaDTO> tblAutores;
     @FXML
     private Button btnEditarAutor;
     @FXML
     private Button btnRemoverAutor;
 
-    private ObservableList<Autor> autores;
+    private ObservableList<QuantidadeAutoriaDTO> autores;
     @FXML
     private Font x1;
     @FXML
-    private TableColumn<Autor, String> clnNomeAutor;
+    private TableColumn<QuantidadeAutoriaDTO, String> clnNomeAutor;
     @FXML
-    private TableColumn<Autor, String> clnQuantidadeMusicas;
+    private TableColumn<QuantidadeAutoriaDTO, String> clnQuantidadeMusicas;
 
     private void initComponents() {
-        this.autores = FXCollections.observableArrayList(AutorJpaController.getInstancia().findAutorEntities());
+        AutorJpaController autorController = AutorJpaController.getInstancia();
+        List<Autor> entidadesAutor = autorController.findAutorEntities();
+        this.autores = FXCollections.observableArrayList();
 
-        this.clnNomeAutor.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Autor, String>, ObservableValue<String>>() {
+        //Varre a lista de entidades preenchendo a lista DTO a ser apresentada
+        for (Autor entidadeAutor : entidadesAutor) {
+            QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
+            quantidadeAutoriaDTO.setAutor(entidadeAutor);
+            quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(autorController.getMusicasAutoriaCount(entidadeAutor.getId()));
+            this.autores.add(quantidadeAutoriaDTO);
+        }
+
+        this.clnNomeAutor.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Autor, String> autor) {
-                return new SimpleStringProperty(autor.getValue().getNome());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String> quantidadeAutoriaDTO) {
+                return new SimpleStringProperty(quantidadeAutoriaDTO.getValue().getAutor().getNome());
             }
         });
 
-        this.clnQuantidadeMusicas.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Autor, String>, ObservableValue<String>>() {
+        this.clnQuantidadeMusicas.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Autor, String> autor) {
-                return new SimpleStringProperty(
-                        String.valueOf(AutorJpaController.getInstancia()
-                                .getMusicasAutoriaCount(autor.getValue().getId())));
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String> quantidadeAutoriaDTO) {
+                return new SimpleStringProperty(quantidadeAutoriaDTO.getValue().getQuantidadeMusicasDeAutoria().toString());
             }
         });
 
-        Collections.sort(this.autores, new Comparator<Autor>() {
+        Collections.sort(this.autores, new Comparator<QuantidadeAutoriaDTO>() {
             @Override
-            public int compare(Autor autor1, Autor autor2) {
-                return autor1.getNome().compareTo(autor2.getNome());
+            public int compare(QuantidadeAutoriaDTO quantidadeAutoriaDTO1, QuantidadeAutoriaDTO quantidadeAutoriaDTO2) {
+                return quantidadeAutoriaDTO1.getAutor().getNome().compareTo(quantidadeAutoriaDTO2.getAutor().getNome());
             }
         });
         this.tblAutores.setItems(this.autores);
 
+        this.btnAdicionarAutor.setVisible(false);
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
+    }
+
+    private void filtrarTabela(String textoPesquisa) {
+        ObservableList<QuantidadeAutoriaDTO> autoresFiltrados = FXCollections.observableArrayList();
+
+        for (QuantidadeAutoriaDTO quantidadeAutoriaDTO : this.autores) {
+            String nomeAutor = quantidadeAutoriaDTO.getAutor().getNome().toLowerCase();
+            if (nomeAutor.contains(textoPesquisa)) {
+                autoresFiltrados.add(quantidadeAutoriaDTO);
+            }
+        }
+
+        this.tblAutores.setItems(autoresFiltrados);
+        atualizarTabela();
     }
 
     /**
@@ -115,30 +140,21 @@ public class GerenciarAutoresController implements Initializable {
     @FXML
     private void onKeyReleasedFromFldPesquisarAutor(KeyEvent event) {
         String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase();
-        if (!textoPesquisa.isEmpty()) {
-            ObservableList<Autor> autoresFiltrados = FXCollections.observableArrayList();
-
-            for (Autor autor : this.autores) {
-                String nomeAutor = autor.getNome().toLowerCase();
-                if (nomeAutor.contains(textoPesquisa)) {
-                    autoresFiltrados.add(autor);
-                }
-            }
-
-            this.tblAutores.setItems(autoresFiltrados);
-            atualizarTabela();
+        if (StringUtil.hasAlgo(textoPesquisa)) {
+            filtrarTabela(textoPesquisa);
+            this.btnAdicionarAutor.setVisible(true);
         } else {
             this.tblAutores.setItems(this.autores);
             this.btnAdicionarAutor.setVisible(false);
+            atualizarTabela();
         }
     }
 
     @FXML
     private void onMouseClickedFromFldPesquisarAutor(MouseEvent event) {
-        this.btnAdicionarAutor.setVisible(true);
+        this.btnAdicionarAutor.setVisible(StringUtil.hasAlgo(this.fldPesquisarAutor.getText()));
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
-
     }
 
     @FXML
@@ -147,30 +163,56 @@ public class GerenciarAutoresController implements Initializable {
 
     @FXML
     private void onActionFromBtnAdicionarAutor(ActionEvent event) {
+        String textoPesquisa = this.fldPesquisarAutor.getText();
+
+        Autor novoAutor = new Autor();
+        novoAutor.setNome(textoPesquisa);
+
+        //Persiste no banco
+        AutorJpaController.getInstancia().create(novoAutor);
+
+        //Adicioná-lo à lista de autores filtrados
+        QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
+        quantidadeAutoriaDTO.setAutor(novoAutor);
+        //Não possui músicas, pois é novo autor
+        quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
+        this.autores.add(quantidadeAutoriaDTO);
+
+        //TODO: Mostrar mensagem de sucesso
+        
+        this.fldPesquisarAutor.clear();
+        this.tblAutores.setItems(this.autores);
+        atualizarTabela();
+        this.btnAdicionarAutor.setVisible(false);
+        this.fldPesquisarAutor.requestFocus();
     }
 
     @FXML
     private void onMouseClickedFromTblAutores(MouseEvent event) {
-        this.btnAdicionarAutor.setVisible(false);
-        this.btnEditarAutor.setVisible(true);
-        this.btnRemoverAutor.setVisible(true);
+        if (this.tblAutores.getSelectionModel().getSelectedItem() != null) {
+            this.btnAdicionarAutor.setVisible(false);
+            this.btnEditarAutor.setVisible(true);
+            this.btnRemoverAutor.setVisible(true);
+        }
     }
 
     @FXML
     private void onActionFromBtnEditarAutor(ActionEvent event) {
+        //TODO: Implementar janelinha popup (talvez o diálogo já usado)
     }
 
     @FXML
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
+        //TODO: Implementar remoção
     }
 
     private void atualizarTabela() {
-        final List<Autor> itens = this.tblAutores.getItems();
+        final List<QuantidadeAutoriaDTO> itens = this.tblAutores.getItems();
         if (itens == null || itens.isEmpty()) {
             return;
         }
 
-        final Autor item = this.tblAutores.getItems().get(0);
+        final QuantidadeAutoriaDTO item = this.tblAutores.getItems().get(0);
         itens.remove(0);
         Platform.runLater(new Runnable() {
             @Override
