@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -31,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.AutorJpaController;
+import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.Musica;
@@ -179,7 +183,6 @@ public class GerenciarAutoresController implements Initializable {
         this.autores.add(quantidadeAutoriaDTO);
 
         //TODO: Mostrar mensagem de sucesso
-        
         this.fldPesquisarAutor.clear();
         this.tblAutores.setItems(this.autores);
         atualizarTabela();
@@ -198,12 +201,38 @@ public class GerenciarAutoresController implements Initializable {
 
     @FXML
     private void onActionFromBtnEditarAutor(ActionEvent event) {
-        //TODO: Implementar janelinha popup (talvez o diálogo já usado)
+        QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
+        String nomeAutor = quantidadeAutoriaDtoSelecionado.getAutor().getNome();
+        String novoNomeAutor = Dialogs.showInputDialog(null, "Edite o nome do(a) Autor(a) e confirme para alterar",
+                "Edição de Autor", "Edição de Autor", nomeAutor);
+        if (!nomeAutor.equals(novoNomeAutor)) {
+            quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
+            try {
+                AutorJpaController.getInstancia().edit(quantidadeAutoriaDtoSelecionado.getAutor());
+            } catch (Exception ex) {
+                Logger.getLogger(GerenciarAutoresController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            atualizarTabela();
+        }
     }
 
     @FXML
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
-        //TODO: Implementar remoção
+        QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
+        Dialogs.DialogResponse resposta;
+        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o(a) Autor(a)?",
+                "Exclusão de Autor", "Confirmação");
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            try {
+                AutorJpaController.getInstancia().destroy(quantidadeAutoriaDtoSelecionado.getAutor().getId());
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(GerenciarAutoresController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.autores.remove(quantidadeAutoriaDtoSelecionado);
+            this.tblAutores.setItems(this.autores);
+            atualizarTabela();
+        }
     }
 
     private void atualizarTabela() {

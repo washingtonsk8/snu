@@ -82,7 +82,7 @@ public class AutorJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Autor persistentAutor = em.find(Autor.class, autor.getId());
+            /*Autor persistentAutor = em.find(Autor.class, autor.getId());
             List<Musica> musicasDeAutoriaOld = persistentAutor.getMusicasDeAutoria();
             List<Musica> musicasDeAutoriaNew = autor.getMusicasDeAutoria();
             List<Musica> attachedMusicasDeAutoriaNew = new ArrayList<>();
@@ -91,9 +91,9 @@ public class AutorJpaController implements Serializable {
                 attachedMusicasDeAutoriaNew.add(musicasDeAutoriaNewMusicaToAttach);
             }
             musicasDeAutoriaNew = attachedMusicasDeAutoriaNew;
-            autor.setMusicasDeAutoria(musicasDeAutoriaNew);
+            autor.setMusicasDeAutoria(musicasDeAutoriaNew);*/
             autor = em.merge(autor);
-            for (Musica musicasDeAutoriaOldMusica : musicasDeAutoriaOld) {
+            /*for (Musica musicasDeAutoriaOldMusica : musicasDeAutoriaOld) {
                 if (!musicasDeAutoriaNew.contains(musicasDeAutoriaOldMusica)) {
                     musicasDeAutoriaOldMusica.setAutor(null);
                     musicasDeAutoriaOldMusica = em.merge(musicasDeAutoriaOldMusica);
@@ -109,7 +109,7 @@ public class AutorJpaController implements Serializable {
                         oldAutorOfMusicasDeAutoriaNewMusica = em.merge(oldAutorOfMusicasDeAutoriaNewMusica);
                     }
                 }
-            }
+            }*/
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
