@@ -151,6 +151,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private Label lblTomAssociacao;
     @FXML
+    private Label lblLinkVideo;
+    @FXML
     private AnchorPane contentAtualizarMusica;
     @FXML
     private Button btnSelecionarAutor;
@@ -158,6 +160,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private Button btnAtualizarConteudo;
     @FXML
     private Button btnSalvarAtleracoes;
+    @FXML
+    private TextField fldLinkVideo;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -252,6 +256,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
         this.comboAfinacao.setValue(musica.getAfinacao());
         this.fldAutor.setText(musica.getAutor().getNome());
+        this.fldLinkVideo.setText(musica.getLinkVideo());
         this.fldLeituras.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas()));
 
         List<TipoMusica> tiposMusica = musica.getTipos();
@@ -327,6 +332,11 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     }
 
     @FXML
+    private void onMouseClickedFromLblLinkVideo(MouseEvent event) {
+        this.fldLinkVideo.requestFocus();
+    }
+
+    @FXML
     private void onMouseClickedFromContentAtualizarMusica(MouseEvent event) {
         this.contentAtualizarMusica.requestFocus();
     }
@@ -341,6 +351,10 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
     @FXML
     private void onActionFromFldLeituras(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromFldLinkVideo(ActionEvent event) {
     }
 
     @FXML
@@ -571,7 +585,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private void onActionFromComboTomAssociacao(ActionEvent event) {
         this.comboTomAssociacao.requestFocus();
     }
-
+    
     @FXML
     private void onActionFromBtnAtualizarConteudo(ActionEvent event) {
         //Apaga efeitos anteriores
@@ -671,11 +685,12 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());
-
-            if (!this.conteudoAnterior.equals(this.musica.getDocumentoMusica().getConteudo())) {
+            String novoConteudo = this.musica.getDocumentoMusica().getConteudo();
+            
+            if (!this.conteudoAnterior.equals(novoConteudo)) {
                 this.musica.getDocumentoMusica().setQuantidadeTokens(0);
                 this.musica.getDocumentoMusica().setFrequenciaMaximaToken(0);
-                this.musica.getDocumentoMusica().setConteudo(conteudoAnterior);
+                this.musica.getDocumentoMusica().setConteudo(novoConteudo);
                 try {
                     //Remove as indexações anteriores
                     ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(this.musica.getId());

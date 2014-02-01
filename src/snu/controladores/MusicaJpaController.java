@@ -26,14 +26,9 @@ import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Autor;
-import snu.entidades.musica.Autor_;
 import snu.entidades.musica.DocumentoMusica;
-import snu.entidades.musica.DocumentoMusica_;
 import snu.entidades.musica.EntidadeTipoMusica;
-import snu.entidades.musica.EntidadeTipoMusica_;
 import snu.entidades.musica.LeituraAssociada;
-import snu.entidades.musica.LeituraAssociada_;
-import snu.entidades.musica.Musica_;
 import snu.entidades.musica.TipoMusica;
 import snu.util.StringUtil;
 
@@ -223,9 +218,9 @@ public class MusicaJpaController implements Serializable {
 
         CriteriaQuery<Musica> cq = cb.createQuery(Musica.class);
         Root<Musica> musica = cq.from(Musica.class);
-        Join<Musica, DocumentoMusica> joinDocumentoMusica = musica.join(Musica_.documentoMusica, JoinType.LEFT);
+        Join<Musica, DocumentoMusica> joinDocumentoMusica = musica.join("documentoMusica", JoinType.LEFT);
 
-        cq.select(musica).distinct(true).where(cb.equal(joinDocumentoMusica.get(DocumentoMusica_.id), idDocumentoMusica));
+        cq.select(musica).distinct(true).where(cb.equal(joinDocumentoMusica.get("id"), idDocumentoMusica));
         return em.createQuery(cq).getSingleResult();
     }
 
@@ -245,14 +240,14 @@ public class MusicaJpaController implements Serializable {
 
         if (!parametrosPesquisa.getNomeAutor().isEmpty()) {
             Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
-            predicados.add(cb.like(cb.lower(autor.get(Autor_.nome)), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(autor.<String>get("nome")), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
         }
         if (!parametrosPesquisa.getTitulo().isEmpty()) {
             predicados.add(cb.like(cb.lower(musica.<String>get("titulo")), "%" + parametrosPesquisa.getTitulo().toLowerCase() + "%"));
         }
         if (!parametrosPesquisa.getDescricaoLeiturasAssociadas().isEmpty()) {
             Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);
-            predicados.add(cb.like(cb.lower(leiturasAssociadas.get(LeituraAssociada_.descricao)), "%" + parametrosPesquisa.getDescricaoLeiturasAssociadas().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(leiturasAssociadas.<String>get("descricao")), "%" + parametrosPesquisa.getDescricaoLeiturasAssociadas().toLowerCase() + "%"));
         }
         if (!parametrosPesquisa.getTipos().isEmpty()) {
             Join<Musica, EntidadeTipoMusica> tiposMusica = musica.join("tipos", JoinType.LEFT);
@@ -260,7 +255,7 @@ public class MusicaJpaController implements Serializable {
                 Subquery<Musica> subquery = cq.subquery(Musica.class);
                 Root<EntidadeTipoMusica> entidadesTipoMusica = subquery.from(EntidadeTipoMusica.class);
                 subquery.select(entidadesTipoMusica.<Musica>get("musica")).
-                        where(cb.equal(entidadesTipoMusica.get(EntidadeTipoMusica_.valor), tipoMusica));
+                        where(cb.equal(entidadesTipoMusica.get("valor"), tipoMusica));
                 predicados.add(cb.in(tiposMusica.get("musica")).value(subquery));
             }
         }

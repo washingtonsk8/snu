@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -61,6 +62,9 @@ public class Musica implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = DocumentoMusica.class)
     @JoinColumn(name = "documentomusica_id")
     private DocumentoMusica documentoMusica;
+    
+    @Column(name = "link_video")
+    private String linkVideo;
 
     public Musica() {
         this.associacoes = new ArrayList<>();
@@ -117,6 +121,14 @@ public class Musica implements Serializable {
         this.afinacao = afinacao;
     }
 
+    public String getLinkVideo() {
+        return linkVideo;
+    }
+
+    public void setLinkVideo(String linkVideo) {
+        this.linkVideo = linkVideo;
+    }
+    
     public List<TipoMusica> getTipos() {
         List<TipoMusica> retorno = new ArrayList<>();
         for (EntidadeTipoMusica entidadeTipoMusica : this.tipos) {

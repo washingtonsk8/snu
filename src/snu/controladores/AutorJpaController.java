@@ -21,7 +21,6 @@ import javax.persistence.criteria.JoinType;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.entidades.musica.Autor;
-import snu.entidades.musica.Autor_;
 
 /**
  *
@@ -206,7 +205,7 @@ public class AutorJpaController implements Serializable {
             CriteriaQuery cq = cb.createQuery();
             Root<Autor> musica = cq.from(Musica.class);
             Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
-            cq.select(cb.count(musica)).distinct(true).where(cb.equal(autor.get(Autor_.id), id));
+            cq.select(cb.count(musica)).distinct(true).where(cb.equal(autor.get("id"), id));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {

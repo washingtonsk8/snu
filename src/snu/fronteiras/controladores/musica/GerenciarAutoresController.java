@@ -110,6 +110,7 @@ public class GerenciarAutoresController implements Initializable {
         this.btnAdicionarAutor.setVisible(false);
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
+        //TODO: Colocar total de autores no sistema
     }
 
     private void filtrarTabela(String textoPesquisa) {

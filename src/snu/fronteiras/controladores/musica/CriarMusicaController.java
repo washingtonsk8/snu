@@ -78,6 +78,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private Label lblAssociacoes;
     @FXML
+    private Label lblLinkVideo;
+    @FXML
     private TableView<AssociacaoIntegranteMusica> tblAssociacoes;
     @FXML
     private Label lblTipos;
@@ -151,6 +153,12 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private Label lblTomAssociacao;
     @FXML
     private AnchorPane contentCriarMusica;
+    @FXML
+    private Button btnSelecionarAutor;
+    @FXML
+    private Button btnCriarNova;
+    @FXML
+    private TextField fldLinkVideo;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -168,11 +176,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private final ObservableList<Afinacao> afinacoesMusica
             = FXCollections.observableArrayList(Afinacao.CFBbEbGC, Afinacao.DGCFAD,
                     Afinacao.DbGbBEAbDb, Afinacao.EADGBE, Afinacao.EbAbDbGbBbEb);
-    @FXML
-    private Button btnSelecionarAutor;
-
-    @FXML
-    private Button btnCriarNova;
 
     /**
      * Inicializa os componentes
@@ -298,6 +301,11 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
+    private void onMouseClickedFromLblLinkVideo(MouseEvent event) {
+        this.fldLinkVideo.requestFocus();
+    }
+
+    @FXML
     private void onMouseClickedFromContentCriarMusica(MouseEvent event) {
         this.contentCriarMusica.requestFocus();
     }
@@ -312,6 +320,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
     @FXML
     private void onActionFromFldLeituras(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromFldLinkVideo(ActionEvent event) {
     }
 
     @FXML
@@ -576,6 +588,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.comboNomeAssociacao.setValue(null);
         this.comboTomAssociacao.setValue(null);
         this.itensAssociacao.clear();
+        this.fldLinkVideo.clear();
         this.tblAssociacoes.setItems(itensAssociacao);
 
         for (Pair<TipoMusica, CheckBox> par : parTiposMusicaCheckBoxes) {
@@ -663,6 +676,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());
+            this.musica.setLinkVideo(this.fldLinkVideo.getText());
 
             String campoLeiturasAssociadas = this.fldLeituras.getText();
 
@@ -693,13 +707,13 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     Logger.getLogger(CriarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             //TODO: É provável que tenha que ser removido (Se o cara esqueceu, realiza pergunta e leva direto para a atualização)
             if (this.musica.getDocumentoMusica().getConteudo() == null || this.musica.getDocumentoMusica().getConteudo().isEmpty()) {
                 Dialogs.showWarningDialog(null, "Não esqueça de escrever o conteúdo da música", "Conselho", "Informação");
                 this.btnEscreverConteudo.setEffect(EfeitosUtil.getEfeitoAviso());
             }
-            
+
             //TODO: Remover, pois ao salvar duas vezes, uma indexação duplicada pode ser gerada
             IndexadorController.getInstancia().indexar(musica);
 

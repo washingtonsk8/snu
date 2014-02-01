@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -79,6 +80,12 @@ public class VisualizarMusicaController implements Initializable {
     private Label lblResultadoLeituras;
     @FXML
     private Label lblResultadoTipos;
+    @FXML
+    private Label lblVisualizarMusica;
+    @FXML
+    private Label lblLinkVideo;
+    @FXML
+    private Hyperlink hplResultadoLinkVideo;
 
     private VisualizarDadosMusicaController controladorOrigem;
 
@@ -103,7 +110,7 @@ public class VisualizarMusicaController implements Initializable {
     public void initData(Musica musica, VisualizarDadosMusicaController controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
-        
+
         String leiturasAssociadas = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas());
 
         this.lblResultadoAfinacao.setText(musica.getAfinacao().toString());
@@ -111,6 +118,7 @@ public class VisualizarMusicaController implements Initializable {
         this.lblResultadoLeituras.setText((leiturasAssociadas != null && !leiturasAssociadas.isEmpty()) ? leiturasAssociadas : "Não há leituras associadas");
         this.lblResultadoTipos.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getTipos()));
         this.lblResultadoTitulo.setText(musica.getTitulo());
+        this.hplResultadoLinkVideo.setText(musica.getLinkVideo());
         this.lblResultadoTom.setText(musica.getTom().toString());
         this.tblResultadoAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
         this.tblResultadoAssociacoes.setEditable(false);
@@ -173,11 +181,20 @@ public class VisualizarMusicaController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromLblLinkVideo(MouseEvent event) {
+    }
+
+    @FXML
     private void onMouseClickedFromLblAssociacoes(MouseEvent event) {
     }
 
     @FXML
     private void onMouseClickedFromContentVisualizarMusica(MouseEvent event) {
+    }
+
+    @FXML
+    private void onActionFromHplResultadoLinkVideo(ActionEvent event) {
+        //TODO: Abrir navegador
     }
 
     @FXML
@@ -192,5 +209,4 @@ public class VisualizarMusicaController implements Initializable {
         pai.getChildren().clear();
         pai.getChildren().add(this.controladorOrigem.getContentVisualizarDadosMusica());
     }
-
 }

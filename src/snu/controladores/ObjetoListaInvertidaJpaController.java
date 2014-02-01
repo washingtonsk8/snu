@@ -16,9 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
-import snu.entidades.musica.Musica;
 import snu.entidades.musica.indexador.ObjetoListaInvertida;
-import snu.entidades.musica.indexador.ObjetoListaInvertida_;
 import snu.entidades.musica.indexador.Vocabulo;
 
 /**
@@ -175,7 +173,7 @@ public class ObjetoListaInvertidaJpaController implements Serializable {
             CriteriaQuery<ObjetoListaInvertida> cq = cb.createQuery(ObjetoListaInvertida.class);
             Root<ObjetoListaInvertida> objetoListaInvertidaRoot = cq.from(ObjetoListaInvertida.class);
             cq.select(objetoListaInvertidaRoot)
-                    .where(cb.equal(objetoListaInvertidaRoot.<Long>get(ObjetoListaInvertida_.idMusica), idMusica));
+                    .where(cb.equal(objetoListaInvertidaRoot.<Long>get("idMusica"), idMusica));
             Query query = em.createQuery(cq);
             List<ObjetoListaInvertida> objetosToRemover = query.getResultList();
 

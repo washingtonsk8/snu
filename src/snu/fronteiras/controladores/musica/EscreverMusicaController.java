@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.fronteiras.controladores.musica;
 
 import java.net.URL;
@@ -19,6 +18,7 @@ import javafx.scene.text.Font;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
+import snu.util.MusicaUtil;
 
 /**
  * FXML Controller class
@@ -26,6 +26,7 @@ import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
  * @author Washington Luis
  */
 public class EscreverMusicaController implements Initializable {
+
     @FXML
     private AnchorPane contentEscreverMusica;
     @FXML
@@ -38,30 +39,43 @@ public class EscreverMusicaController implements Initializable {
     private Font x1;
     @FXML
     private Button btnCancelar;
-    
+    @FXML
+    private Button btnDetectarAcordes;
+
     private ControladorDeConteudoInterface controladorOrigem;
-    
+
     private Musica musica;
-    
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
-    public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem){
+    public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
-        
+
         this.areaEscreverMusica.setText(this.musica.getDocumentoMusica().getConteudo());
     }
-    
+
+    @FXML
+    private void onActionFromBtnDetectarAcordes(ActionEvent event) {
+        //TODO: Remover BUG de recursão de detecção
+        String conteudoMusica = this.areaEscreverMusica.getText();
+        String conteudoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(conteudoMusica);
+        this.areaEscreverMusica.setText(conteudoMusicaComAcordesDetectados);
+    }
+
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
         this.musica.getDocumentoMusica().setConteudo(this.areaEscreverMusica.getText());
-        
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
@@ -75,5 +89,5 @@ public class EscreverMusicaController implements Initializable {
         pai.getChildren().clear();
         pai.getChildren().add(this.controladorOrigem.getContentPane());
     }
-    
+
 }
