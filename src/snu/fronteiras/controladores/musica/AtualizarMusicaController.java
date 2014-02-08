@@ -267,7 +267,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             }
         }
 
-        this.fldTitulo.setText(musica.getTitulo());
+        this.fldTitulo.setText(musica.getNome());
         this.comboTom.setValue(musica.getTom());
         this.itensAssociacao.addAll(musica.getAssociacoes());
         this.tblAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
@@ -681,7 +681,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private void onActionFromBtnSalvarAtleracoes(ActionEvent event) {
         if (validarCampos()) {
-            this.musica.setTitulo(this.fldTitulo.getText());
+            this.musica.setNome(this.fldTitulo.getText());
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());

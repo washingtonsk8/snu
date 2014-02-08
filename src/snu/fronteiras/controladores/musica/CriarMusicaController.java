@@ -672,7 +672,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
-            this.musica.setTitulo(this.fldTitulo.getText());
+            this.musica.setNome(this.fldTitulo.getText());
             this.musica.setAssociacoes(this.itensAssociacao);
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());

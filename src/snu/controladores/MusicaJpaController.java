@@ -242,8 +242,8 @@ public class MusicaJpaController implements Serializable {
             Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
             predicados.add(cb.like(cb.lower(autor.<String>get("nome")), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
         }
-        if (!parametrosPesquisa.getTitulo().isEmpty()) {
-            predicados.add(cb.like(cb.lower(musica.<String>get("titulo")), "%" + parametrosPesquisa.getTitulo().toLowerCase() + "%"));
+        if (!parametrosPesquisa.getNomeMusica().isEmpty()) {
+            predicados.add(cb.like(cb.lower(musica.<String>get("nome")), "%" + parametrosPesquisa.getNomeMusica().toLowerCase() + "%"));
         }
         if (!parametrosPesquisa.getDescricaoLeiturasAssociadas().isEmpty()) {
             Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);

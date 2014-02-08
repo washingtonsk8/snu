@@ -8,7 +8,10 @@ package snu.fronteiras.controladores.musica.popups;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
 
 /**
@@ -17,6 +20,10 @@ import snu.entidades.musica.Musica;
  * @author Washington Luis
  */
 public class GerarImpressaoMusicaController implements Initializable {
+    @FXML
+    private AnchorPane popupGerarImpressaoMusica;
+    @FXML
+    private Font x1;
 
     private void initComponents(){
         

@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  * Classe que define uma música na visão do ministério
@@ -39,7 +40,7 @@ public class Musica implements Serializable {
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
-    private String titulo;
+    private String nome;
 
     @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
             targetEntity = LeituraAssociada.class, fetch = FetchType.LAZY)
@@ -89,12 +90,12 @@ public class Musica implements Serializable {
         this.autor = autor;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public List<LeituraAssociada> getLeiturasAssociadas() {
@@ -181,7 +182,17 @@ public class Musica implements Serializable {
     public void setDocumentoMusica(DocumentoMusica documentoMusica) {
         this.documentoMusica = documentoMusica;
     }
-
+    
+    /**
+     * Retorna o título de uma música
+     * no formato: Autor - Título
+     * @return
+     */
+    public String getTitulo(){
+        String nomeAutor = this.autor == null? "Sem Autor" : this.autor.getNome();
+        return nomeAutor + " - " + this.nome;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -204,6 +215,6 @@ public class Musica implements Serializable {
 
     @Override
     public String toString() {
-        return "Musica{" + "id=" + id + ", autor=" + autor + ", titulo=" + titulo + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
+        return "Musica{" + "id=" + id + ", autor=" + autor + ", titulo=" + nome + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
     }
 }

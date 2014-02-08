@@ -117,7 +117,7 @@ public class VisualizarMusicaController implements Initializable {
         this.lblResultadoAutor.setText(musica.getAutor().getNome());
         this.lblResultadoLeituras.setText((leiturasAssociadas != null && !leiturasAssociadas.isEmpty()) ? leiturasAssociadas : "Não há leituras associadas");
         this.lblResultadoTipos.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getTipos()));
-        this.lblResultadoTitulo.setText(musica.getTitulo());
+        this.lblResultadoTitulo.setText(musica.getNome());
         this.hplResultadoLinkVideo.setText(musica.getLinkVideo());
         this.lblResultadoTom.setText(musica.getTom().toString());
         this.tblResultadoAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));

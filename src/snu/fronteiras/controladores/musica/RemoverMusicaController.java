@@ -136,7 +136,7 @@ public class RemoverMusicaController implements Initializable {
                 return new SimpleStringProperty(musica.getValue().getAutor().getNome());
             }
         });
-        this.clnTitulo.setCellValueFactory(new PropertyValueFactory<Musica, String>("titulo"));
+        this.clnTitulo.setCellValueFactory(new PropertyValueFactory<Musica, String>("nome"));
         this.clnLeituras.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
@@ -164,7 +164,7 @@ public class RemoverMusicaController implements Initializable {
         parametrosPesquisa.setNomeAutor(this.fldAutor.getText());
         parametrosPesquisa.setDescricaoLeiturasAssociadas(this.fldLeitura.getText());
         parametrosPesquisa.setTipos(this.tiposMusica);
-        parametrosPesquisa.setTitulo(this.fldTitulo.getText());
+        parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
 
         this.musicas = FXCollections.observableArrayList(MusicaJpaController.getInstancia().findMusicasByParametrosPesquisa(parametrosPesquisa));

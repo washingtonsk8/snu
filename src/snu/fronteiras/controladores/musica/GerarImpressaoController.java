@@ -5,11 +5,11 @@
  */
 package snu.fronteiras.controladores.musica;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +19,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,16 +31,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
 import snu.controladores.MusicaJpaController;
+import snu.controladores.PDFController;
 import snu.dto.ParametrosPesquisaMusica;
-import snu.entidades.musica.Autor;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
-import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
-import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.ListaUtil;
 
 /**
@@ -139,7 +133,7 @@ public class GerarImpressaoController implements Initializable {
                 return new SimpleStringProperty(musica.getValue().getAutor().getNome());
             }
         });
-        this.clnTitulo.setCellValueFactory(new PropertyValueFactory<Musica, String>("titulo"));
+        this.clnTitulo.setCellValueFactory(new PropertyValueFactory<Musica, String>("nome"));
         this.clnLeituras.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
@@ -167,7 +161,7 @@ public class GerarImpressaoController implements Initializable {
         parametrosPesquisa.setNomeAutor(this.fldAutor.getText());
         parametrosPesquisa.setDescricaoLeiturasAssociadas(this.fldLeitura.getText());
         parametrosPesquisa.setTipos(this.tiposMusica);
-        parametrosPesquisa.setTitulo(this.fldTitulo.getText());
+        parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
 
         List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
@@ -410,25 +404,40 @@ public class GerarImpressaoController implements Initializable {
         this.tblMusicas.requestFocus();
         Musica musicaSelecionada = this.tblMusicas.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2 && musicaSelecionada != null) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
-            AnchorPane root = null;
+            Map<String, Object> parametros = new HashMap<>();
+            String nomeArquivoMusica = musicaSelecionada.getAutor().getNome() + " - "
+                    + musicaSelecionada.getNome() + ".pdf";
+
+            parametros.put("tituloMusica", musicaSelecionada.getTitulo());
+            parametros.put("conteudoMusica", musicaSelecionada.getDocumentoMusica().getConteudo());
+
+            PDFController controladorPDF = new PDFController();
             try {
-                root = (AnchorPane) fxmlLoader.load();
-            } catch (IOException ex) {
+                controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, nomeArquivoMusica);
+                Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
+            } catch (JRException ex) {
                 Logger.getLogger(GerarImpressaoController.class.getName()).log(Level.SEVERE, null, ex);
+                Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
             }
-
-            //Inicializa os dados passando a música por parâmetro
-            GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
-            gerarImpressaoMusicaController.initData(musicaSelecionada);
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Gerar Impressão de Música");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-            dialogStage.setScene(new Scene(root));
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
+            /*  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
+             AnchorPane root = null;
+             try {
+             root = (AnchorPane) fxmlLoader.load();
+             } catch (IOException ex) {
+             Logger.getLogger(GerarImpressaoController.class.getName()).log(Level.SEVERE, null, ex);
+             }
+                
+             //Inicializa os dados passando a música por parâmetro
+             GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
+             gerarImpressaoMusicaController.initData(musicaSelecionada);
+                
+             Stage dialogStage = new Stage();
+             dialogStage.setTitle("Gerar Impressão de Música");
+             dialogStage.initModality(Modality.WINDOW_MODAL);
+             dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+             dialogStage.setScene(new Scene(root));
+             // Show the dialog and wait until the user closes it
+             dialogStage.showAndWait();*/
         }
     }
 

@@ -16,7 +16,7 @@ import snu.entidades.musica.TipoMusica;
 public class ParametrosPesquisaMusica {
 
     private String nomeAutor;
-    private String titulo;
+    private String nomeMusica;
     private String descricaoLeituraAssociadas;
     private String trecho;
     private List<TipoMusica> tipos;
@@ -29,12 +29,12 @@ public class ParametrosPesquisaMusica {
         this.nomeAutor = nomeAutor;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNomeMusica() {
+        return nomeMusica;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNomeMusica(String nomeMusica) {
+        this.nomeMusica = nomeMusica;
     }
 
     public String getDescricaoLeiturasAssociadas() {
