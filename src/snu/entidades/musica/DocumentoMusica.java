@@ -26,6 +26,8 @@ public class DocumentoMusica implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String introducao;
+    
     @Column(columnDefinition = "LONGTEXT")
     private String conteudo;
 
@@ -43,6 +45,14 @@ public class DocumentoMusica implements Serializable {
         this.id = id;
     }
 
+    public String getIntroducao() {
+        return introducao;
+    }
+
+    public void setIntroducao(String introducao) {
+        this.introducao = introducao;
+    }
+        
     public String getConteudo() {
         return conteudo;
     }

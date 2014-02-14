@@ -32,6 +32,23 @@ public class ListaUtil {
         return resposta.substring(0, resposta.length() - 2);
     }
     
+    public static String getListaSeparadaPorVirgula(List<?> lista) {
+        if (lista == null) {
+            return null;
+        }
+        if (lista.isEmpty()) {
+            return new String();
+        }
+
+        String resposta = "";
+
+        for (Object elemento : lista) {
+            resposta += elemento + ", ";
+        }
+
+        return resposta.substring(0, resposta.length() - 2);
+    }
+    
     public static List<String> converterListaParaListaDeStrings(List<?> lista){
         List<String> resposta = new ArrayList<>();
         for (Object elemento : lista) {

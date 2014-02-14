@@ -13,10 +13,23 @@ package snu.util;
 public class MusicaUtil {
 
     public static String detectarAcordes(String conteudoEntrada) {
+        if(conteudoEntrada == null){
+            return null;
+        }
         return conteudoEntrada.replaceAll(RegexUtil.getRegexAcordes(), "@$0");
     }
 
     public static String removerAcordes(String conteudoEntrada) {
+        if(conteudoEntrada == null){
+            return null;
+        }
         return detectarAcordes(conteudoEntrada).replaceAll("@[\\S]*", "");
     }
+    
+    public static String limparParaImpressao(String conteudoEntrada) {
+        if(conteudoEntrada == null){
+            return null;
+        }
+        return conteudoEntrada.replaceAll("@", "");
+    }    
 }

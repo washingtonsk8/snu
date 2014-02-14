@@ -23,7 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,7 +36,6 @@ import snu.controladores.AutorJpaController;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
-import snu.entidades.musica.Musica;
 import snu.util.StringUtil;
 
 /**
@@ -107,7 +105,6 @@ public class GerenciarAutoresController implements Initializable {
         });
         this.tblAutores.setItems(this.autores);
 
-        this.btnAdicionarAutor.setVisible(false);
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
         //TODO: Colocar total de autores no sistema
@@ -147,48 +144,54 @@ public class GerenciarAutoresController implements Initializable {
         String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase();
         if (StringUtil.hasAlgo(textoPesquisa)) {
             filtrarTabela(textoPesquisa);
-            this.btnAdicionarAutor.setVisible(true);
         } else {
             this.tblAutores.setItems(this.autores);
-            this.btnAdicionarAutor.setVisible(false);
             atualizarTabela();
         }
     }
 
     @FXML
     private void onMouseClickedFromFldPesquisarAutor(MouseEvent event) {
-        this.btnAdicionarAutor.setVisible(StringUtil.hasAlgo(this.fldPesquisarAutor.getText()));
+        this.btnAdicionarAutor.setVisible(true);
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
     }
 
     @FXML
     private void onMouseClickedFromContentGerenciarAutores(MouseEvent event) {
+        this.btnAdicionarAutor.setVisible(true);
+        this.btnEditarAutor.setVisible(false);
+        this.btnRemoverAutor.setVisible(false);
+        this.contentGerenciarAutores.requestFocus();
     }
 
     @FXML
     private void onActionFromBtnAdicionarAutor(ActionEvent event) {
         String textoPesquisa = this.fldPesquisarAutor.getText();
 
-        Autor novoAutor = new Autor();
-        novoAutor.setNome(textoPesquisa);
+        if (StringUtil.hasAlgo(textoPesquisa)) {
 
-        //Persiste no banco
-        AutorJpaController.getInstancia().create(novoAutor);
+            Autor novoAutor = new Autor();
+            novoAutor.setNome(textoPesquisa);
 
-        //Adicioná-lo à lista de autores filtrados
-        QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
-        quantidadeAutoriaDTO.setAutor(novoAutor);
-        //Não possui músicas, pois é novo autor
-        quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
-        this.autores.add(quantidadeAutoriaDTO);
+            //Persiste no banco
+            AutorJpaController.getInstancia().create(novoAutor);
 
-        //TODO: Mostrar mensagem de sucesso
-        this.fldPesquisarAutor.clear();
-        this.tblAutores.setItems(this.autores);
-        atualizarTabela();
-        this.btnAdicionarAutor.setVisible(false);
-        this.fldPesquisarAutor.requestFocus();
+            //Adicioná-lo à lista de autores filtrados
+            QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
+            quantidadeAutoriaDTO.setAutor(novoAutor);
+            //Não possui músicas, pois é novo autor
+            quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
+            this.autores.add(quantidadeAutoriaDTO);
+
+            //TODO: Mostrar mensagem de sucesso
+            this.fldPesquisarAutor.clear();
+            this.tblAutores.setItems(this.autores);
+            atualizarTabela();
+            this.fldPesquisarAutor.requestFocus();
+        }else{
+            Dialogs.showWarningDialog(null, "O nome do Autor(a) deve ter pelo menos um caractere!", "Nome vazio!", "Aviso");
+        }
     }
 
     @FXML
@@ -206,7 +209,7 @@ public class GerenciarAutoresController implements Initializable {
         String nomeAutor = quantidadeAutoriaDtoSelecionado.getAutor().getNome();
         String novoNomeAutor = Dialogs.showInputDialog(null, "Edite o nome do(a) Autor(a) e confirme para alterar",
                 "Edição de Autor", "Edição de Autor", nomeAutor);
-        if (!nomeAutor.equals(novoNomeAutor)) {
+        if (novoNomeAutor != null && !nomeAutor.equals(novoNomeAutor)) {
             quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
             try {
                 AutorJpaController.getInstancia().edit(quantidadeAutoriaDtoSelecionado.getAutor());
@@ -221,7 +224,8 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         Dialogs.DialogResponse resposta;
-        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o(a) Autor(a)?",
+        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o(a) Autor(a)?\n"
+                + "Ao excluir, todas as músicas de sua autoria serão apagadas.",
                 "Exclusão de Autor", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {

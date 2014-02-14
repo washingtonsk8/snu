@@ -108,21 +108,18 @@ public class AtualizarIntegranteController implements Initializable {
     @FXML
     private TextField fldEmail;
 
-    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(
-            FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
-            FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
-            FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
     @FXML
     private Font x3;
     @FXML
     private Button btnLimpar;
-
     @FXML
     private Button btnVoltar;
 
     private Integrante integrante;
 
     private AtualizarDadosIntegranteController controladorOrigem;
+
+    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
     private void definirAtividadeDeFocoDosCampos() {
         //Campo de e-mail

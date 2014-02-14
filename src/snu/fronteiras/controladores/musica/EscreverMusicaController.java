@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.musica.DocumentoMusica;
@@ -41,6 +43,10 @@ public class EscreverMusicaController implements Initializable {
     private Button btnCancelar;
     @FXML
     private Button btnDetectarAcordes;
+    @FXML
+    private Label lblIntroducao;
+    @FXML
+    private TextField fldIntroducao;
 
     private ControladorDeConteudoInterface controladorOrigem;
 
@@ -61,12 +67,22 @@ public class EscreverMusicaController implements Initializable {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
+        this.fldIntroducao.setText(this.musica.getDocumentoMusica().getIntroducao());
         this.areaEscreverMusica.setText(this.musica.getDocumentoMusica().getConteudo());
+    }
+
+    @FXML
+    private void onMouseClickedFromLblIntroducao(MouseEvent event) {
     }
 
     @FXML
     private void onActionFromBtnDetectarAcordes(ActionEvent event) {
         //TODO: Remover BUG de recursão de detecção
+        
+        String introducaoMusica = this.fldIntroducao.getText();
+        String introducaoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(introducaoMusica);
+        this.fldIntroducao.setText(introducaoMusicaComAcordesDetectados);
+        
         String conteudoMusica = this.areaEscreverMusica.getText();
         String conteudoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(conteudoMusica);
         this.areaEscreverMusica.setText(conteudoMusicaComAcordesDetectados);
@@ -74,6 +90,7 @@ public class EscreverMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
+        this.musica.getDocumentoMusica().setIntroducao(this.fldIntroducao.getText());
         this.musica.getDocumentoMusica().setConteudo(this.areaEscreverMusica.getText());
 
         //Limpa o conteúdo anterior e carrega a página
@@ -89,5 +106,4 @@ public class EscreverMusicaController implements Initializable {
         pai.getChildren().clear();
         pai.getChildren().add(this.controladorOrigem.getContentPane());
     }
-
 }

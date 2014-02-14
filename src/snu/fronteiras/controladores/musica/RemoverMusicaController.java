@@ -120,8 +120,6 @@ public class RemoverMusicaController implements Initializable {
     private TableColumn<Musica, String> clnLeituras;
     @FXML
     private Button btnPesquisar;
-    @FXML
-    private Button btnRemover;
 
     private List<TipoMusica> tiposMusica;
 
@@ -169,6 +167,21 @@ public class RemoverMusicaController implements Initializable {
 
         this.musicas = FXCollections.observableArrayList(MusicaJpaController.getInstancia().findMusicasByParametrosPesquisa(parametrosPesquisa));
         this.tblMusicas.setItems(this.musicas);
+    }
+
+    private void removerMusicaSelecionada(Musica musicaSelecionada) {
+        Dialogs.DialogResponse resposta;
+        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Música?", "Exclusão de Música", "Confirmação");
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            try {
+                MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
+                this.musicas.remove(musicaSelecionada);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(RemoverMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            atualizarTabela();
+        }
     }
 
     /**
@@ -398,6 +411,10 @@ public class RemoverMusicaController implements Initializable {
     @FXML
     private void onMouseClickedFromTblMusicas(MouseEvent event) {
         this.tblMusicas.requestFocus();
+        Musica musicaSelecionada = this.tblMusicas.getSelectionModel().getSelectedItem();
+        if (event.getClickCount() == 2 && musicaSelecionada != null) {
+            removerMusicaSelecionada(musicaSelecionada);
+        }
     }
 
     @FXML
@@ -405,8 +422,7 @@ public class RemoverMusicaController implements Initializable {
         pesquisarPorParametros();
     }
 
-    @FXML
-    private void onActionFromBtnRemover(ActionEvent event) {
+        private void onActionFromBtnRemover(ActionEvent event) {
         Musica integranteSelecionado = this.tblMusicas.getSelectionModel().getSelectedItem();
 
         if (integranteSelecionado != null) {

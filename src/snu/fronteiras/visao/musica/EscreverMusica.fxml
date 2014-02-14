@@ -5,6 +5,7 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -15,14 +16,23 @@
       <URL value="@../../css/musica/escrevermusica.css" />
     </stylesheets>
   </Label>
-  <TextArea fx:id="areaEscreverMusica" layoutX="14.0" layoutY="60.0" prefHeight="510.0" prefWidth="650.0" wrapText="true" />
-  <Button fx:id="btnOk" layoutX="686.0" layoutY="530.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK">
+  <TextArea fx:id="areaEscreverMusica" layoutX="64.0" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+  <Button fx:id="btnOk" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK">
     <font>
       <Font size="14.0" fx:id="x1" />
     </font>
   </Button>
-  <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="480.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
-  <Button id="btnDetectarNotas" fx:id="btnDetectarAcordes" font="$x1" layoutX="686.0" layoutY="400.0" mnemonicParsing="false" onAction="#onActionFromBtnDetectarAcordes" prefHeight="60.0" prefWidth="100.0" text="Detectar Acordes" textAlignment="CENTER" textFill="BLACK" wrapText="true" />
+  <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
+  <Button id="btnDetectarNotas" fx:id="btnDetectarAcordes" font="$x1" layoutX="686.0" layoutY="380.0" mnemonicParsing="false" onAction="#onActionFromBtnDetectarAcordes" prefHeight="60.0" prefWidth="100.0" text="Detectar Acordes" textAlignment="CENTER" textFill="BLACK" wrapText="true" />
+  <Label fx:id="lblIntroducao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblIntroducao" prefWidth="-1.0" text="Intro:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+    <font>
+      <Font size="16.0" />
+    </font>
+  </Label>
+  <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
   <stylesheets>
     <URL value="@../../css/contents.css" />
     <URL value="@../../css/musica/escrevermusica.css" />

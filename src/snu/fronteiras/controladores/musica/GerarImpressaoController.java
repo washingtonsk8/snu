@@ -39,6 +39,7 @@ import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.util.ListaUtil;
+import snu.util.MusicaUtil;
 
 /**
  * FXML Controller class
@@ -408,8 +409,12 @@ public class GerarImpressaoController implements Initializable {
             String nomeArquivoMusica = musicaSelecionada.getAutor().getNome() + " - "
                     + musicaSelecionada.getNome() + ".pdf";
 
+            parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(musicaSelecionada.getTipos()));
             parametros.put("tituloMusica", musicaSelecionada.getTitulo());
-            parametros.put("conteudoMusica", musicaSelecionada.getDocumentoMusica().getConteudo());
+            parametros.put("introducaoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
+                    getDocumentoMusica().getIntroducao()));
+            parametros.put("conteudoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
+                    getDocumentoMusica().getConteudo()));
 
             PDFController controladorPDF = new PDFController();
             try {

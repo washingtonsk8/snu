@@ -5,6 +5,7 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -15,8 +16,8 @@
       <URL value="@../../css/musica/visualizarconteudomusica.css" />
     </stylesheets>
   </Label>
-  <TextArea fx:id="areaVisualizarMusica" layoutX="14.0" layoutY="60.0" prefHeight="510.0" prefWidth="650.0" wrapText="true" />
-  <Button fx:id="btnVoltar" layoutX="686.0" layoutY="530.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK">
+  <TextArea fx:id="areaVisualizarMusica" layoutX="64.0" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+  <Button fx:id="btnVoltar" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK">
     <font>
       <Font size="14.0" fx:id="x1" />
     </font>
@@ -25,4 +26,13 @@
     <URL value="@../../css/contents.css" />
     <URL value="@../../css/musica/visualizarconteudomusica.css" />
   </stylesheets>
+  <Label id="lblAutor" fx:id="lblIntroducao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblIntroducao" prefWidth="-1.0" text="Intro:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+    <font>
+      <Font size="16.0" />
+    </font>
+  </Label>
+  <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
 </AnchorPane>

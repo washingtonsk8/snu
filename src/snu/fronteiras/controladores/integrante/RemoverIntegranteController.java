@@ -26,7 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -72,20 +71,14 @@ public class RemoverIntegranteController implements Initializable {
     private TableColumn<Integrante, String> clnFuncaoPrincipal;
     @FXML
     private TableView<Integrante> tblIntegrantes;
-
-    private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
-
-    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(
-            FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
-            FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
-            FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
-    @FXML
-    private Button btnRemover;
     @FXML
     private Font x2;
+    
+    private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
+
+    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
     private void initComponents() {
-
         this.tblIntegrantes.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override
@@ -113,6 +106,26 @@ public class RemoverIntegranteController implements Initializable {
 
         this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
         this.tblIntegrantes.setItems(this.integrantes);
+    }
+    
+        private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
+        Dialogs.DialogResponse resposta;
+        if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
+            resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
+        } else {
+            resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
+        }
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
+            try {
+                integranteController.destroy(integranteSelecionado.getId());
+                this.integrantes.remove(integranteSelecionado);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            atualizarTabela();
+        }
     }
 
     /**
@@ -162,33 +175,6 @@ public class RemoverIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnRemover(ActionEvent event) {
-        Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
-
-        if (integranteSelecionado != null) {
-            Dialogs.DialogResponse resposta;
-            if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
-                resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
-            } else {
-                resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
-            }
-
-            if (resposta.equals(Dialogs.DialogResponse.YES)) {
-                IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
-                try {
-                    integranteController.destroy(integranteSelecionado.getId());
-                    this.integrantes.remove(integranteSelecionado);
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                atualizarTabela();
-            }
-        } else {
-            Dialogs.showWarningDialog(null, "Favor selecionar um(a) Integrante para a exclusão", "Integrante não selecionado(a)", "Aviso");
-        }
-    }
-
-    @FXML
     private void onMouseClickedFromContentRemoverIntegrante(MouseEvent event) {
     }
 
@@ -198,6 +184,11 @@ public class RemoverIntegranteController implements Initializable {
 
     @FXML
     private void onMouseClickedFromTblIntegrantes(MouseEvent event) {
+        this.tblIntegrantes.requestFocus();
+        Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
+        if (event.getClickCount() == 2 && integranteSelecionado != null) {
+            removerIntegranteSelecionado(integranteSelecionado);
+        }
     }
 
     private void atualizarTabela() {
@@ -220,5 +211,4 @@ public class RemoverIntegranteController implements Initializable {
             }
         });
     }
-
 }

@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -35,16 +36,22 @@ public class VisualizarConteudoMusicaController implements Initializable {
     private Font x1;
     @FXML
     private AnchorPane contentVisualizarConteudoMusica;
+    @FXML
+    private Label lblIntroducao;
+    @FXML
+    private TextField fldIntroducao;
     
     private VisualizarMusicaController controladorOrigem;
 
     private void initComponents() {
-        //Desabilita a edição do campos
+        //Desabilita a edição dos campos
+        this.fldIntroducao.setEditable(false);
         this.areaVisualizarMusica.setEditable(false);
     }
 
     public void initData(Musica musica, VisualizarMusicaController controladorOrigem){
         this.controladorOrigem = controladorOrigem;
+        this.fldIntroducao.setText(musica.getDocumentoMusica().getIntroducao());
         this.areaVisualizarMusica.setText(musica.getDocumentoMusica().getConteudo());
     }
     
@@ -60,6 +67,10 @@ public class VisualizarConteudoMusicaController implements Initializable {
     @FXML
     private void onMouseClickedFromContentVisualizarConteudoMusica(MouseEvent event) {
         this.areaVisualizarMusica.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblIntroducao(MouseEvent event) {
     }
 
     @FXML

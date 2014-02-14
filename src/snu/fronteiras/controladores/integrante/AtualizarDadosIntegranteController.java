@@ -70,15 +70,13 @@ public class AtualizarDadosIntegranteController implements Initializable {
     private TableColumn<Integrante, String> clnFuncaoPrincipal;
     @FXML
     private TableView<Integrante> tblIntegrantes;
-
-    private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
-
-    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(
-            FuncaoIntegrante.BAIXISTA, FuncaoIntegrante.CANTOR, FuncaoIntegrante.GUITARRISTA_BASE,
-            FuncaoIntegrante.GUITARRISTA_SOLO, FuncaoIntegrante.TECLADISTA,
-            FuncaoIntegrante.VIOLINISTA, FuncaoIntegrante.VIOLONISTA);
     @FXML
     private Font x2;
+    
+    private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
+
+    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
+
 
     private void initComponents() {
 
