@@ -238,14 +238,14 @@ public class MusicaJpaController implements Serializable {
 
         List<Predicate> predicados = new ArrayList<>();
 
-        if (!parametrosPesquisa.getNomeAutor().isEmpty()) {
+        if (StringUtil.hasAlgo(parametrosPesquisa.getNomeAutor())) {
             Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
             predicados.add(cb.like(cb.lower(autor.<String>get("nome")), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
         }
-        if (!parametrosPesquisa.getNomeMusica().isEmpty()) {
+        if (StringUtil.hasAlgo(parametrosPesquisa.getNomeMusica())) {
             predicados.add(cb.like(cb.lower(musica.<String>get("nome")), "%" + parametrosPesquisa.getNomeMusica().toLowerCase() + "%"));
         }
-        if (!parametrosPesquisa.getDescricaoLeiturasAssociadas().isEmpty()) {
+        if (StringUtil.hasAlgo(parametrosPesquisa.getDescricaoLeiturasAssociadas())) {
             Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);
             predicados.add(cb.like(cb.lower(leiturasAssociadas.<String>get("descricao")), "%" + parametrosPesquisa.getDescricaoLeiturasAssociadas().toLowerCase() + "%"));
         }
@@ -258,8 +258,7 @@ public class MusicaJpaController implements Serializable {
                         where(cb.equal(entidadesTipoMusica.get("valor"), tipoMusica));
                 predicados.add(cb.in(tiposMusica.get("musica")).value(subquery));
             }
-        }
-        
+        }        
 
         Predicate[] arrayPredicados = new Predicate[predicados.size()];
         cq.select(musica).distinct(true).where(predicados.toArray(arrayPredicados));

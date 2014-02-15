@@ -8,6 +8,7 @@ package snu.entidades.musica;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +19,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import snu.entidades.missa.Missa;
 
 /**
  * Classe que define uma música na visão do ministério
@@ -66,6 +69,9 @@ public class Musica implements Serializable {
     
     @Column(name = "link_video")
     private String linkVideo;
+    
+    @ManyToMany(mappedBy = "musicasUtilizadas")
+    private Set<Missa> missasPresente;
 
     public Musica() {
         this.associacoes = new ArrayList<>();
@@ -182,7 +188,15 @@ public class Musica implements Serializable {
     public void setDocumentoMusica(DocumentoMusica documentoMusica) {
         this.documentoMusica = documentoMusica;
     }
-    
+
+    public Set<Missa> getMissasPresente() {
+        return missasPresente;
+    }
+
+    public void setMissasPresente(Set<Missa> missasPresente) {
+        this.missasPresente = missasPresente;
+    }
+        
     /**
      * Retorna o título de uma música
      * no formato: Autor - Título
@@ -215,6 +229,6 @@ public class Musica implements Serializable {
 
     @Override
     public String toString() {
-        return "Musica{" + "id=" + id + ", autor=" + autor + ", titulo=" + nome + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
+        return "Musica{" + "id=" + id + ", autor=" + autor.getNome() + ", titulo=" + nome + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
     }
 }

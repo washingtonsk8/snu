@@ -17,6 +17,9 @@ public class StringUtil {
     public static final String VAZIA = "";
 
     public static boolean isVazia(String string) {
+        if(string == null){
+            return true;
+        }
         return string.equals(VAZIA);
     }
 

@@ -190,7 +190,7 @@ public class GerenciarAutoresController implements Initializable {
             atualizarTabela();
             this.fldPesquisarAutor.requestFocus();
         }else{
-            Dialogs.showWarningDialog(null, "O nome do Autor(a) deve ter pelo menos um caractere!", "Nome vazio!", "Aviso");
+            Dialogs.showWarningDialog(null, "O nome do Autor(a) deve ter pelo menos 1 caractere!", "Nome vazio!", "Aviso");
         }
     }
 

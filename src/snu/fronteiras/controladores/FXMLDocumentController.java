@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,8 +55,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemAfinador;
     @FXML
-    private MenuItem itemMissaMaker;
-    @FXML
     private Menu menuUtilitarios;
     @FXML
     private MenuItem itemCriarMusica;
@@ -65,6 +64,12 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem itemAtualizarDadosMusica;
     @FXML
     private MenuItem itemGerarImpressao;
+    @FXML
+    private Menu menuMissa;
+    @FXML
+    private MenuItem itemMontarMissa;
+    @FXML
+    private MenuItem itemPesquisarMissa;
 
     private void initComponents() {
     }
@@ -225,11 +230,26 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemAfinador(ActionEvent event) {
+    private void onActionFromItemMontarMissa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaSelecao.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
     }
 
     @FXML
-    private void onActionFromItemMissaMaker(ActionEvent event) {
+    private void onActionFromPesquisarMissa(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemAfinador(ActionEvent event) {
     }
 
     @FXML
