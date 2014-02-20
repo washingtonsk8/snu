@@ -169,14 +169,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
     private List<Integrante> integrantesAssociados;
 
-    private final ObservableList<Tom> tonsMusica
-            = FXCollections.observableArrayList(Tom.C, Tom.C_SUSTENIDO, Tom.D,
-                    Tom.D_SUSTENIDO, Tom.E, Tom.F, Tom.F_SUSTENIDO, Tom.G,
-                    Tom.G_SUSTENIDO, Tom.A, Tom.A_SUSTENIDO, Tom.B);
+    private final ObservableList<Tom> tonsMusica = FXCollections.observableArrayList(Tom.values());
 
-    private final ObservableList<Afinacao> afinacoesMusica
-            = FXCollections.observableArrayList(Afinacao.CFBbEbGC, Afinacao.DGCFAD,
-                    Afinacao.DbGbBEAbDb, Afinacao.EADGBE, Afinacao.EbAbDbGbBbEb);
+    private final ObservableList<Afinacao> afinacoesMusica = FXCollections.observableArrayList(Afinacao.values());
 
     private Musica musica;
 

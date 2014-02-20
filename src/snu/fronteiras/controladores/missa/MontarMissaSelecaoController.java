@@ -14,7 +14,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,18 +22,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import snu.controladores.MusicaJpaController;
 import snu.dto.ParametrosPesquisaMusica;
@@ -81,8 +72,6 @@ public class MontarMissaSelecaoController implements Initializable {
     private ComboBox<TipoMusica> comboTipo;
     @FXML
     private Label lblInformacaoFuncionamento;
-    @FXML
-    private Text txtTeste;
 
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -134,26 +123,6 @@ public class MontarMissaSelecaoController implements Initializable {
 
     @FXML
     private void onActionFromBtnAvancar(ActionEvent event) {
-    }
-
-    @FXML
-    private void onDragFromTblMusicas(MouseEvent event) {
-        System.out.println("DRAGGED: " + this.tblMusicas.getSelectionModel().getSelectedItem().getTitulo());
-    }
-
-    @FXML
-    private void onDragDroppedFromTblMusicas(DragEvent event) {
-        System.out.println("DROPPED: " + this.tblMusicas.getSelectionModel().getSelectedItem().getTitulo());
-    }
-
-    @FXML
-    private void onMouseEnteredInImgIgreja(MouseEvent event) {
-        System.out.println("ENTERED");
-    }
-
-    @FXML
-    private void onMouseExitedFromImgIgreja(MouseEvent event) {
-        System.out.println("EXITED");
     }
 
     @FXML
