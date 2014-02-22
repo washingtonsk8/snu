@@ -117,7 +117,7 @@ public class AtualizarIntegranteController implements Initializable {
 
     private Integrante integrante;
 
-    private AtualizarDadosIntegranteController controladorOrigem;
+    private TemplatePesquisaIntegranteController controladorOrigem;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
@@ -197,7 +197,7 @@ public class AtualizarIntegranteController implements Initializable {
         definirAtividadeDeFocoDosCampos();
     }
 
-    public void initData(Integrante integranteSelecionado, AtualizarDadosIntegranteController controladorOrigem) {
+    public void initData(Integrante integranteSelecionado, TemplatePesquisaIntegranteController controladorOrigem) {
         this.integrante = integranteSelecionado;
         this.controladorOrigem = controladorOrigem;
 
@@ -461,7 +461,7 @@ public class AtualizarIntegranteController implements Initializable {
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
             pai.getChildren().clear();
-            pai.getChildren().add(this.controladorOrigem.getContentAtualizarDadosIntegrante());
+            pai.getChildren().add(this.controladorOrigem.getContent());
             this.controladorOrigem.atualizarTabela();
         } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
@@ -473,7 +473,7 @@ public class AtualizarIntegranteController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentAtualizarDadosIntegrante());
+        pai.getChildren().add(this.controladorOrigem.getContent());
     }
 
 }

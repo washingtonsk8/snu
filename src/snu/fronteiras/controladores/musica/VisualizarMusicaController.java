@@ -87,7 +87,7 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private Hyperlink hplResultadoLinkVideo;
 
-    private VisualizarDadosMusicaController controladorOrigem;
+    private TemplatePesquisaMusicaController controladorOrigem;
 
     private Musica musica;
 
@@ -107,7 +107,7 @@ public class VisualizarMusicaController implements Initializable {
         });
     }
 
-    public void initData(Musica musica, VisualizarDadosMusicaController controladorOrigem) {
+    public void initData(Musica musica, TemplatePesquisaMusicaController controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
@@ -207,6 +207,6 @@ public class VisualizarMusicaController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentVisualizarDadosMusica());
+        pai.getChildren().add(this.controladorOrigem.getContent());
     }
 }

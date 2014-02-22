@@ -175,7 +175,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
     private Musica musica;
 
-    private AtualizarDadosMusicaController controladorOrigem;
+    private TemplatePesquisaMusicaController controladorOrigem;
 
     private String conteudoAnterior;
 
@@ -245,7 +245,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.btnSelecionarAutor.requestFocus();
     }
 
-    public void initData(Musica musica, AtualizarDadosMusicaController controladorOrigem) {
+    public void initData(Musica musica, TemplatePesquisaMusicaController controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 

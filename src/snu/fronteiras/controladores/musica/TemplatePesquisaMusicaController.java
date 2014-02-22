@@ -5,6 +5,7 @@
  */
 package snu.fronteiras.controladores.musica;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +18,12 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialogs;
@@ -35,9 +39,11 @@ import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.PDFController;
+import snu.controladores.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.geral.TipoPagina;
 import snu.util.ListaUtil;
 import snu.util.MusicaUtil;
 
@@ -46,24 +52,18 @@ import snu.util.MusicaUtil;
  *
  * @author Washington Luis
  */
-public class GerarImpressaoController implements Initializable {
+public class TemplatePesquisaMusicaController implements Initializable {
 
     @FXML
-    private AnchorPane contentGerarImpressao;
-    @FXML
-    private Label lblGerarImpressao;
+    private AnchorPane contentTemplatePesquisaMusica;
     @FXML
     private TextField fldAutor;
     @FXML
     private Label lblTitulo;
     @FXML
-    private TextField fldTitulo;
-    @FXML
-    private Label lblLeitura;
-    @FXML
-    private TextField fldLeitura;
-    @FXML
     private Font x1;
+    @FXML
+    private TextField fldTitulo;
     @FXML
     private Label lblTrecho;
     @FXML
@@ -105,9 +105,13 @@ public class GerarImpressaoController implements Initializable {
     @FXML
     private CheckBox checkOutra;
     @FXML
+    private Label lblLeitura;
+    @FXML
     private Label lblAutor;
     @FXML
     private Label lblTipos;
+    @FXML
+    private TextField fldLeitura;
     @FXML
     private TextField fldTrecho;
     @FXML
@@ -122,8 +126,14 @@ public class GerarImpressaoController implements Initializable {
     private TableColumn<Musica, String> clnLeituras;
     @FXML
     private Button btnPesquisar;
+    @FXML
+    private Label lblTituloPagina;
 
     private List<TipoMusica> tiposMusica;
+
+    private ObservableList<Musica> musicas;
+
+    private TipoPagina tipoPagina;
 
     private void initComponents() {
         this.tiposMusica = new ArrayList<>();
@@ -172,15 +182,102 @@ public class GerarImpressaoController implements Initializable {
         atualizarTabela();
     }
 
-    public AnchorPane getContentGerarImpressao() {
-        return contentGerarImpressao;
+    private void carregarAtualizacaoMusica(Musica musicaSelecionada) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarMusica.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentTemplatePesquisaMusica.getParent());
+        atualizarMusicaController.initData(musicaSelecionada, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
+    }
+
+    private void carregarVisualizacaoMusica(Musica musicaSelecionada) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/VisualizarMusica.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        VisualizarMusicaController visualizarMusicaController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentTemplatePesquisaMusica.getParent());
+        visualizarMusicaController.initData(musicaSelecionada, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
+    }
+
+    private void removerMusicaSelecionada(Musica musicaSelecionada) {
+        Dialogs.DialogResponse resposta;
+        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Música?", "Exclusão de Música", "Confirmação");
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            try {
+                MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
+                this.musicas.remove(musicaSelecionada);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            atualizarTabela();
+        }
+    }
+
+    private void gerarImpressaoMusicaSelecionada(Musica musicaSelecionada) {
+        Map<String, Object> parametros = new HashMap<>();
+        String nomeArquivoMusica = musicaSelecionada.getAutor().getNome() + " - "
+                + musicaSelecionada.getNome() + ".pdf";
+
+        parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(musicaSelecionada.getTipos()));
+        parametros.put("tituloMusica", musicaSelecionada.getTitulo());
+        parametros.put("introducaoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
+                getDocumentoMusica().getIntroducao()));
+        parametros.put("conteudoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
+                getDocumentoMusica().getConteudo()));
+
+        PDFController controladorPDF = new PDFController();
+        try {
+            controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, nomeArquivoMusica);
+            Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
+        } catch (JRException ex) {
+            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
+        }
+        /*  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
+         AnchorPane root = null;
+         try {
+         root = (AnchorPane) fxmlLoader.load();
+         } catch (IOException ex) {
+         Logger.getLogger(GerarImpressaoController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+                
+         //Inicializa os dados passando a música por parâmetro
+         GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
+         gerarImpressaoMusicaController.initData(musicaSelecionada);
+                
+         Stage dialogStage = new Stage();
+         dialogStage.setTitle("Gerar Impressão de Música");
+         dialogStage.initModality(Modality.WINDOW_MODAL);
+         dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+         dialogStage.setScene(new Scene(root));
+         // Show the dialog and wait until the user closes it
+         dialogStage.showAndWait();*/
     }
 
     /**
      * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -189,8 +286,8 @@ public class GerarImpressaoController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromContentGerarImpressao(MouseEvent event) {
-        this.contentGerarImpressao.requestFocus();
+    private void onMouseClickedFromContentTemplatePesquisaMusica(MouseEvent event) {
+        this.contentTemplatePesquisaMusica.requestFocus();
     }
 
     @FXML
@@ -405,50 +502,58 @@ public class GerarImpressaoController implements Initializable {
         this.tblMusicas.requestFocus();
         Musica musicaSelecionada = this.tblMusicas.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2 && musicaSelecionada != null) {
-            Map<String, Object> parametros = new HashMap<>();
-            String nomeArquivoMusica = musicaSelecionada.getAutor().getNome() + " - "
-                    + musicaSelecionada.getNome() + ".pdf";
-
-            parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(musicaSelecionada.getTipos()));
-            parametros.put("tituloMusica", musicaSelecionada.getTitulo());
-            parametros.put("introducaoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
-                    getDocumentoMusica().getIntroducao()));
-            parametros.put("conteudoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
-                    getDocumentoMusica().getConteudo()));
-
-            PDFController controladorPDF = new PDFController();
-            try {
-                controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, nomeArquivoMusica);
-                Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
-            } catch (JRException ex) {
-                Logger.getLogger(GerarImpressaoController.class.getName()).log(Level.SEVERE, null, ex);
-                Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
+            switch (this.tipoPagina) {
+                case PESQUISA_ATUALIZACAO_DADOS:
+                    carregarAtualizacaoMusica(musicaSelecionada);
+                    break;
+                case PESQUISA_VISUALIZACAO_DADOS:
+                    carregarVisualizacaoMusica(musicaSelecionada);
+                    break;
+                case PESQUISA_REMOCAO:
+                    removerMusicaSelecionada(musicaSelecionada);
+                    break;
+                case PESQUISA_GERACAO_IMPRESSAO:
+                    gerarImpressaoMusicaSelecionada(musicaSelecionada);
+                    break;
+                default:
+                    //TODO: Reportar erro!
+                    break;
             }
-            /*  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
-             AnchorPane root = null;
-             try {
-             root = (AnchorPane) fxmlLoader.load();
-             } catch (IOException ex) {
-             Logger.getLogger(GerarImpressaoController.class.getName()).log(Level.SEVERE, null, ex);
-             }
-                
-             //Inicializa os dados passando a música por parâmetro
-             GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
-             gerarImpressaoMusicaController.initData(musicaSelecionada);
-                
-             Stage dialogStage = new Stage();
-             dialogStage.setTitle("Gerar Impressão de Música");
-             dialogStage.initModality(Modality.WINDOW_MODAL);
-             dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-             dialogStage.setScene(new Scene(root));
-             // Show the dialog and wait until the user closes it
-             dialogStage.showAndWait();*/
         }
     }
 
     @FXML
     private void onActionFromBtnPesquisar(ActionEvent event) {
         pesquisarPorParametros();
+    }
+
+    public TipoPagina getTipoPagina() {
+        return tipoPagina;
+    }
+
+    public void setTipoPagina(TipoPagina tipoPagina) {
+        this.tipoPagina = tipoPagina;
+        switch (this.tipoPagina) {
+            case PESQUISA_ATUALIZACAO_DADOS:
+                this.lblTituloPagina.setText("Atualizar Dados");
+                break;
+            case PESQUISA_VISUALIZACAO_DADOS:
+                this.lblTituloPagina.setText("Visualizar Dados");
+                break;
+            case PESQUISA_REMOCAO:
+                this.lblTituloPagina.setText("Remover Música");
+                break;
+            case PESQUISA_GERACAO_IMPRESSAO:
+                this.lblTituloPagina.setText("Gerar Impressão");
+                break;
+            default:
+                //TODO: Reportar erro!
+                break;
+        }
+    }
+
+    public AnchorPane getContent() {
+        return this.contentTemplatePesquisaMusica;
     }
 
     private void atualizarTabela() {

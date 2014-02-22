@@ -5,6 +5,7 @@
  */
 package snu.fronteiras.controladores.integrante;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,7 +18,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
@@ -36,16 +39,17 @@ import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
+import snu.geral.TipoPagina;
 
 /**
  * FXML Controller class
  *
  * @author Washington Luis
  */
-public class RemoverIntegranteController implements Initializable {
+public class TemplatePesquisaIntegranteController implements Initializable {
 
     @FXML
-    private AnchorPane contentRemoverIntegrante;
+    private AnchorPane contentTemplatePesquisaIntegrante;
     @FXML
     private Label lblNome;
     @FXML
@@ -58,7 +62,10 @@ public class RemoverIntegranteController implements Initializable {
     private ComboBox<FuncaoIntegrante> comboFuncaoPrincipal;
     @FXML
     private Button btnPesquisar;
-
+    @FXML
+    private Font x2;
+    @FXML
+    private TableView<Integrante> tblIntegrantes;
     @FXML
     private TableColumn<Integrante, String> clnNome;
     @FXML
@@ -70,21 +77,22 @@ public class RemoverIntegranteController implements Initializable {
     @FXML
     private TableColumn<Integrante, String> clnFuncaoPrincipal;
     @FXML
-    private TableView<Integrante> tblIntegrantes;
-    @FXML
-    private Font x2;
-    
+    private Label lblTituloPagina;
+
     private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
+    private TipoPagina tipoPagina;
+
     private void initComponents() {
+
         this.tblIntegrantes.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override
             public void changed(ObservableValue<? extends Boolean> ov, Boolean valorAntigo, Boolean novoValor) {
                 if (!novoValor) {//Perda de foco
-
+                    //TODO: Avaliar a existência deste método
                 }
             }
         });
@@ -97,6 +105,44 @@ public class RemoverIntegranteController implements Initializable {
         this.comboFuncaoPrincipal.setItems(funcoesIntegrante);
     }
 
+    private void carregarAtualizacaoIntegrante(Integrante integranteSelecionado) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/AtualizarIntegrante.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        AtualizarIntegranteController atualizarIntegranteController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentTemplatePesquisaIntegrante.getParent());
+        atualizarIntegranteController.initData(integranteSelecionado, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
+    }
+
+    private void carregarVisualizacaoIntegrante(Integrante integranteSelecionado) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/VisualizarIntegrante.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        VisualizarIntegranteController visualizarIntegranteController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentTemplatePesquisaIntegrante.getParent());
+        visualizarIntegranteController.initData(integranteSelecionado, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
+    }
+
     private void pesquisarPorParametros() {
         ParametrosPesquisaIntegrante parametrosPesquisa = new ParametrosPesquisaIntegrante();
         IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
@@ -107,8 +153,8 @@ public class RemoverIntegranteController implements Initializable {
         this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
         this.tblIntegrantes.setItems(this.integrantes);
     }
-    
-        private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
+
+    private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
         Dialogs.DialogResponse resposta;
         if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
             resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
@@ -122,7 +168,7 @@ public class RemoverIntegranteController implements Initializable {
                 integranteController.destroy(integranteSelecionado.getId());
                 this.integrantes.remove(integranteSelecionado);
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
             }
             atualizarTabela();
         }
@@ -159,6 +205,11 @@ public class RemoverIntegranteController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromContentTemplatePesquisaIntegrante(MouseEvent event) {
+        this.contentTemplatePesquisaIntegrante.requestFocus();
+    }
+
+    @FXML
     private void onActionFromComboFuncaoPrincipal(ActionEvent event) {
     }
 
@@ -175,23 +226,54 @@ public class RemoverIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromContentRemoverIntegrante(MouseEvent event) {
-    }
-
-    private void onMouseClickedFromContentVisualizarDadosIntegrante(MouseEvent event) {
-        this.contentRemoverIntegrante.requestFocus();
-    }
-
-    @FXML
     private void onMouseClickedFromTblIntegrantes(MouseEvent event) {
         this.tblIntegrantes.requestFocus();
         Integrante integranteSelecionado = this.tblIntegrantes.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2 && integranteSelecionado != null) {
-            removerIntegranteSelecionado(integranteSelecionado);
+            switch (this.tipoPagina) {
+                case PESQUISA_ATUALIZACAO_DADOS:
+                    carregarAtualizacaoIntegrante(integranteSelecionado);
+                    break;
+                case PESQUISA_VISUALIZACAO_DADOS:
+                    carregarVisualizacaoIntegrante(integranteSelecionado);
+                    break;
+                case PESQUISA_REMOCAO:
+                    removerIntegranteSelecionado(integranteSelecionado);
+                    break;
+                default:
+                    //TODO: Reportar erro!
+                    break;
+            }
         }
     }
 
-    private void atualizarTabela() {
+    public AnchorPane getContent() {
+        return this.contentTemplatePesquisaIntegrante;
+    }
+
+    public TipoPagina getTipoPagina() {
+        return tipoPagina;
+    }
+
+    public void setTipoPagina(TipoPagina tipoPagina) {
+        this.tipoPagina = tipoPagina;
+        switch (tipoPagina) {
+            case PESQUISA_ATUALIZACAO_DADOS:
+                this.lblTituloPagina.setText("Atualizar Dados");
+                break;
+            case PESQUISA_VISUALIZACAO_DADOS:
+                this.lblTituloPagina.setText("Visualizar Dados");
+                break;
+            case PESQUISA_REMOCAO:
+                this.lblTituloPagina.setText("Remover Integrante");
+                break;
+            default:
+                //TODO: Reportar erro!
+                break;
+        }
+    }
+    
+    public void atualizarTabela() {
         final List<Integrante> itens = this.tblIntegrantes.getItems();
         if (itens == null || itens.isEmpty()) {
             return;
@@ -202,7 +284,7 @@ public class RemoverIntegranteController implements Initializable {
         try {//Dorme um pouco para visualizarmos as alterações
             Thread.sleep(300);
         } catch (InterruptedException ex) {
-            Logger.getLogger(RemoverIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Platform.runLater(new Runnable() {
             @Override

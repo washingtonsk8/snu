@@ -55,7 +55,7 @@ public class VisualizarIntegranteController implements Initializable {
     @FXML
     private Label lblFuncaoSecundaria;
     @FXML
-    private ComboBox<?> comboFuncaoSecundaria;
+    private ComboBox<FuncaoIntegrante> comboFuncaoSecundaria;
     @FXML
     private Button btnVoltar;
     @FXML
@@ -84,7 +84,7 @@ public class VisualizarIntegranteController implements Initializable {
 
     private Integrante integrante;
 
-    private VisualizarDadosIntegranteController controladorOrigem;
+    private TemplatePesquisaIntegranteController controladorOrigem;
 
     /**
      * Initializes the controller class.
@@ -96,7 +96,7 @@ public class VisualizarIntegranteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void initData(Integrante integranteSelecionado, VisualizarDadosIntegranteController controladorOrigem) {
+    public void initData(Integrante integranteSelecionado, TemplatePesquisaIntegranteController controladorOrigem) {
         this.integrante = integranteSelecionado;
         this.controladorOrigem = controladorOrigem;
 
@@ -168,7 +168,7 @@ public class VisualizarIntegranteController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentVisualizarDadosIntegrante());
+        pai.getChildren().add(this.controladorOrigem.getContent());
     }
 
     @FXML

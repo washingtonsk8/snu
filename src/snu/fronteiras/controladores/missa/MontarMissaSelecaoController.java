@@ -16,14 +16,20 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
@@ -31,6 +37,7 @@ import snu.controladores.MusicaJpaController;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
 /**
@@ -88,6 +95,8 @@ public class MontarMissaSelecaoController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
+        
+        this.tblMusicas.setCursor(Cursor.CLOSED_HAND);
     }
 
     private void pesquisarPorParametros() {
@@ -159,5 +168,32 @@ public class MontarMissaSelecaoController implements Initializable {
                 itens.add(0, item);
             }
         });
+    }
+
+    @FXML
+    private void onDragDoneFromTblMusicas(DragEvent event) {   
+    }
+
+    @FXML
+    private void onDragDetectedFromTblMusicas(MouseEvent event) {       
+        ClipboardContent content = new ClipboardContent();
+        content.putString(this.tblMusicas.getSelectionModel().getSelectedItem().getTitulo());
+        content.putImage(new Image("/snu/fronteiras/images/igreja.jpg"));
+        Dragboard db = tblMusicas.startDragAndDrop(TransferMode.ANY);
+        db.setContent(content);
+    }
+
+    @FXML
+    private void onDragExitedImgIgreja(DragEvent event) {   
+        this.imgIgreja.setEffect(null);
+        this.imgIgreja.setScaleX(1);
+        this.imgIgreja.setScaleY(1);
+    }
+
+    @FXML
+    private void onDragEnteredImgIgreja(DragEvent event) {        
+        this.imgIgreja.setEffect(EfeitosUtil.getEfeitoValido());
+        this.imgIgreja.setScaleX(1.25);
+        this.imgIgreja.setScaleY(1.25);
     }
 }

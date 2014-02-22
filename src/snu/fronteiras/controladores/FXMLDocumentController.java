@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +19,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
+import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
+import snu.geral.TipoPagina;
 
 /**
  * Classe que controla a tela principal do programa
@@ -71,7 +73,33 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemPesquisarMissa;
 
+    private FXMLLoader templatePesquisaIntegranteLoader;
+
+    private FXMLLoader templatePesquisaMusicaLoader;
+
+    private void iniciarControladorPesquisaIntegrante() {
+        this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
+
+        try {
+            this.templatePesquisaIntegranteLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void iniciarControladorPesquisaMusica() {
+        this.templatePesquisaMusicaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/TemplatePesquisaMusica.fxml"));
+
+        try {
+            this.templatePesquisaMusicaLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void initComponents() {
+        iniciarControladorPesquisaIntegrante();
+        iniciarControladorPesquisaMusica();
     }
 
     @Override
@@ -95,48 +123,33 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemVisualizarDados(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/VisualizarDadosIntegrante.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void onActionFromItemVisualizarDadosIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
     }
 
     @FXML
     private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/AtualizarDadosIntegrante.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
     }
 
     @FXML
     private void onActionFromItemRemoverIntegrante(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/RemoverIntegrante.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
     }
 
     @FXML
@@ -156,62 +169,42 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemVisualizarDadosMusica(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/VisualizarDadosMusica.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
     }
 
     @FXML
     private void onActionFromItemAtualizarDadosMusica(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarDadosMusica.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
     }
 
     @FXML
     private void onActionFromItemRemoverMusica(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/RemoverMusica.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
     }
 
     @FXML
     private void onActionFromItemGerarImpressao(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/GerarImpressao.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_GERACAO_IMPRESSAO);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
     }
 
     @FXML

@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentRemoverMusica" onMouseClicked="#onMouseClickedFromContentRemoverMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.RemoverMusicaController">
-  <Label fx:id="lblRemoverMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Remover Música" textAlignment="LEFT" wrapText="false">
+<AnchorPane fx:id="contentTemplatePesquisaMusica" onMouseClicked="#onMouseClickedFromContentTemplatePesquisaMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController">
+  <Label id="lblTemplatePesquisaMusica" fx:id="lblTituloPagina" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Template Pesquisa Música" textAlignment="LEFT" wrapText="false">
     <stylesheets>
       <URL value="@../../css/contents.css" />
-      <URL value="@../../css/musica/removermusica.css" />
+      <URL value="@../../css/musica/templatepesquisamusica.css" />
     </stylesheets>
   </Label>
   <TextField fx:id="fldAutor" layoutX="160.0" layoutY="60.0" onAction="#onActionFromFldAutor" prefWidth="200.0" />
@@ -80,7 +80,7 @@
   </TableView>
   <Button fx:id="btnPesquisar" cache="true" font="$x2" layoutX="676.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
   <stylesheets>
-    <URL value="@../../css/musica/removermusica.css" />
+    <URL value="@../../css/musica/templatepesquisamusica.css" />
     <URL value="@../../css/contents.css" />
   </stylesheets>
 </AnchorPane>
