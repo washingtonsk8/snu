@@ -104,7 +104,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private CheckBox checkEntrada;
     @FXML
-    private CheckBox checkPerdao;
+    private CheckBox checkAtoPenitencial;
     @FXML
     private CheckBox checkGloria;
     @FXML
@@ -217,7 +217,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
         //Adicionando as checkboxes na lista
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ENTRADA, this.checkEntrada));
-        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PERDAO, this.checkPerdao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ATO_PENITENCIAL, this.checkAtoPenitencial));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.GLORIA, this.checkGloria));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACLAMACAO, this.checkAclamacao));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OFERTORIO, this.checkOfertorio));
@@ -339,11 +339,11 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
-    private void onActionFromCheckPerdao(ActionEvent event) {
-        if (this.checkPerdao.isSelected()) {
-            this.musica.adicionarTipo(TipoMusica.PERDAO);
+    private void onActionFromCheckAtoPenitencial(ActionEvent event) {
+        if (this.checkAtoPenitencial.isSelected()) {
+            this.musica.adicionarTipo(TipoMusica.ATO_PENITENCIAL);
         } else {
-            this.musica.removerTipo(TipoMusica.PERDAO);
+            this.musica.removerTipo(TipoMusica.ATO_PENITENCIAL);
         }
     }
 
@@ -733,5 +733,4 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             }
         });
     }
-
 }

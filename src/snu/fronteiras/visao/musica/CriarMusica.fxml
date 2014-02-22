@@ -67,7 +67,7 @@
   <ComboBox fx:id="comboAfinacao" layoutX="175.0" layoutY="150.0" onAction="#onActionFromComboAfinacao" prefHeight="22.0" prefWidth="150.0" />
   <TextField fx:id="fldLeituras" layoutX="175.0" layoutY="180.0" onAction="#onActionFromFldLeituras" prefWidth="500.0" />
   <CheckBox fx:id="checkEntrada" font="$x2" layoutX="175.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckEntrada" text="Entrada" />
-  <CheckBox fx:id="checkPerdao" font="$x2" layoutX="283.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckPerdao" text="Perdão" />
+  <CheckBox fx:id="checkAtoPenitencial" font="$x2" layoutX="281.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckAtoPenitencial" text="Ato Penit." />
   <CheckBox fx:id="checkGloria" font="$x2" layoutX="391.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckGloria" text="Glória" />
   <CheckBox fx:id="checkAclamacao" font="$x2" layoutX="499.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckAclamacao" text="Aclamação" />
   <CheckBox fx:id="checkOfertorio" font="$x2" layoutX="607.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckOfertorio" text="Ofertório" />
@@ -135,14 +135,14 @@
     </effect>
   </Label>
   <Button fx:id="btnCriarNova" font="$x2" layoutX="396.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnCriarNova" prefHeight="40.0" prefWidth="100.0" text="Criar Nova" textFill="BLACK" />
-  <stylesheets>
-    <URL value="@../../css/musica/criarmusica.css" />
-    <URL value="@../../css/contents.css" />
-  </stylesheets>
   <Label fx:id="lblLinkVideo" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="470.0" onMouseClicked="#onMouseClickedFromLblLinkVideo" prefWidth="140.0" text="Link para Vídeo:" textFill="BLACK">
     <effect>
       <Glow />
     </effect>
   </Label>
   <TextField fx:id="fldLinkVideo" layoutX="175.0" layoutY="470.0" onAction="#onActionFromFldLinkVideo" prefWidth="500.0" />
+  <stylesheets>
+    <URL value="@../../css/musica/criarmusica.css" />
+    <URL value="@../../css/contents.css" />
+  </stylesheets>
 </AnchorPane>

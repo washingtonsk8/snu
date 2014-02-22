@@ -71,7 +71,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
     @FXML
     private Font x2;
     @FXML
-    private CheckBox checkPerdao;
+    private CheckBox checkAtoPenitencial;
     @FXML
     private CheckBox checkGloria;
     @FXML
@@ -320,11 +320,11 @@ public class TemplatePesquisaMusicaController implements Initializable {
     }
 
     @FXML
-    private void onActionFromCheckPerdao(ActionEvent event) {
-        if (this.checkPerdao.isSelected()) {
-            this.tiposMusica.add(TipoMusica.PERDAO);
+    private void onActionFromCheckAtoPenitencial(ActionEvent event) {
+        if (this.checkAtoPenitencial.isSelected()) {
+            this.tiposMusica.add(TipoMusica.ATO_PENITENCIAL);
         } else {
-            this.tiposMusica.remove(TipoMusica.PERDAO);
+            this.tiposMusica.remove(TipoMusica.ATO_PENITENCIAL);
         }
     }
 

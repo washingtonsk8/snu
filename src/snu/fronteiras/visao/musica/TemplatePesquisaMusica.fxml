@@ -36,7 +36,7 @@
       <Font size="14.0" fx:id="x2" />
     </font>
   </CheckBox>
-  <CheckBox fx:id="checkPerdao" font="$x2" layoutX="268.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckPerdao" text="Perdão" />
+  <CheckBox fx:id="checkAtoPenitencial" font="$x2" layoutX="266.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckAtoPenitencial" prefWidth="92.0" text="Ato Penit." />
   <CheckBox fx:id="checkGloria" font="$x2" layoutX="376.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckGloria" text="Glória" />
   <CheckBox fx:id="checkAclamacao" font="$x2" layoutX="484.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckAclamacao" text="Aclamação" />
   <CheckBox fx:id="checkOfertorio" font="$x2" layoutX="592.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckOfertorio" text="Ofertório" />

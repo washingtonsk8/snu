@@ -19,7 +19,7 @@ public enum TipoMusica {
     /**
      * Música para o ato penitencial
      */
-    PERDAO("Ato Penitencial"),
+    ATO_PENITENCIAL("Ato Penitencial"),
     /**
      * Música de glória (louvor)
      */

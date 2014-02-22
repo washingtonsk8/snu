@@ -5,18 +5,23 @@
  */
 package snu.fronteiras.controladores.missa;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -31,6 +36,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.MusicaJpaController;
@@ -80,6 +86,10 @@ public class MontarMissaSelecaoController implements Initializable {
     @FXML
     private Label lblInformacaoFuncionamento;
 
+    private List<Musica> musicasSelecionadas;
+
+    private boolean possivelAdicionar;
+
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
@@ -95,7 +105,8 @@ public class MontarMissaSelecaoController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
-        
+
+        this.musicasSelecionadas = new ArrayList<>();
         this.tblMusicas.setCursor(Cursor.CLOSED_HAND);
     }
 
@@ -132,6 +143,22 @@ public class MontarMissaSelecaoController implements Initializable {
 
     @FXML
     private void onActionFromBtnAvancar(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaOrganizacao.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(MontarMissaSelecaoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        MontarMissaOrganizacaoController montarMissaOrganizacaoController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentMontarMissaSelecao.getParent());
+        montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
     }
 
     @FXML
@@ -171,11 +198,7 @@ public class MontarMissaSelecaoController implements Initializable {
     }
 
     @FXML
-    private void onDragDoneFromTblMusicas(DragEvent event) {   
-    }
-
-    @FXML
-    private void onDragDetectedFromTblMusicas(MouseEvent event) {       
+    private void onDragDetectedFromTblMusicas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();
         content.putString(this.tblMusicas.getSelectionModel().getSelectedItem().getTitulo());
         content.putImage(new Image("/snu/fronteiras/images/igreja.jpg"));
@@ -184,16 +207,54 @@ public class MontarMissaSelecaoController implements Initializable {
     }
 
     @FXML
-    private void onDragExitedImgIgreja(DragEvent event) {   
+    private void onDragExitedImgIgreja(DragEvent event) {
         this.imgIgreja.setEffect(null);
         this.imgIgreja.setScaleX(1);
         this.imgIgreja.setScaleY(1);
+
+        event.consume();
     }
 
     @FXML
-    private void onDragEnteredImgIgreja(DragEvent event) {        
-        this.imgIgreja.setEffect(EfeitosUtil.getEfeitoValido());
-        this.imgIgreja.setScaleX(1.25);
-        this.imgIgreja.setScaleY(1.25);
+    private void onDragEnteredImgIgreja(DragEvent event) {
+        /* show to the user that it is an actual gesture target */
+        if (event.getGestureSource() != this.imgIgreja
+                && event.getDragboard().hasString()) {
+            this.imgIgreja.setEffect(EfeitosUtil.getEfeitoValido());
+            this.imgIgreja.setScaleX(1.25);
+            this.imgIgreja.setScaleY(1.25);
+        }
+
+        event.consume();
+    }
+
+    @FXML
+    private void onDragDroppedImgIgreja(DragEvent event) {
+        /* if there is a string data on dragboard, read it and use it */
+        Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasString()) {//Ocorrendo o sucesso, adiciona
+            this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem());
+            success = true;
+        }
+        /* let the source know whether the string was successfully 
+         * transferred and used */
+        event.setDropCompleted(success);
+
+        event.consume();
+    }
+
+    @FXML
+    private void onDragOverImgIgreja(DragEvent event) {
+
+        /* accept it only if it is  not dragged from the same node 
+         * and if it has a string data */
+        if (event.getGestureSource() != this.imgIgreja
+                && event.getDragboard().hasString()) {
+            /* allow for both copying and moving, whatever user chooses */
+            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+
+        event.consume();
     }
 }
