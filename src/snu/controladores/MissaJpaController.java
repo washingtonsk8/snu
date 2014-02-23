@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
 import snu.entidades.missa.Missa;
 
@@ -26,10 +27,17 @@ import snu.entidades.missa.Missa;
  */
 public class MissaJpaController implements Serializable {
 
-    public MissaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    /**
+     * Fábrica Singleton do sistema
+     */
+    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private static MissaJpaController instancia;
+
+    /**
+     * Construtor da classe Singleton
+     */
+    private MissaJpaController() {
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -178,5 +186,16 @@ public class MissaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
+    public static MissaJpaController getInstancia() {
+        if (instancia == null) {
+            instancia = new MissaJpaController();
+        }
+        return instancia;
+    }    
 }

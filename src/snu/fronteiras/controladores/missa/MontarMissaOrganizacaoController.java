@@ -6,19 +6,30 @@
 package snu.fronteiras.controladores.missa;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -35,6 +46,7 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
+import snu.entidades.musica.TipoMusica;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 
@@ -116,13 +128,41 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     private DatePicker dpDataMissa;
 
-    private List<Musica> listaMusicas;
+    private Set<Musica> musicasParaMissa;
 
     private MontarMissaSelecaoController controladorOrigem;
 
     private Missa missa;
 
-    private Set<Musica> musicasParaMissa;
+    /**
+     * Contém o conjunto de valores para as seções da missa em relação com as
+     * músicas de cada seção.
+     */
+    private Map<TipoMusica, Object> mapaMusicasMissa;
+
+    private Musica musicaArrastada;//Música que foi arrastada
+    @FXML
+    private Button btnRemoverMusicaEntrada;
+    @FXML
+    private Button btnRemoverMusicaAtoPenitencial;
+    @FXML
+    private Button btnRemoverMusicaGloria;
+    @FXML
+    private Button btnRemoverMusicaOfertorio;
+    @FXML
+    private Button btnRemoverMusicaAclamacao;
+    @FXML
+    private Button btnRemoverMusicaSanto;
+    @FXML
+    private Button btnRemoverMusicaPaz;
+    @FXML
+    private Button btnRemoverMusicaComunhao;
+    @FXML
+    private Button btnRemoverMusicaAcaoDeGracas;
+    @FXML
+    private Button btnRemoverMusicaFinal;
+    @FXML
+    private Button btnRemoverMusicasEspeciais;
 
     private void initComponents() {
         //Formatando o DatePicker de Acontecimento
@@ -134,8 +174,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
         this.contentMontarMissaOrganizacao.getChildren().add(this.dpDataMissa);
 
         this.musicasParaMissa = new HashSet<>();
-
         this.missa = new Missa();
+        this.mapaMusicasMissa = new HashMap<>();
 
         this.listaMusicasSelecionadas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
@@ -156,11 +196,11 @@ public class MontarMissaOrganizacaoController implements Initializable {
         });
     }
 
-    public void initData(List<Musica> musicasSelecionadas, MontarMissaSelecaoController controladorOrigem) {
-        this.listaMusicas = musicasSelecionadas;
+    public void initData(Set<Musica> musicasSelecionadas, MontarMissaSelecaoController controladorOrigem) {
+        this.musicasParaMissa = musicasSelecionadas;
         this.controladorOrigem = controladorOrigem;
 
-        Collections.sort(this.listaMusicas, new Comparator<Musica>() {
+        Collections.sort(new ArrayList<>(this.musicasParaMissa), new Comparator<Musica>() {
             @Override
             public int compare(Musica musica1, Musica musica2) {
                 return musica1.getTitulo().compareTo(musica2.getTitulo());
@@ -168,7 +208,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
         });
 
         //Define a lista de músicas selecionadas
-        this.listaMusicasSelecionadas.setItems(FXCollections.observableList(this.listaMusicas));
+        this.listaMusicasSelecionadas.setItems(FXCollections.observableList(new ArrayList<>(this.musicasParaMissa)));
     }
 
     /**
@@ -348,6 +388,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaEntrada.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.ENTRADA)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.ENTRADA, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ENTRADA));
+                this.mapaMusicasMissa.put(TipoMusica.ENTRADA, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -364,6 +415,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaAtoPenitencial.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.ATO_PENITENCIAL)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.ATO_PENITENCIAL, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ATO_PENITENCIAL));
+                this.mapaMusicasMissa.put(TipoMusica.ATO_PENITENCIAL, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -380,6 +442,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaGloria.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.GLORIA)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.GLORIA, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.GLORIA));
+                this.mapaMusicasMissa.put(TipoMusica.GLORIA, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -396,6 +469,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaAclamacao.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.ACLAMACAO)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.ACLAMACAO, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACLAMACAO));
+                this.mapaMusicasMissa.put(TipoMusica.ACLAMACAO, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -412,6 +496,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaOfertorio.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.OFERTORIO)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.OFERTORIO, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.OFERTORIO));
+                this.mapaMusicasMissa.put(TipoMusica.OFERTORIO, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -428,6 +523,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaSanto.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.SANTO)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.SANTO, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.SANTO));
+                this.mapaMusicasMissa.put(TipoMusica.SANTO, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -444,6 +550,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaPaz.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.PAZ)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.PAZ, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.PAZ));
+                this.mapaMusicasMissa.put(TipoMusica.PAZ, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -460,6 +577,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaComunhao.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.COMUNHAO)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.COMUNHAO, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.COMUNHAO));
+                this.mapaMusicasMissa.put(TipoMusica.COMUNHAO, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -476,6 +604,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaAcaoDeGracas.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.ACAO_DE_GRACAS)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.ACAO_DE_GRACAS, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACAO_DE_GRACAS));
+                this.mapaMusicasMissa.put(TipoMusica.ACAO_DE_GRACAS, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -492,6 +631,17 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.fldMusicaFinal.setText(db.getString());
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.FINAL)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.FINAL, this.musicaArrastada);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                atualizarLista();
+                this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.FINAL));
+                this.mapaMusicasMissa.put(TipoMusica.FINAL, this.musicaArrastada);
+            }
+            atualizarLista();
+            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -508,6 +658,16 @@ public class MontarMissaOrganizacaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             this.areaMusicasEspeciais.setText(this.areaMusicasEspeciais.getText() + db.getString() + "\n");
+            if (!this.mapaMusicasMissa.containsKey(TipoMusica.ESPECIAL)) {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                List<Musica> listaEspeciais = new ArrayList<>();
+                listaEspeciais.add(this.musicaArrastada);
+                this.mapaMusicasMissa.put(TipoMusica.ESPECIAL, listaEspeciais);
+            } else {
+                this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
+                ((ArrayList<Musica>) this.mapaMusicasMissa.get(TipoMusica.ESPECIAL)).add(this.musicaArrastada);
+            }
+            atualizarLista();
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -520,7 +680,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
     @FXML
     private void onDragDetectedFromListaMusicasSelecionadas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();
-        content.putString(this.listaMusicasSelecionadas.getSelectionModel().getSelectedItem().getTitulo());
+        this.musicaArrastada = this.listaMusicasSelecionadas.getSelectionModel().getSelectedItem();
+        content.putString(this.musicaArrastada.getTitulo());
         Dragboard db = this.listaMusicasSelecionadas.startDragAndDrop(TransferMode.ANY);
         db.setContent(content);
     }
@@ -669,9 +830,158 @@ public class MontarMissaOrganizacaoController implements Initializable {
     }
 
     @FXML
+    private void onActionFromBtnRemoverMusicaEntrada(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.ENTRADA)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ENTRADA));
+            this.fldMusicaEntrada.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaAtoPenitencial(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.ATO_PENITENCIAL)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ATO_PENITENCIAL));
+            this.fldMusicaAtoPenitencial.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaGloria(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.GLORIA)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.GLORIA));
+            this.fldMusicaGloria.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaOfertorio(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.OFERTORIO)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.OFERTORIO));
+            this.fldMusicaOfertorio.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaAclamacao(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.ACLAMACAO)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACLAMACAO));
+            this.fldMusicaAclamacao.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaSanto(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.SANTO)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.SANTO));
+            this.fldMusicaSanto.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaPaz(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.PAZ)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.PAZ));
+            this.fldMusicaPaz.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaComunhao(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.COMUNHAO)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.COMUNHAO));
+            this.fldMusicaComunhao.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaAcaoDeGracas(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.ACAO_DE_GRACAS)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACAO_DE_GRACAS));
+            this.fldMusicaAcaoDeGracas.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicaFinal(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.FINAL)) {
+            this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.FINAL));
+            this.fldMusicaFinal.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverMusicasEspeciais(ActionEvent event) {
+        if (this.mapaMusicasMissa.containsKey(TipoMusica.ESPECIAL)) {
+            List<Musica> musicasRemovidas = (ArrayList<Musica>) this.mapaMusicasMissa.remove(TipoMusica.ESPECIAL);
+            for (Musica musicaRemovida : musicasRemovidas) {
+                this.listaMusicasSelecionadas.getItems().add(musicaRemovida);
+            }
+            this.areaMusicasEspeciais.setText(null);
+        } else {
+            //TODO: Reportar Erro
+        }
+        atualizarLista();
+    }
+
+    @FXML
     private void onActionFromBtnAvancar(ActionEvent event) {
         this.missa.setNome(this.fldNomeMissa.getText());
-        this.missa.setDataAcontecimento(this.dpDataMissa.getSelectedDate());
+
+        if (this.dpDataMissa.getSelectedDate() == null) {
+            this.dpDataMissa.setEffect(EfeitosUtil.getEfeitoInvalido());
+            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+        } else {
+            this.dpDataMissa.setEffect(null);
+            
+            this.missa.setDataAcontecimento(this.dpDataMissa.getSelectedDate());
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaFinalizacao.fxml"));
+
+            Parent root = null;
+            try {
+                root = (Parent) fxmlLoader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(MontarMissaOrganizacaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            MontarMissaFinalizacaoController montarMissaFinalizacaoController = fxmlLoader.getController();
+
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
+            montarMissaFinalizacaoController.initData(this.missa, this.mapaMusicasMissa, this);
+            pai.getChildren().clear();
+            pai.getChildren().add(root);
+        }
     }
 
     @FXML
@@ -680,6 +990,10 @@ public class MontarMissaOrganizacaoController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(this.controladorOrigem.getContent());
+    }
+
+    public AnchorPane getContent() {
+        return this.contentMontarMissaOrganizacao;
     }
 
     private void atualizarLista() {

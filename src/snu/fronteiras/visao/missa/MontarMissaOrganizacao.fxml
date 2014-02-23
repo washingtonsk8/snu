@@ -6,6 +6,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -107,16 +108,156 @@
       <Glow />
     </effect>
   </Label>
-  <TextField id="fld" fx:id="fldNomeMissa" layoutX="150.0" layoutY="65.0" prefWidth="300.0" promptText="Ex.: Missa do 1º Domingo Comum" />
-  <TextField id="fld" fx:id="fldMusicaEntrada" disable="false" editable="false" layoutX="150.0" layoutY="140.0" onDragDropped="#onDragDroppedFldMusicaEntrada" onDragEntered="#onDragEnteredFldMusicaEntrada" onDragExited="#onDragExitedFldMusicaEntrada" onDragOver="#onDragOverFldMusicaEntrada" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaAtoPenitencial" disable="false" editable="false" layoutX="150.0" layoutY="170.0" onDragDropped="#onDragDroppedFldMusicaAtoPenitencial" onDragEntered="#onDragEnteredFldMusicaAtoPenitencial" onDragExited="#onDragExitedFldMusicaAtoPenitencial" onDragOver="#onDragOverFldMusicaAtoPenitencial" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaGloria" disable="false" editable="false" layoutX="150.0" layoutY="200.0" onDragDropped="#onDragDroppedFldMusicaGloria" onDragEntered="#onDragEnteredFldMusicaGloria" onDragExited="#onDragExitedFldMusicaGloria" onDragOver="#onDragOverFldMusicaGloria" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaAclamacao" disable="false" editable="false" layoutX="150.0" layoutY="230.0" onDragDropped="#onDragDroppedFldMusicaAclamacao" onDragEntered="#onDragEnteredFldMusicaAclamacao" onDragExited="#onDragExitedFldMusicaAclamacao" onDragOver="#onDragOverFldMusicaAclamacao" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaOfertorio" disable="false" editable="false" layoutX="150.0" layoutY="260.0" onDragDropped="#onDragDroppedFldMusicaOfertorio" onDragEntered="#onDragEnteredFldMusicaOfertorio" onDragExited="#onDragExitedFldMusicaOfertorio" onDragOver="#onDragOverFldMusicaOfertorio" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaSanto" disable="false" editable="false" layoutX="150.0" layoutY="290.0" onDragDropped="#onDragDroppedFldMusicaSanto" onDragEntered="#onDragEnteredFldMusicaSanto" onDragExited="#onDragExitedFldMusicaSanto" onDragOver="#onDragOverFldMusicaSanto" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaPaz" disable="false" editable="false" layoutX="150.0" layoutY="320.0" onDragDropped="#onDragDroppedFldMusicaPaz" onDragEntered="#onDragEnteredFldMusicaPaz" onDragExited="#onDragExitedFldMusicaPaz" onDragOver="#onDragOverFldMusicaPaz" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaComunhao" disable="false" editable="false" layoutX="150.0" layoutY="350.0" onDragDropped="#onDragDroppedFldMusicaComunhao" onDragEntered="#onDragEnteredFldMusicaComunhao" onDragExited="#onDragExitedFldMusicaComunhao" onDragOver="#onDragOverFldMusicaComunhao" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaAcaoDeGracas" disable="false" editable="false" layoutX="150.0" layoutY="380.0" onDragDropped="#onDragDroppedFldMusicaAcaoDeGracas" onDragEntered="#onDragEnteredFldMusicaAcaoDeGracas" onDragExited="#onDragExitedFldMusicaAcaoDeGracas" onDragOver="#onDragOverFldMusicaAcaoDeGracas" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextField id="fld" fx:id="fldMusicaFinal" disable="false" editable="false" layoutX="150.0" layoutY="410.0" onDragDropped="#onDragDroppedFldMusicaFinal" onDragEntered="#onDragEnteredFldMusicaFinal" onDragExited="#onDragExitedFldMusicaFinal" onDragOver="#onDragOverFldMusicaFinal" prefWidth="300.0" promptText="Arraste para aqui uma Música" />
-  <TextArea id="areaEspeciais" fx:id="areaMusicasEspeciais" layoutX="150.0" layoutY="440.0" onDragDropped="#onDragDroppedAreaMusicasEspeciais" onDragEntered="#onDragEnteredAreaMusicasEspeciais" onDragExited="#onDragExitedAreaMusicasEspeciais" onDragOver="#onDragOverAreaMusicasEspeciais" prefHeight="50.0" prefWidth="300.0" promptText="Arraste para aqui as Músicas que não se encaixam nas opções acima" wrapText="true" />
+  <TextField fx:id="fldNomeMissa" layoutX="150.0" layoutY="65.0" prefWidth="300.0" promptText="Ex.: Missa do 1º Domingo Comum" />
+  <TextField fx:id="fldMusicaEntrada" disable="false" editable="false" layoutX="150.0" layoutY="140.0" onDragDropped="#onDragDroppedFldMusicaEntrada" onDragEntered="#onDragEnteredFldMusicaEntrada" onDragExited="#onDragExitedFldMusicaEntrada" onDragOver="#onDragOverFldMusicaEntrada" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaAtoPenitencial" disable="false" editable="false" layoutX="150.0" layoutY="170.0" onDragDropped="#onDragDroppedFldMusicaAtoPenitencial" onDragEntered="#onDragEnteredFldMusicaAtoPenitencial" onDragExited="#onDragExitedFldMusicaAtoPenitencial" onDragOver="#onDragOverFldMusicaAtoPenitencial" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaGloria" disable="false" editable="false" layoutX="150.0" layoutY="200.0" onDragDropped="#onDragDroppedFldMusicaGloria" onDragEntered="#onDragEnteredFldMusicaGloria" onDragExited="#onDragExitedFldMusicaGloria" onDragOver="#onDragOverFldMusicaGloria" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaAclamacao" disable="false" editable="false" layoutX="150.0" layoutY="230.0" onDragDropped="#onDragDroppedFldMusicaAclamacao" onDragEntered="#onDragEnteredFldMusicaAclamacao" onDragExited="#onDragExitedFldMusicaAclamacao" onDragOver="#onDragOverFldMusicaAclamacao" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaOfertorio" disable="false" editable="false" layoutX="150.0" layoutY="260.0" onDragDropped="#onDragDroppedFldMusicaOfertorio" onDragEntered="#onDragEnteredFldMusicaOfertorio" onDragExited="#onDragExitedFldMusicaOfertorio" onDragOver="#onDragOverFldMusicaOfertorio" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaSanto" disable="false" editable="false" layoutX="150.0" layoutY="290.0" onDragDropped="#onDragDroppedFldMusicaSanto" onDragEntered="#onDragEnteredFldMusicaSanto" onDragExited="#onDragExitedFldMusicaSanto" onDragOver="#onDragOverFldMusicaSanto" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaPaz" disable="false" editable="false" layoutX="150.0" layoutY="320.0" onDragDropped="#onDragDroppedFldMusicaPaz" onDragEntered="#onDragEnteredFldMusicaPaz" onDragExited="#onDragExitedFldMusicaPaz" onDragOver="#onDragOverFldMusicaPaz" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaComunhao" disable="false" editable="false" layoutX="150.0" layoutY="350.0" onDragDropped="#onDragDroppedFldMusicaComunhao" onDragEntered="#onDragEnteredFldMusicaComunhao" onDragExited="#onDragExitedFldMusicaComunhao" onDragOver="#onDragOverFldMusicaComunhao" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaAcaoDeGracas" disable="false" editable="false" layoutX="150.0" layoutY="380.0" onDragDropped="#onDragDroppedFldMusicaAcaoDeGracas" onDragEntered="#onDragEnteredFldMusicaAcaoDeGracas" onDragExited="#onDragExitedFldMusicaAcaoDeGracas" onDragOver="#onDragOverFldMusicaAcaoDeGracas" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextField fx:id="fldMusicaFinal" disable="false" editable="false" layoutX="150.0" layoutY="410.0" onDragDropped="#onDragDroppedFldMusicaFinal" onDragEntered="#onDragEnteredFldMusicaFinal" onDragExited="#onDragExitedFldMusicaFinal" onDragOver="#onDragOverFldMusicaFinal" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+  <TextArea id="areaEspeciais" fx:id="areaMusicasEspeciais" layoutX="150.0" layoutY="440.0" onDragDropped="#onDragDroppedAreaMusicasEspeciais" onDragEntered="#onDragEnteredAreaMusicasEspeciais" onDragExited="#onDragExitedAreaMusicasEspeciais" onDragOver="#onDragOverAreaMusicasEspeciais" prefHeight="50.0" prefWidth="270.0" promptText="Arraste para aqui as Músicas que não se encaixam nas opções acima" wrapText="true" />
+  <Button fx:id="btnRemoverMusicaEntrada" layoutX="422.0" layoutY="140.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaEntrada" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaAtoPenitencial" layoutX="422.0" layoutY="170.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaAtoPenitencial" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaGloria" layoutX="422.0" layoutY="200.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaGloria" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaOfertorio" layoutX="422.0" layoutY="260.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaOfertorio" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaAclamacao" layoutX="422.0" layoutY="230.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaAclamacao" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaSanto" layoutX="422.0" layoutY="290.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaSanto" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaPaz" layoutX="422.0" layoutY="320.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaPaz" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaComunhao" layoutX="422.0" layoutY="350.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaComunhao" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaAcaoDeGracas" layoutX="422.0" layoutY="380.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaAcaoDeGracas" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicaFinal" layoutX="422.0" layoutY="410.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaFinal" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Button fx:id="btnRemoverMusicasEspeciais" layoutX="422.0" layoutY="450.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicasEspeciais" prefHeight="22.0" prefWidth="28.0" text="">
+    <graphic>
+      <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+        <effect>
+          <Glow />
+        </effect>
+        <image>
+          <Image url="@../../images/icons/excluir_vermelho.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+  <Label layoutX="135.0" layoutY="90.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+    <effect>
+      <Glow />
+    </effect>
+    <font>
+      <Font size="20.0" />
+    </font>
+  </Label>
 </AnchorPane>

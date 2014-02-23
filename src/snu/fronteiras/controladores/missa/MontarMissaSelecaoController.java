@@ -8,8 +8,10 @@ package snu.fronteiras.controladores.missa;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -86,9 +88,7 @@ public class MontarMissaSelecaoController implements Initializable {
     @FXML
     private Label lblInformacaoFuncionamento;
 
-    private List<Musica> musicasSelecionadas;
-
-    private boolean possivelAdicionar;
+    private Set<Musica> musicasSelecionadas;
 
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -106,7 +106,7 @@ public class MontarMissaSelecaoController implements Initializable {
             }
         });
 
-        this.musicasSelecionadas = new ArrayList<>();
+        this.musicasSelecionadas = new HashSet<>();
         this.tblMusicas.setCursor(Cursor.CLOSED_HAND);
     }
 
@@ -217,7 +217,9 @@ public class MontarMissaSelecaoController implements Initializable {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
-            this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem());
+            if(!this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem())){
+                //TODO: Reportar erro!
+            }
             success = true;
         }
         /* let the source know whether the string was successfully 
