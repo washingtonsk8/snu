@@ -72,6 +72,10 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem itemMontarMissa;
     @FXML
     private MenuItem itemPesquisarMissa;
+    @FXML
+    private Menu menuDocumentos;
+    @FXML
+    private MenuItem itemAdicionarDocumentos;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 

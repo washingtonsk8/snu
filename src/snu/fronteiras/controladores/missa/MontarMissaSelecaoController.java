@@ -181,28 +181,11 @@ public class MontarMissaSelecaoController implements Initializable {
         pesquisarPorParametros();
     }
 
-    private void atualizarTabela() {
-        final List<Musica> itens = this.tblMusicas.getItems();
-        if (itens == null || itens.isEmpty()) {
-            return;
-        }
-
-        final Musica item = this.tblMusicas.getItems().get(0);
-        itens.remove(0);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                itens.add(0, item);
-            }
-        });
-    }
-
     @FXML
     private void onDragDetectedFromTblMusicas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();
         content.putString(this.tblMusicas.getSelectionModel().getSelectedItem().getTitulo());
-        content.putImage(new Image("/snu/fronteiras/images/igreja.jpg"));
-        Dragboard db = tblMusicas.startDragAndDrop(TransferMode.ANY);
+        Dragboard db = this.tblMusicas.startDragAndDrop(TransferMode.ANY);
         db.setContent(content);
     }
 
@@ -256,5 +239,25 @@ public class MontarMissaSelecaoController implements Initializable {
         }
 
         event.consume();
+    }
+    
+    public AnchorPane getContent() {
+        return this.contentMontarMissaSelecao;
+    }
+    
+    private void atualizarTabela() {
+        final List<Musica> itens = this.tblMusicas.getItems();
+        if (itens == null || itens.isEmpty()) {
+            return;
+        }
+
+        final Musica item = this.tblMusicas.getItems().get(0);
+        itens.remove(0);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                itens.add(0, item);
+            }
+        });
     }
 }

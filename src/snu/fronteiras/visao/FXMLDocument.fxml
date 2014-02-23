@@ -36,6 +36,11 @@
             <MenuItem mnemonicParsing="false" onAction="#onActionFromPesquisarMissa" text="Pesquisar" fx:id="itemPesquisarMissa" />
           </items>
         </Menu>
+        <Menu mnemonicParsing="false" text="Documentos" fx:id="menuDocumentos">
+          <items>
+            <MenuItem disable="true" mnemonicParsing="false" text="Adicionar" fx:id="itemAdicionarDocumentos" />
+          </items>
+        </Menu>
         <Menu mnemonicParsing="false" text="Utilitários" fx:id="menuUtilitarios">
           <items>
             <MenuItem disable="true" mnemonicParsing="false" onAction="#onActionFromItemAfinador" text="Afinador" fx:id="itemAfinador" />
