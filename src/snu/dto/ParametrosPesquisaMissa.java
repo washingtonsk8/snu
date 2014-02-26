@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package snu.dto;
+
+import java.util.Date;
+
+/**
+ * Define os parâmetros para realizar uma pesquisa por Missa
+ * @author Washington Luis
+ */
+public class ParametrosPesquisaMissa {
+    private String nomeMissa;    
+    private Date dataAcontecimento;
+
+    public String getNomeMissa() {
+        return nomeMissa;
+    }
+
+    public void setNomeMissa(String nomeMissa) {
+        this.nomeMissa = nomeMissa;
+    }
+
+    public Date getDataAcontecimento() {
+        return dataAcontecimento;
+    }
+
+    public void setDataAcontecimento(Date dataAcontecimento) {
+        this.dataAcontecimento = dataAcontecimento;
+    }   
+}

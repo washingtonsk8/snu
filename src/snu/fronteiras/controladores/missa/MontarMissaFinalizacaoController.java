@@ -15,7 +15,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.MissaJpaController;
-import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
@@ -143,6 +141,8 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
+        this.missa.setDescricaoEmail(this.areaDescricaoEmail.getText());
+        
         MissaJpaController.getInstancia().create(this.missa);
 
         Dialogs.showInformationDialog(null, "Os dados da Missa foram salvos com sucesso!", "Sucesso", "Informação");

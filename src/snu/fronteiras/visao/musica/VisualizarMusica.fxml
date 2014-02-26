@@ -78,10 +78,16 @@
   <Label fx:id="lblResultadoTom" layoutX="170.0" layoutY="123.0" prefWidth="50.0" text="" />
   <Label fx:id="lblResultadoAfinacao" layoutX="170.0" layoutY="153.0" prefWidth="150.0" text="" />
   <Label fx:id="lblResultadoLeituras" layoutX="170.0" layoutY="183.0" prefWidth="500.0" text="" />
+  <Label fx:id="lblResultadoTipos" layoutX="170.0" layoutY="213.0" prefWidth="500.0" text="" />
+  <Hyperlink fx:id="hplResultadoLinkVideo" layoutX="170.0" layoutY="410.0" onAction="#onActionFromHplResultadoLinkVideo" prefHeight="16.0" prefWidth="600.0" text="" />
+  <Label fx:id="lblMissasPresente" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="440.0" onMouseClicked="#onMouseClickedFromLblLinkVideo" prefWidth="140.0" text="Missas Presente:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+  </Label>
+  <Button fx:id="btnVisualizaMissasPresente" onAction="#onActionFromBtnVisualizarMissasPresente" layoutX="170.0" layoutY="440.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="100.0" text="Visualizar..." />
   <stylesheets>
     <URL value="@../../css/musica/criarmusica.css" />
     <URL value="@../../css/contents.css" />
   </stylesheets>
-  <Label fx:id="lblResultadoTipos" layoutX="170.0" layoutY="213.0" prefWidth="500.0" text="" />
-  <Hyperlink fx:id="hplResultadoLinkVideo" layoutX="170.0" layoutY="410.0" onAction="#onActionFromHplResultadoLinkVideo" prefHeight="16.0" prefWidth="600.0" text="" />
 </AnchorPane>

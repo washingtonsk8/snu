@@ -9,7 +9,6 @@ import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -397,8 +395,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ENTRADA));
                 this.mapaMusicasMissa.put(TipoMusica.ENTRADA, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -424,8 +422,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ATO_PENITENCIAL));
                 this.mapaMusicasMissa.put(TipoMusica.ATO_PENITENCIAL, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -451,8 +449,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.GLORIA));
                 this.mapaMusicasMissa.put(TipoMusica.GLORIA, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -478,8 +476,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACLAMACAO));
                 this.mapaMusicasMissa.put(TipoMusica.ACLAMACAO, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -505,8 +503,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.OFERTORIO));
                 this.mapaMusicasMissa.put(TipoMusica.OFERTORIO, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -532,8 +530,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.SANTO));
                 this.mapaMusicasMissa.put(TipoMusica.SANTO, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -559,8 +557,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.PAZ));
                 this.mapaMusicasMissa.put(TipoMusica.PAZ, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -586,8 +584,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.COMUNHAO));
                 this.mapaMusicasMissa.put(TipoMusica.COMUNHAO, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -613,8 +611,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACAO_DE_GRACAS));
                 this.mapaMusicasMissa.put(TipoMusica.ACAO_DE_GRACAS, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -640,8 +638,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.FINAL));
                 this.mapaMusicasMissa.put(TipoMusica.FINAL, this.musicaArrastada);
             }
-            atualizarLista();
-            
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
+            atualizarLista();            
             success = true;
         }
         /* let the source know whether the string was successfully 
@@ -667,6 +665,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
                 ((ArrayList<Musica>) this.mapaMusicasMissa.get(TipoMusica.ESPECIAL)).add(this.musicaArrastada);
             }
+            this.listaMusicasSelecionadas.getSelectionModel().select(-1);
             atualizarLista();
             success = true;
         }

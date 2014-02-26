@@ -48,6 +48,9 @@ public class Missa implements Serializable {
                 @JoinColumn(name = "musica_id", referencedColumnName = "id")})
     private Set<Musica> musicasUtilizadas;
 
+    @Column(name = "descricao_email", columnDefinition = "LONGTEXT")
+    private String descricaoEmail;
+
     public Long getId() {
         return id;
     }
@@ -80,6 +83,14 @@ public class Missa implements Serializable {
         this.musicasUtilizadas = musicasUtilizadas;
     }
 
+    public String getDescricaoEmail() {
+        return descricaoEmail;
+    }
+
+    public void setDescricaoEmail(String descricaoEmail) {
+        this.descricaoEmail = descricaoEmail;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -99,7 +110,6 @@ public class Missa implements Serializable {
 
     @Override
     public String toString() {
-        return "Missa{" + "id=" + id + ", nome=" + nome + ", dataAcontecimento=" + dataAcontecimento + ", musicasUtilizadas=" + musicasUtilizadas + '}';
+        return "Missa{" + "id=" + id + ", nome=" + nome + ", dataAcontecimento=" + dataAcontecimento + ", musicasUtilizadas=" + musicasUtilizadas + ", descricaoEmail=" + descricaoEmail + '}';
     }
-
 }

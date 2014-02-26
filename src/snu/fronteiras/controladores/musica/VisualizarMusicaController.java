@@ -5,18 +5,23 @@
  */
 package snu.fronteiras.controladores.musica;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -25,10 +30,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
+import snu.entidades.missa.Missa;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
+import snu.util.DataUtil;
 import snu.util.ListaUtil;
 
 /**
@@ -86,12 +99,21 @@ public class VisualizarMusicaController implements Initializable {
     private Label lblLinkVideo;
     @FXML
     private Hyperlink hplResultadoLinkVideo;
+    @FXML
+    private Label lblMissasPresente;
+    @FXML
+    private Button btnVisualizaMissasPresente;
 
     private TemplatePesquisaMusicaController controladorOrigem;
 
     private Musica musica;
 
+    private Popup popup;
+
+    private TableView<Missa> tblMissasPresente;
+
     private void initComponents() {
+
         //Organiza a apresentação dos dados nas colunas da tabela de associação
         this.clnNome.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AssociacaoIntegranteMusica, String>, ObservableValue<String>>() {
             @Override
@@ -105,6 +127,36 @@ public class VisualizarMusicaController implements Initializable {
                 return new SimpleStringProperty(associacao.getValue().getTom().toString());
             }
         });
+
+        /**
+         * Define a abertura da Popup de visualização de missas presente
+         */
+        this.popup = new Popup();
+        TableColumn<Missa, String> clnNomeMissa = new TableColumn<>("Nome da Missa");
+        clnNomeMissa.setPrefWidth(350);
+        clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
+                return new SimpleStringProperty(associacao.getValue().getNome());
+            }
+        });
+
+        TableColumn<Missa, String> clnDataMissa = new TableColumn<>("Data de Acontecimento");
+        clnDataMissa.setPrefWidth(150);
+        clnDataMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
+                return new SimpleStringProperty(DataUtil.formatarData(associacao.getValue().getDataAcontecimento()));
+            }
+        });
+
+        this.tblMissasPresente = new TableView();
+        this.tblMissasPresente.setPrefWidth(500);
+        this.tblMissasPresente.setPrefHeight(300);
+        this.tblMissasPresente.getColumns().add(clnNomeMissa);
+        this.tblMissasPresente.getColumns().add(clnDataMissa);
+                
+        this.popup.getContent().addAll(this.tblMissasPresente);
     }
 
     public void initData(Musica musica, TemplatePesquisaMusicaController controladorOrigem) {
@@ -122,6 +174,9 @@ public class VisualizarMusicaController implements Initializable {
         this.lblResultadoTom.setText(musica.getTom().toString());
         this.tblResultadoAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
         this.tblResultadoAssociacoes.setEditable(false);
+
+        ObservableList<Missa> missasPresente = FXCollections.observableArrayList(new ArrayList<>(this.musica.getMissasPresente()));
+        this.tblMissasPresente.setItems(missasPresente);
     }
 
     private void carregarConteudoMusica() {
@@ -190,11 +245,30 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromContentVisualizarMusica(MouseEvent event) {
+        if (this.popup.isShowing()) {
+            this.popup.hide();
+            this.btnVisualizaMissasPresente.setText("Visualizar...");
+        }
+        this.contentVisualizarMusica.requestFocus();
     }
 
     @FXML
     private void onActionFromHplResultadoLinkVideo(ActionEvent event) {
         //TODO: Abrir navegador
+    }
+
+    @FXML
+    private void onActionFromBtnVisualizarMissasPresente(ActionEvent event) {
+        if (this.popup.isShowing()) {
+            this.popup.hide();
+            this.btnVisualizaMissasPresente.setText("Visualizar...");
+        } else {
+            Window proprietaria = ((Node) (event.getSource())).getScene().getWindow();
+            this.popup.setX(proprietaria.getX() + proprietaria.getWidth() / 2 - 250);
+            this.popup.setY(proprietaria.getY() + proprietaria.getHeight() / 2 - 150);
+            this.popup.show(proprietaria);
+            this.btnVisualizaMissasPresente.setText("Fechar");
+        }
     }
 
     @FXML

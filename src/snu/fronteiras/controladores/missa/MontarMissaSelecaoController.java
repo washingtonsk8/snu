@@ -107,7 +107,6 @@ public class MontarMissaSelecaoController implements Initializable {
         });
 
         this.musicasSelecionadas = new HashSet<>();
-        this.tblMusicas.setCursor(Cursor.CLOSED_HAND);
     }
 
     private void pesquisarPorParametros() {

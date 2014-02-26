@@ -20,6 +20,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
+import snu.fronteiras.controladores.missa.VisualizarDadosMissaController;
 import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
 import snu.geral.TipoPagina;
 
@@ -73,13 +74,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemPesquisarMissa;
     @FXML
-    private Menu menuDocumentos;
+    private Menu menuConfiguracoes;
     @FXML
-    private MenuItem itemAdicionarDocumentos;
+    private MenuItem itemConfigurarEmail;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 
     private FXMLLoader templatePesquisaMusicaLoader;
+
+    private FXMLLoader templatePesquisaMissaLoader;
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -101,9 +104,20 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    private void iniciarControladorPesquisaMissa() {
+        this.templatePesquisaMissaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/VisualizarDadosMissa.fxml"));
+
+        try {
+            this.templatePesquisaMissaLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void initComponents() {
         iniciarControladorPesquisaIntegrante();
         iniciarControladorPesquisaMusica();
+        iniciarControladorPesquisaMissa();
     }
 
     @Override
@@ -243,6 +257,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromPesquisarMissa(ActionEvent event) {
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMissaLoader.getRoot());
     }
 
     @FXML

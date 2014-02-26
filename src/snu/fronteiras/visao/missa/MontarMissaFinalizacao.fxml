@@ -24,18 +24,18 @@
     </font>
   </Label>
   <Button id="btnAvancar" fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
-  <Label fx:id="lblInformacaoFuncionamento" layoutX="14.0" layoutY="60.0" prefHeight="45.0" prefWidth="772.0" text="Abaixo encontra-se uma descrição para composição de um e-mail para a igreja. Clique em &quot;Ok&quot; para confirmar os dados informados, ou &quot;Voltar&quot; para realizar alguma alteração." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+  <Label fx:id="lblInformacaoFuncionamento" layoutX="14.0" layoutY="60.0" prefHeight="45.0" prefWidth="772.0" text="Abaixo encontra-se um template que pode ser utilizado na composição de um e-mail a ser enviado para a igreja. Clique em &quot;Ok&quot; para confirmar os dados informados e salvá-los, ou &quot;Voltar&quot; para realizar alguma alteração." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
     <effect>
       <Glow />
     </effect>
     <font>
-      <Font size="16.0" fx:id="x2" />
+      <Font size="15.0" />
     </font>
   </Label>
+  <TextArea fx:id="areaDescricaoEmail" layoutX="14.0" layoutY="115.0" prefHeight="375.0" prefWidth="772.0" wrapText="true" />
+  <Button id="btnAvancar" fx:id="btnVoltar" font="$x1" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
   <stylesheets>
     <URL value="@../../css/missa/montarmissafinalizacao.css" />
     <URL value="@../../css/contents.css" />
   </stylesheets>
-  <TextArea fx:id="areaDescricaoEmail" layoutX="14.0" layoutY="115.0" prefHeight="375.0" prefWidth="772.0" wrapText="true" />
-  <Button id="btnAvancar" fx:id="btnVoltar" font="$x1" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
 </AnchorPane>

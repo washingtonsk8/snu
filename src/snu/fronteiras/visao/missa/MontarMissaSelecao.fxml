@@ -54,7 +54,7 @@
       </FXCollections>
     </items>
   </ComboBox>
-  <Label fx:id="lblInformacaoFuncionamento" font="$x2" layoutX="14.0" layoutY="60.0" prefHeight="-1.0" prefWidth="601.0" text="Realize a pesquisa por uma Música e arraste as músicas desejadas para a figura da igreja posicionada à direita para adicioná-la ao conjunto de Músicas a serem utilizadas na Missa." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+  <Label fx:id="lblInformacaoFuncionamento" font="$x2" layoutX="14.0" layoutY="60.0" prefHeight="-1.0" prefWidth="601.0" text="Realize a pesquisa por uma Música e arraste as músicas desejadas para a figura da igreja posicionada à direita para adicioná-la ao conjunto de músicas a serem utilizadas na Missa." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
     <effect>
       <Glow />
     </effect>

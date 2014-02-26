@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.controladores;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,11 +18,16 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
 import snu.bd.GerenciadorDeEntidades;
 import snu.controladores.exceptions.NonexistentEntityException;
+import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
+import snu.util.StringUtil;
 
 /**
+ * Gerenciador de conexão com a tabela Missa
  *
  * @author Washington Luis
  */
@@ -51,7 +57,7 @@ public class MissaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Set<Musica> attachedMusicasUtilizadas = new HashSet<Musica>();
+            Set<Musica> attachedMusicasUtilizadas = new HashSet<>();
             for (Musica musicasUtilizadasMusicaToAttach : missa.getMusicasUtilizadas()) {
                 musicasUtilizadasMusicaToAttach = em.getReference(musicasUtilizadasMusicaToAttach.getClass(), musicasUtilizadasMusicaToAttach.getId());
                 attachedMusicasUtilizadas.add(musicasUtilizadasMusicaToAttach);
@@ -78,7 +84,7 @@ public class MissaJpaController implements Serializable {
             Missa persistentMissa = em.find(Missa.class, missa.getId());
             Set<Musica> musicasUtilizadasOld = persistentMissa.getMusicasUtilizadas();
             Set<Musica> musicasUtilizadasNew = missa.getMusicasUtilizadas();
-            Set<Musica> attachedMusicasUtilizadasNew = new HashSet<Musica>();
+            Set<Musica> attachedMusicasUtilizadasNew = new HashSet<>();
             for (Musica musicasUtilizadasNewMusicaToAttach : musicasUtilizadasNew) {
                 musicasUtilizadasNewMusicaToAttach = em.getReference(musicasUtilizadasNewMusicaToAttach.getClass(), musicasUtilizadasNewMusicaToAttach.getId());
                 attachedMusicasUtilizadasNew.add(musicasUtilizadasNewMusicaToAttach);
@@ -188,6 +194,35 @@ public class MissaJpaController implements Serializable {
     }
 
     /**
+     * Obtém lista de Missas a partir dos parâmetros de pesquisa
+     *
+     * @param parametrosPesquisa
+     * @return
+     */
+    public List<Missa> findByParametrosPesquisa(ParametrosPesquisaMissa parametrosPesquisa) {
+
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Missa> cq = cb.createQuery(Missa.class);
+        Root<Missa> missa = cq.from(Missa.class);
+
+        List<Predicate> predicados = new ArrayList<>();
+
+        if (StringUtil.hasAlgo(parametrosPesquisa.getNomeMissa())) {
+            predicados.add(cb.like(cb.lower(missa.<String>get("nome")), "%" + parametrosPesquisa.getNomeMissa().toLowerCase() + "%"));
+        }
+        if (parametrosPesquisa.getDataAcontecimento() != null) {
+            predicados.add(cb.equal(missa.<Date>get("dataAcontecimento"), parametrosPesquisa.getDataAcontecimento()));
+        }
+
+        Predicate[] arrayPredicados = new Predicate[predicados.size()];
+        cq.select(missa).where(predicados.toArray(arrayPredicados));
+
+        return em.createQuery(cq).getResultList();
+    }
+
+    /**
      * Obtém a instância Singleton
      *
      * @return
@@ -197,5 +232,5 @@ public class MissaJpaController implements Serializable {
             instancia = new MissaJpaController();
         }
         return instancia;
-    }    
+    }
 }
