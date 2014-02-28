@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.missa;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,20 +16,26 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
-import snu.entidades.integrante.Integrante;
 import snu.entidades.missa.Missa;
 import snu.util.DataUtil;
+import snu.util.EfeitosUtil;
+import snu.util.StringUtil;
 
 /**
  * FXML Controller class
@@ -41,6 +48,8 @@ public class VisualizarDadosMissaController implements Initializable {
     private AnchorPane contentVisualizarDadosMissa;
     @FXML
     private Label lblVisualizarDadosMissa;
+    @FXML
+    private TextField fldNomeMissa;
     @FXML
     private TableView<Missa> tblMissas;
     @FXML
@@ -57,14 +66,17 @@ public class VisualizarDadosMissaController implements Initializable {
     private Font x2;
     @FXML
     private Label lblDataAcontecimentoMissa;
-    @FXML
-    private TextField fldNomeMissa;
 
     private DatePicker dpDataMissa;
 
     private ObservableList<Missa> missas = FXCollections.observableArrayList();
 
+    private Popup popup;
+
     private void initComponents() {
+        this.popup = new Popup();
+        this.popup.setAutoHide(true);
+
         //Formatando o DatePicker de Acontecimento
         this.dpDataMissa = DataUtil.getDatePicker();
         this.dpDataMissa.setLayoutX(200);
@@ -76,7 +88,8 @@ public class VisualizarDadosMissaController implements Initializable {
         this.clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
-                return new SimpleStringProperty(associacao.getValue().getNome());
+                String nomeMissa = associacao.getValue().getNome();
+                return new SimpleStringProperty(StringUtil.hasAlgo(nomeMissa) ? nomeMissa : "Indefinido");
             }
         });
 
@@ -108,13 +121,6 @@ public class VisualizarDadosMissaController implements Initializable {
         // TODO
         initComponents();
     }
-    
-    @FXML
-    private void onMouseClickedFromTblMissas(MouseEvent event) {
-        if(event.getClickCount() == 2){
-            
-        }
-    }
 
     @FXML
     private void onMouseClickedFromLblNomeMissa(MouseEvent event) {
@@ -125,15 +131,41 @@ public class VisualizarDadosMissaController implements Initializable {
     private void onMouseClickedFromLblDataAcontecimentoMissa(MouseEvent event) {
         this.dpDataMissa.requestFocus();
     }
-    
+
     @FXML
     private void onMouseClickedFromContentVisualizarDadosMissa(MouseEvent event) {
         this.contentVisualizarDadosMissa.requestFocus();
     }
-    
+
     @FXML
     private void onActionFromFldNomeMissa(ActionEvent event) {
         pesquisarPorParametros();
+    }
+
+    @FXML
+    private void onMouseClickedFromTblMissas(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            Missa missaSelecionada = this.tblMissas.getSelectionModel().getSelectedItem();
+
+            //TODO: Reportar informação se a descrição de e-mail estiver vazia
+            
+            TextArea areaApresentacaoMissa = new TextArea(missaSelecionada.getDescricaoEmail());
+            areaApresentacaoMissa.setMinWidth(500);
+            areaApresentacaoMissa.setPrefHeight(350);
+            areaApresentacaoMissa.setEditable(false);
+            areaApresentacaoMissa.setEffect(EfeitosUtil.getEfeitoGeral());
+            Window proprietaria = ((Node) (event.getSource())).getScene().getWindow();
+
+            this.popup.getContent().clear();
+            this.popup.getContent().add(areaApresentacaoMissa);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.6), areaApresentacaoMissa);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.playFromStart();
+
+            this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
+        }
     }
 
     @FXML

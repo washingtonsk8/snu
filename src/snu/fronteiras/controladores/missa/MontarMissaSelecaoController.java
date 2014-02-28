@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.missa;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,6 +19,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -89,6 +91,9 @@ public class MontarMissaSelecaoController implements Initializable {
     private Label lblInformacaoFuncionamento;
 
     private Set<Musica> musicasSelecionadas;
+    
+    private ObservableList<TipoMusica> tiposMusica = 
+            FXCollections.observableList(Arrays.asList(TipoMusica.values()));
 
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -107,6 +112,8 @@ public class MontarMissaSelecaoController implements Initializable {
         });
 
         this.musicasSelecionadas = new HashSet<>();
+        
+        this.comboTipo.setItems(this.tiposMusica);
     }
 
     private void pesquisarPorParametros() {
@@ -174,12 +181,7 @@ public class MontarMissaSelecaoController implements Initializable {
     private void onActionFromFldTitulo(ActionEvent event) {
         pesquisarPorParametros();
     }
-
-    @FXML
-    private void onActionFromComboTipo(ActionEvent event) {
-        pesquisarPorParametros();
-    }
-
+    
     @FXML
     private void onDragDetectedFromTblMusicas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();

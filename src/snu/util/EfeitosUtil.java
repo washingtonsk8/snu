@@ -8,6 +8,8 @@ package snu.util;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
 import javafx.scene.paint.Color;
 
 /**
@@ -20,6 +22,8 @@ public class EfeitosUtil {
     private static final Effect efeitoInvalido = new DropShadow(BlurType.GAUSSIAN, Color.RED, 15, 0.0, 0, 0);
     private static final Effect efeitoValido = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
     private static final Effect efeitoAviso = new DropShadow(BlurType.GAUSSIAN, Color.YELLOW, 15, 0.0, 0, 0);
+    private static final Effect efeitoGeral = new DropShadow(BlurType.GAUSSIAN, Color.SKYBLUE, 15, 0.0, 0, 0);
+    private static final Effect efeitoGlow = new Glow();
 
     public static Effect getEfeitoInvalido() {
         return efeitoInvalido;
@@ -32,5 +36,12 @@ public class EfeitosUtil {
     public static Effect getEfeitoAviso() {
         return efeitoAviso;
     }
-        
+
+    public static Effect getEfeitoGeral() {
+        return efeitoGeral;
+    }
+
+    public static Effect getEfeitoGlow() {
+        return efeitoGlow;
+    }
 }

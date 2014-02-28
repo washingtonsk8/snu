@@ -45,7 +45,7 @@
     </effect>
   </Label>
   <TextField fx:id="fldTitulo" layoutX="68.0" layoutY="171.0" onAction="#onActionFromFldTitulo" prefWidth="370.0" />
-  <ComboBox id="fldTipo" fx:id="comboTipo" layoutX="495.0" layoutY="171.0" onAction="#onActionFromComboTipo" prefHeight="22.0" prefWidth="120.0">
+  <ComboBox id="fldTipo" fx:id="comboTipo" layoutX="495.0" layoutY="171.0" prefHeight="22.0" prefWidth="120.0">
     <items>
       <FXCollections fx:factory="observableArrayList">
         <String fx:value="Item 1" />

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,11 +39,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import snu.entidades.missa.Missa;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
 import snu.util.DataUtil;
+import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
 /**
@@ -132,6 +137,16 @@ public class VisualizarMusicaController implements Initializable {
          * Define a abertura da Popup de visualização de missas presente
          */
         this.popup = new Popup();
+        this.popup.setAutoHide(true);
+        this.popup.setConsumeAutoHidingEvents(false);
+        this.popup.setOnHiding(new EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent t) {
+                btnVisualizaMissasPresente.setText("Visualizar...");
+            }
+        });
+
         TableColumn<Missa, String> clnNomeMissa = new TableColumn<>("Nome da Missa");
         clnNomeMissa.setPrefWidth(350);
         clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
@@ -155,7 +170,8 @@ public class VisualizarMusicaController implements Initializable {
         this.tblMissasPresente.setPrefHeight(300);
         this.tblMissasPresente.getColumns().add(clnNomeMissa);
         this.tblMissasPresente.getColumns().add(clnDataMissa);
-                
+        this.tblMissasPresente.setEffect(EfeitosUtil.getEfeitoGeral());
+
         this.popup.getContent().addAll(this.tblMissasPresente);
     }
 
@@ -245,10 +261,6 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromContentVisualizarMusica(MouseEvent event) {
-        if (this.popup.isShowing()) {
-            this.popup.hide();
-            this.btnVisualizaMissasPresente.setText("Visualizar...");
-        }
         this.contentVisualizarMusica.requestFocus();
     }
 
@@ -260,13 +272,21 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private void onActionFromBtnVisualizarMissasPresente(ActionEvent event) {
         if (this.popup.isShowing()) {
-            this.popup.hide();
             this.btnVisualizaMissasPresente.setText("Visualizar...");
+            this.popup.hide();
         } else {
             Window proprietaria = ((Node) (event.getSource())).getScene().getWindow();
-            this.popup.setX(proprietaria.getX() + proprietaria.getWidth() / 2 - 250);
-            this.popup.setY(proprietaria.getY() + proprietaria.getHeight() / 2 - 150);
-            this.popup.show(proprietaria);
+            //this.popup.setX(proprietaria.getX() + proprietaria.getWidth() / 2 - 250);
+            //this.popup.setY(proprietaria.getY() + proprietaria.getHeight() / 2 - 150);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.6), popup.getContent().get(0));
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.playFromStart();
+
+            this.popup.show(this.btnVisualizaMissasPresente, 
+                    proprietaria.getX() + proprietaria.getWidth() / 2 - 250,
+                    proprietaria.getY() + proprietaria.getHeight() / 2 - 150);
             this.btnVisualizaMissasPresente.setText("Fechar");
         }
     }
