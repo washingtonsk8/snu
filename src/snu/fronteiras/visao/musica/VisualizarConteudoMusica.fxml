@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentVisualizarConteudoMusica" onMouseClicked="#onMouseClickedFromContentVisualizarConteudoMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.VisualizarConteudoMusicaController">
+<AnchorPane fx:id="contentVisualizarConteudoMusica" onMouseClicked="#onMouseClickedFromContentVisualizarConteudoMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.VisualizarConteudoMusicaController">
   <Label fx:id="lblVisualizarConteudoMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Conteúdo" textAlignment="LEFT" wrapText="false">
     <stylesheets>
       <URL value="@../../css/contents.css" />
@@ -22,10 +22,6 @@
       <Font size="14.0" fx:id="x1" />
     </font>
   </Button>
-  <stylesheets>
-    <URL value="@../../css/contents.css" />
-    <URL value="@../../css/musica/visualizarconteudomusica.css" />
-  </stylesheets>
   <Label id="lblAutor" fx:id="lblIntroducao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblIntroducao" prefWidth="-1.0" text="Intro:" textFill="BLACK">
     <effect>
       <Glow />
@@ -35,4 +31,8 @@
     </font>
   </Label>
   <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
+  <stylesheets>
+    <URL value="@../../css/contents.css" />
+    <URL value="@../../css/musica/visualizarconteudomusica.css" />
+  </stylesheets>
 </AnchorPane>

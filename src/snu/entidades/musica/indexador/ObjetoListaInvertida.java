@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * Entidade que mantém dados para lista invertida
  *
  * @author Washington Luis
  */

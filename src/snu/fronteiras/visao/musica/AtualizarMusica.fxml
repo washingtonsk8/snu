@@ -11,7 +11,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<AnchorPane fx:id="contentAtualizarMusica" onMouseClicked="#onMouseClickedFromContentAtualizarMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.AtualizarMusicaController">
+<AnchorPane fx:id="contentAtualizarMusica" onMouseClicked="#onMouseClickedFromContentAtualizarMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.AtualizarMusicaController">
   <Label id="lblAtualizarMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Atualizar Música" textAlignment="LEFT" wrapText="false">
     <stylesheets>
       <URL value="@../../css/contents.css" />
@@ -67,23 +67,23 @@
   <ComboBox fx:id="comboAfinacao" layoutX="175.0" layoutY="150.0" onAction="#onActionFromComboAfinacao" prefHeight="22.0" prefWidth="150.0" />
   <TextField fx:id="fldLeituras" layoutX="175.0" layoutY="180.0" onAction="#onActionFromFldLeituras" prefWidth="500.0" />
   <CheckBox fx:id="checkEntrada" font="$x2" layoutX="175.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckEntrada" text="Entrada" />
-  <CheckBox fx:id="checkAtoPenitencial" font="$x2" layoutX="281.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckAtoPenitencial" text="Ato Penit." />
-  <CheckBox fx:id="checkGloria" font="$x2" layoutX="391.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckGloria" text="Glória" />
-  <CheckBox fx:id="checkAclamacao" font="$x2" layoutX="499.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckAclamacao" text="Aclamação" />
-  <CheckBox fx:id="checkOfertorio" font="$x2" layoutX="607.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckOfertorio" text="Ofertório" />
-  <CheckBox fx:id="checkPaz" font="$x2" layoutX="715.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckPaz" text="Paz" />
+  <CheckBox fx:id="checkAtoPenitencial" font="$x2" layoutX="278.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckAtoPenitencial" text="Ato Penit." />
+  <CheckBox fx:id="checkGloria" font="$x2" layoutX="390.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckGloria" text="Glória" />
+  <CheckBox fx:id="checkAclamacao" font="$x2" layoutX="510.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckAclamacao" text="Aclamação" />
+  <CheckBox fx:id="checkOfertorio" font="$x2" layoutX="620.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckOfertorio" text="Ofertório" />
+  <CheckBox fx:id="checkPaz" font="$x2" layoutX="720.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionFromCheckPaz" text="Paz" />
   <CheckBox fx:id="checkSanto" font="$x2" layoutX="175.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckSanto" text="Santo" />
-  <CheckBox fx:id="checkComunhao" font="$x2" layoutX="281.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckComunhao" text="Comunhão" />
+  <CheckBox fx:id="checkComunhao" font="$x2" layoutX="278.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckComunhao" text="Comunhão" />
   <CheckBox fx:id="checkAcaoDeGracas" font="$x2" layoutX="390.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckAcaoDeGracas" text="A. de Graças" />
-  <CheckBox fx:id="checkReflexao" font="$x2" layoutX="607.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckReflexao" text="Reflexão" />
-  <CheckBox fx:id="checkFinal" font="$x2" layoutX="499.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckFinal" text="Final" />
-  <CheckBox fx:id="checkLouvor" font="$x2" layoutX="715.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckLouvor" text="Louvor" />
+  <CheckBox fx:id="checkReflexao" font="$x2" layoutX="620.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckReflexao" text="Reflexão" />
+  <CheckBox fx:id="checkFinal" font="$x2" layoutX="510.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckFinal" text="Final" />
+  <CheckBox fx:id="checkLouvor" font="$x2" layoutX="720.0" layoutY="260.0" mnemonicParsing="false" onAction="#onActionFromCheckLouvor" text="Louvor" />
   <CheckBox fx:id="checkAdoracao" font="$x2" layoutX="175.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckAdoracao" text="Adoração" />
-  <CheckBox fx:id="checkPalestra" font="$x2" layoutX="281.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckPalestra" text="Palestra" />
+  <CheckBox fx:id="checkPalestra" font="$x2" layoutX="278.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckPalestra" text="Palestra" />
   <CheckBox fx:id="checkResposta" font="$x2" layoutX="390.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckResposta" text="Resposta" />
-  <CheckBox fx:id="checkOracao" font="$x2" layoutX="499.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckOracao" text="Oração" />
-  <CheckBox fx:id="checkEspecial" font="$x2" layoutX="607.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckEspecial" text="Especial" />
-  <CheckBox fx:id="checkOutra" font="$x2" layoutX="715.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckOutra" text="Outra" />
+  <CheckBox fx:id="checkOracao" font="$x2" layoutX="510.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckOracao" text="Oração" />
+  <CheckBox fx:id="checkEspecial" font="$x2" layoutX="620.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckEspecial" text="Especial" />
+  <CheckBox fx:id="checkOutra" font="$x2" layoutX="720.0" layoutY="290.0" mnemonicParsing="false" onAction="#onActionFromCheckOutra" text="Outra" />
   <ComboBox fx:id="comboNomeAssociacao" layoutX="586.0" layoutY="339.0" onAction="#onActionFromComboNomeAssociacao" prefHeight="22.0" prefWidth="200.0" />
   <ComboBox fx:id="comboTomAssociacao" layoutX="586.0" layoutY="369.0" onAction="#onActionFromComboTomAssociacao" prefHeight="22.0" prefWidth="50.0" />
   <Label id="lblTitulo" fx:id="lblNomeAssociacao" alignment="CENTER_RIGHT" font="$x2" layoutX="530.0" layoutY="340.0" onMouseClicked="#onMouseClickedFromLblTitulo" prefHeight="20.0" prefWidth="50.0" text="Nome:" textFill="BLACK">

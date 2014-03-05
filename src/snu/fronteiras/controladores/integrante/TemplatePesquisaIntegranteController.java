@@ -12,8 +12,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.IntegranteJpaController;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
@@ -42,7 +40,7 @@ import snu.entidades.integrante.Sexo;
 import snu.geral.TipoPagina;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -87,15 +85,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
 
     private void initComponents() {
 
-        this.tblIntegrantes.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean valorAntigo, Boolean novoValor) {
-                if (!novoValor) {//Perda de foco
-                    //TODO: Avaliar a existência deste método
-                }
-            }
-        });
+        this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
         this.clnNome.setCellValueFactory(new PropertyValueFactory<Integrante, String>("nome"));
         this.clnTelefoneResidencial.setCellValueFactory(new PropertyValueFactory<Integrante, String>("telefoneResidencial"));
         this.clnTelefoneCelular.setCellValueFactory(new PropertyValueFactory<Integrante, String>("telefoneCelular"));
@@ -175,7 +165,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     }
 
     /**
-     * Inicializa a classe de controle.
+     * Inicializa as ações do controlador
      *
      * @param url
      * @param rb

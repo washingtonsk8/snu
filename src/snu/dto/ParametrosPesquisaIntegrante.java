@@ -8,7 +8,7 @@ package snu.dto;
 import snu.entidades.integrante.FuncaoIntegrante;
 
 /**
- * Classe utilizada para realizar pesquisas no banco
+ * Define os parâmetros para realizar uma pesquisa por Integrante
  *
  * @author Washington Luis
  */

@@ -9,7 +9,7 @@ import java.util.List;
 import snu.entidades.musica.TipoMusica;
 
 /**
- * Classe utilizada para realizar pesquisas no banco
+ * Define os parâmetros para realizar uma pesquisa por Música
  *
  * @author Washington Luis
  */

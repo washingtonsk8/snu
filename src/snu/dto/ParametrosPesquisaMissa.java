@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.dto;
 
 import java.util.Date;
 
 /**
  * Define os parâmetros para realizar uma pesquisa por Missa
+ *
  * @author Washington Luis
  */
 public class ParametrosPesquisaMissa {
-    private String nomeMissa;    
+
+    private String nomeMissa;
     private Date dataAcontecimento;
 
     public String getNomeMissa() {
@@ -30,5 +31,5 @@ public class ParametrosPesquisaMissa {
 
     public void setDataAcontecimento(Date dataAcontecimento) {
         this.dataAcontecimento = dataAcontecimento;
-    }   
+    }
 }

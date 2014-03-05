@@ -8,7 +8,8 @@ package snu.dto;
 import snu.entidades.musica.Autor;
 
 /**
- * Possui o autor e a quantidade músicas de sua autoria
+ * Define os parâmetros para realizar uma pesquisa por Autor e Autoria. Possui o
+ * autor e a quantidade músicas de sua autoria
  *
  * @author Washington Luis
  */

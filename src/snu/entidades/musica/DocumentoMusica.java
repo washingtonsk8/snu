@@ -14,7 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Documento de música
+ * Entidade que mantém dados sobre o Documento de Música
+ *
  * @author Washington Luis
  */
 @Entity
@@ -27,7 +28,7 @@ public class DocumentoMusica implements Serializable {
     private Long id;
 
     private String introducao;
-    
+
     @Column(columnDefinition = "LONGTEXT")
     private String conteudo;
 
@@ -52,7 +53,7 @@ public class DocumentoMusica implements Serializable {
     public void setIntroducao(String introducao) {
         this.introducao = introducao;
     }
-        
+
     public String getConteudo() {
         return conteudo;
     }
@@ -91,10 +92,7 @@ public class DocumentoMusica implements Serializable {
             return false;
         }
         DocumentoMusica other = (DocumentoMusica) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override

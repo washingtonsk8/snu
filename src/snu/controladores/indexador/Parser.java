@@ -31,74 +31,81 @@ import snu.util.MusicaUtil;
  */
 public class Parser {
 
+    /**
+     * Realiza o parsing na Música (busca as palavras, extrai o radical e as
+     * armazena)
+     *
+     * @param musica
+     */
     public void parse(Musica musica) {
         IndexadorController indexadorController = IndexadorController.getInstancia();
         String conteudoMusica = musica.getDocumentoMusica().getConteudo();
-                
-        List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
-                indexadorController.preProcessar(MusicaUtil.removerAcordes(conteudoMusica)));
+        if (conteudoMusica != null) {
+            List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
+                    indexadorController.preProcessar(MusicaUtil.removerAcordes(conteudoMusica)));
 
-        int quantidadeTokens = 0;
+            int quantidadeTokens = 0;
 
-        /**
-         * Caso não apareça nenhum novo, a frequência máxima de um token em um
-         * documento é 1
-         */
-        int frequenciaMaximaToken = tokens.isEmpty() ? 0 : 1;
+            /**
+             * Caso não apareça nenhum novo, a frequência máxima de um token em
+             * um documento é 1
+             */
+            int frequenciaMaximaToken = tokens.isEmpty() ? 0 : 1;
 
-        HashMap<String, Integer> vocabuloAnalisado = new HashMap();
-        for (String token : tokens) {
-            if (vocabuloAnalisado.get(token) == null) {
-                vocabuloAnalisado.put(token, 1);
-            } else {
-                Integer frequenciaToken = vocabuloAnalisado.get(token);
-                vocabuloAnalisado.put(token, ++frequenciaToken);
-                if (frequenciaToken > frequenciaMaximaToken) {
-                    frequenciaMaximaToken = frequenciaToken;
+            HashMap<String, Integer> vocabuloAnalisado = new HashMap();
+            for (String token : tokens) {
+                if (vocabuloAnalisado.get(token) == null) {
+                    vocabuloAnalisado.put(token, 1);
+                } else {
+                    Integer frequenciaToken = vocabuloAnalisado.get(token);
+                    vocabuloAnalisado.put(token, ++frequenciaToken);
+                    if (frequenciaToken > frequenciaMaximaToken) {
+                        frequenciaMaximaToken = frequenciaToken;
+                    }
+                }
+                quantidadeTokens++;
+            }
+
+            VocabuloJpaController vocabuloController = VocabuloJpaController.getInstancia();
+            for (Map.Entry<String, Integer> entradaToken : vocabuloAnalisado.entrySet()) {
+                Vocabulo vocabulo = vocabuloController.findVocabuloByToken(entradaToken.getKey());
+                if (vocabulo == null) {
+                    ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
+                    vocabulo = new Vocabulo();
+
+                    objetoListaInvertida.setVocabulo(vocabulo);
+                    objetoListaInvertida.setIdMusica(musica.getId());
+                    objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
+                    objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
+                    vocabulo.setToken(entradaToken.getKey());
+                    vocabulo.getListaInvertida().add(objetoListaInvertida);
+
+                    //Persiste no banco
+                    vocabuloController.create(vocabulo);
+                } else {
+                    ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
+                    objetoListaInvertida.setVocabulo(vocabulo);
+                    objetoListaInvertida.setIdMusica(musica.getId());
+                    objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
+                    objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
+                    vocabulo.getListaInvertida().add(objetoListaInvertida);
+                    try {
+                        //Atualiza no banco
+                        vocabuloController.edit(vocabulo);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
-            quantidadeTokens++;
-        }
 
-        VocabuloJpaController vocabuloController = VocabuloJpaController.getInstancia();
-        for (Map.Entry<String, Integer> entradaToken : vocabuloAnalisado.entrySet()) {
-            Vocabulo vocabulo = vocabuloController.findVocabuloByToken(entradaToken.getKey());
-            if (vocabulo == null) {
-                ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
-                vocabulo = new Vocabulo();
-
-                objetoListaInvertida.setVocabulo(vocabulo);
-                objetoListaInvertida.setIdMusica(musica.getId());
-                objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
-                objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
-                vocabulo.setToken(entradaToken.getKey());
-                vocabulo.getListaInvertida().add(objetoListaInvertida);
-
-                //Persiste no banco
-                vocabuloController.create(vocabulo);
-            } else {
-                ObjetoListaInvertida objetoListaInvertida = new ObjetoListaInvertida();
-                objetoListaInvertida.setVocabulo(vocabulo);
-                objetoListaInvertida.setIdMusica(musica.getId());
-                objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
-                objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
-                vocabulo.getListaInvertida().add(objetoListaInvertida);
-                try {
-                    //Atualiza no banco
-                    vocabuloController.edit(vocabulo);
-                } catch (Exception ex) {
-                    Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            DocumentoMusica documentoMusica = musica.getDocumentoMusica();
+            documentoMusica.setQuantidadeTokens(quantidadeTokens);
+            documentoMusica.setFrequenciaMaximaToken(frequenciaMaximaToken);
+            try {
+                DocumentoMusicaJpaController.getInstancia().edit(documentoMusica);
+            } catch (Exception ex) {
+                Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-
-        DocumentoMusica documentoMusica = musica.getDocumentoMusica();
-        documentoMusica.setQuantidadeTokens(quantidadeTokens);
-        documentoMusica.setFrequenciaMaximaToken(frequenciaMaximaToken);
-        try {
-            DocumentoMusicaJpaController.getInstancia().edit(documentoMusica);
-        } catch (Exception ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<AnchorPane fx:id="contentVisualizarMusica" onMouseClicked="#onMouseClickedFromContentVisualizarMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.VisualizarMusicaController">
+<AnchorPane fx:id="contentVisualizarMusica" onMouseClicked="#onMouseClickedFromContentVisualizarMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.VisualizarMusicaController">
   <Label fx:id="lblVisualizarMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Música" textAlignment="LEFT" wrapText="false">
     <stylesheets>
       <URL value="@../../css/contents.css" />
@@ -85,7 +85,7 @@
       <Glow />
     </effect>
   </Label>
-  <Button fx:id="btnVisualizaMissasPresente" onAction="#onActionFromBtnVisualizarMissasPresente" layoutX="170.0" layoutY="440.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="100.0" text="Visualizar..." />
+  <Button fx:id="btnVisualizaMissasPresente" layoutX="170.0" layoutY="440.0" mnemonicParsing="false" onAction="#onActionFromBtnVisualizarMissasPresente" prefHeight="22.0" prefWidth="100.0" text="Visualizar..." />
   <stylesheets>
     <URL value="@../../css/musica/criarmusica.css" />
     <URL value="@../../css/contents.css" />

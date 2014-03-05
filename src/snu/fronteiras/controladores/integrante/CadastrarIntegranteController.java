@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
@@ -32,13 +33,14 @@ import snu.controladores.IntegranteJpaController;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
 import snu.util.StringUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -58,9 +60,6 @@ public class CadastrarIntegranteController implements Initializable {
     private RadioButton radioMasculino;
     @FXML
     private Label lblDataNascimento;
-
-    private DatePicker dpDataNascimento;
-
     @FXML
     private AnchorPane contentCadastrarIntegrante;
     @FXML
@@ -87,9 +86,6 @@ public class CadastrarIntegranteController implements Initializable {
     private Label lblIdadeMinisterial;
     @FXML
     private Label lblDataEntrada;
-
-    private DatePicker dpDataEntrada;
-
     @FXML
     private Label lblFuncaoPrincipal;
     @FXML
@@ -100,8 +96,6 @@ public class CadastrarIntegranteController implements Initializable {
     private ComboBox<FuncaoIntegrante> comboFuncaoSecundaria;
     @FXML
     private Button btnSalvar;
-
-    private Integrante integranteRow;
     @FXML
     private Label lblEmail;
     @FXML
@@ -110,7 +104,15 @@ public class CadastrarIntegranteController implements Initializable {
     private Font x3;
     @FXML
     private Button btnLimpar;
+
+    private DatePicker dpDataNascimento;
+
+    private DatePicker dpDataEntrada;
+
+    private Integrante integranteRow;
     
+    private FXMLDocumentController controladorPrincipal;
+
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
     private void definirAtividadeDeFocoDosCampos() {
@@ -162,6 +164,10 @@ public class CadastrarIntegranteController implements Initializable {
                 lblIdadeMinisterial.setText(DataUtil.getIdade(novaDataEntrada) + " anos de ministério");
             }
         });
+    }
+    
+    public void initData(FXMLDocumentController controladorPrincipal){
+        this.controladorPrincipal = controladorPrincipal;
     }
 
     private void initComponents() {
@@ -420,14 +426,17 @@ public class CadastrarIntegranteController implements Initializable {
 
             //Persistindo no banco
             IntegranteJpaController.getInstancia().create(this.integranteRow);
-                        
+
             if (this.integranteRow.getSexo().equals(Sexo.FEMININO)) {
                 Dialogs.showInformationDialog(null, "A Integrante foi salva com sucesso!", "Sucesso", "Informação");
             } else {
                 Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
             }
-            //Define a existência de um novo cadastro
-            this.integranteRow = new Integrante();
+
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
+            pai.getChildren().clear();
+            pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getRoot());
         } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
         }

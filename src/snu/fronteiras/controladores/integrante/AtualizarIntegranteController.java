@@ -34,13 +34,14 @@ import snu.controladores.IntegranteJpaController;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
 import snu.util.StringUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -60,9 +61,6 @@ public class AtualizarIntegranteController implements Initializable {
     private RadioButton radioMasculino;
     @FXML
     private Label lblDataNascimento;
-
-    private DatePicker dpDataNascimento;
-
     @FXML
     private AnchorPane contentAtualizarIntegrante;
     @FXML
@@ -89,9 +87,6 @@ public class AtualizarIntegranteController implements Initializable {
     private Label lblIdadeMinisterial;
     @FXML
     private Label lblDataEntrada;
-
-    private DatePicker dpDataEntrada;
-
     @FXML
     private Label lblFuncaoPrincipal;
     @FXML
@@ -102,18 +97,20 @@ public class AtualizarIntegranteController implements Initializable {
     private ComboBox<FuncaoIntegrante> comboFuncaoSecundaria;
     @FXML
     private Button btnSalvar;
-
     @FXML
     private Label lblEmail;
     @FXML
     private TextField fldEmail;
-
     @FXML
     private Font x3;
     @FXML
     private Button btnLimpar;
     @FXML
     private Button btnVoltar;
+
+    private DatePicker dpDataNascimento;
+
+    private DatePicker dpDataEntrada;
 
     private Integrante integrante;
 
@@ -475,5 +472,4 @@ public class AtualizarIntegranteController implements Initializable {
         pai.getChildren().clear();
         pai.getChildren().add(this.controladorOrigem.getContent());
     }
-
 }

@@ -18,7 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Autores das músicas
+ * Entidade que mantém os Autores das músicas
+ *
  * @author Washington Luis
  */
 @Entity

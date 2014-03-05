@@ -21,13 +21,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import snu.bd.GerenciadorDeEntidades;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
 import snu.util.StringUtil;
 
 /**
- * Gerenciador de conexão com a tabela Missa
+ * Classe que controla todas as conexões com o banco da entidade Missa
  *
  * @author Washington Luis
  */

@@ -6,7 +6,7 @@
 package snu.entidades.integrante;
 
 /**
- * Classe que define o sexo do integrante
+ * Enumerável que define o sexo do integrante
  *
  * @author Washington Luis
  */

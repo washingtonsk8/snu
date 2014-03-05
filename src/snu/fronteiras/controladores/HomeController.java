@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.fronteiras.controladores;
 
 import java.net.URL;
@@ -11,18 +10,22 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
 public class HomeController implements Initializable {
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO: Verificar o que fazer nesse caso
-    }    
-    
+        //TODO: Gerar classe de teste
+    }
+
 }

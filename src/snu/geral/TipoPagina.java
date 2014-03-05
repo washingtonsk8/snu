@@ -6,33 +6,26 @@
 package snu.geral;
 
 /**
- * Define o tipo de página a ser carregada
+ * Enumerável que define o tipo de página a ser carregada
  *
  * @author Washington Luis
  */
 public enum TipoPagina {
 
     /**
-     * Define página de template
-     * de pesquisa para atualização
+     * Define página de template de pesquisa para atualização
      */
     PESQUISA_ATUALIZACAO_DADOS,
-
     /**
-     * Define página de template
-     * de pesquisa para visualização
+     * Define página de template de pesquisa para visualização
      */
     PESQUISA_VISUALIZACAO_DADOS,
-
     /**
-     * Define página de template
-     * de pesquisa para remoção
+     * Define página de template de pesquisa para remoção
      */
     PESQUISA_REMOCAO,
-    
     /**
-     * Define página de template
-     * de pesquisa para geração de impressão
+     * Define página de template de pesquisa para geração de impressão
      */
     PESQUISA_GERACAO_IMPRESSAO;
 }

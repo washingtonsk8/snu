@@ -1,0 +1,79 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores.configuracoes;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import snu.controladores.ConfiguracoesSistemaJpaController;
+import snu.controladores.SNU;
+
+/**
+ * Classe controladora do FXML
+ *
+ * @author Washington Luis
+ */
+public class ConfiguracaoTemplateEmailController implements Initializable {
+
+    @FXML
+    private AnchorPane contentTemplateEmail;
+    @FXML
+    private Label lblTemplateEmail;
+    @FXML
+    private Button btnSalvar;
+    @FXML
+    private Font x1;
+    @FXML
+    private Label lblInformacaoFuncionamento;
+    @FXML
+    private TextArea areaTemplateEmail;
+    @FXML
+    private Label lblInformacaoTags;
+
+    private void initComponents() {
+        this.areaTemplateEmail.setText(SNU.configuracoesSistema.getTemplateDescricaoEmail());
+    }
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
+    }
+
+    @FXML
+    private void onMouseClickedFromContentMontarMissaFinalizacao(MouseEvent event) {
+        this.contentTemplateEmail.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromBtnSalvar(ActionEvent event) {
+        SNU.configuracoesSistema.setTemplateDescricaoEmail(this.areaTemplateEmail.getText());
+        try {
+            ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
+            Dialogs.showInformationDialog(null, "O template foi salvo com sucesso!", "Sucesso", "Informação");
+        } catch (Exception ex) {
+            Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+}

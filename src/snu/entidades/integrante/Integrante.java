@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Classe que define um integrante do ministério de música Nova Unção
+ * Entidade que define um integrante do ministério de música Nova Unção
  *
  * @author Washington Luis
  */
@@ -30,7 +30,7 @@ public class Integrante implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
-    
+
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
     private String email;
@@ -190,6 +190,10 @@ public class Integrante implements Serializable {
 
     public void setDataEntrada(Date dataEntrada) {
         this.dataEntrada = dataEntrada;
+    }
+
+    public String getPrimeiroNome() {
+        return this.nome.split(" ")[0];
     }
 
     @Override

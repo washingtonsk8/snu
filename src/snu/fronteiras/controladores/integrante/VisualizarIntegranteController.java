@@ -22,7 +22,7 @@ import snu.util.DataUtil;
 import snu.util.StringUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -86,16 +86,6 @@ public class VisualizarIntegranteController implements Initializable {
 
     private TemplatePesquisaIntegranteController controladorOrigem;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
-
     public void initData(Integrante integranteSelecionado, TemplatePesquisaIntegranteController controladorOrigem) {
         this.integrante = integranteSelecionado;
         this.controladorOrigem = controladorOrigem;
@@ -110,9 +100,19 @@ public class VisualizarIntegranteController implements Initializable {
         this.lblResultadoTelefoneComercial.setText(this.integrante.getTelefoneComercial());
         this.lblResultadoDataEntrada.setText(DataUtil.formatarData(this.integrante.getDataEntrada()));
         this.lblResultadoFuncaoPrincipal.setText(this.integrante.getFuncaoPrimaria().toString());
-        
+
         FuncaoIntegrante funcaoSecundaria = this.integrante.getFuncaoSecundaria();
-        this.lblResultadoFuncaoSecundaria.setText(funcaoSecundaria == null? StringUtil.VAZIA : funcaoSecundaria.toString());
+        this.lblResultadoFuncaoSecundaria.setText(funcaoSecundaria == null ? StringUtil.VAZIA : funcaoSecundaria.toString());
+    }
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
     }
 
     @FXML
@@ -164,15 +164,15 @@ public class VisualizarIntegranteController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromContentVisualizarIntegrante(MouseEvent event) {
+        this.contentVisualizarIntegrante.requestFocus();
+    }
+
+    @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(this.controladorOrigem.getContent());
     }
-
-    @FXML
-    private void onMouseClickedFromContentVisualizarIntegrante(MouseEvent event) {
-    }
-
 }

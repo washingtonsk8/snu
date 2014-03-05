@@ -17,14 +17,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.util.StringUtil;
 
 /**
- * Classe controladora das atividades de persistência da entidade Integrante
+ * Classe que controla todas as conexões com o banco da entidade Integrante
  *
  * @author Washington Luis
  */
@@ -161,7 +161,7 @@ public class IntegranteJpaController implements Serializable {
      * @return
      */
     public List<Integrante> findByParametrosPesquisa(ParametrosPesquisaIntegrante parametrosPesquisa) {
-        
+
         EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 

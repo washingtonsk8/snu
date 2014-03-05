@@ -9,12 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe para auxiliar operações em lista
+ * Utilitário para realizar operações com lista
  *
  * @author Washington Luis
  */
 public class ListaUtil {
 
+    /**
+     * Retorna uma string com os componentes da lista separados por ';'
+     *
+     * @param lista
+     * @return
+     */
     public static String getListaSeparadaPorPontoVirgula(List<?> lista) {
         if (lista == null) {
             return null;
@@ -31,7 +37,13 @@ public class ListaUtil {
 
         return resposta.substring(0, resposta.length() - 2);
     }
-    
+
+    /**
+     * Retorna uma string com os componentes da lista separados por ','
+     *
+     * @param lista
+     * @return
+     */
     public static String getListaSeparadaPorVirgula(List<?> lista) {
         if (lista == null) {
             return null;
@@ -48,8 +60,14 @@ public class ListaUtil {
 
         return resposta.substring(0, resposta.length() - 2);
     }
-    
-    public static List<String> converterListaParaListaDeStrings(List<?> lista){
+
+    /**
+     * Converte a lista de entrada para uma lista de strings (toString())
+     *
+     * @param lista
+     * @return
+     */
+    public static List<String> converterListaParaListaDeStrings(List<?> lista) {
         List<String> resposta = new ArrayList<>();
         for (Object elemento : lista) {
             resposta.add(elemento.toString());

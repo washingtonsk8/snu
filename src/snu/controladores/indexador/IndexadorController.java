@@ -70,6 +70,10 @@ public class IndexadorController {
         return saida.toLowerCase();//Passa tudo para minúsculo
     }
 
+    /**
+     * Realiza a indexação de uma Música
+     * @param musica
+     */
     public void indexar(Musica musica) {
         //Faz o parsing e salva a música
         new Parser().parse(musica);

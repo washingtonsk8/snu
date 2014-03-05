@@ -22,12 +22,29 @@ import net.sf.jasperreports.engine.util.JRLoader;
  */
 public class PDFController {
 
-    public void gerarPDF(final String caminhoReport, final Map<String, Object> parametros, String nomeArquivo) throws JRException {
+    /**
+     * Carrega o jasper report passado por parâmetro. Insere os parâmetros
+     * passados para o report e salva o arquivo pelo caminho do arquivo
+     * especificado
+     *
+     * @param caminhoReport
+     * @param parametros
+     * @param caminhoArquivo
+     * @throws JRException
+     */
+    public void gerarPDF(final String caminhoReport, final Map<String, Object> parametros, String caminhoArquivo) throws JRException {
         final JasperReport jasperReport = carregarReport(caminhoReport);
         final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JREmptyDataSource());
-        JasperExportManager.exportReportToPdfFile(jasperPrint, nomeArquivo);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, caminhoArquivo);
     }
 
+    /**
+     * Realiza o carregameto do jasper report e o retorna
+     *
+     * @param caminhoReport
+     * @return
+     * @throws JRException
+     */
     private JasperReport carregarReport(final String caminhoReport) throws JRException {
         final InputStream is = getClass().getResourceAsStream(caminhoReport);
         final JasperReport jasperReport = (JasperReport) JRLoader.loadObject(is);

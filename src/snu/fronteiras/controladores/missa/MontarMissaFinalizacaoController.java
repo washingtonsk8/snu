@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
@@ -26,13 +27,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.MissaJpaController;
+import snu.controladores.SNU;
 import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -61,16 +64,16 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     private MontarMissaOrganizacaoController controladorOrigem;
 
-    public void initData(Missa missa, Map<TipoMusica, Object> mapaMusicasMissa, MontarMissaOrganizacaoController controladorOrigem) {
+    private FXMLDocumentController controladorPrincipal;
+
+    public void initData(Missa missa, Map<TipoMusica, Object> mapaMusicasMissa,
+            MontarMissaOrganizacaoController controladorOrigem, FXMLDocumentController controladorPrincipal) {
         this.missa = missa;
         this.controladorOrigem = controladorOrigem;
+        this.controladorPrincipal = controladorPrincipal;
 
-        StringBuilder textoEmail = new StringBuilder();
-
-        textoEmail.append(mensagemSaudacao());
-        textoEmail.append("segue abaixo a relação de músicas para a missa do dia ");
-        textoEmail.append(DataUtil.formatarData(this.missa.getDataAcontecimento()));
-        textoEmail.append(".\n\n");
+        StringBuilder musicasEmail = new StringBuilder();
+        String textoEmail = SNU.configuracoesSistema.getTemplateDescricaoEmail();
 
         List<Map.Entry<TipoMusica, Object>> conjuntoMusicasMissa
                 = new ArrayList<>(mapaMusicasMissa.entrySet());
@@ -84,23 +87,23 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         for (Map.Entry<TipoMusica, Object> entradaMusicasMissa : conjuntoMusicasMissa) {
             if (entradaMusicasMissa.getValue() instanceof Musica) {
-                textoEmail.append(entradaMusicasMissa.getKey().toString());
-                textoEmail.append(":\n\t");
-                textoEmail.append(((Musica) entradaMusicasMissa.getValue()).getTitulo());
-                textoEmail.append("\n");
+                musicasEmail.append(entradaMusicasMissa.getKey().toString());
+                musicasEmail.append(":\n\t");
+                musicasEmail.append(((Musica) entradaMusicasMissa.getValue()).getTitulo());
+                musicasEmail.append("\n");
             } else {
-                textoEmail.append("Especiais:\n");
+                musicasEmail.append("Especiais:\n");
                 for (Musica musicaMissa : ((ArrayList<Musica>) entradaMusicasMissa.getValue())) {
-                    textoEmail.append("\t");
-                    textoEmail.append(musicaMissa.getTitulo());
-                    textoEmail.append("\n");
+                    musicasEmail.append("\t");
+                    musicasEmail.append(musicaMissa.getTitulo());
+                    musicasEmail.append("\n");
                 }
             }
         }
 
-        textoEmail.append("\nAtenciosamente,\n");
-        textoEmail.append("\nMinistério de Música");
-        this.areaDescricaoEmail.setText(textoEmail.toString());
+        this.areaDescricaoEmail.setText(textoEmail.replaceAll("<músicas>", musicasEmail.toString())
+                .replaceAll("<saudação diária>", mensagemSaudacao())
+                .replaceAll("<data>", DataUtil.formatarData(this.missa.getDataAcontecimento())));
     }
 
     private String mensagemSaudacao() {
@@ -113,25 +116,24 @@ public class MontarMissaFinalizacaoController implements Initializable {
         int horaDoDia = calendario.get(Calendar.HOUR_OF_DAY);
 
         if (horaDoDia >= 0 && horaDoDia < 12) {
-            saudacao = "Bom dia,\n\n";
+            saudacao = "Bom dia";
         } else if (horaDoDia < 18) {
-            saudacao = "Boa tarde,\n\n";
+            saudacao = "Boa tarde";
         } else {
-            saudacao = "Boa noite,\n\n";
+            saudacao = "Boa noite";
         }
 
         return saudacao;
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
      *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
@@ -142,10 +144,15 @@ public class MontarMissaFinalizacaoController implements Initializable {
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
         this.missa.setDescricaoEmail(this.areaDescricaoEmail.getText());
-        
+
         MissaJpaController.getInstancia().create(this.missa);
 
         Dialogs.showInformationDialog(null, "Os dados da Missa foram salvos com sucesso!", "Sucesso", "Informação");
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMissaLoader().getRoot());
     }
 
     @FXML

@@ -8,7 +8,7 @@ package snu.util;
 import java.util.regex.Pattern;
 
 /**
- * Classe utilitária para realizar operações de expressão regular
+ * Utilitário para realizar operações com expressões regulares
  *
  * @author Washington Luis
  */
@@ -16,7 +16,7 @@ public class RegexUtil {
 
     private static Pattern padrao = null;
 
-    private static String regexAcordes
+    private static final String regexAcordes
             = "(\\b[\\(\\/]{0,2})" //spaces, opening parenthesis, /
             + "(([ABCDEFG])([b\u266D#\u266F])?)" //note name + accidental
             //\u266D = flat, \u266E = natural, \u266F = sharp
@@ -28,12 +28,35 @@ public class RegexUtil {
             + "(\\)?\\b)" //closing parenthesis, spaces
             ;
 
+    /**
+     * Verifica a validade de um e-mail
+     *
+     * @param email
+     * @return
+     */
     public static boolean validarEmail(String email) {
         padrao = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}");
         return padrao.matcher(email.toLowerCase()).matches();
     }
 
-    public static String getRegexAcordes(){
+    /**
+     * Retorna a RegEx para acordes musicais
+     *
+     * @return
+     */
+    public static String getRegexAcordes() {
         return regexAcordes;
+    }
+
+    /**
+     * Casa o telefone passado com a expressão regular de telefone.
+     * (xx)xxxx-xxxx
+     *
+     * @param telefone
+     * @return
+     */
+    public static boolean validarTelefone(String telefone) {
+        padrao = Pattern.compile("(\\d\\d)[0-9]{4,5}-[0-9]{4}");
+        return padrao.matcher(telefone.toLowerCase()).matches();
     }
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickedFromContentCadastrarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.CadastrarIntegranteController">
+<AnchorPane fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickedFromContentCadastrarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.CadastrarIntegranteController">
   <children>
     <Label id="lblCadastrarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Cadastrar Novo Integrante" textAlignment="LEFT" wrapText="false">
       <stylesheets>
@@ -99,7 +99,7 @@
     </Label>
     <ComboBox fx:id="comboFuncaoPrincipal" layoutX="185.0" layoutY="420.0" onAction="#onActionFromComboFuncaoPrincipal" prefHeight="22.0" prefWidth="150.0" />
     <fx:reference source="comboFuncaoSecundaria" />
-    <Button fx:id="btnSalvar" cache="true" font="$x2" layoutX="686.0" layoutY="503.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
+    <Button fx:id="btnSalvar" cache="true" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
     <Label layoutX="165.0" layoutY="55.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
       <effect>
         <Glow />
@@ -123,7 +123,7 @@
         <Glow />
       </effect>
     </Label>
-    <Button fx:id="btnLimpar" cache="true" font="$x2" layoutX="566.0" layoutY="503.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+    <Button fx:id="btnLimpar" cache="true" font="$x2" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
   </children>
   <stylesheets>
     <URL value="@../../css/integrante/cadastrarintegrante.css" />

@@ -20,7 +20,7 @@ import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -40,7 +40,7 @@ public class VisualizarConteudoMusicaController implements Initializable {
     private Label lblIntroducao;
     @FXML
     private TextField fldIntroducao;
-    
+
     private VisualizarMusicaController controladorOrigem;
 
     private void initComponents() {
@@ -49,18 +49,20 @@ public class VisualizarConteudoMusicaController implements Initializable {
         this.areaVisualizarMusica.setEditable(false);
     }
 
-    public void initData(Musica musica, VisualizarMusicaController controladorOrigem){
+    public void initData(Musica musica, VisualizarMusicaController controladorOrigem) {
         this.controladorOrigem = controladorOrigem;
         this.fldIntroducao.setText(musica.getDocumentoMusica().getIntroducao());
         this.areaVisualizarMusica.setText(musica.getDocumentoMusica().getConteudo());
     }
-    
+
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initComponents();
     }
 

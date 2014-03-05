@@ -6,6 +6,7 @@
 package snu.dto;
 
 /**
+ * Classe utilizada para guardar par de valores
  *
  * @author Washington Luis
  * @param <First>
@@ -18,7 +19,7 @@ public class Pair<First, Second> implements Comparable<Pair<First, Second>> {
 
     public Pair() {
     }
-        
+
     public Pair(First first, Second second) {
         this.first = first;
         this.second = second;

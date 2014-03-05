@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores.musica;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,12 +30,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
@@ -50,7 +44,7 @@ import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -215,11 +209,13 @@ public class VisualizarMusicaController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initComponents();
     }
 
@@ -284,7 +280,7 @@ public class VisualizarMusicaController implements Initializable {
             fadeIn.setToValue(1);
             fadeIn.playFromStart();
 
-            this.popup.show(this.btnVisualizaMissasPresente, 
+            this.popup.show(this.btnVisualizaMissasPresente,
                     proprietaria.getX() + proprietaria.getWidth() / 2 - 250,
                     proprietaria.getY() + proprietaria.getHeight() / 2 - 150);
             this.btnVisualizaMissasPresente.setText("Fechar");

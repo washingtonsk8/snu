@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
+ * Entidade que mantém o vocabulário das Músicas
  *
  * @author Washington Luis
  */

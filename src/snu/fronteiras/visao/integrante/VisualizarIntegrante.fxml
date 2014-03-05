@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentVisualizarIntegrante" onMouseClicked="#onMouseClickedFromContentVisualizarIntegrante" prefHeight="577.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.VisualizarIntegranteController">
+<AnchorPane fx:id="contentVisualizarIntegrante" onMouseClicked="#onMouseClickedFromContentVisualizarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.VisualizarIntegranteController">
   <children>
     <Label id="lblVisualizarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Integrante" textAlignment="LEFT" wrapText="false">
       <stylesheets>
@@ -79,7 +79,7 @@
         <ComboBox fx:id="comboFuncaoSecundaria" disable="true" layoutX="185.0" layoutY="480.0" onAction="#onActionFromComboFuncaoSecundaria" opacity="0.6" prefHeight="22.0" prefWidth="150.0" />
       </labelFor>
     </Label>
-    <Button fx:id="btnVoltar" cache="true" layoutX="686.0" layoutY="503.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK">
+    <Button fx:id="btnVoltar" cache="true" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK">
       <font>
         <Font size="14.0" fx:id="x2" />
       </font>

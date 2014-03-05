@@ -15,11 +15,11 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.bd.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.entidades.musica.DocumentoMusica;
 
 /**
- *
+ * Classe que controla todas as conexões com o banco da entidade DocumentoMusica
  * @author Washington Luis
  */
 public class DocumentoMusicaJpaController implements Serializable {

@@ -14,13 +14,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
 import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
-import snu.fronteiras.controladores.missa.VisualizarDadosMissaController;
+import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
+import snu.fronteiras.controladores.musica.CriarMusicaController;
 import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
 import snu.geral.TipoPagina;
 
@@ -56,8 +62,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemGerenciarAutores;
     @FXML
-    private MenuItem itemAfinador;
-    @FXML
     private Menu menuUtilitarios;
     @FXML
     private MenuItem itemCriarMusica;
@@ -76,7 +80,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Menu menuConfiguracoes;
     @FXML
-    private MenuItem itemConfigurarEmail;
+    private Menu menuBackup;
+    @FXML
+    private MenuItem itemImportarDados;
+    @FXML
+    private MenuItem itemExportarDados;
+    @FXML
+    private Menu menuConfiguracoesMusica;
+    @FXML
+    private MenuItem itemTemplateEmail;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 
@@ -114,17 +126,50 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    private void iniciarPaginaInicial() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/Home.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
     private void initComponents() {
         iniciarControladorPesquisaIntegrante();
         iniciarControladorPesquisaMusica();
         iniciarControladorPesquisaMissa();
+        iniciarPaginaInicial();
     }
 
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
     }
 
+    public FXMLLoader getTemplatePesquisaIntegranteLoader() {
+        return templatePesquisaIntegranteLoader;
+    }
+
+    public FXMLLoader getTemplatePesquisaMusicaLoader() {
+        return templatePesquisaMusicaLoader;
+    }
+
+    public FXMLLoader getTemplatePesquisaMissaLoader() {
+        return templatePesquisaMissaLoader;
+    }
+    
     @FXML
     private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
@@ -135,6 +180,9 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
+        cadastrarIntegranteController.initData(this);
+        
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
@@ -179,6 +227,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        CriarMusicaController criarIntegranteController = fxmlLoader.getController();
+        criarIntegranteController.initData(this);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
@@ -249,6 +300,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
+        montarMissaSelecaoController.initData(this);
 
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
@@ -263,10 +317,45 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemAfinador(ActionEvent event) {
+    private void onActionFromItemImportarDados(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemExportarDados(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromTemplateEmail(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/ConfiguracaoTemplateEmail.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
     }
 
     @FXML
     private void onActionFromItemSobre(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/Sobre.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Sobre");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
     }
+
 }

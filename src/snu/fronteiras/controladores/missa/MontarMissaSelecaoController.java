@@ -24,7 +24,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -32,7 +31,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -40,18 +38,18 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.MusicaJpaController;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -91,9 +89,11 @@ public class MontarMissaSelecaoController implements Initializable {
     private Label lblInformacaoFuncionamento;
 
     private Set<Musica> musicasSelecionadas;
+
+    private final ObservableList<TipoMusica> tiposMusica
+            = FXCollections.observableList(Arrays.asList(TipoMusica.values()));
     
-    private ObservableList<TipoMusica> tiposMusica = 
-            FXCollections.observableList(Arrays.asList(TipoMusica.values()));
+    private FXMLDocumentController controladorPrincipal;
 
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -112,19 +112,19 @@ public class MontarMissaSelecaoController implements Initializable {
         });
 
         this.musicasSelecionadas = new HashSet<>();
-        
+
         this.comboTipo.setItems(this.tiposMusica);
     }
 
     private void pesquisarPorParametros() {
         ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
 
-        List<TipoMusica> tiposMusica = new ArrayList<>();
+        List<TipoMusica> tipoMusica = new ArrayList<>();
         TipoMusica tipoSelecionado = this.comboTipo.getValue();
         if (tipoSelecionado != null) {
-            tiposMusica.add(tipoSelecionado);
+            tipoMusica.add(tipoSelecionado);
         }
-        parametrosPesquisa.setTipos(tiposMusica);
+        parametrosPesquisa.setTipos(tipoMusica);
         parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
 
         List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
@@ -135,11 +135,18 @@ public class MontarMissaSelecaoController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
+    }
+    
+    public void initData(FXMLDocumentController controladorPrincipal){
+        this.controladorPrincipal = controladorPrincipal;
     }
 
     @FXML
@@ -162,7 +169,7 @@ public class MontarMissaSelecaoController implements Initializable {
 
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaSelecao.getParent());
-        montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this);
+        montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this, this.controladorPrincipal);
         pai.getChildren().clear();
         pai.getChildren().add(root);
     }
@@ -181,7 +188,7 @@ public class MontarMissaSelecaoController implements Initializable {
     private void onActionFromFldTitulo(ActionEvent event) {
         pesquisarPorParametros();
     }
-    
+
     @FXML
     private void onDragDetectedFromTblMusicas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();
@@ -218,7 +225,7 @@ public class MontarMissaSelecaoController implements Initializable {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
-            if(!this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem())){
+            if (!this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem())) {
                 //TODO: Reportar erro!
             }
             success = true;
@@ -240,14 +247,13 @@ public class MontarMissaSelecaoController implements Initializable {
             /* allow for both copying and moving, whatever user chooses */
             event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
         }
-
         event.consume();
     }
-    
+
     public AnchorPane getContent() {
         return this.contentMontarMissaSelecao;
     }
-    
+
     private void atualizarTabela() {
         final List<Musica> itens = this.tblMusicas.getItems();
         if (itens == null || itens.isEmpty()) {

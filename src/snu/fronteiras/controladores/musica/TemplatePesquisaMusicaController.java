@@ -8,9 +8,7 @@ package snu.fronteiras.controladores.musica;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +21,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialogs;
@@ -35,20 +35,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
-import net.sf.jasperreports.engine.JRException;
 import snu.controladores.MusicaJpaController;
-import snu.controladores.PDFController;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
 import snu.geral.TipoPagina;
 import snu.util.ListaUtil;
-import snu.util.MusicaUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -165,6 +165,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
+        
+        this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
     }
 
     private void pesquisarPorParametros() {
@@ -235,53 +237,36 @@ public class TemplatePesquisaMusicaController implements Initializable {
         }
     }
 
-    private void gerarImpressaoMusicaSelecionada(Musica musicaSelecionada) {
-        Map<String, Object> parametros = new HashMap<>();
-        String nomeArquivoMusica = musicaSelecionada.getAutor().getNome() + " - "
-                + musicaSelecionada.getNome() + ".pdf";
-
-        parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(musicaSelecionada.getTipos()));
-        parametros.put("tituloMusica", musicaSelecionada.getTitulo());
-        parametros.put("introducaoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
-                getDocumentoMusica().getIntroducao()));
-        parametros.put("conteudoMusica", MusicaUtil.limparParaImpressao(musicaSelecionada.
-                getDocumentoMusica().getConteudo()));
-
-        PDFController controladorPDF = new PDFController();
+    private void gerarImpressaoMusicaSelecionada(Musica musicaSelecionada, MouseEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
+        AnchorPane root = null;
         try {
-            controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, nomeArquivoMusica);
-            Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
-        } catch (JRException ex) {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
             Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
         }
-        /*  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
-         AnchorPane root = null;
-         try {
-         root = (AnchorPane) fxmlLoader.load();
-         } catch (IOException ex) {
-         Logger.getLogger(GerarImpressaoController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-                
-         //Inicializa os dados passando a música por parâmetro
-         GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
-         gerarImpressaoMusicaController.initData(musicaSelecionada);
-                
-         Stage dialogStage = new Stage();
-         dialogStage.setTitle("Gerar Impressão de Música");
-         dialogStage.initModality(Modality.WINDOW_MODAL);
-         dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-         dialogStage.setScene(new Scene(root));
-         // Show the dialog and wait until the user closes it
-         dialogStage.showAndWait();*/
+
+        //Inicializa os dados passando a música por parâmetro
+        GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
+        gerarImpressaoMusicaController.initData(musicaSelecionada);
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Gerar Impressão de Música");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initComponents();
     }
 
@@ -513,10 +498,11 @@ public class TemplatePesquisaMusicaController implements Initializable {
                     removerMusicaSelecionada(musicaSelecionada);
                     break;
                 case PESQUISA_GERACAO_IMPRESSAO:
-                    gerarImpressaoMusicaSelecionada(musicaSelecionada);
+                    gerarImpressaoMusicaSelecionada(musicaSelecionada, event);
                     break;
                 default:
-                    //TODO: Reportar erro!
+                    Dialogs.showErrorDialog(null, "Erro de processamento interno."
+                            + "\nFavor entrar em contato com o administrador", "Erro interno", "Erro");
                     break;
             }
         }
@@ -547,7 +533,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 this.lblTituloPagina.setText("Gerar Impressão");
                 break;
             default:
-                //TODO: Reportar erro!
+                Dialogs.showErrorDialog(null, "Erro de processamento interno."
+                        + "\nFavor entrar em contato com o administrador", "Erro interno", "Erro");
                 break;
         }
     }

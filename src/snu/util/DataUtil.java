@@ -13,12 +13,17 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Classe criada para realizar operações em datas
+ * Utilitário para realizar operações com datas
  *
  * @author Washington Luis
  */
 public class DataUtil {
 
+    /**
+     * Retorna um componente DatePicker com as configurações para o local atual.
+     *
+     * @return
+     */
     public static DatePicker getDatePicker() {
         DatePicker dp = new DatePicker();
         dp.setDateFormat(DateFormat.getDateInstance(DateFormat.MEDIUM, new Locale("pt", "BR")));
@@ -28,6 +33,12 @@ public class DataUtil {
         return dp;
     }
 
+    /**
+     * Calcula a idade de acordo com uma data passada
+     *
+     * @param dataPassada
+     * @return
+     */
     public static Integer getIdade(Date dataPassada) {
         Calendar cData = Calendar.getInstance();
         Calendar cDataAtual = Calendar.getInstance();
@@ -39,14 +50,21 @@ public class DataUtil {
         cData.setTime(dataPassada);
 
         idade += cDataAtual.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
-        
-        return idade > 0? idade : 0;
+
+        return idade > 0 ? idade : 0;
     }
 
+    /**
+     * Realiza a formatação de data de acordo com o local atual (Brasil)
+     *
+     * @param data
+     * @return
+     */
     public static String formatarData(Date data) {
-        if(data == null)
+        if (data == null) {
             return null;
-        
+        }
+
         SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
         return sdt.format(data);
     }

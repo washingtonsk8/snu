@@ -20,7 +20,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.controladores.indexador.ProcessadorDeConsultas;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
@@ -33,7 +33,7 @@ import snu.entidades.musica.TipoMusica;
 import snu.util.StringUtil;
 
 /**
- * Classe controladora das atividades de persistência da entidade Música
+ * Classe que controla todas as conexões com o banco da entidade Musica
  *
  * @author Washington Luis
  */
@@ -63,22 +63,7 @@ public class MusicaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            /*List<AssociacaoIntegranteMusica> attachedAssociacoes = new ArrayList<>();
-             for (AssociacaoIntegranteMusica associacoesAssociacaoIntegranteMusicaToAttach : musica.getAssociacoes()) {
-             associacoesAssociacaoIntegranteMusicaToAttach = em.getReference(associacoesAssociacaoIntegranteMusicaToAttach.getClass(), associacoesAssociacaoIntegranteMusicaToAttach.getId());
-             attachedAssociacoes.add(associacoesAssociacaoIntegranteMusicaToAttach);
-             }
-             musica.setAssociacoes(attachedAssociacoes);*/
             em.persist(musica);
-            /*for (AssociacaoIntegranteMusica associacoesAssociacaoIntegranteMusica : musica.getAssociacoes()) {
-             Musica oldMusicaOfAssociacoesAssociacaoIntegranteMusica = associacoesAssociacaoIntegranteMusica.getMusica();
-             associacoesAssociacaoIntegranteMusica.setMusica(musica);
-             associacoesAssociacaoIntegranteMusica = em.merge(associacoesAssociacaoIntegranteMusica);
-             if (oldMusicaOfAssociacoesAssociacaoIntegranteMusica != null) {
-             oldMusicaOfAssociacoesAssociacaoIntegranteMusica.getAssociacoes().remove(associacoesAssociacaoIntegranteMusica);
-             oldMusicaOfAssociacoesAssociacaoIntegranteMusica = em.merge(oldMusicaOfAssociacoesAssociacaoIntegranteMusica);
-             }
-             }*/
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -92,34 +77,7 @@ public class MusicaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Musica persistentMusica = em.find(Musica.class, musica.getId());
-            /*List<AssociacaoIntegranteMusica> associacoesOld = persistentMusica.getAssociacoes();
-             List<AssociacaoIntegranteMusica> associacoesNew = musica.getAssociacoes();
-             List<AssociacaoIntegranteMusica> attachedAssociacoesNew = new ArrayList<AssociacaoIntegranteMusica>();
-             for (AssociacaoIntegranteMusica associacoesNewAssociacaoIntegranteMusicaToAttach : associacoesNew) {
-             associacoesNewAssociacaoIntegranteMusicaToAttach = em.getReference(associacoesNewAssociacaoIntegranteMusicaToAttach.getClass(), associacoesNewAssociacaoIntegranteMusicaToAttach.getId());
-             attachedAssociacoesNew.add(associacoesNewAssociacaoIntegranteMusicaToAttach);
-             }
-             associacoesNew = attachedAssociacoesNew;
-             musica.setAssociacoes(associacoesNew);*/
             musica = em.merge(musica);
-            /* for (AssociacaoIntegranteMusica associacoesOldAssociacaoIntegranteMusica : associacoesOld) {
-             if (!associacoesNew.contains(associacoesOldAssociacaoIntegranteMusica)) {
-             associacoesOldAssociacaoIntegranteMusica.setMusica(null);
-             associacoesOldAssociacaoIntegranteMusica = em.merge(associacoesOldAssociacaoIntegranteMusica);
-             }
-             }
-             for (AssociacaoIntegranteMusica associacoesNewAssociacaoIntegranteMusica : associacoesNew) {
-             if (!associacoesOld.contains(associacoesNewAssociacaoIntegranteMusica)) {
-             Musica oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica = associacoesNewAssociacaoIntegranteMusica.getMusica();
-             associacoesNewAssociacaoIntegranteMusica.setMusica(musica);
-             associacoesNewAssociacaoIntegranteMusica = em.merge(associacoesNewAssociacaoIntegranteMusica);
-             if (oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica != null && !oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica.equals(musica)) {
-             oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica.getAssociacoes().remove(associacoesNewAssociacaoIntegranteMusica);
-             oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica = em.merge(oldMusicaOfAssociacoesNewAssociacaoIntegranteMusica);
-             }
-             }
-             }*/
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -137,6 +95,13 @@ public class MusicaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Destrói a Música de id especificado e todas as suas palavras indexadas no
+     * banco
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -212,6 +177,13 @@ public class MusicaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Encontra uma música a partir do id de documento
+     *
+     * s* @param idDocumentoMusica
+     *
+     * @return
+     */
     public Musica findMusicaByIdDocumento(Long idDocumentoMusica) {
         EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -224,8 +196,14 @@ public class MusicaJpaController implements Serializable {
         return em.createQuery(cq).getSingleResult();
     }
 
+    /**
+     * Encontra músicas a partir de parâmetros de pesquisa especificados.
+     *
+     * @param parametrosPesquisa
+     * @return
+     */
     public List<Musica> findMusicasByParametrosPesquisa(ParametrosPesquisaMusica parametrosPesquisa) {
-        if(StringUtil.hasAlgo(parametrosPesquisa.getTrecho())){
+        if (StringUtil.hasAlgo(parametrosPesquisa.getTrecho())) {
             ProcessadorDeConsultas processadorDeConsultas = new ProcessadorDeConsultas();
             processadorDeConsultas.processar(parametrosPesquisa.getTrecho());
             return processadorDeConsultas.getListaOrdenada();
@@ -249,7 +227,7 @@ public class MusicaJpaController implements Serializable {
             Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);
             predicados.add(cb.like(cb.lower(leiturasAssociadas.<String>get("descricao")), "%" + parametrosPesquisa.getDescricaoLeiturasAssociadas().toLowerCase() + "%"));
         }
-        if (!parametrosPesquisa.getTipos().isEmpty()) {
+        if (parametrosPesquisa.getTipos() != null && !parametrosPesquisa.getTipos().isEmpty()) {
             Join<Musica, EntidadeTipoMusica> tiposMusica = musica.join("tipos", JoinType.LEFT);
             for (TipoMusica tipoMusica : parametrosPesquisa.getTipos()) {
                 Subquery<Musica> subquery = cq.subquery(Musica.class);
@@ -258,7 +236,7 @@ public class MusicaJpaController implements Serializable {
                         where(cb.equal(entidadesTipoMusica.get("valor"), tipoMusica));
                 predicados.add(cb.in(tiposMusica.get("musica")).value(subquery));
             }
-        }        
+        }
 
         Predicate[] arrayPredicados = new Predicate[predicados.size()];
         cq.select(musica).distinct(true).where(predicados.toArray(arrayPredicados));

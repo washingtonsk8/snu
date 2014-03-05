@@ -19,10 +19,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import snu.bd.GerenciadorDeEntidades;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.entidades.musica.Autor;
 
 /**
+ * Classe que controla todas as conexões com o banco da entidade Autor
  *
  * @author Washington Luis
  */
@@ -52,7 +53,7 @@ public class AutorJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Musica> attachedMusicasDeAutoria = new ArrayList<Musica>();
+            List<Musica> attachedMusicasDeAutoria = new ArrayList<>();
             for (Musica musicasDeAutoriaMusicaToAttach : autor.getMusicasDeAutoria()) {
                 musicasDeAutoriaMusicaToAttach = em.getReference(musicasDeAutoriaMusicaToAttach.getClass(), musicasDeAutoriaMusicaToAttach.getId());
                 attachedMusicasDeAutoria.add(musicasDeAutoriaMusicaToAttach);
@@ -65,7 +66,7 @@ public class AutorJpaController implements Serializable {
                 musicasDeAutoriaMusica = em.merge(musicasDeAutoriaMusica);
                 if (oldAutorOfMusicasDeAutoriaMusica != null) {
                     oldAutorOfMusicasDeAutoriaMusica.getMusicasDeAutoria().remove(musicasDeAutoriaMusica);
-                    oldAutorOfMusicasDeAutoriaMusica = em.merge(oldAutorOfMusicasDeAutoriaMusica);
+                    em.merge(oldAutorOfMusicasDeAutoriaMusica);
                 }
             }
             em.getTransaction().commit();
@@ -81,34 +82,7 @@ public class AutorJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            /*Autor persistentAutor = em.find(Autor.class, autor.getId());
-            List<Musica> musicasDeAutoriaOld = persistentAutor.getMusicasDeAutoria();
-            List<Musica> musicasDeAutoriaNew = autor.getMusicasDeAutoria();
-            List<Musica> attachedMusicasDeAutoriaNew = new ArrayList<>();
-            for (Musica musicasDeAutoriaNewMusicaToAttach : musicasDeAutoriaNew) {
-                musicasDeAutoriaNewMusicaToAttach = em.getReference(musicasDeAutoriaNewMusicaToAttach.getClass(), musicasDeAutoriaNewMusicaToAttach.getId());
-                attachedMusicasDeAutoriaNew.add(musicasDeAutoriaNewMusicaToAttach);
-            }
-            musicasDeAutoriaNew = attachedMusicasDeAutoriaNew;
-            autor.setMusicasDeAutoria(musicasDeAutoriaNew);*/
             autor = em.merge(autor);
-            /*for (Musica musicasDeAutoriaOldMusica : musicasDeAutoriaOld) {
-                if (!musicasDeAutoriaNew.contains(musicasDeAutoriaOldMusica)) {
-                    musicasDeAutoriaOldMusica.setAutor(null);
-                    musicasDeAutoriaOldMusica = em.merge(musicasDeAutoriaOldMusica);
-                }
-            }
-            for (Musica musicasDeAutoriaNewMusica : musicasDeAutoriaNew) {
-                if (!musicasDeAutoriaOld.contains(musicasDeAutoriaNewMusica)) {
-                    Autor oldAutorOfMusicasDeAutoriaNewMusica = musicasDeAutoriaNewMusica.getAutor();
-                    musicasDeAutoriaNewMusica.setAutor(autor);
-                    musicasDeAutoriaNewMusica = em.merge(musicasDeAutoriaNewMusica);
-                    if (oldAutorOfMusicasDeAutoriaNewMusica != null && !oldAutorOfMusicasDeAutoriaNewMusica.equals(autor)) {
-                        oldAutorOfMusicasDeAutoriaNewMusica.getMusicasDeAutoria().remove(musicasDeAutoriaNewMusica);
-                        oldAutorOfMusicasDeAutoriaNewMusica = em.merge(oldAutorOfMusicasDeAutoriaNewMusica);
-                    }
-                }
-            }*/
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -197,7 +171,7 @@ public class AutorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public int getMusicasAutoriaCount(Long id) {
         EntityManager em = getEntityManager();
         try {

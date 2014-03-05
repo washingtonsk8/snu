@@ -19,7 +19,8 @@ import javax.persistence.Table;
 import snu.entidades.integrante.Integrante;
 
 /**
- * Associações entre integrante e música
+ * Entidade que mantém as associações entre integrante e música
+ *
  * @author Washington Luis
  */
 @Entity
@@ -64,7 +65,7 @@ public class AssociacaoIntegranteMusica implements Serializable {
     public void setTom(Tom tom) {
         this.tom = tom;
     }
-    
+
     public Musica getMusica() {
         return musica;
     }
@@ -89,10 +90,7 @@ public class AssociacaoIntegranteMusica implements Serializable {
             return false;
         }
         final AssociacaoIntegranteMusica other = (AssociacaoIntegranteMusica) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
 }

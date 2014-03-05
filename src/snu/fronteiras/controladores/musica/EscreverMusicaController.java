@@ -17,13 +17,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.MusicaUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -53,14 +52,13 @@ public class EscreverMusicaController implements Initializable {
     private Musica musica;
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
      *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
@@ -77,15 +75,16 @@ public class EscreverMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnDetectarAcordes(ActionEvent event) {
-        //TODO: Remover BUG de recursão de detecção
-        
         String introducaoMusica = this.fldIntroducao.getText();
         String introducaoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(introducaoMusica);
         this.fldIntroducao.setText(introducaoMusicaComAcordesDetectados);
-        
+
         String conteudoMusica = this.areaEscreverMusica.getText();
         String conteudoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(conteudoMusica);
         this.areaEscreverMusica.setText(conteudoMusicaComAcordesDetectados);
+
+        //Desabilitar botão para eliminar possível recursão de detecção
+        this.btnDetectarAcordes.setDisable(true);
     }
 
     @FXML

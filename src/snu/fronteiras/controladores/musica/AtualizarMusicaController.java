@@ -43,7 +43,7 @@ import javafx.util.Pair;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.ObjetoListaInvertidaJpaController;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.controladores.indexador.IndexadorController;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
@@ -60,7 +60,7 @@ import snu.util.ListaUtil;
 import snu.util.StringUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -270,14 +270,13 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
      *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initComponents();
     }
 
@@ -580,7 +579,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private void onActionFromComboTomAssociacao(ActionEvent event) {
         this.comboTomAssociacao.requestFocus();
     }
-    
+
     @FXML
     private void onActionFromBtnAtualizarConteudo(ActionEvent event) {
         //Apaga efeitos anteriores
@@ -681,7 +680,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             this.musica.setTom(this.comboTom.getValue());
             this.musica.setAfinacao(this.comboAfinacao.getValue());
             String novoConteudo = this.musica.getDocumentoMusica().getConteudo();
-            
+
             if (!this.conteudoAnterior.equals(novoConteudo)) {
                 this.musica.getDocumentoMusica().setQuantidadeTokens(0);
                 this.musica.getDocumentoMusica().setFrequenciaMaximaToken(0);

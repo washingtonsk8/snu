@@ -17,6 +17,13 @@ import snu.entidades.musica.indexador.Vocabulo;
  */
 public class ProcessadorDeConsultasUtil {
 
+    /**
+     * Calcula o peso de um objeto da lista invertida
+     *
+     * @param objetoListaInvertida
+     * @param quantidadeDocumentos
+     * @return
+     */
     public static Double calcularPeso(ObjetoListaInvertida objetoListaInvertida, Integer quantidadeDocumentos) {
         Double peso, TF, IDF;
         MusicaJpaController musicaController = MusicaJpaController.getInstancia();
@@ -34,6 +41,14 @@ public class ProcessadorDeConsultasUtil {
         return peso;
     }
 
+    /**
+     * Calcula o peso de um dado vocábulo em uma consulta
+     *
+     * @param vocabulo
+     * @param tokensConsulta
+     * @param quantidadeDocumentos
+     * @return
+     */
     public static Double calcularPeso(Vocabulo vocabulo, List<String> tokensConsulta, Integer quantidadeDocumentos) {
         int tmax = 0, tiq = 0;//Ti,q (frequência do termo i na query) e Tmax
         double peso, TF, IDF;
@@ -48,15 +63,15 @@ public class ProcessadorDeConsultasUtil {
             }
         }
 
-        TF = (double)tiq / (double)tmax;
+        TF = (double) tiq / (double) tmax;
 
         IDF = Math.log(quantidadeDocumentos.doubleValue()
                 / ((double) vocabulo.getListaInvertida().size()))
                 / Math.log(2.0);
 
         peso = TF * IDF;
-        
+
         return peso;
     }
-    
+
 }

@@ -23,11 +23,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import snu.entidades.missa.Missa;
 
 /**
- * Classe que define uma música na visão do ministério
+ * Entidade que define uma Música na visão do ministério
  *
  * @author Washington Luis
  */
@@ -66,10 +65,10 @@ public class Musica implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = DocumentoMusica.class)
     @JoinColumn(name = "documentomusica_id")
     private DocumentoMusica documentoMusica;
-    
+
     @Column(name = "link_video")
     private String linkVideo;
-    
+
     @ManyToMany(mappedBy = "musicasUtilizadas")
     private Set<Missa> missasPresente;
 
@@ -135,7 +134,7 @@ public class Musica implements Serializable {
     public void setLinkVideo(String linkVideo) {
         this.linkVideo = linkVideo;
     }
-    
+
     public List<TipoMusica> getTipos() {
         List<TipoMusica> retorno = new ArrayList<>();
         for (EntidadeTipoMusica entidadeTipoMusica : this.tipos) {
@@ -160,19 +159,19 @@ public class Musica implements Serializable {
         novaEntidade.setMusica(this);
         this.tipos.add(novaEntidade);
     }
-    
-    public void removerTipo(TipoMusica tipo){
+
+    public void removerTipo(TipoMusica tipo) {
         for (int indiceRemocao = 0; indiceRemocao < this.tipos.size(); indiceRemocao++) {
-            if(this.tipos.get(indiceRemocao).getValor().equals(tipo)){
+            if (this.tipos.get(indiceRemocao).getValor().equals(tipo)) {
                 //Remover o indice
                 this.tipos.remove(indiceRemocao);
-                
+
                 //Quebrar a iteração
                 indiceRemocao = this.tipos.size();
             }
         }
     }
-    
+
     public List<AssociacaoIntegranteMusica> getAssociacoes() {
         return associacoes;
     }
@@ -196,17 +195,17 @@ public class Musica implements Serializable {
     public void setMissasPresente(Set<Missa> missasPresente) {
         this.missasPresente = missasPresente;
     }
-        
+
     /**
-     * Retorna o título de uma música
-     * no formato: Autor - Título
+     * Retorna o título de uma música no formato: Autor - Título
+     *
      * @return
      */
-    public String getTitulo(){
-        String nomeAutor = this.autor == null? "Sem Autor" : this.autor.getNome();
+    public String getTitulo() {
+        String nomeAutor = this.autor == null ? "Sem Autor" : this.autor.getNome();
         return nomeAutor + " - " + this.nome;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -221,10 +220,7 @@ public class Musica implements Serializable {
             return false;
         }
         Musica other = (Musica) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override

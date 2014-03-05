@@ -33,13 +33,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import snu.controladores.AutorJpaController;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.controladores.MusicaJpaController;
+import snu.exceptions.NonexistentEntityException;
 import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
 import snu.util.StringUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -61,14 +62,16 @@ public class GerenciarAutoresController implements Initializable {
     private Button btnEditarAutor;
     @FXML
     private Button btnRemoverAutor;
-
-    private ObservableList<QuantidadeAutoriaDTO> autores;
     @FXML
     private Font x1;
     @FXML
     private TableColumn<QuantidadeAutoriaDTO, String> clnNomeAutor;
     @FXML
     private TableColumn<QuantidadeAutoriaDTO, String> clnQuantidadeMusicas;
+    @FXML
+    private Label lblInformacaoQuantidades;
+    
+    private ObservableList<QuantidadeAutoriaDTO> autores;
 
     private void initComponents() {
         AutorJpaController autorController = AutorJpaController.getInstancia();
@@ -107,7 +110,8 @@ public class GerenciarAutoresController implements Initializable {
 
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
-        //TODO: Colocar total de autores no sistema
+        this.lblInformacaoQuantidades.setText("O sistema contém " + entidadesAutor.size() + " autores e "+
+                MusicaJpaController.getInstancia().getMusicaCount() + " músicas.");
     }
 
     private void filtrarTabela(String textoPesquisa) {
@@ -125,7 +129,7 @@ public class GerenciarAutoresController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
      *
      * @param url
      * @param rb
@@ -183,11 +187,13 @@ public class GerenciarAutoresController implements Initializable {
             //Não possui músicas, pois é novo autor
             quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
             this.autores.add(quantidadeAutoriaDTO);
-
-            //TODO: Mostrar mensagem de sucesso
+           
             this.fldPesquisarAutor.clear();
             this.tblAutores.setItems(this.autores);
             atualizarTabela();
+            
+            Dialogs.showInformationDialog(null, "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso", "Informação");
+            
             this.fldPesquisarAutor.requestFocus();
         }else{
             Dialogs.showWarningDialog(null, "O nome do Autor(a) deve ter pelo menos 1 caractere!", "Nome vazio!", "Aviso");

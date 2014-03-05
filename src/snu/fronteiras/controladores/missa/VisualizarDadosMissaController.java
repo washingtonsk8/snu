@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,7 +39,7 @@ import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -99,7 +100,6 @@ public class VisualizarDadosMissaController implements Initializable {
                 return new SimpleStringProperty(DataUtil.formatarData(associacao.getValue().getDataAcontecimento()));
             }
         });
-
     }
 
     private void pesquisarPorParametros() {
@@ -114,11 +114,13 @@ public class VisualizarDadosMissaController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initComponents();
     }
 
@@ -147,24 +149,26 @@ public class VisualizarDadosMissaController implements Initializable {
         if (event.getClickCount() == 2) {
             Missa missaSelecionada = this.tblMissas.getSelectionModel().getSelectedItem();
 
-            //TODO: Reportar informação se a descrição de e-mail estiver vazia
-            
-            TextArea areaApresentacaoMissa = new TextArea(missaSelecionada.getDescricaoEmail());
-            areaApresentacaoMissa.setMinWidth(500);
-            areaApresentacaoMissa.setPrefHeight(350);
-            areaApresentacaoMissa.setEditable(false);
-            areaApresentacaoMissa.setEffect(EfeitosUtil.getEfeitoGeral());
-            Window proprietaria = ((Node) (event.getSource())).getScene().getWindow();
+            if (StringUtil.hasAlgo(missaSelecionada.getDescricaoEmail())) {
+                TextArea areaApresentacaoMissa = new TextArea(missaSelecionada.getDescricaoEmail());
+                areaApresentacaoMissa.setMinWidth(500);
+                areaApresentacaoMissa.setPrefHeight(350);
+                areaApresentacaoMissa.setEditable(false);
+                areaApresentacaoMissa.setEffect(EfeitosUtil.getEfeitoGeral());
+                Window proprietaria = ((Node) (event.getSource())).getScene().getWindow();
 
-            this.popup.getContent().clear();
-            this.popup.getContent().add(areaApresentacaoMissa);
+                this.popup.getContent().clear();
+                this.popup.getContent().add(areaApresentacaoMissa);
 
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.6), areaApresentacaoMissa);
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.playFromStart();
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.6), areaApresentacaoMissa);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+                fadeIn.playFromStart();
 
-            this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
+                this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
+            } else {
+                Dialogs.showWarningDialog(null, "A descrição de e-mail desta Missa está vazia!", "Descrição Vazia", "Aviso");
+            }
         }
     }
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentEscreverMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.EscreverMusicaController">
+<AnchorPane fx:id="contentEscreverMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.EscreverMusicaController">
   <Label fx:id="lblEscreverMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Escrever Música" textAlignment="LEFT" wrapText="false">
     <stylesheets>
       <URL value="@../../css/contents.css" />

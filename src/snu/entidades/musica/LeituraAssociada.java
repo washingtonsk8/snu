@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Leituras associadas às músicas
+ * Entidade que mantém as Leituras Associadas às Músicas
  *
  * @author Washington Luis
  */
@@ -72,10 +72,7 @@ public class LeituraAssociada implements Serializable {
             return false;
         }
         LeituraAssociada other = (LeituraAssociada) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override

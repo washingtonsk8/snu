@@ -37,7 +37,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.Autor;
 
 /**
- * FXML Controller class
+ * Classe controladora do FXML
  *
  * @author Washington Luis
  */
@@ -53,13 +53,12 @@ public class SelecionarAutorController implements Initializable {
     private TextField fldPesquisarAutor;
     @FXML
     private ImageView imgPesquisaAutor;
+    @FXML
+    private Button btnAdicionarAutor;
 
     private ObservableList<Autor> autores;
 
     private Musica musica;
-    
-    @FXML
-    private Button btnAdicionarAutor;
 
     private void initComponents() {
 
@@ -114,11 +113,13 @@ public class SelecionarAutorController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initComponents();
     }
 

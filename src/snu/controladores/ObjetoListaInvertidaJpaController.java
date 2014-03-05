@@ -15,11 +15,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.controladores.exceptions.NonexistentEntityException;
+import snu.exceptions.NonexistentEntityException;
 import snu.entidades.musica.indexador.ObjetoListaInvertida;
 import snu.entidades.musica.indexador.Vocabulo;
 
 /**
+ * Classe que controla todas as conexões com o banco da entidade
+ * ObjetoListaInvertida
  *
  * @author Washington Luis
  */
@@ -54,7 +56,7 @@ public class ObjetoListaInvertidaJpaController implements Serializable {
             em.persist(objetoListaInvertida);
             if (vocabulo != null) {
                 vocabulo.getListaInvertida().add(objetoListaInvertida);
-                vocabulo = em.merge(vocabulo);
+                em.merge(vocabulo);
             }
             em.getTransaction().commit();
         } finally {
@@ -83,7 +85,7 @@ public class ObjetoListaInvertidaJpaController implements Serializable {
             }
             if (vocabuloNew != null && !vocabuloNew.equals(vocabuloOld)) {
                 vocabuloNew.getListaInvertida().add(objetoListaInvertida);
-                vocabuloNew = em.merge(vocabuloNew);
+                em.merge(vocabuloNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -117,7 +119,7 @@ public class ObjetoListaInvertidaJpaController implements Serializable {
             Vocabulo vocabulo = objetoListaInvertida.getVocabulo();
             if (vocabulo != null) {
                 vocabulo.getListaInvertida().remove(objetoListaInvertida);
-                vocabulo = em.merge(vocabulo);
+                em.merge(vocabulo);
             }
             em.remove(objetoListaInvertida);
             em.getTransaction().commit();
@@ -184,7 +186,7 @@ public class ObjetoListaInvertidaJpaController implements Serializable {
                 Vocabulo vocabulo = objetoListaInvertida.getVocabulo();
                 if (vocabulo != null) {
                     vocabulo.getListaInvertida().remove(objetoListaInvertida);
-                    vocabulo = em.merge(vocabulo);
+                    em.merge(vocabulo);
                 }
             }
             em.getTransaction().commit();

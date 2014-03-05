@@ -38,6 +38,12 @@ public class ProcessadorDeConsultas {
         this.listaOrdenada = new ArrayList<>();
     }
 
+    /**
+     * Realiza todo o processamento da consulta. Utiliza o Modelo Vetorial para
+     * busca por trecho.
+     *
+     * @param consulta
+     */
     public void processar(String consulta) {
         IndexadorController indexadorController = IndexadorController.getInstancia();
 
