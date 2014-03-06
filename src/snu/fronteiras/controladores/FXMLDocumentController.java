@@ -5,15 +5,24 @@
  */
 package snu.fronteiras.controladores;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,6 +32,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import snu.bd.BDDump;
+import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
 import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
 import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
@@ -169,7 +184,7 @@ public class FXMLDocumentController implements Initializable {
     public FXMLLoader getTemplatePesquisaMissaLoader() {
         return templatePesquisaMissaLoader;
     }
-    
+
     @FXML
     private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
@@ -182,7 +197,7 @@ public class FXMLDocumentController implements Initializable {
 
         CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
         cadastrarIntegranteController.initData(this);
-        
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
@@ -227,7 +242,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         CriarMusicaController criarIntegranteController = fxmlLoader.getController();
         criarIntegranteController.initData(this);
 
@@ -300,7 +315,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
         montarMissaSelecaoController.initData(this);
 
@@ -318,10 +333,154 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void onActionFromItemImportarDados(ActionEvent event) {
+        JFileChooser seletorArquivo = new JFileChooser(".");
+        seletorArquivo.addChoosableFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File file) {
+                String filename = file.getName();
+                return filename.endsWith("sql");
+            }
+
+            @Override
+            public String getDescription() {
+                return "*.sql";
+            }
+
+        });
+        seletorArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int returnVal = seletorArquivo.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            final File arquivoImportacao = seletorArquivo.getSelectedFile();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+            Parent root = null;
+            try {
+                root = (Parent) fxmlLoader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ProgressoController progressoController = fxmlLoader.getController();
+            progressoController.initData("Importando os dados do arquivo. Aguarde...");
+            progressoController.setProgresso(-1.0);
+
+            final Stage dialogStage = new Stage();
+            dialogStage.setTitle("Por Favor Aguarde...");
+            dialogStage.toFront();
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+
+            final Task task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    BDDump.doRestore(arquivoImportacao.toString());
+                    return null;
+                }
+            };
+
+            dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                @Override
+                public void handle(WindowEvent event) {
+                    if (task.isRunning()) {
+                        event.consume();
+                    }
+                }
+            });
+
+            task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                @Override
+                public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                    switch (state) {
+                        case RUNNING:
+                            dialogStage.showAndWait();
+                            break;
+                        case SUCCEEDED:
+                        case CANCELLED:
+                        case FAILED:
+                            dialogStage.close();
+                            break;
+                    }
+                }
+            });
+
+            //progressoController.getProgressoAcao().progressProperty().bind(task.progressProperty());
+            new Thread(task).start();
+        }
     }
 
     @FXML
     private void onActionFromItemExportarDados(ActionEvent event) {
+        JFileChooser seletorDiretorio = new JFileChooser(".");
+        seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnVal = seletorDiretorio.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            final File diretorioExportacao = seletorDiretorio.getSelectedFile();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+            Parent root = null;
+            try {
+                root = (Parent) fxmlLoader.load();
+
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ProgressoController progressoController = fxmlLoader.getController();
+            progressoController.initData("Exportando os dados para o arquivo. Aguarde...");
+            progressoController.setProgresso(-1.0);
+
+            final Stage dialogStage = new Stage();
+            dialogStage.setTitle("Por Favor Aguarde...");
+            dialogStage.toFront();
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+
+            final Task task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    BDDump.doBakup(diretorioExportacao.toString());
+                    return null;
+                }
+            };
+
+            dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                @Override
+                public void handle(WindowEvent event) {
+                    if (task.isRunning()) {
+                        event.consume();
+                    }
+                }
+            });
+
+            task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                @Override
+                public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                    switch (state) {
+                        case RUNNING:
+                            dialogStage.showAndWait();
+                            break;
+                        case SUCCEEDED:
+                        case CANCELLED:
+                        case FAILED:
+                            dialogStage.close();
+                            break;
+                    }
+                }
+            });
+
+            //progressoController.getProgressoAcao().progressProperty().bind(task.progressProperty());
+            new Thread(task).start();
+        }
     }
 
     @FXML
@@ -330,8 +489,10 @@ public class FXMLDocumentController implements Initializable {
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
+
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         //Limpa o conteúdo anterior e carrega a página
@@ -345,8 +506,10 @@ public class FXMLDocumentController implements Initializable {
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
+
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         Stage dialogStage = new Stage();

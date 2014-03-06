@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentProgresso" prefHeight="75.0" prefWidth="400.0" styleClass="mainFxmlClass, main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.geral.ProgressoController">
+  <children>
+    <ProgressBar fx:id="progressoAcao" layoutX="14.0" layoutY="40.0" prefHeight="15.0" prefWidth="372.0" progress="0.0" />
+    <Label fx:id="lblAcao" layoutX="14.0" layoutY="14.0" text="Ação..." textFill="BLACK">
+      <effect>
+        <Glow />
+      </effect>
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@../../css/geral/progresso.css" />
+    <URL value="@../../css/contents.css" />
+  </stylesheets>
+</AnchorPane>

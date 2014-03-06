@@ -15,10 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,8 +41,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import snu.bd.BDDump;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.indexador.IndexadorController;
@@ -53,6 +58,7 @@ import snu.entidades.musica.Tom;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.LeituraAssociada;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
@@ -241,6 +247,78 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
         this.btnSelecionarAutor.requestFocus();
+    }
+
+    private void salvarMusica() {
+        this.musica.setNome(this.fldTitulo.getText());
+        this.musica.setAssociacoes(this.itensAssociacao);
+        this.musica.setTom(this.comboTom.getValue());
+        this.musica.setAfinacao(this.comboAfinacao.getValue());
+        this.musica.setLinkVideo(this.fldLinkVideo.getText());
+
+        String campoLeiturasAssociadas = this.fldLeituras.getText();
+
+        if (!campoLeiturasAssociadas.isEmpty()) {
+            List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
+
+            for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
+                if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
+                    LeituraAssociada leituraAssociada = new LeituraAssociada();
+                    leituraAssociada.setDescricao(descricaoLeituraAssociada);
+                    leituraAssociada.setMusica(this.musica);
+                    leiturasAssociadas.add(leituraAssociada);
+                }
+            }
+            this.musica.setLeiturasAssociadas(leiturasAssociadas);
+        } else {
+            this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
+        }
+
+        //TODO: Remover, pois ao salvar duas vezes, uma indexação duplicada pode ser gerada
+        //Analisado: Ao redirecionar, não será possível salvar 2 vezes
+        IndexadorController.getInstancia().indexar(musica);
+
+        //Persistindo no banco
+        MusicaJpaController.getInstancia().create(this.musica);
+    }
+
+    private void questionamentoFinalArmazenamento() {
+        if (this.musica.getDocumentoMusica().getConteudo() == null || this.musica.getDocumentoMusica().getConteudo().isEmpty()) {
+            Dialogs.DialogResponse resposta;
+            resposta = Dialogs.showConfirmDialog(null,
+                    "O conteúdo da Música não foi escrito."
+                    + "\nDeseja ir para a página de atualização?", "Confirmação");
+            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarMusica.fxml"));
+
+                Parent root = null;
+                try {
+                    root = (Parent) fxmlLoader.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
+                TemplatePesquisaMusicaController templateMusicaController
+                        = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
+
+                //Limpa o conteúdo anterior e carrega a página
+                AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
+                atualizarMusicaController.initData(this.musica, templateMusicaController);
+                pai.getChildren().clear();
+                pai.getChildren().add(root);
+            } else {
+                //Limpa o conteúdo anterior e carrega a página
+                AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
+                pai.getChildren().clear();
+                pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot());
+            }
+        } else {
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
+            pai.getChildren().clear();
+            pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot());
+        }
     }
 
     public void initData(FXMLDocumentController controladorPrincipal) {
@@ -704,75 +782,64 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
             if (validarMusicaComMesmoNome()) {
-                this.musica.setNome(this.fldTitulo.getText());
-                this.musica.setAssociacoes(this.itensAssociacao);
-                this.musica.setTom(this.comboTom.getValue());
-                this.musica.setAfinacao(this.comboAfinacao.getValue());
-                this.musica.setLinkVideo(this.fldLinkVideo.getText());
-
-                String campoLeiturasAssociadas = this.fldLeituras.getText();
-
-                if (!campoLeiturasAssociadas.isEmpty()) {
-                    List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
-
-                    for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                        if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
-                            LeituraAssociada leituraAssociada = new LeituraAssociada();
-                            leituraAssociada.setDescricao(descricaoLeituraAssociada);
-                            leituraAssociada.setMusica(this.musica);
-                            leiturasAssociadas.add(leituraAssociada);
-                        }
-                    }
-                    this.musica.setLeiturasAssociadas(leiturasAssociadas);
-                } else {
-                    this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+                Parent root = null;
+                try {
+                    root = (Parent) fxmlLoader.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                //TODO: Remover, pois ao salvar duas vezes, uma indexação duplicada pode ser gerada
-                //Analisado: Ao redirecionar, não será possível salvar 2 vezes
-                IndexadorController.getInstancia().indexar(musica);
+                ProgressoController progressoController = fxmlLoader.getController();
+                progressoController.initData("Indexando e armazenando a Música. Aguarde...");
+                progressoController.setProgresso(-1.0);
 
-                //Persistindo no banco
-                MusicaJpaController.getInstancia().create(this.musica);
+                final Stage dialogStage = new Stage();
+                dialogStage.setTitle("Por Favor Aguarde...");
+                dialogStage.toFront();
+                dialogStage.setResizable(false);
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+                dialogStage.setScene(new Scene(root));
 
-                Dialogs.showInformationDialog(null, "A Música foi salva com sucesso!", "Sucesso", "Informação");
-
-                if (this.musica.getDocumentoMusica().getConteudo() == null || this.musica.getDocumentoMusica().getConteudo().isEmpty()) {
-                    Dialogs.DialogResponse resposta;
-                    resposta = Dialogs.showConfirmDialog(null,
-                            "O conteúdo da Música não foi escrito."
-                            + "\nDeseja ir para a página de atualização?", "Confirmação");
-                    if (resposta.equals(Dialogs.DialogResponse.YES)) {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarMusica.fxml"));
-
-                        Parent root = null;
-                        try {
-                            root = (Parent) fxmlLoader.load();
-                        } catch (IOException ex) {
-                            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                        AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
-                        TemplatePesquisaMusicaController templateMusicaController
-                                = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
-
-                        //Limpa o conteúdo anterior e carrega a página
-                        AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-                        atualizarMusicaController.initData(this.musica, templateMusicaController);
-                        pai.getChildren().clear();
-                        pai.getChildren().add(root);
-                    } else {
-                        //Limpa o conteúdo anterior e carrega a página
-                        AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-                        pai.getChildren().clear();
-                        pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot());
+                final Task task = new Task<Void>() {
+                    @Override
+                    public Void call() {
+                        salvarMusica();
+                        return null;
                     }
-                } else {
-                    //Limpa o conteúdo anterior e carrega a página
-                    AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-                    pai.getChildren().clear();
-                    pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot());
-                }
+                };
+
+                dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                    @Override
+                    public void handle(WindowEvent event) {
+                        if (task.isRunning()) {
+                            event.consume();
+                        }
+                    }
+                });
+
+                task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                        switch (state) {
+                            case RUNNING:
+                                dialogStage.showAndWait();
+                                break;
+                            case SUCCEEDED:
+                                dialogStage.close();
+                                Dialogs.showInformationDialog(null, "A Música foi salva com sucesso!", "Sucesso", "Informação");
+                                questionamentoFinalArmazenamento();
+                                break;
+                            case CANCELLED:
+                            case FAILED:
+                                dialogStage.close();
+                                break;
+                        }
+                    }
+                });
+                new Thread(task).start();
             }
         } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");

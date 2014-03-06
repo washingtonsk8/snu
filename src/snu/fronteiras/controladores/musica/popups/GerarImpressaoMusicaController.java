@@ -6,6 +6,7 @@
 package snu.fronteiras.controladores.musica.popups;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,10 +15,18 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
@@ -27,14 +36,20 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
+import snu.bd.BDDump;
 import snu.controladores.PDFController;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.Tom;
+import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 import snu.util.MusicaUtil;
@@ -193,63 +208,122 @@ public class GerarImpressaoMusicaController implements Initializable {
     private void onActionFromBtnGerar(ActionEvent event) {
         if (validarGeracao()) {
             //Novas criações
-            Map<String, Object> parametros = new HashMap<>();
+            final Map<String, Object> parametros = new HashMap<>();
             String nomeArquivoMusica = this.musicaSelecionada.getAutor().getNome() + " - "
                     + this.musicaSelecionada.getNome() + ".pdf";
 
             //Escolha do local para salvar o arquivo
-            JFileChooser fileChooser = new JFileChooser(".");
-            fileChooser.setSelectedFile(new File(nomeArquivoMusica));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivo PDF", "pdf"));
+            final JFileChooser seletorArquivo = new JFileChooser(".");
+            seletorArquivo.setSelectedFile(new File(nomeArquivoMusica));
+            seletorArquivo.setFileFilter(new FileNameExtensionFilter("Arquivo PDF", "pdf"));
 
-            int resposta = fileChooser.showSaveDialog(null);
+            int resposta = seletorArquivo.showSaveDialog(null);
 
             if (resposta == JFileChooser.APPROVE_OPTION) {
-                //Pré-definições
-                Tom tomSelecionado = this.comboTom.getSelectionModel().getSelectedItem();
-                Tom tomOriginal = this.musicaSelecionada.getTom();
-                String nomeCantorMusica = this.comboCantor.getSelectionModel().getSelectedItem();
-                String introducaoMusica = this.musicaSelecionada.getDocumentoMusica().getIntroducao();
-                String conteudoMusica = this.musicaSelecionada.getDocumentoMusica().getConteudo();
-
-                //Definições para impressão
-                parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(this.musicaSelecionada.getTipos()));
-                parametros.put("tituloMusica", this.musicaSelecionada.getTitulo());
-                parametros.put("cantorMusica", nomeCantorMusica == null ? "" : nomeCantorMusica);
-                parametros.put("tomMusica", tomSelecionado.toString());
-                if (tomOriginal.equals(tomSelecionado)) {
-                    parametros.put("introducaoMusica", introducaoMusica == null ? ""
-                            : MusicaUtil.limparParaImpressao(introducaoMusica));
-                    parametros.put("conteudoMusica", conteudoMusica == null ? ""
-                            : MusicaUtil.limparParaImpressao(conteudoMusica));
-                } else {
-                    parametros.put("introducaoMusica", introducaoMusica == null ? ""
-                            : MusicaUtil.limparParaImpressao(
-                                    MusicaUtil.converterTom(introducaoMusica,
-                                            this.musicaSelecionada.getTom(),
-                                            tomSelecionado)));
-                    parametros.put("conteudoMusica", conteudoMusica == null ? ""
-                            : MusicaUtil.limparParaImpressao(
-                                    MusicaUtil.converterTom(conteudoMusica,
-                                            this.musicaSelecionada.getTom(),
-                                            tomSelecionado)));
-                }
-
-                //Instancia um novo controlador
-                PDFController controladorPDF = new PDFController();
-
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+                Parent root = null;
                 try {
-                    controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, fileChooser.getSelectedFile().getAbsolutePath());
-                    Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
-                } catch (JRException ex) {
-                    Logger.getLogger(GerarImpressaoMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-                    Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
-                } finally {
-                    this.popupGerarImpressaoMusica.getScene().getWindow().hide();
+                    root = (Parent) fxmlLoader.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                final ProgressoController progressoController = fxmlLoader.getController();
+                progressoController.initData("Gerando a impressão da Música. Aguarde...");
+                progressoController.setProgresso(-1.0);
+
+                final Stage dialogStage = new Stage();
+                dialogStage.setTitle("Por Favor Aguarde...");
+                dialogStage.toFront();
+                dialogStage.setResizable(false);
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+                dialogStage.setScene(new Scene(root));
+
+                final Task task = new Task<Void>() {
+                    @Override
+                    public Void call() {
+                        gerarImpressao(parametros, seletorArquivo);
+                        return null;
+                    }
+                };
+
+                dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                    @Override
+                    public void handle(WindowEvent event) {
+                        if (task.isRunning()) {
+                            event.consume();
+                        }
+                    }
+                });
+
+                task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                        switch (state) {
+                            case RUNNING:
+                                dialogStage.showAndWait();
+                                break;
+                            case SUCCEEDED:
+                                popupGerarImpressaoMusica.getScene().getWindow().hide();
+                                dialogStage.close();
+                                Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
+                                break;
+                            case CANCELLED:
+                            case FAILED:
+                                dialogStage.close();
+                                break;
+                        }
+                    }
+                });
+
+                new Thread(task).start();
             }
         } else {
             Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+        }
+    }
+
+    private void gerarImpressao(Map<String, Object> parametros, JFileChooser seletorArquivo) {
+        //Pré-definições
+        Tom tomSelecionado = this.comboTom.getSelectionModel().getSelectedItem();
+        Tom tomOriginal = this.musicaSelecionada.getTom();
+        String nomeCantorMusica = this.comboCantor.getSelectionModel().getSelectedItem();
+        String introducaoMusica = this.musicaSelecionada.getDocumentoMusica().getIntroducao();
+        String conteudoMusica = this.musicaSelecionada.getDocumentoMusica().getConteudo();
+
+        //Definições para impressão
+        parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(this.musicaSelecionada.getTipos()));
+        parametros.put("tituloMusica", this.musicaSelecionada.getTitulo());
+        parametros.put("cantorMusica", nomeCantorMusica == null ? "" : nomeCantorMusica);
+        parametros.put("tomMusica", tomSelecionado.toString());
+        if (tomOriginal.equals(tomSelecionado)) {
+            parametros.put("introducaoMusica", introducaoMusica == null ? ""
+                    : MusicaUtil.limparParaImpressao(introducaoMusica));
+            parametros.put("conteudoMusica", conteudoMusica == null ? ""
+                    : MusicaUtil.limparParaImpressao(conteudoMusica));
+        } else {
+            parametros.put("introducaoMusica", introducaoMusica == null ? ""
+                    : MusicaUtil.limparParaImpressao(
+                            MusicaUtil.converterTom(introducaoMusica,
+                                    this.musicaSelecionada.getTom(),
+                                    tomSelecionado)));
+            parametros.put("conteudoMusica", conteudoMusica == null ? ""
+                    : MusicaUtil.limparParaImpressao(
+                            MusicaUtil.converterTom(conteudoMusica,
+                                    this.musicaSelecionada.getTom(),
+                                    tomSelecionado)));
+        }
+
+        //Instancia um novo controlador
+        PDFController controladorPDF = new PDFController();
+
+        try {
+            controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, seletorArquivo.getSelectedFile().getAbsolutePath());
+        } catch (JRException ex) {
+            Logger.getLogger(GerarImpressaoMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
         }
     }
 

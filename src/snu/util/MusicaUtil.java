@@ -6,6 +6,7 @@
 package snu.util;
 
 import snu.entidades.musica.Tom;
+import snu.fronteiras.controladores.geral.ProgressoController;
 
 /**
  * Utilitário para realizar operações com Música
@@ -62,7 +63,7 @@ public class MusicaUtil {
      * @param tomParaConversao
      * @return
      */
-    public static String converterTom(String conteudoEntrada, Tom tomOriginal, Tom tomParaConversao) {        
+    public static String converterTom(String conteudoEntrada, Tom tomOriginal, Tom tomParaConversao) {
         int contador = 0;
         Tom[] tons = Tom.values();
         String conteudoSaida = "";
