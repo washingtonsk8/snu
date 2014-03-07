@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Dialogs;
+import javafx.stage.Stage;
+import snu.controladores.SNU;
 
 /**
  * Classe necessária para realizar operações com o mysqldump (Backup e Restore).
@@ -21,44 +24,44 @@ public class BDDump {
     private static final String usuarioBD = "snu";
     private static final String senhaBD = "snu#1.0rocks!";
 
-    public static void doBakup(String diretorioArquivo) {
+    public static boolean doBakup(String diretorioArquivo) {
         Date dataAtual = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 
         String nomeArquivo = "bkp_snu_" + dateFormat.format(dataAtual);
 
-        String comando = "\"C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD + " --add-drop-database -B snu -r " + "\"" + diretorioArquivo + "\\" + nomeArquivo + ".sql\"";
+        String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD() + "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD + " --add-drop-database -B snu -r " + "\"" + diretorioArquivo + "\\" + nomeArquivo + ".sql\"";
 
         try {
             Process processo = Runtime.getRuntime().exec(comando);
             int resultadoProcesso = processo.waitFor();
 
-            if (resultadoProcesso == 0) {
-                System.out.println("Backup completo!");
-            } else {
-                //Reportar Erro!
-                Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, "Erro na criação2");
+            if (resultadoProcesso != 0) {
+                Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, "Erro no Backup");
+                return false;
             }
         } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, "Erro no Backup", ex);
+            return false;
         }
+        return true;
     }
 
-    public static void doRestore(String caminhoArquivo) {
-        String[] comandos = new String[]{"C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD, "-e", "source " + caminhoArquivo};
+    public static boolean doRestore(String caminhoArquivo) {
+        String[] comandos = new String[]{SNU.configuracoesSistema.getDiretorioSGBD() + "\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD, "-e", "source " + caminhoArquivo};
 
         try {
             Process processo = Runtime.getRuntime().exec(comandos);
             int resultadoProcesso = processo.waitFor();
 
-            if (resultadoProcesso == 0) {
-                System.out.println("Restore completo!");
-            } else {
-                //Reportar Erro!
+            if (resultadoProcesso != 0) {
                 Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, "Erro no Restore");
+                return false;
             }
         } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BDDump.class.getName()).log(Level.SEVERE, "Erro no Restore", ex);
+            return false;
         }
+        return true;
     }
 }

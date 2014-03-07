@@ -26,6 +26,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -37,6 +38,8 @@ import javafx.stage.WindowEvent;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import snu.bd.BDDump;
+import snu.controladores.ConfiguracoesSistemaJpaController;
+import snu.controladores.SNU;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
 import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
@@ -110,6 +113,10 @@ public class FXMLDocumentController implements Initializable {
     private FXMLLoader templatePesquisaMusicaLoader;
 
     private FXMLLoader templatePesquisaMissaLoader;
+    @FXML
+    private Menu menuBancoDados;
+    @FXML
+    private MenuItem itemEscolhaDiretorioBancoDados;
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -377,7 +384,9 @@ public class FXMLDocumentController implements Initializable {
             final Task task = new Task<Void>() {
                 @Override
                 public Void call() {
-                    BDDump.doRestore(arquivoImportacao.toString());
+                    if (!BDDump.doRestore(arquivoImportacao.toString())) {
+                        cancel(true);
+                    }
                     return null;
                 }
             };
@@ -400,15 +409,18 @@ public class FXMLDocumentController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
+                            dialogStage.close();
+                            Dialogs.showInformationDialog(dialogStage, "Dados importados com sucesso!", "Sucesso", "Informação");
+                            initComponents();
+                            break;
                         case CANCELLED:
                         case FAILED:
                             dialogStage.close();
+                            Dialogs.showErrorDialog(dialogStage, "Erro ao importar dados! Favor entrar em contato com o Administrador.", "Erro", "Erro");
                             break;
                     }
                 }
             });
-
-            //progressoController.getProgressoAcao().progressProperty().bind(task.progressProperty());
             new Thread(task).start();
         }
     }
@@ -447,7 +459,9 @@ public class FXMLDocumentController implements Initializable {
             final Task task = new Task<Void>() {
                 @Override
                 public Void call() {
-                    BDDump.doBakup(diretorioExportacao.toString());
+                    if (!BDDump.doBakup(diretorioExportacao.toString())) {
+                        cancel(true);
+                    }
                     return null;
                 }
             };
@@ -470,21 +484,24 @@ public class FXMLDocumentController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
+                            dialogStage.close();
+                            Dialogs.showInformationDialog(dialogStage, "Dados exportados com sucesso!", "Sucesso", "Informação");
+                            initComponents();
+                            break;
                         case CANCELLED:
                         case FAILED:
                             dialogStage.close();
+                            Dialogs.showErrorDialog(dialogStage, "Erro ao exportar dados! Favor entrar em contato com o Administrador.", "Erro", "Erro");
                             break;
                     }
                 }
             });
-
-            //progressoController.getProgressoAcao().progressProperty().bind(task.progressProperty());
             new Thread(task).start();
         }
     }
 
     @FXML
-    private void onActionFromTemplateEmail(ActionEvent event) {
+    private void onActionFromItemTemplateEmail(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/ConfiguracaoTemplateEmail.fxml"));
         Parent root = null;
         try {
@@ -498,6 +515,25 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+    }
+
+    @FXML
+    private void onActionFromItemEscolhaDiretorioBancoDados(ActionEvent event) {
+        JFileChooser seletorDiretorio = new JFileChooser("C:");
+        seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        seletorDiretorio.setDialogTitle("Escolha do diretório do SGBD");
+        String diretorioSGBD = "";
+        int returnVal = seletorDiretorio.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File arquivo = seletorDiretorio.getSelectedFile();
+            diretorioSGBD = arquivo.toString();
+        }
+        SNU.configuracoesSistema.setDiretorioSGBD(diretorioSGBD);
+        try {
+            ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
+        } catch (Exception ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

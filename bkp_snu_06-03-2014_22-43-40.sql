@@ -344,6 +344,7 @@ CREATE TABLE `sys` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `template_descricao_email` longtext,
   `versao` double DEFAULT NULL,
+  `diretorio_sgbd` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -354,7 +355,7 @@ CREATE TABLE `sys` (
 
 LOCK TABLES `sys` WRITE;
 /*!40000 ALTER TABLE `sys` DISABLE KEYS */;
-INSERT INTO `sys` VALUES (1,'<saudação diária>,\n\nsegue abaixo a relação de músicas para a missa do dia <data>.\n\n<músicas>\n\nAtenciosamente,\n\nMinistério de Música Nova Unção.',1);
+INSERT INTO `sys` VALUES (1,'<saudação diária>,\n\nsegue abaixo a relação de músicas para a missa do dia <data>.\n\n<músicas>\n\nAtenciosamente,\n\nMinistério de Música Nova Unção.',1,'C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin');
 /*!40000 ALTER TABLE `sys` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -367,4 +368,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-06 15:53:30
+-- Dump completed on 2014-03-06 22:43:43

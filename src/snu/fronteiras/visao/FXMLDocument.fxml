@@ -50,7 +50,12 @@
           <items>
             <Menu mnemonicParsing="false" text="Música" fx:id="menuConfiguracoesMusica">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onActionFromTemplateEmail" text="Template de E-mail" fx:id="itemTemplateEmail" />
+                <MenuItem mnemonicParsing="false" onAction="#onActionFromItemTemplateEmail" text="Template de E-mail" fx:id="itemTemplateEmail" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Banco de Dados" fx:id="menuBancoDados">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onActionFromItemEscolhaDiretorioBancoDados" text="Escolha do diretório padrão" fx:id="itemEscolhaDiretorioBancoDados" />
               </items>
             </Menu>
           </items>
