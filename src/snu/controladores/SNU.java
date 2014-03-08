@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialogs;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import snu.bd.GerenciadorDeEntidades;
@@ -80,6 +81,7 @@ public class SNU extends Application {
 
         stage.setTitle("Sistema Nova Unção");
         stage.setIconified(true);
+        stage.getIcons().add(new Image("/snu/fronteiras/images/logo.png"));
         stage.setScene(scene);
         
         //PS.: Não alterar o tamanho definido
