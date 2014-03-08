@@ -18,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,10 +27,13 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -107,6 +111,12 @@ public class FXMLDocumentController implements Initializable {
     private Menu menuConfiguracoesMusica;
     @FXML
     private MenuItem itemTemplateEmail;
+    @FXML
+    private Menu menuBancoDados;
+    @FXML
+    private MenuItem itemEscolhaDiretorioBancoDados;
+    @FXML
+    private Menu menuHome;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 
@@ -114,9 +124,9 @@ public class FXMLDocumentController implements Initializable {
 
     private FXMLLoader templatePesquisaMissaLoader;
     @FXML
-    private Menu menuBancoDados;
+    private ImageView imgHome;
     @FXML
-    private MenuItem itemEscolhaDiretorioBancoDados;
+    private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -190,6 +200,12 @@ public class FXMLDocumentController implements Initializable {
 
     public FXMLLoader getTemplatePesquisaMissaLoader() {
         return templatePesquisaMissaLoader;
+    }
+
+    @FXML
+    private void onShowingFromMenuHome(Event event) {
+        event.consume();
+        iniciarPaginaInicial();
     }
 
     @FXML

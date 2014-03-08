@@ -5,12 +5,25 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.FXMLDocumentController">
   <children>
     <MenuBar fx:id="menubar" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" prefWidth="800.0">
       <menus>
+        <Menu mnemonicParsing="false" onShowing="#onShowingFromMenuHome" text="" fx:id="menuHome">
+          <graphic>
+            <ImageView fx:id="imgHome" disable="false" fitHeight="18.0" fitWidth="18.0" focusTraversable="false" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" smooth="true">
+              <image>
+                <Image url="@../images/icons/1394262136_home_sticker.png" />
+              </image>
+            </ImageView>
+          </graphic>
+          <items>
+            <CustomMenuItem mnemonicParsing="false" text="Unspecified Action" fx:id="itemAuxiliarCarregamentoPaginaInicial" />
+          </items>
+        </Menu>
         <Menu mnemonicParsing="false" text="Integrante" fx:id="menuIntegrante">
           <items>
             <MenuItem id="itemCadastrarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar Novo" fx:id="itemCadastrarIntegrante" />
