@@ -262,7 +262,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                 break;
         }
     }
-    
+
     public void atualizarTabela() {
         final List<Integrante> itens = this.tblIntegrantes.getItems();
         if (itens == null || itens.isEmpty()) {

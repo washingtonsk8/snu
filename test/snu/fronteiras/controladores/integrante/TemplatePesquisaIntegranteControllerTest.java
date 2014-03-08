@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.fronteiras.controladores.integrante;
 
 import java.net.URL;
@@ -22,22 +21,22 @@ import snu.geral.TipoPagina;
  * @author Washington Luis
  */
 public class TemplatePesquisaIntegranteControllerTest {
-    
+
     public TemplatePesquisaIntegranteControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -71,7 +70,8 @@ public class TemplatePesquisaIntegranteControllerTest {
     }
 
     /**
-     * Test of getTipoPagina method, of class TemplatePesquisaIntegranteController.
+     * Test of getTipoPagina method, of class
+     * TemplatePesquisaIntegranteController.
      */
     @Test
     public void testGetTipoPagina() {
@@ -85,7 +85,8 @@ public class TemplatePesquisaIntegranteControllerTest {
     }
 
     /**
-     * Test of setTipoPagina method, of class TemplatePesquisaIntegranteController.
+     * Test of setTipoPagina method, of class
+     * TemplatePesquisaIntegranteController.
      */
     @Test
     public void testSetTipoPagina() {
@@ -98,7 +99,8 @@ public class TemplatePesquisaIntegranteControllerTest {
     }
 
     /**
-     * Test of atualizarTabela method, of class TemplatePesquisaIntegranteController.
+     * Test of atualizarTabela method, of class
+     * TemplatePesquisaIntegranteController.
      */
     @Test
     public void testAtualizarTabela() {
@@ -108,5 +110,5 @@ public class TemplatePesquisaIntegranteControllerTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }

@@ -33,7 +33,7 @@ and open the template in the editor.
 {
     -fx-background-color: linear-gradient(to bottom, derive(-fx-base,-70%), derive(-fx-base,-90%));
     -fx-padding: 0.5em;
-   /* -fx-background-radius: 10;*/
+    /* -fx-background-radius: 10;*/
 }
 
 /* The calendar footer, which contains the today button. It is only visible when the today button is shown */
@@ -84,7 +84,7 @@ and open the template in the editor.
 
 /* The button which shows the current day. */
 .calendar-cell-today {
-     -fx-background-color: -fx-accent;
+    -fx-background-color: -fx-accent;
 }
 
 /* The buttons in the header and the footer */

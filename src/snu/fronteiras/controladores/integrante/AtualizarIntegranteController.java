@@ -34,7 +34,6 @@ import snu.controladores.IntegranteJpaController;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
-import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
@@ -107,6 +106,8 @@ public class AtualizarIntegranteController implements Initializable {
     private Button btnLimpar;
     @FXML
     private Button btnVoltar;
+    @FXML
+    private Label lblAtualizarIntegrante;
 
     private DatePicker dpDataNascimento;
 
@@ -138,7 +139,6 @@ public class AtualizarIntegranteController implements Initializable {
                 }
             }
         });
-
     }
 
     private void resetarCamposDeData() {

@@ -92,7 +92,7 @@ public class MontarMissaSelecaoController implements Initializable {
 
     private final ObservableList<TipoMusica> tiposMusica
             = FXCollections.observableList(Arrays.asList(TipoMusica.values()));
-    
+
     private FXMLDocumentController controladorPrincipal;
 
     private void initComponents() {
@@ -144,8 +144,8 @@ public class MontarMissaSelecaoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
     }
-    
-    public void initData(FXMLDocumentController controladorPrincipal){
+
+    public void initData(FXMLDocumentController controladorPrincipal) {
         this.controladorPrincipal = controladorPrincipal;
     }
 

@@ -7,7 +7,9 @@ package snu.fronteiras.controladores;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Classe controladora do FXML
@@ -15,6 +17,9 @@ import javafx.fxml.Initializable;
  * @author Washington Luis
  */
 public class HomeController implements Initializable {
+
+    @FXML
+    private AnchorPane contentHome;
 
     /**
      * Inicializa as ações do controlador

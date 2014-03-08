@@ -140,7 +140,8 @@ public class ConfiguracoesSistemaJpaController implements Serializable {
         CriteriaQuery<ConfiguracoesSistema> cq = cb.createQuery(ConfiguracoesSistema.class);
         Root<ConfiguracoesSistema> configuracaoSistema = cq.from(ConfiguracoesSistema.class);
         cq.select(configuracaoSistema).distinct(true).where(cb.equal(configuracaoSistema.get("versao"), versao));
-        return em.createQuery(cq).getSingleResult();
+        List<ConfiguracoesSistema> configuracoesSistema = em.createQuery(cq).getResultList();
+        return configuracoesSistema.isEmpty() ? null : configuracoesSistema.get(0);
     }
 
     public int getConfiguracoesSistemaCount() {

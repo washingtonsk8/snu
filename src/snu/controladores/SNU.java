@@ -41,10 +41,10 @@ public class SNU extends Application {
     public void start(Stage stage) throws Exception {
         ConfiguracoesSistemaJpaController configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
 
-        if (configuracoesSistemaController.getConfiguracoesSistemaCount() > 0) {
-            //Tentativa de carregar as configurações padrão do sistema
-            configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
-        }
+        //if (configuracoesSistemaController.getConfiguracoesSistemaCount() > 0) {
+        //Tentativa de carregar as configurações padrão do sistema
+        configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
+        //}
 
         if (configuracoesSistema == null) {
             ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
@@ -83,11 +83,11 @@ public class SNU extends Application {
         stage.setIconified(true);
         stage.getIcons().add(new Image("/snu/fronteiras/images/logo.png"));
         stage.setScene(scene);
-        
+
         //PS.: Não alterar o tamanho definido
         stage.setMaxWidth(806.9);
         stage.setMaxHeight(629.9);
-        
+
         stage.setResizable(false);
         stage.show();
     }

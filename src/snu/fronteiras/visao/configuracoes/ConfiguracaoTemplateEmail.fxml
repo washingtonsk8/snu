@@ -12,33 +12,30 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="contentTemplateEmail" onMouseClicked="#onMouseClickedFromContentMontarMissaFinalizacao" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.configuracoes.ConfiguracaoTemplateEmailController">
-  <Label fx:id="lblTemplateEmail" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Template de E-mail" textAlignment="LEFT" wrapText="false">
+    <Label fx:id="lblTemplateEmail" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Template de E-mail" textAlignment="LEFT" wrapText="false">
+        <stylesheets>
+            <URL value="@../../css/contents.css" />
+        </stylesheets>
+    </Label>
+    <TextArea fx:id="areaTemplateEmail" layoutX="14.0" layoutY="115.0" prefHeight="375.0" prefWidth="772.0" wrapText="true" />
+    <Label fx:id="lblInformacaoFuncionamento" layoutX="14.0" layoutY="60.0" prefHeight="45.0" prefWidth="772.0" text="Abaixo encontra-se um template que pode ser utilizado na composição de um e-mail a ser enviado para a igreja. Clique em &quot;Salvar&quot; para salvar qualquer alteração no template." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+        <effect>
+            <Glow />
+        </effect>
+        <font>
+            <Font size="15.0" />
+        </font>
+    </Label>
     <stylesheets>
-      <URL value="@../../css/contents.css" />
-      <URL value="@../../css/configuracoes/configuracaotemplateemail.css" />
+        <URL value="@../../css/contents.css" />
     </stylesheets>
-  </Label>
-  <Button fx:id="btnSalvar" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK">
-    <font>
-      <Font size="14.0" fx:id="x1" />
-    </font>
-  </Button>
-  <Label fx:id="lblInformacaoFuncionamento" layoutX="14.0" layoutY="60.0" prefHeight="45.0" prefWidth="772.0" text="Abaixo encontra-se um template que pode ser utilizado na composição de um e-mail a ser enviado para a igreja. Clique em &quot;Salvar&quot; para salvar qualquer alteração no template." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
-    <effect>
-      <Glow />
-    </effect>
-    <font>
-      <Font size="15.0" />
-    </font>
-  </Label>
-  <TextArea fx:id="areaTemplateEmail" layoutX="14.0" layoutY="115.0" prefHeight="375.0" prefWidth="772.0" wrapText="true" />
-  <Label id="lblInformacaoFuncionamento" fx:id="lblInformacaoTags" font="$x1" layoutX="14.0" layoutY="495.0" prefHeight="-1.0" prefWidth="653.0" text="A tag &quot;&lt;músicas&gt;&quot; será substituída pela descrição das músicas a serem inseridas na descrição do e-mail. A tag &quot;&lt;saudação diária&gt;&quot; será substituída por um &quot;Bom dia&quot;, &quot;Boa tarde&quot; ou &quot;Boa noite&quot; dependendo da hora da criação. E a tag &quot;&lt;data&gt;&quot; sera substituída pela data de acontecimento da Missa." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
-    <effect>
-      <Glow />
-    </effect>
-  </Label>
-  <stylesheets>
-    <URL value="@../../css/configuracoes/configuracaotemplateemail.css" />
-    <URL value="@../../css/contents.css" />
-  </stylesheets>
+    <Label fx:id="lblInformacaoTags" layoutX="14.0" layoutY="495.0" prefHeight="-1.0" prefWidth="653.0" text="A tag &quot;&lt;músicas&gt;&quot; será substituída pela descrição das músicas a serem inseridas na descrição do e-mail. A tag &quot;&lt;saudação diária&gt;&quot; será substituída por um &quot;Bom dia&quot;, &quot;Boa tarde&quot; ou &quot;Boa noite&quot; dependendo da hora da criação. E a tag &quot;&lt;data&gt;&quot; sera substituída pela data de acontecimento da Missa." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+        <effect>
+            <Glow />
+        </effect>
+        <font>
+            <Font size="14.0" fx:id="x1" />
+        </font>
+    </Label>
+    <Button fx:id="btnSalvar" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
 </AnchorPane>

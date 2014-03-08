@@ -72,6 +72,7 @@ public class IndexadorController {
 
     /**
      * Realiza a indexação de uma Música
+     *
      * @param musica
      */
     public void indexar(Musica musica) {

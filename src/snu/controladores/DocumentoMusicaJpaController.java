@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.controladores;
 
 import java.io.Serializable;
@@ -20,6 +19,7 @@ import snu.entidades.musica.DocumentoMusica;
 
 /**
  * Classe que controla todas as conexões com o banco da entidade DocumentoMusica
+ *
  * @author Washington Luis
  */
 public class DocumentoMusicaJpaController implements Serializable {
@@ -143,8 +143,8 @@ public class DocumentoMusicaJpaController implements Serializable {
             em.close();
         }
     }
-    
-     /**
+
+    /**
      * Obtém a instância Singleton
      *
      * @return

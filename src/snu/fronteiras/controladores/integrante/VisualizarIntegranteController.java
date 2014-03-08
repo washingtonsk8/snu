@@ -78,9 +78,12 @@ public class VisualizarIntegranteController implements Initializable {
     private Label lblResultadoDataEntrada;
     @FXML
     private Label lblResultadoFuncaoPrincipal;
-
     @FXML
     private Label lblResultadoFuncaoSecundaria;
+    @FXML
+    private Label lblVisualizarIntegrante;
+    @FXML
+    private Font x2;
 
     private Integrante integrante;
 

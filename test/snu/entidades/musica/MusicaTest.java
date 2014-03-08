@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.entidades.musica;
 
 import java.util.List;
@@ -21,22 +20,22 @@ import snu.entidades.missa.Missa;
  * @author Washington Luis
  */
 public class MusicaTest {
-    
+
     public MusicaTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -420,5 +419,5 @@ public class MusicaTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }

@@ -5,6 +5,8 @@
  */
 package snu.fronteiras.controladores.missa;
 
+import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
+import com.sun.javafx.scene.control.skin.SkinBase;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +24,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +40,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
@@ -162,7 +167,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
     private Map<TipoMusica, Object> mapaMusicasMissa;
 
     private Musica musicaArrastada;//Música que foi arrastada
-    
+
     private FXMLDocumentController controladorPrincipal;
 
     private void initComponents() {
@@ -195,9 +200,23 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 return celulas;
             }
         });
+
+        this.areaMusicasEspeciais.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.TAB) {
+                    SkinBase skin = (SkinBase) areaMusicasEspeciais.getSkin();
+                    if (skin.getBehavior() instanceof TextAreaBehavior) {
+                        TextAreaBehavior behavior = (TextAreaBehavior) skin.getBehavior();
+                        behavior.callAction("TraverseNext");
+                        event.consume();
+                    }
+                }
+            }
+        });
     }
 
-    public void initData(Set<Musica> musicasSelecionadas, 
+    public void initData(Set<Musica> musicasSelecionadas,
             MontarMissaSelecaoController controladorOrigem,
             FXMLDocumentController controladorPrincipal) {
         this.musicasParaMissa = musicasSelecionadas;

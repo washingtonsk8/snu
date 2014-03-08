@@ -104,13 +104,17 @@ public class CadastrarIntegranteController implements Initializable {
     private Font x3;
     @FXML
     private Button btnLimpar;
+    @FXML
+    private Label lblCadastrarIntegrante;
+    @FXML
+    private Font x4;
 
     private DatePicker dpDataNascimento;
 
     private DatePicker dpDataEntrada;
 
     private Integrante integranteRow;
-    
+
     private FXMLDocumentController controladorPrincipal;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
@@ -165,8 +169,8 @@ public class CadastrarIntegranteController implements Initializable {
             }
         });
     }
-    
-    public void initData(FXMLDocumentController controladorPrincipal){
+
+    public void initData(FXMLDocumentController controladorPrincipal) {
         this.controladorPrincipal = controladorPrincipal;
     }
 

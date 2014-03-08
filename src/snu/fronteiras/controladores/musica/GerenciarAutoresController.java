@@ -70,7 +70,7 @@ public class GerenciarAutoresController implements Initializable {
     private TableColumn<QuantidadeAutoriaDTO, String> clnQuantidadeMusicas;
     @FXML
     private Label lblInformacaoQuantidades;
-    
+
     private ObservableList<QuantidadeAutoriaDTO> autores;
 
     private void initComponents() {
@@ -110,8 +110,8 @@ public class GerenciarAutoresController implements Initializable {
 
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
-        this.lblInformacaoQuantidades.setText("O sistema contém " + entidadesAutor.size() + " autores e "+
-                MusicaJpaController.getInstancia().getMusicaCount() + " músicas.");
+        this.lblInformacaoQuantidades.setText("O sistema contém " + entidadesAutor.size() + " autores e "
+                + MusicaJpaController.getInstancia().getMusicaCount() + " músicas.");
     }
 
     private void filtrarTabela(String textoPesquisa) {
@@ -187,15 +187,15 @@ public class GerenciarAutoresController implements Initializable {
             //Não possui músicas, pois é novo autor
             quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
             this.autores.add(quantidadeAutoriaDTO);
-           
+
             this.fldPesquisarAutor.clear();
             this.tblAutores.setItems(this.autores);
             atualizarTabela();
-            
+
             Dialogs.showInformationDialog(null, "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso", "Informação");
-            
+
             this.fldPesquisarAutor.requestFocus();
-        }else{
+        } else {
             Dialogs.showWarningDialog(null, "O nome do Autor(a) deve ter pelo menos 1 caractere!", "Nome vazio!", "Aviso");
         }
     }

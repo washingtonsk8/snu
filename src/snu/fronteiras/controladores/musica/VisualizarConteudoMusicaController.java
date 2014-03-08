@@ -5,15 +5,20 @@
  */
 package snu.fronteiras.controladores.musica;
 
+import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
+import com.sun.javafx.scene.control.skin.SkinBase;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -47,6 +52,20 @@ public class VisualizarConteudoMusicaController implements Initializable {
         //Desabilita a edição dos campos
         this.fldIntroducao.setEditable(false);
         this.areaVisualizarMusica.setEditable(false);
+
+        this.areaVisualizarMusica.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.TAB) {
+                    SkinBase skin = (SkinBase) areaVisualizarMusica.getSkin();
+                    if (skin.getBehavior() instanceof TextAreaBehavior) {
+                        TextAreaBehavior behavior = (TextAreaBehavior) skin.getBehavior();
+                        behavior.callAction("TraverseNext");
+                        event.consume();
+                    }
+                }
+            }
+        });
     }
 
     public void initData(Musica musica, VisualizarMusicaController controladorOrigem) {

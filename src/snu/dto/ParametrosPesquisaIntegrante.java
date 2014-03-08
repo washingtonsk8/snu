@@ -13,6 +13,7 @@ import snu.entidades.integrante.FuncaoIntegrante;
  * @author Washington Luis
  */
 public class ParametrosPesquisaIntegrante {
+
     private String nome;
     private FuncaoIntegrante funcaoPrimaria;
 
@@ -30,5 +31,5 @@ public class ParametrosPesquisaIntegrante {
 
     public void setFuncaoPrimaria(FuncaoIntegrante funcaoPrimaria) {
         this.funcaoPrimaria = funcaoPrimaria;
-    }    
+    }
 }

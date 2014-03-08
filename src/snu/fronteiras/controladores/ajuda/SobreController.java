@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.controladores.SNU;
 
@@ -21,13 +22,13 @@ import snu.controladores.SNU;
 public class SobreController implements Initializable {
 
     @FXML
-    private Label lblLogoSistema;
-    @FXML
     private Label lblVersao;
     @FXML
     private Font x1;
     @FXML
     private Label lblResultadoVersao;
+    @FXML
+    private AnchorPane contentSobre;
 
     private void initComponents() {
         this.lblResultadoVersao.setText(SNU.configuracoesSistema.getVersao().toString());

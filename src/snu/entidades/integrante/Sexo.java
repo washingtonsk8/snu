@@ -13,7 +13,7 @@ package snu.entidades.integrante;
 public enum Sexo {
 
     FEMININO("Feminino"), MASCULINO("Masculino");
-    
+
     private final String valor;
 
     private Sexo(String valor) {

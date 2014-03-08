@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package snu.entidades.musica.indexador;
 
 import org.junit.After;
@@ -18,22 +17,22 @@ import static org.junit.Assert.*;
  * @author Washington Luis
  */
 public class ObjetoListaInvertidaTest {
-    
+
     public ObjetoListaInvertidaTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -215,5 +214,5 @@ public class ObjetoListaInvertidaTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }

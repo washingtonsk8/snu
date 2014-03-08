@@ -28,7 +28,7 @@ public class ConfiguracoesSistema implements Serializable {
     private Long id;
 
     private Double versao;
-    
+
     @Column(name = "diretorio_sgbd")
     private String diretorioSGBD;
 

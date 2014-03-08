@@ -26,6 +26,7 @@ public class EfeitosUtil {
 
     /**
      * Retorna o efeito para indicar que algo está inválido
+     *
      * @return
      */
     public static Effect getEfeitoInvalido() {
@@ -34,6 +35,7 @@ public class EfeitosUtil {
 
     /**
      * Retorna o efeito para indicar que algo está válido
+     *
      * @return
      */
     public static Effect getEfeitoValido() {
@@ -42,6 +44,7 @@ public class EfeitosUtil {
 
     /**
      * Retorna o efeito para indicar que algo está em advertência
+     *
      * @return
      */
     public static Effect getEfeitoAviso() {
@@ -50,6 +53,7 @@ public class EfeitosUtil {
 
     /**
      * Retorna o efeito de cor padrão do sistema
+     *
      * @return
      */
     public static Effect getEfeitoGeral() {
@@ -58,6 +62,7 @@ public class EfeitosUtil {
 
     /**
      * Retorna o efeito de Glow
+     *
      * @return
      */
     public static Effect getEfeitoGlow() {

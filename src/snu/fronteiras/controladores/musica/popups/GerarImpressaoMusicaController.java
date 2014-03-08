@@ -43,7 +43,6 @@ import javafx.util.StringConverter;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
-import snu.bd.BDDump;
 import snu.controladores.PDFController;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
@@ -85,6 +84,8 @@ public class GerarImpressaoMusicaController implements Initializable {
     private RadioButton radioCantor;
     @FXML
     private Label lblTom;
+    @FXML
+    private Label lblConfiguracaoImpressao;
 
     private HashMap<String, Tom> mapaIntegrantesAssociados;
 

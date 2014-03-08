@@ -165,7 +165,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
-        
+
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
     }
 

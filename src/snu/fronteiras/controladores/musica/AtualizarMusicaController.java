@@ -162,6 +162,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private Button btnSalvarAtleracoes;
     @FXML
     private TextField fldLinkVideo;
+    @FXML
+    private Label lblAtualizarMusica;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 

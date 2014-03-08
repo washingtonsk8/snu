@@ -44,7 +44,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Pair;
-import snu.bd.BDDump;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.indexador.IndexadorController;
@@ -62,7 +61,6 @@ import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
-import snu.util.ListaUtil;
 import snu.util.StringUtil;
 
 /**
@@ -168,6 +166,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private Button btnCriarNova;
     @FXML
     private TextField fldLinkVideo;
+    @FXML
+    private Label lblCriarMusica;
+    @FXML
+    private Button btnSalvar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
