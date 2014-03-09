@@ -16,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
@@ -29,7 +28,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
 import snu.entidades.integrante.FuncaoIntegrante;
@@ -119,7 +117,8 @@ public class AtualizarIntegranteController implements Initializable {
 
     private TemplatePesquisaIntegranteController controladorOrigem;
 
-    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
+    private final ObservableList<FuncaoIntegrante> funcoesIntegrante
+            = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(AtualizarIntegranteController.class.getName());
@@ -191,6 +190,12 @@ public class AtualizarIntegranteController implements Initializable {
         //Adicionando a lista no combo
         this.comboFuncaoPrincipal.setItems(this.funcoesIntegrante);
         this.comboFuncaoSecundaria.setItems(this.funcoesIntegrante);
+        this.comboFuncaoPrincipal.getItems().remove(FuncaoIntegrante.NENHUMA);
+        this.comboFuncaoSecundaria.setValue(FuncaoIntegrante.NENHUMA);
+        this.lblFuncaoSecundaria.setDisable(true);
+        this.lblFuncaoSecundaria.setOpacity(0.6);
+        this.comboFuncaoSecundaria.setDisable(true);
+        this.comboFuncaoSecundaria.setOpacity(0.6);
 
         resetarCamposDeData();
         this.contentAtualizarIntegrante.getChildren().add(this.dpDataNascimento);
@@ -389,7 +394,7 @@ public class AtualizarIntegranteController implements Initializable {
         this.integrante = new Integrante();
 
         this.comboFuncaoPrincipal.setValue(null);
-        this.comboFuncaoSecundaria.setValue(null);
+        this.comboFuncaoSecundaria.setValue(FuncaoIntegrante.NENHUMA);
         this.contentAtualizarIntegrante.getChildren().remove(this.dpDataNascimento);
         this.contentAtualizarIntegrante.getChildren().remove(this.dpDataEntrada);
         resetarCamposDeData();
@@ -405,6 +410,10 @@ public class AtualizarIntegranteController implements Initializable {
         this.radioMasculino.setSelected(false);
         this.lblIdade.setText(StringUtil.VAZIA);
         this.lblIdadeMinisterial.setText(StringUtil.VAZIA);
+        this.lblFuncaoSecundaria.setDisable(true);
+        this.lblFuncaoSecundaria.setOpacity(0.6);
+        this.comboFuncaoSecundaria.setDisable(true);
+        this.comboFuncaoSecundaria.setOpacity(0.6);
     }
 
     private boolean validarCampos() {

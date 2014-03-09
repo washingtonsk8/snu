@@ -88,12 +88,8 @@ public class Parser {
                     objetoListaInvertida.setIdDocumentoMusica(musica.getDocumentoMusica().getId());
                     objetoListaInvertida.setFrequenciaToken(entradaToken.getValue());
                     vocabulo.getListaInvertida().add(objetoListaInvertida);
-                    try {
-                        //Atualiza no banco
-                        vocabuloController.edit(vocabulo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    //Atualiza no banco
+                    vocabuloController.edit(vocabulo);
                 }
             }
 

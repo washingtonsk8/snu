@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,6 +39,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
+import org.apache.log4j.Logger;
 import snu.controladores.MusicaJpaController;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
@@ -93,6 +95,9 @@ public class MontarMissaSelecaoController implements Initializable {
 
     private FXMLDocumentController controladorPrincipal;
 
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(MontarMissaSelecaoController.class.getName());
+
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
@@ -132,7 +137,9 @@ public class MontarMissaSelecaoController implements Initializable {
             this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
             atualizarTabela();
         } catch (IOException ex) {
-            Logger.getLogger(MontarMissaSelecaoController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao pesquisar músicas por parâmetros", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao realizar a pesquisa!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
 
@@ -164,7 +171,9 @@ public class MontarMissaSelecaoController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(MontarMissaSelecaoController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar a tela de Organização de Montagem de Missa", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar a tela de Organização de Montagem de Missa.\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         MontarMissaOrganizacaoController montarMissaOrganizacaoController = fxmlLoader.getController();

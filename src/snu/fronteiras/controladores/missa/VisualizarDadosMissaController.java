@@ -28,7 +28,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;

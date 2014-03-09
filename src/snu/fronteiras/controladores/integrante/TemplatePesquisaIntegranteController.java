@@ -16,7 +16,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -30,7 +29,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
 import snu.exceptions.NonexistentEntityException;
@@ -78,6 +76,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private TableColumn<Integrante, String> clnFuncaoPrincipal;
     @FXML
     private Label lblTituloPagina;
+    @FXML
+    private Button btnLimpar;
 
     private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
 
@@ -98,6 +98,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         this.clnFuncaoPrincipal.setCellValueFactory(new PropertyValueFactory<Integrante, String>("funcaoPrimaria"));
 
         this.comboFuncaoPrincipal.setItems(funcoesIntegrante);
+        this.comboFuncaoPrincipal.getItems().remove(FuncaoIntegrante.NENHUMA);
     }
 
     private void carregarAtualizacaoIntegrante(Integrante integranteSelecionado) {
@@ -219,6 +220,12 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         if (event.getCharacter().equals("\n") || event.getCharacter().equals("\r")) {
             pesquisarPorParametros();
         }
+    }
+
+    @FXML
+    private void onActionFromBtnLimpar(ActionEvent event) {
+        this.fldNome.setText(null);
+        this.comboFuncaoPrincipal.setValue(null);
     }
 
     @FXML

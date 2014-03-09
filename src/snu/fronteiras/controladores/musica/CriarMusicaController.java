@@ -814,9 +814,9 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 try {
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
-                    log.error("Erro ao carregar tela de Progresso", ex);
+                    log.error("Erro ao carregar popup de Progresso", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro ao carregar tela de Progresso!\nFavor entrar em contato com o Administrador.",
+                            "Erro ao carregar popup de Progresso!\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
 

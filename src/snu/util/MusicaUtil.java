@@ -6,7 +6,6 @@
 package snu.util;
 
 import snu.entidades.musica.Tom;
-import snu.fronteiras.controladores.geral.ProgressoController;
 
 /**
  * Utilitário para realizar operações com Música

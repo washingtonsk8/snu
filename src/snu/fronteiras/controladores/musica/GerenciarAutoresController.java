@@ -18,7 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
@@ -30,8 +29,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.apache.log4j.Logger;
 import snu.controladores.AutorJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.exceptions.NonexistentEntityException;
@@ -73,6 +72,9 @@ public class GerenciarAutoresController implements Initializable {
     private Label lblInformacaoQuantidades;
 
     private ObservableList<QuantidadeAutoriaDTO> autores;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(GerenciarAutoresController.class.getName());
 
     private void initComponents() {
         AutorJpaController autorController = AutorJpaController.getInstancia();
@@ -220,10 +222,12 @@ public class GerenciarAutoresController implements Initializable {
             quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
             try {
                 AutorJpaController.getInstancia().edit(quantidadeAutoriaDtoSelecionado.getAutor());
+                atualizarTabela();
             } catch (Exception ex) {
-                Logger.getLogger(GerenciarAutoresController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao atualizar o Autor", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao atualizar o Autor!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
-            atualizarTabela();
         }
     }
 
@@ -238,12 +242,14 @@ public class GerenciarAutoresController implements Initializable {
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
                 AutorJpaController.getInstancia().destroy(quantidadeAutoriaDtoSelecionado.getAutor().getId());
+                this.autores.remove(quantidadeAutoriaDtoSelecionado);
+                this.tblAutores.setItems(this.autores);
+                atualizarTabela();
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(GerenciarAutoresController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao remover o Autor", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao remover o Autor!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
-            this.autores.remove(quantidadeAutoriaDtoSelecionado);
-            this.tblAutores.setItems(this.autores);
-            atualizarTabela();
         }
     }
 

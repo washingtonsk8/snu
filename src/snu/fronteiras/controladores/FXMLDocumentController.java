@@ -31,13 +31,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.persistence.EntityManagerFactory;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import org.apache.log4j.Logger;
 import snu.bd.BDDump;
-import snu.bd.GerenciadorDeEntidades;
-import snu.controladores.AutorJpaController;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.geral.ProgressoController;
@@ -407,9 +404,9 @@ public class FXMLDocumentController implements Initializable {
             try {
                 root = (Parent) fxmlLoader.load();
             } catch (IOException ex) {
-                log.error("Erro ao carregar tela de Progresso", ex);
+                log.error("Erro ao carregar popup de Progresso", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao carregar tela de Progresso!\nFavor entrar em contato com o Administrador.",
+                        "Erro ao carregar popup de Progresso!\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
 
@@ -490,9 +487,9 @@ public class FXMLDocumentController implements Initializable {
             try {
                 root = (Parent) fxmlLoader.load();
             } catch (IOException ex) {
-                log.error("Erro ao carregar tela de Progresso", ex);
+                log.error("Erro ao carregar popup de Progresso", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao carregar tela de Progresso!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        "Erro ao carregar popup de Progresso!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
             ProgressoController progressoController = fxmlLoader.getController();

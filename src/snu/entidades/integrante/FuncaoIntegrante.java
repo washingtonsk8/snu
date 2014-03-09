@@ -12,7 +12,7 @@ package snu.entidades.integrante;
  */
 public enum FuncaoIntegrante {
 
-    CANTOR("Cantor(a)"), BAIXISTA("Baixista"), GUITARRISTA_BASE("Guitarrista Base"),
+    NENHUMA("Nenhuma"), CANTOR("Cantor(a)"), BAIXISTA("Baixista"), GUITARRISTA_BASE("Guitarrista Base"),
     GUITARRISTA_SOLO("Guitarrista Solo"), VIOLONISTA("Violonista"),
     TECLADISTA("Tecladista"), VIOLINISTA("Violinista");
 

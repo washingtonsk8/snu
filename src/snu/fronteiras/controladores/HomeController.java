@@ -29,8 +29,6 @@ public class HomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //TODO: Verificar o que fazer nesse caso
-        //TODO: Gerar classe de teste
     }
 
 }
