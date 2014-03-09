@@ -28,12 +28,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
@@ -167,7 +169,7 @@ public class VisualizarDadosMissaController implements Initializable {
 
                 this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
             } else {
-                Dialogs.showWarningDialog(null, "A descrição de e-mail desta Missa está vazia!", "Descrição Vazia", "Aviso");
+                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "A descrição de e-mail desta Missa está vazia!", "Descrição Vazia!", "Aviso");
             }
         }
     }

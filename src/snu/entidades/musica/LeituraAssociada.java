@@ -79,5 +79,4 @@ public class LeituraAssociada implements Serializable {
     public String toString() {
         return this.descricao;
     }
-
 }

@@ -10,8 +10,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
@@ -31,12 +30,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import snu.controladores.AutorJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.exceptions.NonexistentEntityException;
 import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.StringUtil;
 
 /**
@@ -192,11 +193,11 @@ public class GerenciarAutoresController implements Initializable {
             this.tblAutores.setItems(this.autores);
             atualizarTabela();
 
-            Dialogs.showInformationDialog(null, "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso", "Informação");
+            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
 
             this.fldPesquisarAutor.requestFocus();
         } else {
-            Dialogs.showWarningDialog(null, "O nome do Autor(a) deve ter pelo menos 1 caractere!", "Nome vazio!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "O nome do Autor(a) deve ter pelo menos 1 caractere!", "Nome vazio!", "Aviso");
         }
     }
 
@@ -213,9 +214,9 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnEditarAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         String nomeAutor = quantidadeAutoriaDtoSelecionado.getAutor().getNome();
-        String novoNomeAutor = Dialogs.showInputDialog(null, "Edite o nome do(a) Autor(a) e confirme para alterar",
-                "Edição de Autor", "Edição de Autor", nomeAutor);
-        if (novoNomeAutor != null && !nomeAutor.equals(novoNomeAutor)) {
+        String novoNomeAutor = Dialogs.showInputDialog(FXMLDocumentController.getInstancia().getStage(), "Edite o nome do(a) Autor(a) e confirme para alterar."
+                + "\nObs.: O nome não pode estar vazio!", "Edição de Autor", "Edição de Autor", nomeAutor);
+        if (StringUtil.hasAlgo(novoNomeAutor) && !nomeAutor.equals(novoNomeAutor)) {
             quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
             try {
                 AutorJpaController.getInstancia().edit(quantidadeAutoriaDtoSelecionado.getAutor());
@@ -230,8 +231,8 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         Dialogs.DialogResponse resposta;
-        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o(a) Autor(a)?\n"
-                + "Ao excluir, todas as músicas de sua autoria serão apagadas.",
+        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir o(a) Autor(a)?"
+                + "\nAo excluir, todas as músicas de sua autoria serão apagadas.",
                 "Exclusão de Autor", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {

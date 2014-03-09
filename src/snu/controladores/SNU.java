@@ -17,6 +17,8 @@ import javax.swing.JFileChooser;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 
+import org.apache.log4j.Logger;
+
 /**
  * Classe que inicializa tudo.
  *
@@ -24,12 +26,11 @@ import snu.entidades.configuracoes.ConfiguracoesSistema;
  */
 public class SNU extends Application {
 
-    /**
-     * Gerenciador de entidades do entidades do sistema
-     */
-    private static final GerenciadorDeEntidades gerenciadorDeEntidades = GerenciadorDeEntidades.getInstancia();
     private static final Double VERSAO = 1.0;
     public static ConfiguracoesSistema configuracoesSistema;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(SNU.class.getName());
 
     /**
      * Inicia a aplicação
@@ -39,19 +40,23 @@ public class SNU extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+        log.info("Iniciando a aplicação");
+        
+        //Inicializando o Gerenciador de Entidades!
+        GerenciadorDeEntidades.getInstancia();
+
         ConfiguracoesSistemaJpaController configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
 
-        //if (configuracoesSistemaController.getConfiguracoesSistemaCount() > 0) {
-        //Tentativa de carregar as configurações padrão do sistema
+        //Realizando o carregamento das configurações padrões do sistema
         configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
-        //}
 
         if (configuracoesSistema == null) {
             ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
             novasConfiguracoesSistema.setVersao(VERSAO);
 
             Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
-                    + " de Banco de Dados precisa ser escolhido.", "O diretório do SGBD não está definido", "Informação");
+                    + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
+
             JFileChooser seletorDiretorio = new JFileChooser("C:");
             seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             seletorDiretorio.setDialogTitle("Escolha do diretório do SGBD");

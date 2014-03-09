@@ -12,8 +12,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -43,8 +41,9 @@ public class ProcessadorDeConsultas {
      * busca por trecho.
      *
      * @param consulta
+     * @throws java.io.IOException
      */
-    public void processar(String consulta) {
+    public void processar(String consulta) throws IOException {
         IndexadorController indexadorController = IndexadorController.getInstancia();
 
         List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
@@ -122,17 +121,22 @@ public class ProcessadorDeConsultas {
         }
     }
 
-    private List<String> tokenizeString(Analyzer analyzer, String string) {
+    /**
+     * Realiza a tokenização de uma string (Pega as palavras com split e extrai
+     * seu radical)
+     *
+     * @param analyzer
+     * @param string
+     * @return
+     * @throws IOException
+     */
+    private List<String> tokenizeString(Analyzer analyzer, String string) throws IOException {
         List<String> result = new ArrayList<>();
 
         TokenStream stream = analyzer.tokenStream(null, new StringReader(string));
-        try {
-            stream.reset();
-            while (stream.incrementToken()) {
-                result.add(stream.getAttribute(CharTermAttribute.class).toString());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(ProcessadorDeConsultas.class.getName()).log(Level.SEVERE, null, ex);
+        stream.reset();
+        while (stream.incrementToken()) {
+            result.add(stream.getAttribute(CharTermAttribute.class).toString());
         }
         return result;
     }

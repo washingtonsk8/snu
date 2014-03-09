@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -36,8 +34,9 @@ public class Parser {
      * armazena)
      *
      * @param musica
+     * @throws java.lang.Exception
      */
-    public void parse(Musica musica) {
+    public void parse(Musica musica) throws Exception {
         IndexadorController indexadorController = IndexadorController.getInstancia();
         String conteudoMusica = musica.getDocumentoMusica().getConteudo();
         if (conteudoMusica != null) {
@@ -101,26 +100,26 @@ public class Parser {
             DocumentoMusica documentoMusica = musica.getDocumentoMusica();
             documentoMusica.setQuantidadeTokens(quantidadeTokens);
             documentoMusica.setFrequenciaMaximaToken(frequenciaMaximaToken);
-            try {
-                DocumentoMusicaJpaController.getInstancia().edit(documentoMusica);
-            } catch (Exception ex) {
-                Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            DocumentoMusicaJpaController.getInstancia().edit(documentoMusica);
         }
     }
 
-    private List<String> tokenizeString(Analyzer analyzer, String string) {
+    /**
+     * Realiza a tokenização de uma string (Pega as palavras com split e extrai
+     * seu radical)
+     *
+     * @param analyzer
+     * @param string
+     * @return
+     * @throws IOException
+     */
+    private List<String> tokenizeString(Analyzer analyzer, String string) throws IOException {
         List<String> result = new ArrayList<>();
-        try {
-            TokenStream stream = analyzer.tokenStream(null, new StringReader(string));
-            stream.reset();
+        TokenStream stream = analyzer.tokenStream(null, new StringReader(string));
+        stream.reset();
 
-            while (stream.incrementToken()) {
-                result.add(stream.getAttribute(CharTermAttribute.class).toString());
-            }
-        } catch (IOException e) {
-            // not thrown b/c we're using a string reader...
-            System.err.print("[ERRO] Erro ao realizar a tokenização!");
+        while (stream.incrementToken()) {
+            result.add(stream.getAttribute(CharTermAttribute.class).toString());
         }
         return result;
     }

@@ -74,8 +74,9 @@ public class IndexadorController {
      * Realiza a indexação de uma Música
      *
      * @param musica
+     * @throws java.lang.Exception
      */
-    public void indexar(Musica musica) {
+    public void indexar(Musica musica) throws Exception {
         //Faz o parsing e salva a música
         new Parser().parse(musica);
     }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
 import snu.bd.GerenciadorDeEntidades;
 import snu.exceptions.NonexistentEntityException;
 import snu.entidades.musica.indexador.Vocabulo;
@@ -148,25 +149,14 @@ public class VocabuloJpaController implements Serializable {
      * @return
      */
     public Vocabulo findVocabuloByToken(String token) {
-        List<Vocabulo> listaResultante;
-        Vocabulo resultado;
-        Query query;
-        String sql;
         EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        sql = "SELECT v FROM Vocabulo v WHERE v.token = :token ";
-
-        em.getTransaction().begin();
-        query = em.createQuery(sql);
-
-        query.setParameter("token", token);
-
-        listaResultante = query.getResultList();
-
-        resultado = listaResultante.isEmpty() ? null : listaResultante.get(0);
-
-        em.getTransaction().commit();
-        return resultado;
+        CriteriaQuery<Vocabulo> cq = cb.createQuery(Vocabulo.class);
+        Root<Vocabulo> vocabulo = cq.from(Vocabulo.class);
+        cq.select(vocabulo).distinct(true).where(cb.equal(vocabulo.get("token"), token));
+        List<Vocabulo> vocabulos = em.createQuery(cq).getResultList();
+        return vocabulos.isEmpty() ? null : vocabulos.get(0);
     }
 
     public int getVocabuloCount() {

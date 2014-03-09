@@ -13,8 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -117,21 +115,25 @@ public class MontarMissaSelecaoController implements Initializable {
     }
 
     private void pesquisarPorParametros() {
-        ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
+        try {
+            ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
 
-        List<TipoMusica> tipoMusica = new ArrayList<>();
-        TipoMusica tipoSelecionado = this.comboTipo.getValue();
-        if (tipoSelecionado != null) {
-            tipoMusica.add(tipoSelecionado);
+            List<TipoMusica> tipoMusica = new ArrayList<>();
+            TipoMusica tipoSelecionado = this.comboTipo.getValue();
+            if (tipoSelecionado != null) {
+                tipoMusica.add(tipoSelecionado);
+            }
+            parametrosPesquisa.setTipos(tipoMusica);
+            parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
+
+            List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
+                    .findMusicasByParametrosPesquisa(parametrosPesquisa);
+
+            this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
+            atualizarTabela();
+        } catch (IOException ex) {
+            Logger.getLogger(MontarMissaSelecaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        parametrosPesquisa.setTipos(tipoMusica);
-        parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
-
-        List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
-                .findMusicasByParametrosPesquisa(parametrosPesquisa);
-
-        this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
-        atualizarTabela();
     }
 
     /**

@@ -20,7 +20,6 @@
         </ImageView>
     </children>
     <stylesheets>
-        <URL value="@../css/home.css" />
         <URL value="@../css/contents.css" />
     </stylesheets>
 </AnchorPane>

@@ -13,8 +13,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -43,6 +41,7 @@ import javafx.util.StringConverter;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.log4j.Logger;
 import snu.controladores.PDFController;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
@@ -90,6 +89,9 @@ public class GerarImpressaoMusicaController implements Initializable {
     private HashMap<String, Tom> mapaIntegrantesAssociados;
 
     private Musica musicaSelecionada;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(GerarImpressaoMusicaController.class.getName());
 
     private void initComponents() {
         final ToggleGroup grupo = new ToggleGroup();
@@ -226,7 +228,10 @@ public class GerarImpressaoMusicaController implements Initializable {
                 try {
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
-                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erro ao carregar tela de Progresso", ex);
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Erro ao carregar tela de Progresso!\nFavor entrar em contato com o Administrador.", 
+                            "Erro!", "Erro", ex);
                 }
 
                 final ProgressoController progressoController = fxmlLoader.getController();
@@ -238,13 +243,20 @@ public class GerarImpressaoMusicaController implements Initializable {
                 dialogStage.toFront();
                 dialogStage.setResizable(false);
                 dialogStage.initModality(Modality.WINDOW_MODAL);
+                //A janela que é a proprietária não é a principal
                 dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
                 dialogStage.setScene(new Scene(root));
 
                 final Task task = new Task<Void>() {
                     @Override
                     public Void call() {
-                        gerarImpressao(parametros, seletorArquivo);
+                        try {
+                            gerarImpressao(parametros, seletorArquivo);
+                        } catch (JRException ex) {
+                            log.error("Erro ao gerar impressão de Música", ex);
+                            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                    "Erro ao gerar a impressão da Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        }
                         return null;
                     }
                 };
@@ -269,7 +281,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                             case SUCCEEDED:
                                 popupGerarImpressaoMusica.getScene().getWindow().hide();
                                 dialogStage.close();
-                                Dialogs.showInformationDialog(null, "O arquivo da Música foi gerada com sucesso!", "Sucesso", "Informação");
+                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O arquivo da Música foi gerado com sucesso!", "Sucesso!", "Informação");
                                 break;
                             case CANCELLED:
                             case FAILED:
@@ -282,11 +294,11 @@ public class GerarImpressaoMusicaController implements Initializable {
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
         }
     }
 
-    private void gerarImpressao(Map<String, Object> parametros, JFileChooser seletorArquivo) {
+    private void gerarImpressao(Map<String, Object> parametros, JFileChooser seletorArquivo) throws JRException {
         //Pré-definições
         Tom tomSelecionado = this.comboTom.getSelectionModel().getSelectedItem();
         Tom tomOriginal = this.musicaSelecionada.getTom();
@@ -319,13 +331,7 @@ public class GerarImpressaoMusicaController implements Initializable {
 
         //Instancia um novo controlador
         PDFController controladorPDF = new PDFController();
-
-        try {
-            controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, seletorArquivo.getSelectedFile().getAbsolutePath());
-        } catch (JRException ex) {
-            Logger.getLogger(GerarImpressaoMusicaController.class.getName()).log(Level.SEVERE, null, ex);
-            Dialogs.showErrorDialog(null, "Erro na geração do arquivo", "Erro", "Erro");
-        }
+        controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper", parametros, seletorArquivo.getSelectedFile().getAbsolutePath());
     }
 
     @FXML

@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -29,6 +30,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import snu.controladores.IntegranteJpaController;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
@@ -432,9 +434,9 @@ public class CadastrarIntegranteController implements Initializable {
             IntegranteJpaController.getInstancia().create(this.integranteRow);
 
             if (this.integranteRow.getSexo().equals(Sexo.FEMININO)) {
-                Dialogs.showInformationDialog(null, "A Integrante foi salva com sucesso!", "Sucesso", "Informação");
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "A Integrante foi salva com sucesso!", "Sucesso!", "Informação");
             } else {
-                Dialogs.showInformationDialog(null, "O Integrante foi salvo com sucesso!", "Sucesso", "Informação");
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O Integrante foi salvo com sucesso!", "Sucesso!", "Informação");
             }
 
             //Limpa o conteúdo anterior e carrega a página
@@ -442,7 +444,7 @@ public class CadastrarIntegranteController implements Initializable {
             pai.getChildren().clear();
             pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getRoot());
         } else {
-            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
         }
     }
 

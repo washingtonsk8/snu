@@ -9,11 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -23,7 +18,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,15 +27,17 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javax.persistence.EntityManagerFactory;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import org.apache.log4j.Logger;
 import snu.bd.BDDump;
+import snu.bd.GerenciadorDeEntidades;
+import snu.controladores.AutorJpaController;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.geral.ProgressoController;
@@ -117,16 +113,24 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem itemEscolhaDiretorioBancoDados;
     @FXML
     private Menu menuHome;
+    @FXML
+    private ImageView imgHome;
+    @FXML
+    private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 
     private FXMLLoader templatePesquisaMusicaLoader;
 
     private FXMLLoader templatePesquisaMissaLoader;
-    @FXML
-    private ImageView imgHome;
-    @FXML
-    private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
+
+    /**
+     * Fábrica Singleton do sistema
+     */
+    private static FXMLDocumentController instancia;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(FXMLDocumentController.class.getName());
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -134,7 +138,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             this.templatePesquisaIntegranteLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Template de Pesquisa de Integrante", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
         }
     }
 
@@ -144,7 +150,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             this.templatePesquisaMusicaLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Template de Pesquisa de Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
         }
     }
 
@@ -154,7 +162,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             this.templatePesquisaMissaLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Template de Pesquisa de Missa", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
         }
     }
 
@@ -164,7 +174,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela inicial", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela inicial!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         //Limpa o conteúdo anterior e carrega a página
@@ -173,6 +185,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void initComponents() {
+        instancia = this;
         iniciarControladorPesquisaIntegrante();
         iniciarControladorPesquisaMusica();
         iniciarControladorPesquisaMissa();
@@ -215,7 +228,10 @@ public class FXMLDocumentController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Cadastro de Integrante", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Cadastro de Integrante!\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
@@ -263,7 +279,10 @@ public class FXMLDocumentController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Criação de Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Criação de Música!\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         CriarMusicaController criarIntegranteController = fxmlLoader.getController();
@@ -321,7 +340,10 @@ public class FXMLDocumentController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Gerência de Autores", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Gerência de Autores!\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         //Limpa o conteúdo anterior e carrega a página
@@ -336,7 +358,10 @@ public class FXMLDocumentController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Montagem de Missa", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Montagem de Missa!\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
@@ -382,7 +407,10 @@ public class FXMLDocumentController implements Initializable {
             try {
                 root = (Parent) fxmlLoader.load();
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao carregar tela de Progresso", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao carregar tela de Progresso!\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
             }
 
             ProgressoController progressoController = fxmlLoader.getController();
@@ -400,7 +428,12 @@ public class FXMLDocumentController implements Initializable {
             final Task task = new Task<Void>() {
                 @Override
                 public Void call() {
-                    if (!BDDump.doRestore(arquivoImportacao.toString())) {
+                    try {
+                        if (!BDDump.doRestore(arquivoImportacao.toString())) {
+                            cancel(true);
+                        }
+                    } catch (IOException | InterruptedException ex) {
+                        log.error("Erro ao realizar restore para o banco", ex);
                         cancel(true);
                     }
                     return null;
@@ -426,13 +459,15 @@ public class FXMLDocumentController implements Initializable {
                             break;
                         case SUCCEEDED:
                             dialogStage.close();
-                            Dialogs.showInformationDialog(dialogStage, "Dados importados com sucesso!", "Sucesso", "Informação");
+                            Dialogs.showInformationDialog(dialogStage, "Dados importados com sucesso!",
+                                    "Sucesso!", "Informação");
                             initComponents();
                             break;
                         case CANCELLED:
                         case FAILED:
                             dialogStage.close();
-                            Dialogs.showErrorDialog(dialogStage, "Erro ao importar dados! Favor entrar em contato com o Administrador.", "Erro", "Erro");
+                            Dialogs.showErrorDialog(dialogStage, "Erro ao importar dados!"
+                                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro");
                             break;
                     }
                 }
@@ -454,10 +489,10 @@ public class FXMLDocumentController implements Initializable {
             Parent root = null;
             try {
                 root = (Parent) fxmlLoader.load();
-
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao carregar tela de Progresso", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao carregar tela de Progresso!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
             ProgressoController progressoController = fxmlLoader.getController();
@@ -475,7 +510,12 @@ public class FXMLDocumentController implements Initializable {
             final Task task = new Task<Void>() {
                 @Override
                 public Void call() {
-                    if (!BDDump.doBakup(diretorioExportacao.toString())) {
+                    try {
+                        if (!BDDump.doBakup(diretorioExportacao.toString())) {
+                            cancel(true);
+                        }
+                    } catch (IOException | InterruptedException ex) {
+                        log.error("Erro ao realizar backup do banco", ex);
                         cancel(true);
                     }
                     return null;
@@ -507,7 +547,8 @@ public class FXMLDocumentController implements Initializable {
                         case CANCELLED:
                         case FAILED:
                             dialogStage.close();
-                            Dialogs.showErrorDialog(dialogStage, "Erro ao exportar dados! Favor entrar em contato com o Administrador.", "Erro", "Erro");
+                            Dialogs.showErrorDialog(dialogStage, "Erro ao exportar dados!"
+                                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro");
                             break;
                     }
                 }
@@ -522,10 +563,11 @@ public class FXMLDocumentController implements Initializable {
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
-
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Configuração de Template de E-mail", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Configuração de Template de E-mail!"
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         //Limpa o conteúdo anterior e carrega a página
@@ -548,7 +590,10 @@ public class FXMLDocumentController implements Initializable {
         try {
             ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
         } catch (Exception ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao atualizar as configurações do sistema", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao atualizar o diretório do Sistema de Gerenciamento de Banco de Dados!"
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
 
@@ -558,10 +603,11 @@ public class FXMLDocumentController implements Initializable {
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
-
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de informações sobre o software", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de informações sobre o software!"
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         Stage dialogStage = new Stage();
@@ -573,4 +619,16 @@ public class FXMLDocumentController implements Initializable {
         dialogStage.showAndWait();
     }
 
+    public Stage getStage() {
+        return (Stage) this.contentAnchorPane.getScene().getWindow();
+    }
+
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
+    public static FXMLDocumentController getInstancia() {
+        return instancia;
+    }
 }

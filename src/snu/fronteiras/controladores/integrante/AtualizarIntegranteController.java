@@ -9,8 +9,6 @@ import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
@@ -30,10 +29,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
@@ -118,6 +120,9 @@ public class AtualizarIntegranteController implements Initializable {
     private TemplatePesquisaIntegranteController controladorOrigem;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(AtualizarIntegranteController.class.getName());
 
     private void definirAtividadeDeFocoDosCampos() {
         //Campo de e-mail
@@ -446,13 +451,15 @@ public class AtualizarIntegranteController implements Initializable {
                 //Atualizando no banco
                 IntegranteJpaController.getInstancia().edit(integrante);
             } catch (Exception ex) {
-                Logger.getLogger(AtualizarIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao atualizar Integrante", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao atualizar Integrante!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
             if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
-                Dialogs.showInformationDialog(null, "Os dados da Integrante foram atualizados com sucesso!", "Sucesso", "Informação");
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados da Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
             } else {
-                Dialogs.showInformationDialog(null, "Os dados do Integrante foram atualizados com sucesso!", "Sucesso", "Informação");
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados do Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
             }
 
             //Limpa o conteúdo anterior e carrega a página
@@ -461,7 +468,7 @@ public class AtualizarIntegranteController implements Initializable {
             pai.getChildren().add(this.controladorOrigem.getContent());
             this.controladorOrigem.atualizarTabela();
         } else {
-            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
         }
     }
 

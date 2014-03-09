@@ -16,7 +16,7 @@
                     <graphic>
                         <ImageView fx:id="imgHome" disable="false" fitHeight="18.0" fitWidth="18.0" focusTraversable="false" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" smooth="true">
                             <image>
-                                <Image url="@../images/icons/1394262136_home_sticker.png" />
+                                <Image url="@../images/icons/home.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -82,12 +82,11 @@
         </MenuBar>
         <AnchorPane id="contentAnchor" fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="main">
             <stylesheets>
-                <URL value="@../css/fxmldocument.css" />
                 <URL value="@../css/contents.css" />
             </stylesheets>
         </AnchorPane>
     </children>
     <stylesheets>
-        <URL value="@../css/fxmldocument.css" />
+        <URL value="@../css/contents.css" />
     </stylesheets>
 </AnchorPane>

@@ -5,6 +5,7 @@
  */
 package snu.controladores;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -180,8 +181,7 @@ public class MusicaJpaController implements Serializable {
     /**
      * Encontra uma música a partir do id de documento
      *
-     * s* @param idDocumentoMusica
-     *
+     * @param idDocumentoMusica
      * @return
      */
     public Musica findMusicaByIdDocumento(Long idDocumentoMusica) {
@@ -201,8 +201,9 @@ public class MusicaJpaController implements Serializable {
      *
      * @param parametrosPesquisa
      * @return
+     * @throws java.io.IOException
      */
-    public List<Musica> findMusicasByParametrosPesquisa(ParametrosPesquisaMusica parametrosPesquisa) {
+    public List<Musica> findMusicasByParametrosPesquisa(ParametrosPesquisaMusica parametrosPesquisa) throws IOException {
         if (StringUtil.hasAlgo(parametrosPesquisa.getTrecho())) {
             ProcessadorDeConsultas processadorDeConsultas = new ProcessadorDeConsultas();
             processadorDeConsultas.processar(parametrosPesquisa.getTrecho());

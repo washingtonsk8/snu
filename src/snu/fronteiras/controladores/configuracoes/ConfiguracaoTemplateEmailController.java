@@ -7,12 +7,9 @@ package snu.fronteiras.controladores.configuracoes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
@@ -20,8 +17,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import org.apache.log4j.Logger;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
+import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
  * Classe controladora do FXML
@@ -44,6 +43,9 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
     private TextArea areaTemplateEmail;
     @FXML
     private Label lblInformacaoTags;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName());
 
     private void initComponents() {
         this.areaTemplateEmail.setText(SNU.configuracoesSistema.getTemplateDescricaoEmail());
@@ -70,9 +72,11 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
         SNU.configuracoesSistema.setTemplateDescricaoEmail(this.areaTemplateEmail.getText());
         try {
             ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
-            Dialogs.showInformationDialog(null, "O template foi salvo com sucesso!", "Sucesso", "Informação");
+            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O template foi salvo com sucesso!", "Sucesso", "Informação");
         } catch (Exception ex) {
-            Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao salvar template de e-mail", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao salvar o Template de E-mail!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
         }
     }
 

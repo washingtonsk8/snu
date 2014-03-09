@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
@@ -26,6 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import snu.controladores.MissaJpaController;
 import snu.controladores.SNU;
 import snu.entidades.missa.Missa;
@@ -147,7 +149,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         MissaJpaController.getInstancia().create(this.missa);
 
-        Dialogs.showInformationDialog(null, "Os dados da Missa foram salvos com sucesso!", "Sucesso", "Informação");
+        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados da Missa foram salvos com sucesso!", "Sucesso!", "Informação");
 
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());

@@ -61,41 +61,6 @@ public class Integrante implements Serializable {
     @Enumerated(EnumType.STRING)
     private FuncaoIntegrante funcaoSecundaria;
 
-    /**
-     * Construtor padrão
-     */
-    public Integrante() {
-    }
-
-    /**
-     * Construtor
-     *
-     * @param nome
-     * @param sexo
-     * @param email
-     * @param dataEntrada
-     * @param dataNascimento
-     * @param telefoneResidencial
-     * @param telefoneCelular
-     * @param telefoneComercial
-     * @param endereco
-     * @param tipo
-     * @param tipoAdicional
-     */
-    public Integrante(String nome, Sexo sexo, String email, Date dataEntrada, Date dataNascimento, String telefoneResidencial, String telefoneCelular, String telefoneComercial, String endereco, FuncaoIntegrante tipo, FuncaoIntegrante tipoAdicional) {
-        this.nome = nome;
-        this.sexo = sexo;
-        this.email = email;
-        this.dataEntrada = dataEntrada;
-        this.dataNascimento = dataNascimento;
-        this.telefoneResidencial = telefoneResidencial;
-        this.telefoneCelular = telefoneCelular;
-        this.telefoneComercial = telefoneComercial;
-        this.endereco = endereco;
-        this.funcaoPrimaria = tipo;
-        this.funcaoSecundaria = tipoAdicional;
-    }
-
     public Long getId() {
         return id;
     }
@@ -210,15 +175,11 @@ public class Integrante implements Serializable {
             return false;
         }
         Integrante other = (Integrante) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
     public String toString() {
-        return "Integrante{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", email=" + email + ", dataEntrada=" + dataEntrada + ", dataNascimento=" + dataNascimento + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular=" + telefoneCelular + ", telefoneComercial=" + telefoneComercial + ", endereco=" + endereco + ", tipo=" + funcaoPrimaria + ", tipoAdicional=" + funcaoSecundaria + '}';
+        return "Integrante{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", email=" + email + ", dataEntrada=" + dataEntrada + ", dataNascimento=" + dataNascimento + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular=" + telefoneCelular + ", telefoneComercial=" + telefoneComercial + ", endereco=" + endereco + ", funcaoPrimaria=" + funcaoPrimaria + ", funcaoSecundaria=" + funcaoSecundaria + '}';
     }
-
 }

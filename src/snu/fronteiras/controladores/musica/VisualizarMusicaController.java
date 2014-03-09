@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -36,9 +35,11 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.apache.log4j.Logger;
 import snu.entidades.missa.Missa;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
@@ -110,6 +111,9 @@ public class VisualizarMusicaController implements Initializable {
     private Popup popup;
 
     private TableView<Missa> tblMissasPresente;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(VisualizarMusicaController.class.getName());
 
     private void initComponents() {
 
@@ -196,7 +200,10 @@ public class VisualizarMusicaController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(VisualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar a tela de Visualização de Conteúdo de Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar a tela de Visualização de Conteúdo de Música!"
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         VisualizarConteudoMusicaController visualizarConteudoMusicaController = fxmlLoader.getController();

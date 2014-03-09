@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,12 +30,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
 import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
 
 /**
@@ -83,6 +85,9 @@ public class TemplatePesquisaIntegranteController implements Initializable {
 
     private TipoPagina tipoPagina;
 
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(TemplatePesquisaIntegranteController.class.getName());
+
     private void initComponents() {
 
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
@@ -102,7 +107,9 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar a tela de Atualização de Integrante", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar a tela de Atualização de Integrante!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
         }
 
         AtualizarIntegranteController atualizarIntegranteController = fxmlLoader.getController();
@@ -121,7 +128,9 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar a tela de Visualização de Integrante", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar a tela de Visualização de Integrante!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
         }
 
         VisualizarIntegranteController visualizarIntegranteController = fxmlLoader.getController();
@@ -147,9 +156,9 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
         Dialogs.DialogResponse resposta;
         if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
-            resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
+            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
         } else {
-            resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
+            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
         }
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
@@ -158,7 +167,9 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                 integranteController.destroy(integranteSelecionado.getId());
                 this.integrantes.remove(integranteSelecionado);
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao remover o(a) Integrante", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao remover o(a) Integrante!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
             }
             atualizarTabela();
         }
@@ -231,7 +242,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                     removerIntegranteSelecionado(integranteSelecionado);
                     break;
                 default:
-                    //TODO: Reportar erro!
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
+                            + "\nFavor entrar em contato com o administrador", "Erro interno!", "Erro");
                     break;
             }
         }
@@ -258,7 +270,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                 this.lblTituloPagina.setText("Remover Integrante");
                 break;
             default:
-                //TODO: Reportar erro!
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
+                        + "\nFavor entrar em contato com o administrador", "Erro interno!", "Erro");
                 break;
         }
     }
@@ -274,7 +287,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         try {//Dorme um pouco para visualizarmos as alterações
             Thread.sleep(300);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TemplatePesquisaIntegranteController.class.getName()).log(Level.SEVERE, null, ex);
+            log.info("Erro ao colocar Thread para dormir por 300ms", ex);
         }
         Platform.runLater(new Runnable() {
             @Override

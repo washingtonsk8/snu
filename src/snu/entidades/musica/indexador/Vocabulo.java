@@ -82,4 +82,8 @@ public class Vocabulo implements Serializable {
         return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
+    @Override
+    public String toString() {
+        return "Vocabulo{" + "id=" + id + ", token=" + token + '}';
+    }
 }

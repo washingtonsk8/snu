@@ -96,15 +96,11 @@ public class ObjetoListaInvertida implements Serializable {
             return false;
         }
         ObjetoListaInvertida other = (ObjetoListaInvertida) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
     public String toString() {
-        return "snu.entidades.musica.indexador.ObjetoListaInvertida[ id=" + id + " ]";
+        return "ObjetoListaInvertida{" + "id=" + id + ", vocabulo=" + vocabulo + ", idMusica=" + idMusica + ", idDocumentoMusica=" + idDocumentoMusica + ", frequenciaToken=" + frequenciaToken + '}';
     }
-
 }

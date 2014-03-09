@@ -35,6 +35,7 @@ import javafx.util.Duration;
 import snu.controladores.AutorJpaController;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.Autor;
+import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
  * Classe controladora do FXML
@@ -143,7 +144,7 @@ public class SelecionarAutorController implements Initializable {
     private void onActionFromBtnAdicionarAutor(ActionEvent event) {
         String nomeAutor = this.fldPesquisarAutor.getText();
 
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null,
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Tem certeza que deseja adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
                 "Adição de Autor",
                 "Confirmação");
@@ -205,5 +206,4 @@ public class SelecionarAutorController implements Initializable {
             }
         });
     }
-
 }

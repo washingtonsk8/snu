@@ -10,8 +10,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -38,11 +36,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.apache.log4j.Logger;
 import snu.controladores.MusicaJpaController;
 import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
 import snu.geral.TipoPagina;
 import snu.util.ListaUtil;
@@ -135,6 +135,9 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
     private TipoPagina tipoPagina;
 
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(TemplatePesquisaMusicaController.class.getName());
+
     private void initComponents() {
         this.tiposMusica = new ArrayList<>();
 
@@ -177,11 +180,17 @@ public class TemplatePesquisaMusicaController implements Initializable {
         parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
 
-        List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
-                .findMusicasByParametrosPesquisa(parametrosPesquisa);
-
-        this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
-        atualizarTabela();
+        List<Musica> musicasEncontradas;
+        try {
+            musicasEncontradas = MusicaJpaController.getInstancia()
+                    .findMusicasByParametrosPesquisa(parametrosPesquisa);
+            this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
+            atualizarTabela();
+        } catch (IOException ex) {
+            log.error("Erro ao pesquisar músicas por parâmetros", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao realizar a pesquisa!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+        }
     }
 
     private void carregarAtualizacaoMusica(Musica musicaSelecionada) {
@@ -191,7 +200,9 @@ public class TemplatePesquisaMusicaController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Atualização de Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Atualização de Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
@@ -210,7 +221,9 @@ public class TemplatePesquisaMusicaController implements Initializable {
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela de Visualização de Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela de Visualização de Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         VisualizarMusicaController visualizarMusicaController = fxmlLoader.getController();
@@ -224,26 +237,30 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
     private void removerMusicaSelecionada(Musica musicaSelecionada) {
         Dialogs.DialogResponse resposta;
-        resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Música?", "Exclusão de Música", "Confirmação");
+        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir a Música?", "Exclusão de Música", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
                 MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
                 this.musicas.remove(musicaSelecionada);
+                atualizarTabela();
             } catch (NonexistentEntityException ex) {
-                Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao remover Música", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao remover a Música selecionada!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
-            atualizarTabela();
         }
     }
 
-    private void gerarImpressaoMusicaSelecionada(Musica musicaSelecionada, MouseEvent event) {
+    private void gerarImpressaoMusicaSelecionada(Musica musicaSelecionada) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
         AnchorPane root = null;
         try {
             root = (AnchorPane) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(TemplatePesquisaMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao remover Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao remover a Música selecionada!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         //Inicializa os dados passando a música por parâmetro
@@ -253,7 +270,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Gerar Impressão de Música");
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+        dialogStage.initOwner(FXMLDocumentController.getInstancia().getStage());
         dialogStage.setScene(new Scene(root));
         // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();
@@ -498,10 +515,10 @@ public class TemplatePesquisaMusicaController implements Initializable {
                     removerMusicaSelecionada(musicaSelecionada);
                     break;
                 case PESQUISA_GERACAO_IMPRESSAO:
-                    gerarImpressaoMusicaSelecionada(musicaSelecionada, event);
+                    gerarImpressaoMusicaSelecionada(musicaSelecionada);
                     break;
                 default:
-                    Dialogs.showErrorDialog(null, "Erro de processamento interno."
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
                             + "\nFavor entrar em contato com o administrador", "Erro interno", "Erro");
                     break;
             }
@@ -533,8 +550,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 this.lblTituloPagina.setText("Gerar Impressão");
                 break;
             default:
-                Dialogs.showErrorDialog(null, "Erro de processamento interno."
-                        + "\nFavor entrar em contato com o administrador", "Erro interno", "Erro");
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
+                        + "\nFavor entrar em contato com o administrador", "Erro interno!", "Erro");
                 break;
         }
     }

@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -40,6 +38,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.ObjetoListaInvertidaJpaController;
@@ -53,6 +52,7 @@ import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.LeituraAssociada;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
@@ -180,6 +180,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private TemplatePesquisaMusicaController controladorOrigem;
 
     private String conteudoAnterior;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(AtualizarMusicaController.class.getName());
 
     /**
      * Inicializa os componentes
@@ -547,7 +550,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             //Atualiza a tabela
             atualizarTabela();
         } else {
-            Dialogs.showWarningDialog(null, "Favor selecionar um Integrante e um Tom para associar", "Valores inválidos", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Favor selecionar um Integrante e um Tom para associar", "Valores inválidos!", "Aviso");
         }
     }
 
@@ -556,7 +560,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         int indiceSelecionado = this.tblAssociacoes.getSelectionModel().getSelectedIndex();
 
         if (indiceSelecionado >= 0) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Associação?", "Exclusão de Associação", "Confirmação");
+            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Tem certeza que deseja excluir a Associação?", "Exclusão de Associação", "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
 
@@ -568,7 +573,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 atualizarTabela();
             }
         } else {
-            Dialogs.showWarningDialog(null, "Favor selecionar uma Associação para a exclusão", "Associação não selecionada", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Favor selecionar uma Associação para a exclusão!", "Associação não selecionada!", "Aviso");
         }
     }
 
@@ -593,7 +599,10 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela para Escrever o Conteúdo", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela para Escrever o Conteúdo!\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         EscreverMusicaController escreverMusicaController = fxmlLoader.getController();
@@ -651,7 +660,10 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         try {
             root = (AnchorPane) fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erro ao carregar tela para Seleção de Autor", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela para Seleção de Autor!\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         //Inicializa os dados passando a música por parâmetro
@@ -690,10 +702,17 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 try {
                     //Remove as indexações anteriores
                     ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(this.musica.getId());
+                    IndexadorController.getInstancia().indexar(this.musica);
                 } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erro ao remover Música", ex);
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+                } catch (Exception ex) {
+                    log.error("Erro ao indexar Música", ex);
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Erro ao realizar a indexação da Música!\nFavor entrar em contato com o Administrador.",
+                            "Erro!", "Erro", ex);
                 }
-                IndexadorController.getInstancia().indexar(this.musica);
             }
 
             String campoLeiturasAssociadas = this.fldLeituras.getText();
@@ -718,12 +737,16 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 //Atualizando no banco
                 MusicaJpaController.getInstancia().edit(this.musica);
             } catch (Exception ex) {
-                Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erro ao atualizar Música", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao atualizar a Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
-            Dialogs.showInformationDialog(null, "A Música foi atualizada com sucesso!", "Sucesso", "Informação");
+            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "A Música foi atualizada com sucesso!", "Sucesso!", "Informação");
         } else {
-            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
         }
     }
 

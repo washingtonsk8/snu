@@ -47,5 +47,4 @@ public class GerenciadorDeEntidades {
         }
         return instancia;
     }
-
 }
