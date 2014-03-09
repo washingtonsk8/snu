@@ -139,7 +139,8 @@ public class MontarMissaSelecaoController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao pesquisar músicas por parâmetros", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao realizar a pesquisa!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    "Erro ao realizar a pesquisa.\nFavor entrar em contato com o Administrador.", 
+                    "Erro!", "Erro", ex);
         }
     }
 
@@ -173,7 +174,8 @@ public class MontarMissaSelecaoController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao carregar a tela de Organização de Montagem de Missa", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar a tela de Organização de Montagem de Missa.\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    "Erro ao carregar a tela de Organização de Montagem de Missa.\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         MontarMissaOrganizacaoController montarMissaOrganizacaoController = fxmlLoader.getController();

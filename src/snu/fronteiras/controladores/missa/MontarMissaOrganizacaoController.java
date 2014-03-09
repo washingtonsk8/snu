@@ -877,7 +877,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ENTRADA));
             this.fldMusicaEntrada.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -888,7 +888,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ATO_PENITENCIAL));
             this.fldMusicaAtoPenitencial.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -899,7 +899,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.GLORIA));
             this.fldMusicaGloria.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -910,7 +910,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.OFERTORIO));
             this.fldMusicaOfertorio.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -921,7 +921,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACLAMACAO));
             this.fldMusicaAclamacao.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -932,7 +932,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.SANTO));
             this.fldMusicaSanto.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -943,7 +943,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.PAZ));
             this.fldMusicaPaz.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -954,7 +954,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.COMUNHAO));
             this.fldMusicaComunhao.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -965,7 +965,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACAO_DE_GRACAS));
             this.fldMusicaAcaoDeGracas.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -976,7 +976,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.FINAL));
             this.fldMusicaFinal.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -990,7 +990,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             }
             this.areaMusicasEspeciais.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover!", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
         atualizarLista();
     }
@@ -1001,7 +1001,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
         if (this.dpDataMissa.getSelectedDate() == null) {
             this.dpDataMissa.setEffect(EfeitosUtil.getEfeitoInvalido());
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         } else {
             this.dpDataMissa.setEffect(null);
 
@@ -1015,7 +1016,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
             } catch (IOException ex) {
                 log.error("Erro ao carregar tela de Finalização de Montagem de Missa", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao carregar tela de Finalização de Montagem de Missa!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        "Erro ao carregar tela de Finalização de Montagem de Missa."
+                        + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
             MontarMissaFinalizacaoController montarMissaFinalizacaoController = fxmlLoader.getController();

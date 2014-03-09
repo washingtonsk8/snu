@@ -147,7 +147,8 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         MissaJpaController.getInstancia().create(this.missa);
 
-        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados da Missa foram salvos com sucesso!", "Sucesso!", "Informação");
+        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), 
+                "Os dados da Missa foram salvos com sucesso!", "Sucesso!", "Informação");
 
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());

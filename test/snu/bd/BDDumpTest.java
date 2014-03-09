@@ -5,12 +5,12 @@
  */
 package snu.bd;
 
+import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -39,9 +39,11 @@ public class BDDumpTest {
 
     /**
      * Test of doBakup method, of class BDDump.
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
     @Test
-    public void testDoBakup() {
+    public void testDoBakup() throws IOException, InterruptedException {
         System.out.println("doBakup");
         String diretorioArquivo = "C:\\Users\\User\\Desktop";
         BDDump.doBakup(diretorioArquivo);
@@ -50,9 +52,11 @@ public class BDDumpTest {
     /**
      * Test of doRestore method, of class BDDump.
      *
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
     @Test
-    public void testDoRestore() {
+    public void testDoRestore() throws IOException, InterruptedException {
         System.out.println("doRestore");
         String caminhoArquivo = "C:\\Users\\User\\Desktop\\bkp_snu_06-03-2014_11-43-29.sql";
         BDDump.doRestore(caminhoArquivo);

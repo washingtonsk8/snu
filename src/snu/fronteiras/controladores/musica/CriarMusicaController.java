@@ -282,7 +282,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         } catch (Exception ex) {
             log.error("Erro ao indexar Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao realizar a indexação da Música!\nFavor entrar em contato com o Administrador.",
+                    "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
 
@@ -305,7 +305,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 } catch (IOException ex) {
                     log.error("Erro ao carregar tela de Atualização de Música", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro ao carregar tela de Atualização de Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                            "Erro ao carregar tela de Atualização de Música."
+                                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
                 }
 
                 AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
@@ -635,7 +636,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             }
         } else {
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Favor selecionar uma Associação para a exclusão!", "Associação não selecionada!", "Aviso");
+                    "Favor selecionar uma Associação para a exclusão.", "Associação não selecionada!", "Aviso");
         }
     }
 
@@ -659,7 +660,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Escrever o Conteúdo", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar tela para Escrever o Conteúdo!\nFavor entrar em contato com o Administrador.",
+                    "Erro ao carregar tela para Escrever o Conteúdo."
+                            + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
 
@@ -703,7 +705,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Seleção de Autor", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar tela para Seleção de Autor!\nFavor entrar em contato com o Administrador.",
+                    "Erro ao carregar tela para Seleção de Autor."
+                            + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
 
@@ -799,7 +802,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         } catch (IOException ex) {
             log.error("Erro ao pesquisar músicas por parâmetros para salvar Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao salvar Música!\nFavor entrar em contato com o Administrador.",
+                    "Erro ao salvar Música.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
         return false;
@@ -816,7 +819,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro ao carregar popup de Progresso!\nFavor entrar em contato com o Administrador.",
+                            "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
 
@@ -874,7 +877,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             }
         } else {
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
+                    "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }
 

@@ -462,7 +462,7 @@ public class AtualizarIntegranteController implements Initializable {
             } catch (Exception ex) {
                 log.error("Erro ao atualizar Integrante", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao atualizar Integrante!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        "Erro ao atualizar Integrante.\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
             if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
@@ -477,7 +477,7 @@ public class AtualizarIntegranteController implements Initializable {
             pai.getChildren().add(this.controladorOrigem.getContent());
             this.controladorOrigem.atualizarTabela();
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalado.", "Campos Inválidos!", "Aviso");
         }
     }
 

@@ -72,11 +72,12 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
         SNU.configuracoesSistema.setTemplateDescricaoEmail(this.areaTemplateEmail.getText());
         try {
             ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O template foi salvo com sucesso!", "Sucesso", "Informação");
+            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O template foi salvo com sucesso!", "Sucesso!", "Informação");
         } catch (Exception ex) {
             log.error("Erro ao salvar template de e-mail", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao salvar o Template de E-mail!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
+                    "Erro ao salvar o Template de E-mail."
+                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
 

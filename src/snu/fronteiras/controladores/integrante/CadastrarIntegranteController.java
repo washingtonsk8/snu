@@ -452,7 +452,7 @@ public class CadastrarIntegranteController implements Initializable {
             pai.getChildren().clear();
             pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getRoot());
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }
 }

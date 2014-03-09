@@ -188,7 +188,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao pesquisar músicas por parâmetros", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao realizar a pesquisa!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    "Erro ao realizar a pesquisa.\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
     }
 
@@ -201,7 +202,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Atualização de Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar tela de Atualização de Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    "Erro ao carregar tela de Atualização de Música.\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
@@ -222,7 +224,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Visualização de Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar tela de Visualização de Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    "Erro ao carregar tela de Visualização de Música."
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         VisualizarMusicaController visualizarMusicaController = fxmlLoader.getController();
@@ -246,7 +249,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao remover Música", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover a Música selecionada!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        "Erro ao remover a Música selecionada."
+                                + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
         }
     }
@@ -259,7 +263,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao remover Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao remover a Música selecionada!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    "Erro ao remover a Música selecionada."
+                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         //Inicializa os dados passando a música por parâmetro
@@ -518,7 +523,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
                     break;
                 default:
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
-                            + "\nFavor entrar em contato com o administrador", "Erro interno", "Erro");
+                            + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                     break;
             }
         }
@@ -550,7 +555,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 break;
             default:
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
-                        + "\nFavor entrar em contato com o administrador", "Erro interno!", "Erro");
+                        + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;
         }
     }

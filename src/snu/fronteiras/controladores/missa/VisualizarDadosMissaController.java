@@ -168,7 +168,8 @@ public class VisualizarDadosMissaController implements Initializable {
 
                 this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
             } else {
-                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "A descrição de e-mail desta Missa está vazia!", "Descrição Vazia!", "Aviso");
+                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), 
+                        "A descrição de e-mail desta Missa está vazia.", "Descrição Vazia!", "Aviso");
             }
         }
     }

@@ -110,7 +110,9 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao carregar a tela de Atualização de Integrante", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar a tela de Atualização de Integrante!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
+                    "Erro ao carregar a tela de Atualização de Integrante."
+                            + "\nFavor entrar em contato com o Administrador.", 
+                    "Erro!", "Erro", ex);
         }
 
         AtualizarIntegranteController atualizarIntegranteController = fxmlLoader.getController();
@@ -131,7 +133,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao carregar a tela de Visualização de Integrante", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar a tela de Visualização de Integrante!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
+                    "Erro ao carregar a tela de Visualização de Integrante.\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
         }
 
         VisualizarIntegranteController visualizarIntegranteController = fxmlLoader.getController();
@@ -170,7 +173,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao remover o(a) Integrante", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover o(a) Integrante!\nFavor entrar em contato com o Administrador.", "Erro", "Erro", ex);
+                        "Erro ao remover o(a) Integrante.\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
             }
             atualizarTabela();
         }
@@ -250,7 +254,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                     break;
                 default:
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
-                            + "\nFavor entrar em contato com o administrador", "Erro interno!", "Erro");
+                            + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                     break;
             }
         }
@@ -278,7 +282,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                 break;
             default:
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
-                        + "\nFavor entrar em contato com o administrador", "Erro interno!", "Erro");
+                        + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;
         }
     }

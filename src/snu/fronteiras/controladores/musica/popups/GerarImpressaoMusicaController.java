@@ -51,6 +51,7 @@ import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 import snu.util.MusicaUtil;
+import snu.util.SeletorArquivosUtil;
 
 /**
  * Classe controladora do FXML
@@ -216,13 +217,18 @@ public class GerarImpressaoMusicaController implements Initializable {
                     + this.musicaSelecionada.getNome() + ".pdf";
 
             //Escolha do local para salvar o arquivo
-            final JFileChooser seletorArquivo = new JFileChooser(".");
+            String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("gerarImpressao");
+            if(contextoUltimaSelecao == null){
+                contextoUltimaSelecao = ".";
+            }
+            final JFileChooser seletorArquivo = new JFileChooser(contextoUltimaSelecao);
             seletorArquivo.setSelectedFile(new File(nomeArquivoMusica));
             seletorArquivo.setFileFilter(new FileNameExtensionFilter("Arquivo PDF", "pdf"));
 
             int resposta = seletorArquivo.showSaveDialog(null);
 
             if (resposta == JFileChooser.APPROVE_OPTION) {
+                SeletorArquivosUtil.mapSeletores.put("gerarImpressao", seletorArquivo.getSelectedFile().getPath());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
                 Parent root = null;
                 try {
@@ -230,7 +236,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro ao carregar popup de Progresso!\nFavor entrar em contato com o Administrador.", 
+                            "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.", 
                             "Erro!", "Erro", ex);
                 }
 
@@ -255,7 +261,8 @@ public class GerarImpressaoMusicaController implements Initializable {
                         } catch (JRException ex) {
                             log.error("Erro ao gerar impressão de Música", ex);
                             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                                    "Erro ao gerar a impressão da Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                                    "Erro ao gerar a impressão da Música."
+                                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
                         }
                         return null;
                     }
@@ -281,7 +288,8 @@ public class GerarImpressaoMusicaController implements Initializable {
                             case SUCCEEDED:
                                 popupGerarImpressaoMusica.getScene().getWindow().hide();
                                 dialogStage.close();
-                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O arquivo da Música foi gerado com sucesso!", "Sucesso!", "Informação");
+                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), 
+                                        "O arquivo da Música foi gerado com sucesso!", "Sucesso!", "Informação");
                                 break;
                             case CANCELLED:
                             case FAILED:
@@ -294,7 +302,8 @@ public class GerarImpressaoMusicaController implements Initializable {
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados!", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), 
+                    "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }
 

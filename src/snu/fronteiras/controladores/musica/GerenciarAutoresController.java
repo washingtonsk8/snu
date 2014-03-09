@@ -195,11 +195,13 @@ public class GerenciarAutoresController implements Initializable {
             this.tblAutores.setItems(this.autores);
             atualizarTabela();
 
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
+            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), 
+                    "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
 
             this.fldPesquisarAutor.requestFocus();
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "O nome do Autor(a) deve ter pelo menos 1 caractere!", "Nome vazio!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), 
+                    "O nome do Autor(a) deve ter pelo menos 1 caractere.", "Nome vazio!", "Aviso");
         }
     }
 
@@ -216,8 +218,9 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnEditarAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         String nomeAutor = quantidadeAutoriaDtoSelecionado.getAutor().getNome();
-        String novoNomeAutor = Dialogs.showInputDialog(FXMLDocumentController.getInstancia().getStage(), "Edite o nome do(a) Autor(a) e confirme para alterar."
-                + "\nObs.: O nome não pode estar vazio!", "Edição de Autor", "Edição de Autor", nomeAutor);
+        String novoNomeAutor = Dialogs.showInputDialog(FXMLDocumentController.getInstancia().getStage(),
+                "Edite o nome do(a) Autor(a) e confirme para alterar."
+                + "\nObs.: O nome não pode estar vazio.", "Edição de Autor", "Edição de Autor", nomeAutor);
         if (StringUtil.hasAlgo(novoNomeAutor) && !nomeAutor.equals(novoNomeAutor)) {
             quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
             try {
@@ -226,7 +229,8 @@ public class GerenciarAutoresController implements Initializable {
             } catch (Exception ex) {
                 log.error("Erro ao atualizar o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao atualizar o Autor!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        "Erro ao atualizar o Autor.\nFavor entrar em contato com o Administrador.", 
+                        "Erro!", "Erro", ex);
             }
         }
     }
@@ -248,7 +252,8 @@ public class GerenciarAutoresController implements Initializable {
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao remover o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover o Autor!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.", 
+                        "Erro!", "Erro", ex);
             }
         }
     }

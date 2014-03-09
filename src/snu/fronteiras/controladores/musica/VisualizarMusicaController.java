@@ -202,7 +202,7 @@ public class VisualizarMusicaController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao carregar a tela de Visualização de Conteúdo de Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar a tela de Visualização de Conteúdo de Música!"
+                    "Erro ao carregar a tela de Visualização de Conteúdo de Música."
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
