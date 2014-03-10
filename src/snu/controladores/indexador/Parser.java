@@ -39,6 +39,7 @@ public class Parser {
     public void parse(Musica musica) throws Exception {
         IndexadorController indexadorController = IndexadorController.getInstancia();
         String conteudoMusica = musica.getDocumentoMusica().getConteudo();
+        //CODE REVIEW: Melhor usar o HasAlgo
         if (conteudoMusica != null) {
             List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
                     indexadorController.preProcessar(MusicaUtil.removerAcordes(conteudoMusica)));

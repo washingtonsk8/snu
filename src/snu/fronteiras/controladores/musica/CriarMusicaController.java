@@ -229,7 +229,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 return new SimpleStringProperty(associacao.getValue().getTom().toString());
             }
         });
-
+        
         //Adicionando as checkboxes na lista
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ENTRADA, this.checkEntrada));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ATO_PENITENCIAL, this.checkAtoPenitencial));
@@ -277,6 +277,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         } else {
             this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
         }
+
+        //Persistindo no banco (PS.: Realizar antes da indexação!!!)
+        MusicaJpaController.getInstancia().create(this.musica);
+        
         try {
             IndexadorController.getInstancia().indexar(musica);
         } catch (Exception ex) {
@@ -285,13 +289,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
-
-        //Persistindo no banco
-        MusicaJpaController.getInstancia().create(this.musica);
     }
 
     private void questionamentoFinalArmazenamento() {
-        if (this.musica.getDocumentoMusica().getConteudo() == null || this.musica.getDocumentoMusica().getConteudo().isEmpty()) {
+        if (StringUtil.isVazia(this.musica.getDocumentoMusica().getConteudo())) {
             Dialogs.DialogResponse resposta;
             resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                     "O conteúdo da Música não foi escrito."
@@ -750,7 +751,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         } else {
             this.comboTom.setEffect(null);
         }
-        if (this.comboAfinacao.getValue() == null) {
+        if (this.comboAfinacao.getValue() == null) {//TODO: Remover teste sem sentido!
             this.comboAfinacao.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         } else {

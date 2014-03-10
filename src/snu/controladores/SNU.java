@@ -5,7 +5,9 @@
  */
 package snu.controladores;
 
+import java.awt.HeadlessException;
 import java.io.File;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,65 +38,77 @@ public class SNU extends Application {
      * Inicia a aplicação
      *
      * @param stage
-     * @throws Exception
      */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         log.info("Iniciando a aplicação");
-        
-        //Inicializando o Gerenciador de Entidades!
-        GerenciadorDeEntidades.getInstancia();
 
-        ConfiguracoesSistemaJpaController configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
+        try {
+            //Inicializando o Gerenciador de Entidades!
+            GerenciadorDeEntidades.getInstancia();
+            ConfiguracoesSistemaJpaController configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
 
-        //Realizando o carregamento das configurações padrões do sistema
-        configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
+            //Realizando o carregamento das configurações padrões do sistema
+            configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
 
-        if (configuracoesSistema == null) {
-            ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
-            novasConfiguracoesSistema.setVersao(VERSAO);
+            if (configuracoesSistema == null) {
+                ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
+                novasConfiguracoesSistema.setVersao(VERSAO);
 
-            Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
-                    + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
+                Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
+                        + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
 
-            JFileChooser seletorDiretorio = new JFileChooser("C:");
-            seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            seletorDiretorio.setDialogTitle("Escolha do diretório do SGBD");
-            String diretorioSGBD = "";
-            int returnVal = seletorDiretorio.showOpenDialog(null);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File arquivo = seletorDiretorio.getSelectedFile();
-                diretorioSGBD = arquivo.toString();
+                JFileChooser seletorDiretorio = new JFileChooser("C:");
+                seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                seletorDiretorio.setDialogTitle("Escolha do diretório do SGBD");
+                String diretorioSGBD = "";
+                int returnVal = seletorDiretorio.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File arquivo = seletorDiretorio.getSelectedFile();
+                    diretorioSGBD = arquivo.toString();
+                }
+                novasConfiguracoesSistema.setDiretorioSGBD(diretorioSGBD);
+                novasConfiguracoesSistema.setTemplateDescricaoEmail("<saudação diária>,\n"
+                        + "\n"
+                        + "segue abaixo a relação de músicas para a missa do dia <data>.\n"
+                        + "\n"
+                        + "<músicas>\n"
+                        + "\n"
+                        + "Atenciosamente,\n"
+                        + "\n"
+                        + "Ministério de Música Nova Unção.");
+                configuracoesSistemaController.create(novasConfiguracoesSistema);
+                configuracoesSistema = novasConfiguracoesSistema;
             }
-            novasConfiguracoesSistema.setDiretorioSGBD(diretorioSGBD);
-            novasConfiguracoesSistema.setTemplateDescricaoEmail("<saudação diária>,\n"
-                    + "\n"
-                    + "segue abaixo a relação de músicas para a missa do dia <data>.\n"
-                    + "\n"
-                    + "<músicas>\n"
-                    + "\n"
-                    + "Atenciosamente,\n"
-                    + "\n"
-                    + "Ministério de Música Nova Unção.");
-            configuracoesSistemaController.create(novasConfiguracoesSistema);
-            configuracoesSistema = novasConfiguracoesSistema;
+
+            Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/visao/FXMLDocument.fxml"));
+
+            Scene scene = new Scene(root);
+
+            stage.setTitle("Sistema Nova Unção");
+            stage.setIconified(true);
+            stage.getIcons().add(new Image("/snu/fronteiras/images/logo.png"));
+            stage.setScene(scene);
+
+            //PS.: Não alterar o tamanho definido
+            stage.setMaxWidth(806.9);
+            stage.setMaxHeight(629.9);
+
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela principal", ex);
+            Dialogs.showErrorDialog(stage, "Erro ao carregar tela principal."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+
+        } catch (Exception ex) {
+            log.error("Erro ao iniciar a unidade de persistencia (SNUPU)", ex);
+            Dialogs.showErrorDialog(stage,
+                    "Erro ao iniciar a aplicação."
+                    + "\nVerifique se o SGBD está em execução.", "Erro!", "Erro", ex);
         }
 
-        Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/visao/FXMLDocument.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setTitle("Sistema Nova Unção");
-        stage.setIconified(true);
-        stage.getIcons().add(new Image("/snu/fronteiras/images/logo.png"));
-        stage.setScene(scene);
-
-        //PS.: Não alterar o tamanho definido
-        stage.setMaxWidth(806.9);
-        stage.setMaxHeight(629.9);
-
-        stage.setResizable(false);
-        stage.show();
     }
 
     /**

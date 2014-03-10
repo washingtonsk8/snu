@@ -104,6 +104,28 @@ public class SelecionarAutorController implements Initializable {
         this.btnAdicionarAutor.setVisible(false);
     }
 
+    private void adicionarAutor() {
+        String nomeAutor = this.fldPesquisarAutor.getText();
+
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                "Tem certeza que deseja adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
+                "Adição de Autor",
+                "Confirmação");
+
+        //Checa a resposta
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            Autor novoAutor = new Autor();
+            novoAutor.setNome(nomeAutor);
+
+            //Persiste no banco
+            AutorJpaController.getInstancia().create(novoAutor);
+
+            this.musica.setAutor(novoAutor);
+
+            this.popupSelecionarAutor.getScene().getWindow().hide();
+        }
+    }
+
     /**
      * Inicializa os dados principais da classe
      *
@@ -126,6 +148,7 @@ public class SelecionarAutorController implements Initializable {
 
     @FXML
     private void onActionFromFldPesquisarAutor(ActionEvent event) {
+        adicionarAutor();
     }
 
     @FXML
@@ -142,25 +165,7 @@ public class SelecionarAutorController implements Initializable {
 
     @FXML
     private void onActionFromBtnAdicionarAutor(ActionEvent event) {
-        String nomeAutor = this.fldPesquisarAutor.getText();
-
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                "Tem certeza que deseja adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
-                "Adição de Autor",
-                "Confirmação");
-
-        //Checa a resposta
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
-            Autor novoAutor = new Autor();
-            novoAutor.setNome(nomeAutor);
-
-            //Persiste no banco
-            AutorJpaController.getInstancia().create(novoAutor);
-
-            this.musica.setAutor(novoAutor);
-
-            this.popupSelecionarAutor.getScene().getWindow().hide();
-        }
+        adicionarAutor();
     }
 
     @FXML

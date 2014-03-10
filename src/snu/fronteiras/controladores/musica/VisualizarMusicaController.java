@@ -5,7 +5,10 @@
  */
 package snu.fronteiras.controladores.musica;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -256,6 +259,7 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromLblLinkVideo(MouseEvent event) {
+        this.hplResultadoLinkVideo.requestFocus();
     }
 
     @FXML
@@ -269,7 +273,25 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onActionFromHplResultadoLinkVideo(ActionEvent event) {
-        //TODO: Abrir navegador
+        try {
+            //Inicia a variável desktop, recebendo a area de trabalho do navegador
+            Desktop desktop = Desktop.getDesktop();
+            //Inicia a variável URI com uma endereço http
+            URI uri = new URI(this.hplResultadoLinkVideo.getText());
+            //Manda o desktop abrir a url criada acima
+            desktop.browse(uri);
+        } catch (URISyntaxException ex) {
+            log.error("Erro de sintaxe de URL de vídeo de música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar a URL do vídeo. A sintaxe está incorreta.",
+                    "Erro!", "Erro", ex);
+        } catch (IOException ex) {
+            log.error("Erro ao abrir o navegador com o endereço informado.", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao abrir o navegador com a URL do vídeo."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
     }
 
     @FXML

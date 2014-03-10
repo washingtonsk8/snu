@@ -13,10 +13,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +39,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Pair;
 import org.apache.log4j.Logger;
@@ -44,6 +48,7 @@ import snu.controladores.MusicaJpaController;
 import snu.controladores.ObjetoListaInvertidaJpaController;
 import snu.exceptions.NonexistentEntityException;
 import snu.controladores.indexador.IndexadorController;
+import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
@@ -53,6 +58,7 @@ import snu.entidades.musica.Tom;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.LeituraAssociada;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.util.EfeitosUtil;
@@ -272,6 +278,105 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.itensAssociacao.addAll(musica.getAssociacoes());
         this.tblAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
         this.conteudoAnterior = this.musica.getDocumentoMusica().getConteudo();
+    }
+
+    private boolean validarMusicaComMesmoNome(ActionEvent event) {
+        if (this.fldTitulo.getText().equals(this.musica.getNome())) {
+            return true;//Retorna verdadeiro caso o nome não tenha sido alterado!
+        }
+        try {
+            ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
+            parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
+            List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
+                    .findMusicasByParametrosPesquisa(parametrosPesquisa);
+
+            if (!musicasEncontradas.isEmpty()) {
+                Dialogs.DialogResponse resposta;
+                if (musicasEncontradas.size() == 1) {
+                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Foi encontrada a seguinte Música com o mesmo nome:\n"
+                            + "\t" + musicasEncontradas.get(0).getTitulo() + "\n"
+                            + "\nDeseja atualizar a Música mesmo assim?",
+                            "Criação de Música com mesmo nome", "Confirmação");
+                } else {
+                    String textoQuestionamento = "Foram encontradas as seguintes Músicas com o mesmo nome:\n";
+
+                    for (Musica musicaEncontrada : musicasEncontradas) {
+                        textoQuestionamento += "\t" + musicaEncontrada.getTitulo() + "\n";
+                    }
+
+                    textoQuestionamento += "\nDeseja atualizar a Música mesmo assim?";
+
+                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), textoQuestionamento,
+                            "Criação de Música com mesmo nome", "Confirmação");
+                }
+
+                return resposta.equals(Dialogs.DialogResponse.YES);
+            }
+            return true;
+        } catch (IOException ex) {
+            log.error("Erro ao pesquisar músicas por parâmetros para atualizar Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao atualizar Música.\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+        return false;
+    }
+
+    private void salvarAlteracoes() {
+        this.musica.setNome(this.fldTitulo.getText());
+        this.musica.setAssociacoes(this.itensAssociacao);
+        this.musica.setTom(this.comboTom.getValue());
+        this.musica.setAfinacao(this.comboAfinacao.getValue());
+        this.musica.setLinkVideo(this.fldLinkVideo.getText());
+        String novoConteudo = this.musica.getDocumentoMusica().getConteudo();
+
+        if (StringUtil.diferentes(this.conteudoAnterior, novoConteudo)) {
+            this.musica.getDocumentoMusica().setQuantidadeTokens(0);
+            this.musica.getDocumentoMusica().setFrequenciaMaximaToken(0);
+            this.musica.getDocumentoMusica().setConteudo(novoConteudo);
+            try {
+                //Remove as indexações anteriores
+                ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(this.musica.getId());
+                IndexadorController.getInstancia().indexar(this.musica);
+            } catch (NonexistentEntityException ex) {
+                log.error("Erro ao remover Música", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+            } catch (Exception ex) {
+                log.error("Erro ao indexar Música", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
+            }
+        }
+
+        String campoLeiturasAssociadas = this.fldLeituras.getText();
+
+        if (!campoLeiturasAssociadas.isEmpty()) {
+            List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
+
+            for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
+                if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
+                    LeituraAssociada leituraAssociada = new LeituraAssociada();
+                    leituraAssociada.setDescricao(descricaoLeituraAssociada);
+                    leituraAssociada.setMusica(this.musica);
+                    leiturasAssociadas.add(leituraAssociada);
+                }
+            }
+            this.musica.setLeiturasAssociadas(leiturasAssociadas);
+        } else {
+            this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
+        }
+
+        try {
+            //Atualizando no banco
+            MusicaJpaController.getInstancia().edit(this.musica);
+        } catch (Exception ex) {
+            log.error("Erro ao atualizar Música", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao atualizar a Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+        }
     }
 
     /**
@@ -564,12 +669,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                     "Tem certeza que deseja excluir a Associação?", "Exclusão de Associação", "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
-
                 this.itensAssociacao.remove(indiceSelecionado);
-
                 //Define a lista de associações atual na tabela
                 this.tblAssociacoes.setItems(this.itensAssociacao);
-
                 atualizarTabela();
             }
         } else {
@@ -689,61 +791,68 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private void onActionFromBtnSalvarAtleracoes(ActionEvent event) {
         if (validarCampos()) {
-            this.musica.setNome(this.fldTitulo.getText());
-            this.musica.setAssociacoes(this.itensAssociacao);
-            this.musica.setTom(this.comboTom.getValue());
-            this.musica.setAfinacao(this.comboAfinacao.getValue());
-            String novoConteudo = this.musica.getDocumentoMusica().getConteudo();
-
-            if (!this.conteudoAnterior.equals(novoConteudo)) {
-                this.musica.getDocumentoMusica().setQuantidadeTokens(0);
-                this.musica.getDocumentoMusica().setFrequenciaMaximaToken(0);
-                this.musica.getDocumentoMusica().setConteudo(novoConteudo);
+            if (validarMusicaComMesmoNome(event)) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+                Parent root = null;
                 try {
-                    //Remove as indexações anteriores
-                    ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(this.musica.getId());
-                    IndexadorController.getInstancia().indexar(this.musica);
-                } catch (NonexistentEntityException ex) {
-                    log.error("Erro ao remover Música", ex);
+                    root = (Parent) fxmlLoader.load();
+                } catch (IOException ex) {
+                    log.error("Erro ao carregar popup de Progresso", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-                } catch (Exception ex) {
-                    log.error("Erro ao indexar Música", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
+                            "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
-            }
 
-            String campoLeiturasAssociadas = this.fldLeituras.getText();
+                ProgressoController progressoController = fxmlLoader.getController();
+                progressoController.initData("Reindexando e atualizando a Música. Aguarde...");
+                progressoController.setProgresso(-1.0);
 
-            if (!campoLeiturasAssociadas.isEmpty()) {
-                List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
+                final Stage dialogStage = new Stage();
+                dialogStage.setTitle("Por Favor Aguarde...");
+                dialogStage.toFront();
+                dialogStage.setResizable(false);
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(FXMLDocumentController.getInstancia().getStage());
+                dialogStage.setScene(new Scene(root));
 
-                for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                    if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
-                        LeituraAssociada leituraAssociada = new LeituraAssociada();
-                        leituraAssociada.setDescricao(descricaoLeituraAssociada);
-                        leituraAssociada.setMusica(this.musica);
-                        leiturasAssociadas.add(leituraAssociada);
+                final Task task = new Task<Void>() {
+                    @Override
+                    public Void call() {
+                        salvarAlteracoes();
+                        return null;
                     }
-                }
-                this.musica.setLeiturasAssociadas(leiturasAssociadas);
-            } else {
-                this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
-            }
+                };
 
-            try {
-                //Atualizando no banco
-                MusicaJpaController.getInstancia().edit(this.musica);
-            } catch (Exception ex) {
-                log.error("Erro ao atualizar Música", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao atualizar a Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
-            }
+                dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        if (task.isRunning()) {
+                            event.consume();
+                        }
+                    }
+                });
 
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "A Música foi atualizada com sucesso!", "Sucesso!", "Informação");
+                task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                        switch (state) {
+                            case RUNNING:
+                                dialogStage.showAndWait();
+                                break;
+                            case SUCCEEDED:
+                                dialogStage.close();
+                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                                        "A Música foi atualizada com sucesso!", "Sucesso!", "Informação");
+                                break;
+                            case CANCELLED:
+                            case FAILED:
+                                dialogStage.close();
+                                break;
+                        }
+                    }
+                });
+                new Thread(task).start();
+            }
         } else {
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");

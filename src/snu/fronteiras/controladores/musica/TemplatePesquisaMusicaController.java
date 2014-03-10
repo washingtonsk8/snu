@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.musica;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -35,6 +36,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import org.apache.log4j.Logger;
 import snu.controladores.MusicaJpaController;
 import snu.exceptions.NonexistentEntityException;
@@ -127,10 +129,12 @@ public class TemplatePesquisaMusicaController implements Initializable {
     private Button btnPesquisar;
     @FXML
     private Label lblTituloPagina;
+    @FXML
+    private Button btnLimpar;
+
+    private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
     private List<TipoMusica> tiposMusica;
-
-    private ObservableList<Musica> musicas;
 
     private TipoPagina tipoPagina;
 
@@ -167,6 +171,27 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
+
+        //Adicionando as checkboxes na lista
+        this.parTiposMusicaCheckBoxes = new ArrayList<>();
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ENTRADA, this.checkEntrada));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ATO_PENITENCIAL, this.checkAtoPenitencial));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.GLORIA, this.checkGloria));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACLAMACAO, this.checkAclamacao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OFERTORIO, this.checkOfertorio));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PAZ, this.checkPaz));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.SANTO, this.checkSanto));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.COMUNHAO, this.checkComunhao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ACAO_DE_GRACAS, this.checkAcaoDeGracas));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.FINAL, this.checkFinal));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.REFLEXAO, this.checkReflexao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.LOUVOR, this.checkLouvor));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ADORACAO, this.checkAdoracao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.PALESTRA, this.checkPalestra));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.RESPOSTA, this.checkResposta));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ORACAO, this.checkOracao));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
+        this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
     }
@@ -244,13 +269,13 @@ public class TemplatePesquisaMusicaController implements Initializable {
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
                 MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
-                this.musicas.remove(musicaSelecionada);
+                this.tblMusicas.getItems().remove(musicaSelecionada);
                 atualizarTabela();
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao remover Música", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                         "Erro ao remover a Música selecionada."
-                                + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                        + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
         }
     }
@@ -264,7 +289,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
             log.error("Erro ao remover Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Erro ao remover a Música selecionada."
-                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
         //Inicializa os dados passando a música por parâmetro
@@ -526,6 +551,17 @@ public class TemplatePesquisaMusicaController implements Initializable {
                             + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                     break;
             }
+        }
+    }
+
+    @FXML
+    private void onActionFromBtnLimpar(ActionEvent event) {
+        this.fldAutor.setText(null);
+        this.fldLeitura.setText(null);
+        this.fldTitulo.setText(null);
+        this.fldTrecho.setText(null);
+        for (Pair<TipoMusica, CheckBox> parTipoMusicaCheckBox : parTiposMusicaCheckBoxes) {
+            parTipoMusicaCheckBox.getValue().setSelected(false);
         }
     }
 

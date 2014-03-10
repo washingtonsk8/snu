@@ -61,4 +61,29 @@ public class StringUtil {
         return manterDelimitadores ? entrada.replaceAll("(?!\\s)\\P{L}", " ")
                 : entrada.replaceAll("\\P{L}", " ");
     }
+
+    /**
+     * Verifica se as strings de entrada são iguais (nulas são aceitas)
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static boolean iguais(String str1, String str2) {
+        if (str1 == null) {
+            return str2 == null;
+        }
+        return str2 == null ? false : str1.equals(str2);
+    }
+
+    /**
+     * Verifica se as strings de entrada são diferentes (nulas são aceitas)
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static boolean diferentes(String str1, String str2) {
+        return !iguais(str1, str2);
+    }
 }

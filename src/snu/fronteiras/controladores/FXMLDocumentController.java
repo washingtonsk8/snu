@@ -462,14 +462,14 @@ public class FXMLDocumentController implements Initializable {
                             break;
                         case SUCCEEDED:
                             dialogStage.close();
-                            Dialogs.showInformationDialog(dialogStage, "Dados importados com sucesso!",
+                            Dialogs.showInformationDialog(getStage(), "Dados importados com sucesso!",
                                     "Sucesso!", "Informação");
                             initComponents();
                             break;
                         case CANCELLED:
                         case FAILED:
                             dialogStage.close();
-                            Dialogs.showErrorDialog(dialogStage, "Erro ao importar dados."
+                            Dialogs.showErrorDialog(getStage(), "Erro ao importar dados."
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
                             break;
@@ -550,14 +550,14 @@ public class FXMLDocumentController implements Initializable {
                             break;
                         case SUCCEEDED:
                             dialogStage.close();
-                            Dialogs.showInformationDialog(dialogStage, "Dados exportados com sucesso!",
+                            Dialogs.showInformationDialog(getStage(), "Dados exportados com sucesso!",
                                     "Sucesso!", "Informação");
                             initComponents();
                             break;
                         case CANCELLED:
                         case FAILED:
                             dialogStage.close();
-                            Dialogs.showErrorDialog(dialogStage, "Erro ao exportar dados."
+                            Dialogs.showErrorDialog(getStage(), "Erro ao exportar dados."
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
                             break;
