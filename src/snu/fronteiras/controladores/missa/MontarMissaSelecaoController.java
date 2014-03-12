@@ -97,6 +97,8 @@ public class MontarMissaSelecaoController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MontarMissaSelecaoController.class.getName());
+    @FXML
+    private Button btnLimpar;
 
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -139,7 +141,7 @@ public class MontarMissaSelecaoController implements Initializable {
         } catch (IOException ex) {
             log.error("Erro ao pesquisar músicas por parâmetros", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao realizar a pesquisa.\nFavor entrar em contato com o Administrador.", 
+                    "Erro ao realizar a pesquisa.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
     }
@@ -200,6 +202,12 @@ public class MontarMissaSelecaoController implements Initializable {
     @FXML
     private void onActionFromFldTitulo(ActionEvent event) {
         pesquisarPorParametros();
+    }
+
+    @FXML
+    private void onActionFromBtnLimpar(ActionEvent event) {
+        this.fldTitulo.setText(null);
+        this.comboTipo.setValue(null);
     }
 
     @FXML

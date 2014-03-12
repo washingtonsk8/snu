@@ -295,3 +295,24 @@ Caused by: java.io.IOException: CreateProcess error=2, O sistema não pode encon
 2014-03-11 20:05  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
 2014-03-11 22:01  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
 2014-03-11 22:15  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 22:41  INFO [JavaFX Application Thread] (SNU.java:43) - Iniciando a aplicação
+2014-03-11 22:41 ERROR [Thread-8] (FXMLDocumentController.java:440) - Erro ao realizar restore para o banco
+java.io.IOException: Cannot run program "\mysql ": CreateProcess error=2, O sistema não pode encontrar o arquivo especificado
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1041)
+	at java.lang.Runtime.exec(Runtime.java:617)
+	at java.lang.Runtime.exec(Runtime.java:485)
+	at snu.bd.BDDump.doRestore(BDDump.java:55)
+	at snu.fronteiras.controladores.FXMLDocumentController$2.call(FXMLDocumentController.java:436)
+	at snu.fronteiras.controladores.FXMLDocumentController$2.call(FXMLDocumentController.java:432)
+	at javafx.concurrent.Task$TaskCallable.call(Task.java:1259)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.io.IOException: CreateProcess error=2, O sistema não pode encontrar o arquivo especificado
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:385)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:136)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1022)
+	... 8 more
+2014-03-11 22:47  INFO [JavaFX Application Thread] (SNU.java:43) - Iniciando a aplicação
+2014-03-11 22:52  INFO [JavaFX Application Thread] (SNU.java:43) - Iniciando a aplicação
+2014-03-11 22:54  INFO [JavaFX Application Thread] (SNU.java:43) - Iniciando a aplicação

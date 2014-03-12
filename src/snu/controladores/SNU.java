@@ -5,7 +5,6 @@
  */
 package snu.controladores;
 
-import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
@@ -87,7 +86,7 @@ public class SNU extends Application {
 
             stage.setTitle("Sistema Nova Unção");
             stage.setIconified(true);
-            stage.getIcons().add(new Image("/snu/fronteiras/images/logo.png"));
+            stage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeSistema.png"));
             stage.setScene(scene);
 
             //PS.: Não alterar o tamanho definido
