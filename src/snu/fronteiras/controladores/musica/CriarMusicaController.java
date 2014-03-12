@@ -162,8 +162,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private Button btnSelecionarAutor;
     @FXML
-    private Button btnCriarNova;
-    @FXML
     private TextField fldLinkVideo;
     @FXML
     private Label lblCriarMusica;
@@ -674,29 +672,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         pai.getChildren().clear();
         pai.getChildren().add(root);
     }
-
-    @FXML
-    private void onActionFromBtnCriarNova(ActionEvent event) {
-        this.fldAutor.clear();
-        this.fldLeituras.clear();
-        this.fldTitulo.clear();
-        this.comboAfinacao.setValue(Afinacao.EADGBE);
-        this.comboTom.setValue(null);
-        this.comboNomeAssociacao.setValue(null);
-        this.comboTomAssociacao.setValue(null);
-        this.itensAssociacao.clear();
-        this.fldLinkVideo.clear();
-        this.tblAssociacoes.setItems(itensAssociacao);
-
-        for (Pair<TipoMusica, CheckBox> par : parTiposMusicaCheckBoxes) {
-            par.getValue().setSelected(false);
-        }
-
-        this.musica = new Musica();
-
-        this.fldTitulo.requestFocus();
-    }
-
+    
     @FXML
     private void onActionFromBtnSelecionarAutor(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml"));
@@ -750,12 +726,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             validadeDosCampos = false;
         } else {
             this.comboTom.setEffect(null);
-        }
-        if (this.comboAfinacao.getValue() == null) {//TODO: Remover teste sem sentido!
-            this.comboAfinacao.setEffect(EfeitosUtil.getEfeitoInvalido());
-            validadeDosCampos = false;
-        } else {
-            this.comboAfinacao.setEffect(null);
         }
         if (this.musica.getTipos().isEmpty()) {
             for (Pair<TipoMusica, CheckBox> tipoMusica : parTiposMusicaCheckBoxes) {

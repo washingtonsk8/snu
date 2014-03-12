@@ -117,6 +117,38 @@ public class GerenciarAutoresController implements Initializable {
                 + MusicaJpaController.getInstancia().getMusicaCount() + " músicas.");
     }
 
+    private void adicionarAutor() {
+        String textoPesquisa = this.fldPesquisarAutor.getText();
+
+        if (StringUtil.hasAlgo(textoPesquisa)) {
+
+            Autor novoAutor = new Autor();
+            novoAutor.setNome(textoPesquisa);
+
+            //Persiste no banco
+            AutorJpaController.getInstancia().create(novoAutor);
+
+            //Adicioná-lo à lista de autores filtrados
+            QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
+            quantidadeAutoriaDTO.setAutor(novoAutor);
+            //Não possui músicas, pois é novo autor
+            quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
+            this.autores.add(quantidadeAutoriaDTO);
+
+            this.fldPesquisarAutor.clear();
+            this.tblAutores.setItems(this.autores);
+            atualizarTabela();
+
+            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
+
+            this.fldPesquisarAutor.requestFocus();
+        } else {
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "O nome do Autor(a) deve ter pelo menos 1 caractere.", "Nome vazio!", "Aviso");
+        }
+    }
+
     private void filtrarTabela(String textoPesquisa) {
         ObservableList<QuantidadeAutoriaDTO> autoresFiltrados = FXCollections.observableArrayList();
 
@@ -144,6 +176,9 @@ public class GerenciarAutoresController implements Initializable {
 
     @FXML
     private void onActionFromFldPesquisarAutor(ActionEvent event) {
+        if (this.btnAdicionarAutor.isVisible()) {
+            adicionarAutor();
+        }
     }
 
     @FXML
@@ -174,35 +209,7 @@ public class GerenciarAutoresController implements Initializable {
 
     @FXML
     private void onActionFromBtnAdicionarAutor(ActionEvent event) {
-        String textoPesquisa = this.fldPesquisarAutor.getText();
-
-        if (StringUtil.hasAlgo(textoPesquisa)) {
-
-            Autor novoAutor = new Autor();
-            novoAutor.setNome(textoPesquisa);
-
-            //Persiste no banco
-            AutorJpaController.getInstancia().create(novoAutor);
-
-            //Adicioná-lo à lista de autores filtrados
-            QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
-            quantidadeAutoriaDTO.setAutor(novoAutor);
-            //Não possui músicas, pois é novo autor
-            quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
-            this.autores.add(quantidadeAutoriaDTO);
-
-            this.fldPesquisarAutor.clear();
-            this.tblAutores.setItems(this.autores);
-            atualizarTabela();
-
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), 
-                    "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
-
-            this.fldPesquisarAutor.requestFocus();
-        } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), 
-                    "O nome do Autor(a) deve ter pelo menos 1 caractere.", "Nome vazio!", "Aviso");
-        }
+        adicionarAutor();
     }
 
     @FXML
@@ -229,9 +236,13 @@ public class GerenciarAutoresController implements Initializable {
             } catch (Exception ex) {
                 log.error("Erro ao atualizar o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao atualizar o Autor.\nFavor entrar em contato com o Administrador.", 
+                        "Erro ao atualizar o Autor.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
+        } else {
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "O nome do(a) Autor(a) não pode estar vazio e deve ser diferente do atual.",
+                    "Valor Inválido!", "Aviso");
         }
     }
 
@@ -252,7 +263,7 @@ public class GerenciarAutoresController implements Initializable {
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao remover o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.", 
+                        "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
         }

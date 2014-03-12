@@ -205,3 +205,93 @@ java.lang.NullPointerException
 	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
 	at java.lang.Thread.run(Thread.java:744)
 2014-03-09 21:17  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:00  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:06  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:06 ERROR [JavaFX Application Thread] (SNU.java:106) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.PersistenceException: [PersistenceUnit: SNUPU] Unable to build EntityManagerFactory
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:915)
+	at org.hibernate.ejb.HibernatePersistence.createEntityManagerFactory(HibernatePersistence.java:57)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:63)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:47)
+	at snu.bd.GerenciadorDeEntidades.<init>(GerenciadorDeEntidades.java:21)
+	at snu.bd.GerenciadorDeEntidades.getInstancia(GerenciadorDeEntidades.java:46)
+	at snu.controladores.SNU.start(SNU.java:48)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: org.hibernate.MappingException: Could not instantiate id generator [entity-name=snu.entidades.musica.Musica]
+	at org.hibernate.id.factory.DefaultIdentifierGeneratorFactory.createIdentifierGenerator(DefaultIdentifierGeneratorFactory.java:118)
+	at org.hibernate.mapping.SimpleValue.createIdentifierGenerator(SimpleValue.java:193)
+	at org.hibernate.impl.SessionFactoryImpl.<init>(SessionFactoryImpl.java:248)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1872)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:906)
+	... 17 more
+Caused by: org.hibernate.HibernateException: Unanticipated return type [java.lang.Long] for UUID conversion
+	at org.hibernate.id.UUIDGenerator.configure(UUIDGenerator.java:111)
+	at org.hibernate.id.factory.DefaultIdentifierGeneratorFactory.createIdentifierGenerator(DefaultIdentifierGeneratorFactory.java:111)
+	... 21 more
+2014-03-11 19:06  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:06 ERROR [JavaFX Application Thread] (SNU.java:106) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.PersistenceException: [PersistenceUnit: SNUPU] Unable to build EntityManagerFactory
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:915)
+	at org.hibernate.ejb.HibernatePersistence.createEntityManagerFactory(HibernatePersistence.java:57)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:63)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:47)
+	at snu.bd.GerenciadorDeEntidades.<init>(GerenciadorDeEntidades.java:21)
+	at snu.bd.GerenciadorDeEntidades.getInstancia(GerenciadorDeEntidades.java:46)
+	at snu.controladores.SNU.start(SNU.java:48)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: org.hibernate.MappingException: Could not instantiate id generator [entity-name=snu.entidades.musica.Musica]
+	at org.hibernate.id.factory.DefaultIdentifierGeneratorFactory.createIdentifierGenerator(DefaultIdentifierGeneratorFactory.java:118)
+	at org.hibernate.mapping.SimpleValue.createIdentifierGenerator(SimpleValue.java:193)
+	at org.hibernate.impl.SessionFactoryImpl.<init>(SessionFactoryImpl.java:248)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1872)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:906)
+	... 17 more
+Caused by: org.hibernate.HibernateException: Unanticipated return type [java.lang.Long] for UUID conversion
+	at org.hibernate.id.UUIDGenerator.configure(UUIDGenerator.java:111)
+	at org.hibernate.id.factory.DefaultIdentifierGeneratorFactory.createIdentifierGenerator(DefaultIdentifierGeneratorFactory.java:111)
+	... 21 more
+2014-03-11 19:20  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:22  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:55  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 19:59  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 20:00  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 20:02 ERROR [Thread-8] (FXMLDocumentController.java:439) - Erro ao realizar restore para o banco
+java.io.IOException: Cannot run program "C:\Program Files\MySQL\MySQL Server 5.6\mysql ": CreateProcess error=2, O sistema não pode encontrar o arquivo especificado
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1041)
+	at java.lang.Runtime.exec(Runtime.java:617)
+	at java.lang.Runtime.exec(Runtime.java:485)
+	at snu.bd.BDDump.doRestore(BDDump.java:55)
+	at snu.fronteiras.controladores.FXMLDocumentController$2.call(FXMLDocumentController.java:435)
+	at snu.fronteiras.controladores.FXMLDocumentController$2.call(FXMLDocumentController.java:431)
+	at javafx.concurrent.Task$TaskCallable.call(Task.java:1259)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.io.IOException: CreateProcess error=2, O sistema não pode encontrar o arquivo especificado
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:385)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:136)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1022)
+	... 8 more
+2014-03-11 20:05  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 22:01  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação
+2014-03-11 22:15  INFO [JavaFX Application Thread] (SNU.java:44) - Iniciando a aplicação

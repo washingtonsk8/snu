@@ -736,12 +736,6 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         } else {
             this.comboTom.setEffect(null);
         }
-        if (this.comboAfinacao.getValue() == null) {
-            this.comboAfinacao.setEffect(EfeitosUtil.getEfeitoInvalido());
-            validadeDosCampos = false;
-        } else {
-            this.comboAfinacao.setEffect(null);
-        }
         if (this.musica.getTipos().isEmpty()) {
             for (Pair<TipoMusica, CheckBox> tipoMusica : parTiposMusicaCheckBoxes) {
                 tipoMusica.getValue().setEffect(EfeitosUtil.getEfeitoInvalido());

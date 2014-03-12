@@ -109,7 +109,6 @@
     </effect>
   </Label>
   <TextField fx:id="fldLinkVideo" layoutX="175.0" layoutY="470.0" onAction="#onActionFromFldLinkVideo" prefWidth="500.0" />
-  <Button fx:id="btnCriarNova" font="$x2" layoutX="396.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnCriarNova" prefHeight="40.0" prefWidth="100.0" text="Criar Nova" textFill="BLACK" />
   <Button fx:id="btnEscreverConteudo" font="$x2" layoutX="516.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnEscreverConteudo" prefHeight="40.0" prefWidth="150.0" text="Escrever Conteúdo" textFill="BLACK" />
   <Button fx:id="btnSalvar" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
   <Label layoutX="155.0" layoutY="55.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">

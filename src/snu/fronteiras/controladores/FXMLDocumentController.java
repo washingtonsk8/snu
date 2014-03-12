@@ -384,7 +384,8 @@ public class FXMLDocumentController implements Initializable {
             contextoUltimaSelecao = ".";
         }
         final JFileChooser seletorArquivo = new JFileChooser(contextoUltimaSelecao);
-        seletorArquivo.addChoosableFileFilter(new FileFilter() {
+
+        seletorArquivo.setFileFilter(new FileFilter() {
 
             @Override
             public boolean accept(File file) {
