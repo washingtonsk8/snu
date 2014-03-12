@@ -381,7 +381,7 @@ public class FXMLDocumentController implements Initializable {
     private void onActionFromItemImportarDados(ActionEvent event) {
         String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("importarDados");
         if (contextoUltimaSelecao == null) {
-            contextoUltimaSelecao = ".";
+            contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
         }
         final JFileChooser seletorArquivo = new JFileChooser(contextoUltimaSelecao);
 
@@ -462,17 +462,17 @@ public class FXMLDocumentController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
-                            dialogStage.close();
                             Dialogs.showInformationDialog(getStage(), "Dados importados com sucesso!",
                                     "Sucesso!", "Informação");
+                            dialogStage.close();
                             initComponents();
                             break;
                         case CANCELLED:
                         case FAILED:
-                            dialogStage.close();
                             Dialogs.showErrorDialog(getStage(), "Erro ao importar dados."
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
+                            dialogStage.close();
                             break;
                     }
                 }
@@ -485,7 +485,7 @@ public class FXMLDocumentController implements Initializable {
     private void onActionFromItemExportarDados(ActionEvent event) {
         String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("exportarDados");
         if (contextoUltimaSelecao == null) {
-            contextoUltimaSelecao = ".";
+            contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
         }
         final JFileChooser seletorDiretorio = new JFileChooser(contextoUltimaSelecao);
         seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -550,17 +550,17 @@ public class FXMLDocumentController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
-                            dialogStage.close();
                             Dialogs.showInformationDialog(getStage(), "Dados exportados com sucesso!",
                                     "Sucesso!", "Informação");
+                            dialogStage.close();
                             initComponents();
                             break;
                         case CANCELLED:
                         case FAILED:
-                            dialogStage.close();
                             Dialogs.showErrorDialog(getStage(), "Erro ao exportar dados."
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
+                            dialogStage.close();
                             break;
                     }
                 }

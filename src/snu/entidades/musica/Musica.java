@@ -222,7 +222,7 @@ public class Musica implements Serializable {
         Musica other = (Musica) object;
         return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
-
+    
     @Override
     public String toString() {
         return "Musica{" + "id=" + id + ", autor=" + autor.getNome() + ", titulo=" + nome + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';

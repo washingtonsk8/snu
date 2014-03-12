@@ -9,6 +9,7 @@
 	<parameter name="introducaoMusica" class="java.lang.String"/>
 	<parameter name="cantorMusica" class="java.lang.String"/>
 	<parameter name="tomMusica" class="java.lang.String"/>
+	<parameter name="caminhoImagem" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -72,7 +73,7 @@
 				<reportElement x="1" y="0" width="75" height="75" uuid="e469366f-648b-4f78-9cf4-eb62869e662b"/>
 				<image>
 					<reportElement x="0" y="0" width="75" height="75" uuid="d96e675e-4da8-4baa-b7db-d8786065e11d"/>
-					<imageExpression><![CDATA["C:\\Users\\User\\Documents\\NetBeansProjects\\SNU\\src\\snu\\fronteiras\\images\\logoSemDescricao.jpg"]]></imageExpression>
+					<imageExpression><![CDATA[$P{caminhoImagem}]]></imageExpression>
 				</image>
 			</frame>
 		</band>

@@ -153,6 +153,10 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     private DatePicker dpDataMissa;
 
+    /**
+     * Mantém, até o momento do armazenamento, todas as músicas No momento do
+     * armazenamento, as músicas não escolhidas são removidas.
+     */
     private Set<Musica> musicasParaMissa;
 
     private MontarMissaSelecaoController controladorOrigem;
@@ -442,7 +446,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -469,7 +473,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -496,7 +500,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -523,7 +527,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -550,7 +554,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -577,7 +581,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -604,7 +608,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -631,7 +635,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -658,7 +662,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -685,7 +689,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -712,7 +716,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             atualizarLista();
             success = true;
         }
-        /* let the source know whether the string was successfully 
+        /* let the source know whether the string was successfully
          * transferred and used */
         event.setDropCompleted(success);
 
@@ -723,14 +727,16 @@ public class MontarMissaOrganizacaoController implements Initializable {
     private void onDragDetectedFromListaMusicasSelecionadas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();
         this.musicaArrastada = this.listaMusicasSelecionadas.getSelectionModel().getSelectedItem();
-        content.putString(this.musicaArrastada.getTitulo());
+        if (this.musicaArrastada != null) {
+            content.putString(this.musicaArrastada.getTitulo());
+        }
         Dragboard db = this.listaMusicasSelecionadas.startDragAndDrop(TransferMode.ANY);
         db.setContent(content);
     }
 
     @FXML
     private void onDragOverFldMusicaEntrada(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaEntrada
                 && event.getDragboard().hasString()) {
@@ -743,7 +749,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaAtoPenitencial(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaAtoPenitencial
                 && event.getDragboard().hasString()) {
@@ -756,7 +762,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaGloria(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaGloria
                 && event.getDragboard().hasString()) {
@@ -769,7 +775,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaAclamacao(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaAclamacao
                 && event.getDragboard().hasString()) {
@@ -782,7 +788,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaOfertorio(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaOfertorio
                 && event.getDragboard().hasString()) {
@@ -795,7 +801,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaSanto(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaSanto
                 && event.getDragboard().hasString()) {
@@ -808,7 +814,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaPaz(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaPaz
                 && event.getDragboard().hasString()) {
@@ -821,7 +827,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaComunhao(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaComunhao
                 && event.getDragboard().hasString()) {
@@ -834,7 +840,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaAcaoDeGracas(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaAcaoDeGracas
                 && event.getDragboard().hasString()) {
@@ -847,7 +853,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverFldMusicaFinal(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.fldMusicaFinal
                 && event.getDragboard().hasString()) {
@@ -860,7 +866,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onDragOverAreaMusicasEspeciais(DragEvent event) {
-        /* accept it only if it is  not dragged from the same node 
+        /* accept it only if it is  not dragged from the same node
          * and if it has a string data */
         if (event.getGestureSource() != this.areaMusicasEspeciais
                 && event.getDragboard().hasString()) {
@@ -1006,6 +1012,12 @@ public class MontarMissaOrganizacaoController implements Initializable {
         } else {
             this.dpDataMissa.setEffect(null);
 
+            //Remove da lista total aquelas que não foram selecionadas
+            for (Musica musica : this.listaMusicasSelecionadas.getItems()) {
+                this.musicasParaMissa.remove(musica);
+            }
+
+            this.missa.setMusicasUtilizadas(this.musicasParaMissa);
             this.missa.setDataAcontecimento(this.dpDataMissa.getSelectedDate());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaFinalizacao.fxml"));

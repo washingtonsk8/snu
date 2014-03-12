@@ -213,7 +213,10 @@ public class MontarMissaSelecaoController implements Initializable {
     @FXML
     private void onDragDetectedFromTblMusicas(MouseEvent event) {
         ClipboardContent content = new ClipboardContent();
-        content.putString(this.tblMusicas.getSelectionModel().getSelectedItem().getTitulo());
+        Musica musicaArrastada = this.tblMusicas.getSelectionModel().getSelectedItem();
+        if (musicaArrastada != null) {
+            content.putString(musicaArrastada.getTitulo());
+        }
         Dragboard db = this.tblMusicas.startDragAndDrop(TransferMode.ANY);
         db.setContent(content);
     }

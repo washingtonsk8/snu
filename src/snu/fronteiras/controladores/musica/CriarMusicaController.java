@@ -832,10 +832,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                                 dialogStage.showAndWait();
                                 break;
                             case SUCCEEDED:
-                                dialogStage.close();
                                 Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
                                         "A Música foi salva com sucesso!", "Sucesso!", "Informação");
                                 questionamentoFinalArmazenamento();
+                                dialogStage.close();
                                 break;
                             case CANCELLED:
                             case FAILED:

@@ -834,9 +834,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                                 dialogStage.showAndWait();
                                 break;
                             case SUCCEEDED:
-                                dialogStage.close();
                                 Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
                                         "A Música foi atualizada com sucesso!", "Sucesso!", "Informação");
+                                dialogStage.close();
                                 break;
                             case CANCELLED:
                             case FAILED:

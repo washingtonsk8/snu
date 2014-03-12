@@ -5,6 +5,7 @@
  */
 package snu.fronteiras.controladores.musica.popups;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -218,8 +219,8 @@ public class GerarImpressaoMusicaController implements Initializable {
 
             //Escolha do local para salvar o arquivo
             String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("gerarImpressao");
-            if(contextoUltimaSelecao == null){
-                contextoUltimaSelecao = ".";
+            if (contextoUltimaSelecao == null) {
+                contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
             }
             final JFileChooser seletorArquivo = new JFileChooser(contextoUltimaSelecao);
             seletorArquivo.setSelectedFile(new File(nomeArquivoMusica));
@@ -236,7 +237,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                            "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.", 
+                            "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
 
@@ -262,7 +263,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                             log.error("Erro ao gerar impressão de Música", ex);
                             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                                     "Erro ao gerar a impressão da Música."
-                                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
                         }
                         return null;
                     }
@@ -286,10 +287,10 @@ public class GerarImpressaoMusicaController implements Initializable {
                                 dialogStage.showAndWait();
                                 break;
                             case SUCCEEDED:
+                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                                        "O arquivo da Música foi gerado com sucesso!", "Sucesso!", "Informação");
                                 popupGerarImpressaoMusica.getScene().getWindow().hide();
                                 dialogStage.close();
-                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), 
-                                        "O arquivo da Música foi gerado com sucesso!", "Sucesso!", "Informação");
                                 break;
                             case CANCELLED:
                             case FAILED:
@@ -302,7 +303,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), 
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }
@@ -314,12 +315,15 @@ public class GerarImpressaoMusicaController implements Initializable {
         String nomeCantorMusica = this.comboCantor.getSelectionModel().getSelectedItem();
         String introducaoMusica = this.musicaSelecionada.getDocumentoMusica().getIntroducao();
         String conteudoMusica = this.musicaSelecionada.getDocumentoMusica().getConteudo();
-
+        String caminhoImagem = getClass().getResource("/snu/fronteiras/images/logoSemDescricao.jpg").toExternalForm();
+                
         //Definições para impressão
         parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(this.musicaSelecionada.getTipos()));
         parametros.put("tituloMusica", this.musicaSelecionada.getTitulo());
         parametros.put("cantorMusica", nomeCantorMusica == null ? "" : nomeCantorMusica);
         parametros.put("tomMusica", tomSelecionado.toString());
+        parametros.put("caminhoImagem", caminhoImagem);
+        
         if (tomOriginal.equals(tomSelecionado)) {
             parametros.put("introducaoMusica", introducaoMusica == null ? ""
                     : MusicaUtil.limparParaImpressao(introducaoMusica));

@@ -74,6 +74,8 @@ public class VisualizarDadosMissaController implements Initializable {
     private ObservableList<Missa> missas = FXCollections.observableArrayList();
 
     private Popup popup;
+    @FXML
+    private Button btnLimpar;
 
     private void initComponents() {
         this.popup = new Popup();
@@ -172,6 +174,12 @@ public class VisualizarDadosMissaController implements Initializable {
                         "A descrição de e-mail desta Missa está vazia.", "Descrição Vazia!", "Aviso");
             }
         }
+    }
+
+    @FXML
+    private void onActionFromBtnLimpar(ActionEvent event) {
+        this.fldNomeMissa.setText(null);
+        this.dpDataMissa.setSelectedDate(null);
     }
 
     @FXML
