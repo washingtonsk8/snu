@@ -38,6 +38,7 @@ import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
+import snu.util.EfeitosUtil;
 
 /**
  * Classe controladora do FXML
@@ -111,7 +112,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
             log.error("Erro ao carregar a tela de Atualização de Integrante", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Erro ao carregar a tela de Atualização de Integrante."
-                            + "\nFavor entrar em contato com o Administrador.", 
+                    + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
 
@@ -122,6 +123,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         atualizarIntegranteController.initData(integranteSelecionado, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     private void carregarVisualizacaoIntegrante(Integrante integranteSelecionado) {
@@ -144,6 +146,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         visualizarIntegranteController.initData(integranteSelecionado, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     private void pesquisarPorParametros() {
@@ -285,6 +288,10 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                         + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;
         }
+    }
+
+    public void atualizar() {
+        pesquisarPorParametros();
     }
 
     public void atualizarTabela() {

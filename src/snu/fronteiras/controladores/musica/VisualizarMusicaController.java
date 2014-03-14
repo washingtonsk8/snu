@@ -46,6 +46,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
+import snu.util.StringUtil;
 
 /**
  * Classe controladora do FXML
@@ -153,7 +154,8 @@ public class VisualizarMusicaController implements Initializable {
         clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
-                return new SimpleStringProperty(associacao.getValue().getNome());
+                String nomeMissa = associacao.getValue().getNome();
+                return new SimpleStringProperty(StringUtil.hasAlgo(nomeMissa) ? nomeMissa : "Indefinido");
             }
         });
 
@@ -216,6 +218,7 @@ public class VisualizarMusicaController implements Initializable {
         visualizarConteudoMusicaController.initData(this.musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     /**

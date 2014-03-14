@@ -1039,15 +1039,19 @@ public class MontarMissaOrganizacaoController implements Initializable {
             montarMissaFinalizacaoController.initData(this.missa, this.mapaMusicasMissa, this, this.controladorPrincipal);
             pai.getChildren().clear();
             pai.getChildren().add(root);
+            EfeitosUtil.rodarEfeitoCarregamento(root);
         }
     }
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+        
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContent());
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 
     public AnchorPane getContent() {

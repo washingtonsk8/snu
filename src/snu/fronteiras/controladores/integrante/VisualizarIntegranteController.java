@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.util.DataUtil;
+import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
 /**
@@ -173,9 +174,12 @@ public class VisualizarIntegranteController implements Initializable {
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+        
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContent());
+        pai.getChildren().add(content);        
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 }

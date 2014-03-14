@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -69,7 +70,13 @@ public class Musica implements Serializable {
     @Column(name = "link_video")
     private String linkVideo;
 
-    @ManyToMany(mappedBy = "musicasUtilizadas")
+    @ManyToMany
+    @JoinTable(
+            name = "missas_musicas",
+            joinColumns = {
+                @JoinColumn(name = "missa_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "musica_id", referencedColumnName = "id")})
     private Set<Missa> missasPresente;
 
     public Musica() {
@@ -222,7 +229,7 @@ public class Musica implements Serializable {
         Musica other = (Musica) object;
         return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
-    
+
     @Override
     public String toString() {
         return "Musica{" + "id=" + id + ", autor=" + autor.getNome() + ", titulo=" + nome + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';

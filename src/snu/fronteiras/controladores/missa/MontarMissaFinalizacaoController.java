@@ -33,6 +33,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.DataUtil;
+import snu.util.EfeitosUtil;
 
 /**
  * Classe controladora do FXML
@@ -147,8 +148,12 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         MissaJpaController.getInstancia().create(this.missa);
 
-        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), 
+        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Os dados da Missa foram salvos com sucesso!", "Sucesso!", "Informação");
+
+        VisualizarDadosMissaController visualizarDadosMissaController
+                = this.controladorPrincipal.getTemplatePesquisaMissaLoader().getController();
+        visualizarDadosMissaController.atualizar();
 
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
@@ -158,9 +163,12 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+        
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContent());
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 }

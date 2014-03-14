@@ -39,13 +39,7 @@ public class Missa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataAcontecimento;
 
-    @ManyToMany
-    @JoinTable(
-            name = "missas_musicas",
-            joinColumns = {
-                @JoinColumn(name = "missa_id", referencedColumnName = "id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "musica_id", referencedColumnName = "id")})
+    @ManyToMany(mappedBy = "missasPresente")    
     private Set<Musica> musicasUtilizadas;
 
     @Column(name = "descricao_email", columnDefinition = "LONGTEXT")

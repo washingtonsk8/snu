@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,14 +8,14 @@ package snu.util;
 import java.util.HashMap;
 
 /**
- * Utilitário para realizar operações com o JFileChooser
+ * Utilitário para realizar operações com o FileChooser
  *
  * @author Washington Luis
  */
 public class SeletorArquivosUtil {
 
     /**
-     * Mapa que guarda os contextos (caminhos) dos seletores (JFileChooser)
+     * Mapa que guarda os contextos (caminhos) dos seletores (FileChooser)
      */
     public static HashMap<String, String> mapSeletores = new HashMap<>();
 }

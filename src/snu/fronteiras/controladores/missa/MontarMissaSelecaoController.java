@@ -187,6 +187,7 @@ public class MontarMissaSelecaoController implements Initializable {
         montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this, this.controladorPrincipal);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML

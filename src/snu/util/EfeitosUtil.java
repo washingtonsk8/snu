@@ -5,11 +5,14 @@
  */
 package snu.util;
 
+import javafx.animation.FadeTransition;
+import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 /**
  * Utilitário para realizar operações com efeitos
@@ -67,5 +70,17 @@ public class EfeitosUtil {
      */
     public static Effect getEfeitoGlow() {
         return efeitoGlow;
+    }
+
+    /**
+     * Roda efeito FADE IN na tela passada por parâmetro
+     *
+     * @param tela
+     */
+    public static void rodarEfeitoCarregamento(Node tela) {
+        final FadeTransition ft = new FadeTransition(Duration.millis(300), tela);
+        ft.setFromValue(0.);
+        ft.setToValue(1.);
+        ft.play();
     }
 }

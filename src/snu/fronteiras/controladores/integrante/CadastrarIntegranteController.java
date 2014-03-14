@@ -34,6 +34,7 @@ import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.geral.TipoPagina;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
@@ -446,6 +447,12 @@ public class CadastrarIntegranteController implements Initializable {
             } else {
                 Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O Integrante foi salvo com sucesso!", "Sucesso!", "Informação");
             }
+
+            TemplatePesquisaIntegranteController templatePesquisaIntegrante
+                    = this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getController();
+
+            templatePesquisaIntegrante.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+            templatePesquisaIntegrante.atualizar();
 
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());

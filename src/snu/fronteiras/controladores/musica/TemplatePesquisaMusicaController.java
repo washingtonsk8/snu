@@ -46,6 +46,7 @@ import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
 import snu.geral.TipoPagina;
+import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
 /**
@@ -238,6 +239,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         atualizarMusicaController.initData(musicaSelecionada, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     private void carregarVisualizacaoMusica(Musica musicaSelecionada) {
@@ -260,6 +262,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         visualizarMusicaController.initData(musicaSelecionada, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     private void removerMusicaSelecionada(Musica musicaSelecionada) {
@@ -598,6 +601,10 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
     public AnchorPane getContent() {
         return this.contentTemplatePesquisaMusica;
+    }
+
+    public void atualizar() {
+        pesquisarPorParametros();
     }
 
     private void atualizarTabela() {

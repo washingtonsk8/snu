@@ -59,6 +59,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
+import snu.geral.TipoPagina;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
@@ -311,12 +312,15 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
                 TemplatePesquisaMusicaController templateMusicaController
                         = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
-
+                templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+                templateMusicaController.atualizar();
+                
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
                 atualizarMusicaController.initData(this.musica, templateMusicaController);
                 pai.getChildren().clear();
                 pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
             } else {
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
@@ -671,6 +675,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
     
     @FXML

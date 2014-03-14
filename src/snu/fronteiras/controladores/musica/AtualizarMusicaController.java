@@ -714,6 +714,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     private boolean validarCampos() {

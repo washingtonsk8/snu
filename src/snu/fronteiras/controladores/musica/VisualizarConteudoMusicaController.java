@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -23,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
+import snu.util.EfeitosUtil;
 
 /**
  * Classe controladora do FXML
@@ -96,9 +98,12 @@ public class VisualizarConteudoMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
+        final Parent root = this.controladorOrigem.getContentVisualizarMusica();
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarConteudoMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentVisualizarMusica());
+        pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 }

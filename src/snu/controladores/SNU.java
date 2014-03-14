@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialogs;
 import javafx.scene.image.Image;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import snu.bd.GerenciadorDeEntidades;
@@ -57,14 +59,13 @@ public class SNU extends Application {
                 Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
                         + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
 
-                JFileChooser seletorDiretorio = new JFileChooser("C:");
-                seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                seletorDiretorio.setDialogTitle("Escolha do diretório do SGBD");
-                String diretorioSGBD = "";
-                int returnVal = seletorDiretorio.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File arquivo = seletorDiretorio.getSelectedFile();
-                    diretorioSGBD = arquivo.toString();
+                final DirectoryChooser seletorDiretorio = new DirectoryChooser();
+                seletorDiretorio.setInitialDirectory(new File("C:"));
+                seletorDiretorio.setTitle("Escolha do diretório do SGBD");
+                String diretorioSGBD = "C:";
+                final File diretorio = seletorDiretorio.showDialog(stage);
+                if (diretorio != null) {
+                    diretorioSGBD = diretorio.getAbsolutePath();
                 }
                 novasConfiguracoesSistema.setDiretorioSGBD(diretorioSGBD);
                 novasConfiguracoesSistema.setTemplateDescricaoEmail("<saudação diária>,\n"

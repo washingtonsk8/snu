@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -113,39 +114,47 @@ public class GerenciarAutoresController implements Initializable {
 
         this.btnEditarAutor.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
-        this.lblInformacaoQuantidades.setText("O sistema contém " + entidadesAutor.size() + " autores e "
-                + MusicaJpaController.getInstancia().getMusicaCount() + " músicas.");
+        this.lblInformacaoQuantidades.setText("O sistema contém " + entidadesAutor.size() + " autor(es) e "
+                + MusicaJpaController.getInstancia().getMusicaCount() + " música(s).");
     }
 
     private void adicionarAutor() {
         String textoPesquisa = this.fldPesquisarAutor.getText();
 
         if (StringUtil.hasAlgo(textoPesquisa)) {
+            Dialogs.DialogResponse resposta;
+            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Deseja realmente adicionar o(a) Autor(a) \"" + textoPesquisa + "\" ao sistema?",
+                    "Adição de Autor", "Confirmação");
 
-            Autor novoAutor = new Autor();
-            novoAutor.setNome(textoPesquisa);
+            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+                Autor novoAutor = new Autor();
+                novoAutor.setNome(textoPesquisa);
 
-            //Persiste no banco
-            AutorJpaController.getInstancia().create(novoAutor);
+                //Persiste no banco
+                AutorJpaController.getInstancia().create(novoAutor);
 
-            //Adicioná-lo à lista de autores filtrados
-            QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
-            quantidadeAutoriaDTO.setAutor(novoAutor);
-            //Não possui músicas, pois é novo autor
-            quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
-            this.autores.add(quantidadeAutoriaDTO);
+                //Adicioná-lo à lista de autores filtrados
+                QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
+                quantidadeAutoriaDTO.setAutor(novoAutor);
+                //Não possui músicas, pois é novo autor
+                quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(0);
+                this.autores.add(quantidadeAutoriaDTO);
 
-            this.fldPesquisarAutor.clear();
-            this.tblAutores.setItems(this.autores);
-            atualizarTabela();
+                this.fldPesquisarAutor.clear();
+                this.tblAutores.setItems(this.autores);
+                atualizarTabela();
 
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
 
-            this.fldPesquisarAutor.requestFocus();
+                this.fldPesquisarAutor.requestFocus();
+                this.lblInformacaoQuantidades.setText("O sistema contém " + AutorJpaController.getInstancia().getAutorCount() + " autor(es) e "
+                        + MusicaJpaController.getInstancia().getMusicaCount() + " música(s).");
+            }
         } else {
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "O nome do Autor(a) deve ter pelo menos 1 caractere.", "Nome vazio!", "Aviso");
+                    "O nome do(a) Autor(a) deve ter pelo menos 1 caractere.", "Nome vazio!", "Aviso");
         }
     }
 
@@ -236,7 +245,7 @@ public class GerenciarAutoresController implements Initializable {
             } catch (Exception ex) {
                 log.error("Erro ao atualizar o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao atualizar o Autor.\nFavor entrar em contato com o Administrador.",
+                        "Erro ao atualizar o(a) Autor(a).\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
         } else {
@@ -250,17 +259,27 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         Dialogs.DialogResponse resposta;
-        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir o(a) Autor(a)?"
-                + "\nAo excluir, todas as músicas de sua autoria serão apagadas.",
-                "Exclusão de Autor", "Confirmação");
+        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                "Tem certeza que deseja remover o(a) Autor(a) \""
+                + quantidadeAutoriaDtoSelecionado.getAutor().getNome() + "\" do sistema?"
+                + "\n\nATENÇÃO: Ao removê-lo(a), todas as músicas de sua autoria serão apagadas!",
+                "Remoção de Autor", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
                 AutorJpaController.getInstancia().destroy(quantidadeAutoriaDtoSelecionado.getAutor().getId());
                 this.autores.remove(quantidadeAutoriaDtoSelecionado);
+                this.lblInformacaoQuantidades.setText("O sistema contém "
+                        + AutorJpaController.getInstancia().getAutorCount() + " autor(es) e "
+                        + MusicaJpaController.getInstancia().getMusicaCount() + " música(s).");
                 this.tblAutores.setItems(this.autores);
                 atualizarTabela();
             } catch (NonexistentEntityException ex) {
+                log.error("Erro ao remover o Autor", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
+            } catch (Exception ex) {
                 log.error("Erro ao remover o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                         "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.",

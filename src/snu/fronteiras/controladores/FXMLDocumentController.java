@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -28,9 +29,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import org.apache.log4j.Logger;
@@ -44,6 +48,7 @@ import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
 import snu.fronteiras.controladores.musica.CriarMusicaController;
 import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
 import snu.geral.TipoPagina;
+import snu.util.EfeitosUtil;
 import snu.util.SeletorArquivosUtil;
 
 /**
@@ -180,6 +185,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     private void initComponents() {
@@ -238,6 +244,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -245,9 +252,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
 
+        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -255,9 +265,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
 
+        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -265,9 +278,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
 
+        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -289,6 +305,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -296,9 +313,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
 
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -306,9 +326,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
 
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -316,9 +339,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
 
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -326,9 +352,12 @@ public class FXMLDocumentController implements Initializable {
         TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
         controlador.setTipoPagina(TipoPagina.PESQUISA_GERACAO_IMPRESSAO);
 
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -347,6 +376,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -368,13 +398,17 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
     private void onActionFromPesquisarMissa(ActionEvent event) {
+        final Parent root = (Parent) this.templatePesquisaMissaLoader.getRoot();
+
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMissaLoader.getRoot());
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -383,28 +417,14 @@ public class FXMLDocumentController implements Initializable {
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
         }
-        final JFileChooser seletorArquivo = new JFileChooser(contextoUltimaSelecao);
+        final FileChooser seletorArquivo = new FileChooser();
+        seletorArquivo.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorArquivo.setTitle("Escolha do arquivo para importação");
+        seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQL", "*.sql"));
 
-        seletorArquivo.setFileFilter(new FileFilter() {
-
-            @Override
-            public boolean accept(File file) {
-                String filename = file.getName();
-                return filename.endsWith("sql");
-            }
-
-            @Override
-            public String getDescription() {
-                return "*.sql";
-            }
-
-        });
-        seletorArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        int returnVal = seletorArquivo.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            SeletorArquivosUtil.mapSeletores.put("importarDados", seletorArquivo.getSelectedFile().getPath());
-            final File arquivoImportacao = seletorArquivo.getSelectedFile();
+        final File arquivoImportacao = seletorArquivo.showOpenDialog(FXMLDocumentController.getInstancia().getStage());
+        if (arquivoImportacao != null) {
+            SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getAbsolutePath());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
             Parent root = null;
@@ -487,13 +507,12 @@ public class FXMLDocumentController implements Initializable {
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
         }
-        final JFileChooser seletorDiretorio = new JFileChooser(contextoUltimaSelecao);
-        seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        int returnVal = seletorDiretorio.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            SeletorArquivosUtil.mapSeletores.put("exportarDados", seletorDiretorio.getSelectedFile().getPath());
-            final File diretorioExportacao = seletorDiretorio.getSelectedFile();
+        final DirectoryChooser seletorDiretorio = new DirectoryChooser();
+        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorDiretorio.setTitle("Escolha do diretório para exportação");
+        final File diretorioExportacao = seletorDiretorio.showDialog(FXMLDocumentController.getInstancia().getStage());
+        if (diretorioExportacao != null) {
+            SeletorArquivosUtil.mapSeletores.put("exportarDados", diretorioExportacao.getAbsolutePath());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
             Parent root = null;
@@ -585,6 +604,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -593,14 +613,13 @@ public class FXMLDocumentController implements Initializable {
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = "C:";
         }
-        final JFileChooser seletorDiretorio = new JFileChooser(contextoUltimaSelecao);
-        seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        seletorDiretorio.setDialogTitle("Escolha do diretório do SGBD");
-        int returnVal = seletorDiretorio.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            SeletorArquivosUtil.mapSeletores.put("diretorioBD", seletorDiretorio.getSelectedFile().getPath());
-            File arquivo = seletorDiretorio.getSelectedFile();
-            String diretorioSGBD = arquivo.toString();
+        DirectoryChooser seletorDiretorio = new DirectoryChooser();
+        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorDiretorio.setTitle("Escolha do diretório do SGBD");
+        File diretorio = seletorDiretorio.showDialog(getStage());
+        if (diretorio != null) {
+            SeletorArquivosUtil.mapSeletores.put("diretorioBD", diretorio.getAbsolutePath());
+            String diretorioSGBD = diretorio.toString();
             SNU.configuracoesSistema.setDiretorioSGBD(diretorioSGBD);
             try {
                 ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);

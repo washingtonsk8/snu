@@ -113,9 +113,11 @@ public class AutorJpaController implements Serializable {
                 throw new NonexistentEntityException("The autor with id " + id + " no longer exists.", enfe);
             }
             List<Musica> musicasDeAutoria = autor.getMusicasDeAutoria();
+            Autor teste = new Autor();
+            teste.setNome("Desconhecido");
             for (Musica musicasDeAutoriaMusica : musicasDeAutoria) {
-                musicasDeAutoriaMusica.setAutor(null);
-                musicasDeAutoriaMusica = em.merge(musicasDeAutoriaMusica);
+                musicasDeAutoriaMusica.setAutor(teste);
+                em.merge(musicasDeAutoriaMusica);
             }
             em.remove(autor);
             em.getTransaction().commit();
