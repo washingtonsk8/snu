@@ -65,7 +65,7 @@ public class MusicaUtil {
     public static String converterTom(String conteudoEntrada, Tom tomOriginal, Tom tomParaConversao) {
         int contador = 0;
         Tom[] tons = Tom.values();
-        String conteudoSaida = "";
+        StringBuffer conteudoSaida = new StringBuffer();
         /**
          * Quantidade de tons de diferença contando de meio em meio tom Soma-se
          * o tamanho do vetor para que se possa fazer a operação de MOD
@@ -82,64 +82,64 @@ public class MusicaUtil {
         while (contador < conteudoEntrada.length()) {
             caractereAtual = conteudoEntrada.charAt(contador);
             if (caractereAtual != '@' && caractereAtual != '/') {
-                conteudoSaida += conteudoEntrada.charAt(contador++);
+                conteudoSaida.append(conteudoEntrada.charAt(contador++));
             } else {
-                conteudoSaida += caractereAtual;
+                conteudoSaida.append(caractereAtual);
                 caractereAtual = conteudoEntrada.charAt(++contador);
                 switch (caractereAtual) {
                     case 'A':
                         if (contador != tamanhoVerificador && conteudoEntrada.charAt(contador + 1) == '#') {
-                            conteudoSaida += tons[(Tom.A_SUSTENIDO.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.A_SUSTENIDO.ordinal() + diferenca) % tons.length]);
                             contador++;
                         } else {
-                            conteudoSaida += tons[(Tom.A.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.A.ordinal() + diferenca) % tons.length]);
                         }
                         break;
                     case 'B':
-                        conteudoSaida += tons[(Tom.B.ordinal() + diferenca) % tons.length].toString();
+                        conteudoSaida.append(tons[(Tom.B.ordinal() + diferenca) % tons.length]);
                         break;
                     case 'C':
                         if (contador != tamanhoVerificador && conteudoEntrada.charAt(contador + 1) == '#') {
-                            conteudoSaida += tons[(Tom.C_SUSTENIDO.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.C_SUSTENIDO.ordinal() + diferenca) % tons.length]);
                             contador++;
                         } else {
-                            conteudoSaida += tons[(Tom.C.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.C.ordinal() + diferenca) % tons.length]);
                         }
                         break;
                     case 'D':
                         if (contador != tamanhoVerificador && conteudoEntrada.charAt(contador + 1) == '#') {
-                            conteudoSaida += tons[(Tom.D_SUSTENIDO.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.D_SUSTENIDO.ordinal() + diferenca) % tons.length]);
                             contador++;
                         } else {
-                            conteudoSaida += tons[(Tom.D.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.D.ordinal() + diferenca) % tons.length]);
                         }
                         break;
                     case 'E':
-                        conteudoSaida += tons[(Tom.E.ordinal() + diferenca) % tons.length].toString();
+                        conteudoSaida.append(tons[(Tom.E.ordinal() + diferenca) % tons.length]);
                         break;
                     case 'F':
                         if (contador != tamanhoVerificador && conteudoEntrada.charAt(contador + 1) == '#') {
-                            conteudoSaida += tons[(Tom.F_SUSTENIDO.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.F_SUSTENIDO.ordinal() + diferenca) % tons.length]);
                             contador++;
                         } else {
-                            conteudoSaida += tons[(Tom.F.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.F.ordinal() + diferenca) % tons.length]);
                         }
                         break;
                     case 'G':
                         if (contador != tamanhoVerificador && conteudoEntrada.charAt(contador + 1) == '#') {
-                            conteudoSaida += tons[(Tom.G_SUSTENIDO.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.G_SUSTENIDO.ordinal() + diferenca) % tons.length]);
                             contador++;
                         } else {
-                            conteudoSaida += tons[(Tom.G.ordinal() + diferenca) % tons.length].toString();
+                            conteudoSaida.append(tons[(Tom.G.ordinal() + diferenca) % tons.length]);
                         }
                         break;
                     default:
-                        conteudoSaida += conteudoEntrada.charAt(contador);
+                        conteudoSaida.append(conteudoEntrada.charAt(contador));
                         break;
                 }
                 contador++;
             }
         }
-        return conteudoSaida.replaceAll("#b", "");//Remove as irregularidades e retorna
+        return conteudoSaida.toString().replaceAll("#b", "");//Remove as irregularidades e retorna
     }
 }

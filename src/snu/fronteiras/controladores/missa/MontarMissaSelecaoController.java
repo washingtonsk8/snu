@@ -251,7 +251,8 @@ public class MontarMissaSelecaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             if (!this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem())) {
-                //TODO: Reportar erro!
+                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "A música arrastada não foi adicionada.", "Aviso!", "Aviso");
             }
             success = true;
         }

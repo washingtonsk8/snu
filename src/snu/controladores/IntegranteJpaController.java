@@ -8,6 +8,7 @@ package snu.controladores;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -33,8 +34,8 @@ public class IntegranteJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static IntegranteJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static IntegranteJpaController instancia;
 
     /**
      * Construtor da classe Singleton
@@ -171,7 +172,7 @@ public class IntegranteJpaController implements Serializable {
         List<Predicate> predicados = new ArrayList<>();
 
         if (StringUtil.hasAlgo(parametrosPesquisa.getNome())) {
-            predicados.add(cb.like(cb.lower(integrante.<String>get("nome")), "%" + parametrosPesquisa.getNome().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(integrante.<String>get("nome")), "%" + parametrosPesquisa.getNome().toLowerCase(new Locale("pt", "BR")) + "%"));
         }
         if (parametrosPesquisa.getFuncaoPrimaria() != null) {
             predicados.add(cb.equal(integrante.<FuncaoIntegrante>get("funcaoPrimaria"), parametrosPesquisa.getFuncaoPrimaria()));

@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +37,7 @@ public class Missa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataAcontecimento;
 
-    @ManyToMany(mappedBy = "missasPresente")    
+    @ManyToMany(mappedBy = "missasPresente")
     private Set<Musica> musicasUtilizadas;
 
     @Column(name = "descricao_email", columnDefinition = "LONGTEXT")

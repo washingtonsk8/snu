@@ -29,8 +29,8 @@ public class ConfiguracoesSistemaJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static ConfiguracoesSistemaJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static ConfiguracoesSistemaJpaController instancia;
 
     /**
      * Construtor da classe Singleton

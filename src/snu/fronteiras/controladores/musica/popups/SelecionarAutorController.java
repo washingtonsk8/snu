@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -170,7 +171,7 @@ public class SelecionarAutorController implements Initializable {
 
     @FXML
     private void onKeyReleasedFromFldPesquisarAutor(KeyEvent event) {
-        String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase();
+        String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase(new Locale("pt", "BR"));
         if (!textoPesquisa.isEmpty()) {
             ObservableList<Autor> autoresFiltrados = FXCollections.observableArrayList();
 

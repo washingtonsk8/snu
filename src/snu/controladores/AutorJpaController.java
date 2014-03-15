@@ -6,21 +6,21 @@
 package snu.controladores;
 
 import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import snu.entidades.musica.Musica;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
 import snu.entidades.musica.Autor;
+import snu.entidades.musica.Musica;
+import snu.exceptions.NonexistentEntityException;
 
 /**
  * Classe que controla todas as conexões com o banco da entidade Autor
@@ -28,12 +28,24 @@ import snu.entidades.musica.Autor;
  * @author Washington Luis
  */
 public class AutorJpaController implements Serializable {
+    private volatile static AutorJpaController instancia;
+
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
+    public static AutorJpaController getInstancia() {
+        if (instancia == null) {
+            instancia = new AutorJpaController();
+        }
+        return instancia;
+    }
 
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static AutorJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
 
     /**
      * Construtor da classe Singleton
@@ -187,17 +199,5 @@ public class AutorJpaController implements Serializable {
         } finally {
             em.close();
         }
-    }
-
-    /**
-     * Obtém a instância Singleton
-     *
-     * @return
-     */
-    public static AutorJpaController getInstancia() {
-        if (instancia == null) {
-            instancia = new AutorJpaController();
-        }
-        return instancia;
     }
 }

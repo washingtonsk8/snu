@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -34,9 +33,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 import org.apache.log4j.Logger;
 import snu.bd.BDDump;
 import snu.controladores.ConfiguracoesSistemaJpaController;
@@ -494,6 +490,10 @@ public class FXMLDocumentController implements Initializable {
                                     "Erro!", "Erro");
                             dialogStage.close();
                             break;
+                        default:
+                            log.fatal("Caiu em DEFAULT CASE");
+                            dialogStage.close();
+                            break;
                     }
                 }
             });
@@ -579,6 +579,10 @@ public class FXMLDocumentController implements Initializable {
                             Dialogs.showErrorDialog(getStage(), "Erro ao exportar dados."
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
+                            dialogStage.close();
+                            break;
+                        default:
+                            log.fatal("Caiu em DEFAULT CASE");
                             dialogStage.close();
                             break;
                     }

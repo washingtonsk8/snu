@@ -30,8 +30,8 @@ public class ObjetoListaInvertidaJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static ObjetoListaInvertidaJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static ObjetoListaInvertidaJpaController instancia;
 
     /**
      * Construtor da classe Singleton

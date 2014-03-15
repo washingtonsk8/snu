@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -43,8 +44,8 @@ public class MusicaJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static MusicaJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static MusicaJpaController instancia;
 
     /**
      * Construtor da classe Singleton
@@ -118,7 +119,7 @@ public class MusicaJpaController implements Serializable {
             List<AssociacaoIntegranteMusica> associacoes = musica.getAssociacoes();
             for (AssociacaoIntegranteMusica associacoesAssociacaoIntegranteMusica : associacoes) {
                 associacoesAssociacaoIntegranteMusica.setMusica(null);
-                associacoesAssociacaoIntegranteMusica = em.merge(associacoesAssociacaoIntegranteMusica);
+                em.merge(associacoesAssociacaoIntegranteMusica);
             }
             em.remove(musica);
 
@@ -219,10 +220,10 @@ public class MusicaJpaController implements Serializable {
 
         if (StringUtil.hasAlgo(parametrosPesquisa.getNomeAutor())) {
             Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
-            predicados.add(cb.like(cb.lower(autor.<String>get("nome")), "%" + parametrosPesquisa.getNomeAutor().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(autor.<String>get("nome")), "%" + parametrosPesquisa.getNomeAutor().toLowerCase(new Locale("pt", "BR")) + "%"));
         }
         if (StringUtil.hasAlgo(parametrosPesquisa.getNomeMusica())) {
-            predicados.add(cb.like(cb.lower(musica.<String>get("nome")), "%" + parametrosPesquisa.getNomeMusica().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(musica.<String>get("nome")), "%" + parametrosPesquisa.getNomeMusica().toLowerCase(new Locale("pt", "BR")) + "%"));
         }
         if (StringUtil.hasAlgo(parametrosPesquisa.getDescricaoLeiturasAssociadas())) {
             Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);

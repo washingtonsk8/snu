@@ -17,5 +17,5 @@ public class SeletorArquivosUtil {
     /**
      * Mapa que guarda os contextos (caminhos) dos seletores (FileChooser)
      */
-    public static HashMap<String, String> mapSeletores = new HashMap<>();
+    public static final HashMap<String, String> mapSeletores = new HashMap<>();
 }

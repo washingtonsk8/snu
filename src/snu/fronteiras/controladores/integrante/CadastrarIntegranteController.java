@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.integrante;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -429,7 +430,7 @@ public class CadastrarIntegranteController implements Initializable {
         if (validarCampos()) {
             this.integranteRow.setNome(this.fldNome.getText());
             this.integranteRow.setDataNascimento(this.dpDataNascimento.getSelectedDate());
-            this.integranteRow.setEmail(this.fldEmail.getText().toLowerCase());
+            this.integranteRow.setEmail(this.fldEmail.getText().toLowerCase(new Locale("pt", "BR")));
             this.integranteRow.setDataEntrada(this.dpDataEntrada.getSelectedDate());
             this.integranteRow.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
             this.integranteRow.setTelefoneCelular(this.fldTelefoneCelular.getText());

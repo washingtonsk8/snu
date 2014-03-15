@@ -27,8 +27,8 @@ public class DocumentoMusicaJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static DocumentoMusicaJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static DocumentoMusicaJpaController instancia;
 
     /**
      * Construtor da classe Singleton

@@ -5,6 +5,7 @@
  */
 package snu.controladores.indexador;
 
+import java.util.Locale;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.util.Version;
 import snu.entidades.musica.Musica;
@@ -21,7 +22,7 @@ public class IndexadorController {
 
     private final BrazilianAnalyzer brazilianAnalyzer;
 
-    protected static final String[] STOP_WORDS = {"a", "agora", "ainda", "alguém", "algum",
+    static final String[] STOP_WORDS = {"a", "agora", "ainda", "alguém", "algum",
         "alguma", "algumas", "alguns", "ampla", "amplas", "amplo", "amplos", "ante",
         "antes", "ao", "aos", "após", "aquela", "aquelas", "aquele", "aqueles", "aquilo",
         "as", "até", "através", "cada", "coisa", "coisas", "com", "como", "contra",
@@ -67,7 +68,7 @@ public class IndexadorController {
         String saida;
         saida = StringUtil.somenteLetras(entrada, false);//Retira pontuação e (espaços --> false)
         saida = StringUtil.removerAcentos(saida);//Retira acentuação
-        return saida.toLowerCase();//Passa tudo para minúsculo
+        return saida.toLowerCase(new Locale("pt", "BR"));//Passa tudo para minúsculo
     }
 
     /**

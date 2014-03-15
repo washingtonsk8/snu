@@ -175,11 +175,11 @@ public class VisualizarIntegranteController implements Initializable {
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
-        
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(content);        
+        pai.getChildren().add(content);
         EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 }

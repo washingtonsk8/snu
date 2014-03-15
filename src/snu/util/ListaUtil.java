@@ -26,13 +26,13 @@ public class ListaUtil {
             return null;
         }
         if (lista.isEmpty()) {
-            return new String();
+            return "";
         }
 
-        String resposta = "";
+        StringBuilder resposta = new StringBuilder();
 
         for (Object elemento : lista) {
-            resposta += elemento + "; ";
+            resposta.append(elemento).append("; ");
         }
 
         return resposta.substring(0, resposta.length() - 2);
@@ -49,13 +49,13 @@ public class ListaUtil {
             return null;
         }
         if (lista.isEmpty()) {
-            return new String();
+            return "";
         }
 
-        String resposta = "";
+        StringBuilder resposta = new StringBuilder();
 
         for (Object elemento : lista) {
-            resposta += elemento + ", ";
+            resposta.append(elemento).append(", ");
         }
 
         return resposta.substring(0, resposta.length() - 2);

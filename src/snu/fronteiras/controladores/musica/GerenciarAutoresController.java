@@ -9,8 +9,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -162,7 +162,7 @@ public class GerenciarAutoresController implements Initializable {
         ObservableList<QuantidadeAutoriaDTO> autoresFiltrados = FXCollections.observableArrayList();
 
         for (QuantidadeAutoriaDTO quantidadeAutoriaDTO : this.autores) {
-            String nomeAutor = quantidadeAutoriaDTO.getAutor().getNome().toLowerCase();
+            String nomeAutor = quantidadeAutoriaDTO.getAutor().getNome().toLowerCase(new Locale("pt", "BR"));
             if (nomeAutor.contains(textoPesquisa)) {
                 autoresFiltrados.add(quantidadeAutoriaDTO);
             }
@@ -192,7 +192,7 @@ public class GerenciarAutoresController implements Initializable {
 
     @FXML
     private void onKeyReleasedFromFldPesquisarAutor(KeyEvent event) {
-        String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase();
+        String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase(new Locale("pt", "BR"));
         if (StringUtil.hasAlgo(textoPesquisa)) {
             filtrarTabela(textoPesquisa);
         } else {

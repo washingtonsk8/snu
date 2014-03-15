@@ -39,6 +39,7 @@ public class BDDumpTest {
 
     /**
      * Test of doBakup method, of class BDDump.
+     *
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
      */

@@ -164,7 +164,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
-        
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
         pai.getChildren().clear();

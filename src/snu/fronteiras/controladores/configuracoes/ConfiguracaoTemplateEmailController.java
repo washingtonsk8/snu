@@ -77,7 +77,7 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
             log.error("Erro ao salvar template de e-mail", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Erro ao salvar o Template de E-mail."
-                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
 

@@ -14,9 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialogs;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.swing.JFileChooser;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 
@@ -30,7 +28,13 @@ import org.apache.log4j.Logger;
 public class SNU extends Application {
 
     private static final Double VERSAO = 1.0;
-    public static ConfiguracoesSistema configuracoesSistema;
+
+    private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
+            = ConfiguracoesSistemaJpaController.getInstancia();
+
+    //Realizando o carregamento das configurações padrões do sistema
+    public static ConfiguracoesSistema configuracoesSistema
+            = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(SNU.class.getName());
@@ -41,16 +45,13 @@ public class SNU extends Application {
      * @param stage
      */
     @Override
+    @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
     public void start(Stage stage) {
         log.info("Iniciando a aplicação");
 
         try {
             //Inicializando o Gerenciador de Entidades!
             GerenciadorDeEntidades.getInstancia();
-            ConfiguracoesSistemaJpaController configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
-
-            //Realizando o carregamento das configurações padrões do sistema
-            configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
 
             if (configuracoesSistema == null) {
                 ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
@@ -60,7 +61,7 @@ public class SNU extends Application {
                         + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
 
                 final DirectoryChooser seletorDiretorio = new DirectoryChooser();
-                seletorDiretorio.setInitialDirectory(new File("C:"));
+                seletorDiretorio.setInitialDirectory(new File("C:\\"));
                 seletorDiretorio.setTitle("Escolha do diretório do SGBD");
                 String diretorioSGBD = "C:";
                 final File diretorio = seletorDiretorio.showDialog(stage);

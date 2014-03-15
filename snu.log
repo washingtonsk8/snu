@@ -760,3 +760,8 @@ Caused by: java.sql.BatchUpdateException: Cannot delete or update a parent row: 
 2014-03-13 22:35  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
 2014-03-13 22:35  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
 2014-03-13 22:36  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
+2014-03-14 21:53  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
+2014-03-14 21:53  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
+2014-03-14 21:55  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
+2014-03-14 21:56  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
+2014-03-14 23:21  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação

@@ -5,6 +5,7 @@
  */
 package snu.util;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -36,7 +37,7 @@ public class RegexUtil {
      */
     public static boolean validarEmail(String email) {
         padrao = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}");
-        return padrao.matcher(email.toLowerCase()).matches();
+        return padrao.matcher(email.toLowerCase(new Locale("pt", "BR"))).matches();
     }
 
     /**
@@ -57,6 +58,6 @@ public class RegexUtil {
      */
     public static boolean validarTelefone(String telefone) {
         padrao = Pattern.compile("(\\d\\d)[0-9]{4,5}-[0-9]{4}");
-        return padrao.matcher(telefone.toLowerCase()).matches();
+        return padrao.matcher(telefone.toLowerCase(new Locale("pt", "BR"))).matches();
     }
 }

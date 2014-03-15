@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores.musica.popups;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +13,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -41,7 +39,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
 import org.apache.log4j.Logger;
 import snu.controladores.PDFController;
@@ -291,6 +288,10 @@ public class GerarImpressaoMusicaController implements Initializable {
                                 break;
                             case CANCELLED:
                             case FAILED:
+                                dialogStage.close();
+                                break;
+                            default:
+                                log.fatal("Caiu em DEFAULT CASE");
                                 dialogStage.close();
                                 break;
                         }

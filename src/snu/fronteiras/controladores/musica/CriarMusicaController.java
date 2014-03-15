@@ -228,7 +228,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 return new SimpleStringProperty(associacao.getValue().getTom().toString());
             }
         });
-        
+
         //Adicionando as checkboxes na lista
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ENTRADA, this.checkEntrada));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ATO_PENITENCIAL, this.checkAtoPenitencial));
@@ -279,7 +279,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
         //Persistindo no banco (PS.: Realizar antes da indexação!!!)
         MusicaJpaController.getInstancia().create(this.musica);
-        
+
         try {
             IndexadorController.getInstancia().indexar(musica);
         } catch (Exception ex) {
@@ -306,7 +306,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     log.error("Erro ao carregar tela de Atualização de Música", ex);
                     Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                             "Erro ao carregar tela de Atualização de Música."
-                                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
                 }
 
                 AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
@@ -314,13 +314,13 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                         = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
                 templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
                 templateMusicaController.atualizar();
-                
+
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
                 atualizarMusicaController.initData(this.musica, templateMusicaController);
                 pai.getChildren().clear();
                 pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+                EfeitosUtil.rodarEfeitoCarregamento(root);
             } else {
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
@@ -664,7 +664,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             log.error("Erro ao carregar tela para Escrever o Conteúdo", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Erro ao carregar tela para Escrever o Conteúdo."
-                            + "\nFavor entrar em contato com o Administrador.",
+                    + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
 
@@ -677,7 +677,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         pai.getChildren().add(root);
         EfeitosUtil.rodarEfeitoCarregamento(root);
     }
-    
+
     @FXML
     private void onActionFromBtnSelecionarAutor(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml"));
@@ -688,7 +688,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             log.error("Erro ao carregar tela para Seleção de Autor", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Erro ao carregar tela para Seleção de Autor."
-                            + "\nFavor entrar em contato com o Administrador.",
+                    + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
 
@@ -760,16 +760,18 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                             + "\nDeseja salvar a Música mesmo assim?",
                             "Criação de Música com mesmo nome", "Confirmação");
                 } else {
-                    String textoQuestionamento = "Foram encontradas as seguintes Músicas com o mesmo nome:\n";
+                    StringBuffer textoQuestionamento = new StringBuffer();
+
+                    textoQuestionamento.append("Foram encontradas as seguintes Músicas com o mesmo nome:\n");
 
                     for (Musica musicaEncontrada : musicasEncontradas) {
-                        textoQuestionamento += "\t" + musicaEncontrada.getTitulo() + "\n";
+                        textoQuestionamento.append("\t").append(musicaEncontrada.getTitulo()).append("\n");
                     }
 
-                    textoQuestionamento += "\nDeseja salvar a Música mesmo assim?";
+                    textoQuestionamento.append("\nDeseja salvar a Música mesmo assim?");
 
-                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), textoQuestionamento,
-                            "Criação de Música com mesmo nome", "Confirmação");
+                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                            textoQuestionamento.toString(), "Criação de Música com mesmo nome", "Confirmação");
                 }
 
                 return resposta.equals(Dialogs.DialogResponse.YES);
@@ -844,6 +846,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                                 break;
                             case CANCELLED:
                             case FAILED:
+                                dialogStage.close();
+                                break;
+                            default:
+                                log.fatal("Caiu em DEFAULT CASE");
                                 dialogStage.close();
                                 break;
                         }

@@ -299,15 +299,16 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                             + "\nDeseja atualizar a Música mesmo assim?",
                             "Criação de Música com mesmo nome", "Confirmação");
                 } else {
-                    String textoQuestionamento = "Foram encontradas as seguintes Músicas com o mesmo nome:\n";
+                    StringBuffer textoQuestionamento = new StringBuffer();
+                    textoQuestionamento.append("Foram encontradas as seguintes Músicas com o mesmo nome:\n");
 
                     for (Musica musicaEncontrada : musicasEncontradas) {
-                        textoQuestionamento += "\t" + musicaEncontrada.getTitulo() + "\n";
+                        textoQuestionamento.append("\t").append(musicaEncontrada.getTitulo()).append("\n");
                     }
 
-                    textoQuestionamento += "\nDeseja atualizar a Música mesmo assim?";
+                    textoQuestionamento.append("\nDeseja atualizar a Música mesmo assim?");
 
-                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), textoQuestionamento,
+                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), textoQuestionamento.toString(),
                             "Criação de Música com mesmo nome", "Confirmação");
                 }
 
@@ -841,6 +842,10 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                                 break;
                             case CANCELLED:
                             case FAILED:
+                                dialogStage.close();
+                                break;
+                            default:
+                                log.fatal("Caiu em DEFAULT CASE");
                                 dialogStage.close();
                                 break;
                         }

@@ -30,8 +30,8 @@ public class VocabuloJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static VocabuloJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static VocabuloJpaController instancia;
 
     /**
      * Construtor da classe Singleton
@@ -98,7 +98,7 @@ public class VocabuloJpaController implements Serializable {
             List<ObjetoListaInvertida> listaInvertida = vocabulo.getListaInvertida();
             for (ObjetoListaInvertida listaInvertidaObjetoListaInvertida : listaInvertida) {
                 listaInvertidaObjetoListaInvertida.setVocabulo(null);
-                listaInvertidaObjetoListaInvertida = em.merge(listaInvertidaObjetoListaInvertida);
+                em.merge(listaInvertidaObjetoListaInvertida);
             }
             em.remove(vocabulo);
             em.getTransaction().commit();

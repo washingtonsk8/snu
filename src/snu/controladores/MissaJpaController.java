@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import snu.entidades.musica.Musica;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,8 +37,8 @@ public class MissaJpaController implements Serializable {
     /**
      * Fábrica Singleton do sistema
      */
-    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
-    private static MissaJpaController instancia;
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static MissaJpaController instancia;
 
     /**
      * Construtor da classe Singleton
@@ -136,7 +137,7 @@ public class MissaJpaController implements Serializable {
             Set<Musica> musicasUtilizadas = missa.getMusicasUtilizadas();
             for (Musica musicasUtilizadasMusica : musicasUtilizadas) {
                 musicasUtilizadasMusica.getMissasPresente().remove(missa);
-                musicasUtilizadasMusica = em.merge(musicasUtilizadasMusica);
+                em.merge(musicasUtilizadasMusica);
             }
             em.remove(missa);
             em.getTransaction().commit();
@@ -210,7 +211,7 @@ public class MissaJpaController implements Serializable {
         List<Predicate> predicados = new ArrayList<>();
 
         if (StringUtil.hasAlgo(parametrosPesquisa.getNomeMissa())) {
-            predicados.add(cb.like(cb.lower(missa.<String>get("nome")), "%" + parametrosPesquisa.getNomeMissa().toLowerCase() + "%"));
+            predicados.add(cb.like(cb.lower(missa.<String>get("nome")), "%" + parametrosPesquisa.getNomeMissa().toLowerCase(new Locale("pt", "BR")) + "%"));
         }
         if (parametrosPesquisa.getDataAcontecimento() != null) {
             predicados.add(cb.equal(missa.<Date>get("dataAcontecimento"), parametrosPesquisa.getDataAcontecimento()));

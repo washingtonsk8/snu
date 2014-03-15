@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.integrante;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -446,7 +447,7 @@ public class AtualizarIntegranteController implements Initializable {
         if (validarCampos()) {
             this.integrante.setNome(this.fldNome.getText());
             this.integrante.setDataNascimento(this.dpDataNascimento.getSelectedDate());
-            this.integrante.setEmail(this.fldEmail.getText().toLowerCase());
+            this.integrante.setEmail(this.fldEmail.getText().toLowerCase(new Locale("pt", "BR")));
             this.integrante.setDataEntrada(this.dpDataEntrada.getSelectedDate());
             this.integrante.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
             this.integrante.setTelefoneCelular(this.fldTelefoneCelular.getText());
@@ -484,7 +485,7 @@ public class AtualizarIntegranteController implements Initializable {
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
-        
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
         pai.getChildren().clear();

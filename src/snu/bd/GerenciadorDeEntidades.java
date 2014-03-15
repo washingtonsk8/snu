@@ -18,7 +18,7 @@ public class GerenciadorDeEntidades {
     /**
      * Fábrica de gerenciador de entidades
      */
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("SNUPU");
+    private transient final EntityManagerFactory emf = Persistence.createEntityManagerFactory("SNUPU");
     private static GerenciadorDeEntidades instancia;
 
     /**
