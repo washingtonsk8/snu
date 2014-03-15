@@ -765,3 +765,26 @@ Caused by: java.sql.BatchUpdateException: Cannot delete or update a parent row: 
 2014-03-14 21:55  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
 2014-03-14 21:56  INFO [JavaFX Application Thread] (SNU.java:45) - Iniciando a aplicação
 2014-03-14 23:21  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 09:05  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 09:07  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 09:26 FATAL [JavaFX Application Thread] (FXMLDocumentController.java:585) - Caiu em DEFAULT CASE
+2014-03-15 09:41 FATAL [JavaFX Application Thread] (CriarMusicaController.java:852) - Caiu em DEFAULT CASE
+2014-03-15 09:46 FATAL [JavaFX Application Thread] (AtualizarMusicaController.java:848) - Caiu em DEFAULT CASE
+2014-03-15 09:49 FATAL [JavaFX Application Thread] (CriarMusicaController.java:852) - Caiu em DEFAULT CASE
+2014-03-15 09:54 FATAL [JavaFX Application Thread] (CriarMusicaController.java:852) - Caiu em DEFAULT CASE
+2014-03-15 10:10  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 10:11 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 10:12 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 10:23  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 10:30 FATAL [JavaFX Application Thread] (FXMLDocumentController.java:494) - Caiu em DEFAULT CASE
+2014-03-15 10:36  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 10:40 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 10:44 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 12:35 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 12:38 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 12:41 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 12:45 FATAL [JavaFX Application Thread] (CriarMusicaController.java:873) - Caiu em DEFAULT CASE
+2014-03-15 12:46 FATAL [JavaFX Application Thread] (FXMLDocumentController.java:585) - Caiu em DEFAULT CASE
+2014-03-15 12:54  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 13:03  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação
+2014-03-15 13:11  INFO [JavaFX Application Thread] (SNU.java:50) - Iniciando a aplicação

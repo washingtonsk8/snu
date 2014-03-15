@@ -154,11 +154,14 @@ public class MontarMissaFinalizacaoController implements Initializable {
         VisualizarDadosMissaController visualizarDadosMissaController
                 = this.controladorPrincipal.getTemplatePesquisaMissaLoader().getController();
         visualizarDadosMissaController.atualizar();
+        
+        final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMissaLoader().getRoot();
 
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMissaLoader().getRoot());
+        pai.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML

@@ -326,9 +326,12 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentVisualizarMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContent());
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 }

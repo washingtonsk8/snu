@@ -64,7 +64,7 @@ public class IndexadorController {
      * @return
      */
     public String preProcessar(String entrada) {
-        //TODO: Remover da indexação tudo o que tiver entre parentesis.
+        //TODO: Remover da indexação tudo o que tiver entre parentesis. (Verificar)
         String saida;
         saida = StringUtil.somenteLetras(entrada, false);//Retira pontuação e (espaços --> false)
         saida = StringUtil.removerAcentos(saida);//Retira acentuação

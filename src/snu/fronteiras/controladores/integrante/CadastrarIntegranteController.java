@@ -455,10 +455,13 @@ public class CadastrarIntegranteController implements Initializable {
             templatePesquisaIntegrante.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
             templatePesquisaIntegrante.atualizar();
 
+            final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getRoot();
+
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
             pai.getChildren().clear();
-            pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getRoot());
+            pai.getChildren().add(root);
+            EfeitosUtil.rodarEfeitoCarregamento(root);
         } else {
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }

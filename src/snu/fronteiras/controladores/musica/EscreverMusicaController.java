@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
+import snu.util.EfeitosUtil;
 import snu.util.MusicaUtil;
 
 /**
@@ -92,17 +93,23 @@ public class EscreverMusicaController implements Initializable {
         this.musica.getDocumentoMusica().setIntroducao(this.fldIntroducao.getText());
         this.musica.getDocumentoMusica().setConteudo(this.areaEscreverMusica.getText());
 
+        final AnchorPane content = this.controladorOrigem.getContentPane();
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentPane());
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 
     @FXML
     private void onActionFromBtnCancelar(ActionEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContentPane();
+
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
-        pai.getChildren().add(this.controladorOrigem.getContentPane());
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 }

@@ -34,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -201,6 +202,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.comboAfinacao.setItems(this.afinacoesMusica);//Coloca as afinações na combo
         this.comboAfinacao.getSelectionModel().select(Afinacao.EADGBE);//Define uma afinação padrão
 
+        //Definindo dicas
+        this.fldLeituras.setTooltip(new Tooltip("Insira as Leituras Associadas separadas por \";\". Ex.: Leitura 1; Leitura 2; Leitura 3"));
+        this.fldLeituras.setPromptText("Ex.: Leitura 1; Leitura 2; Leitura 3");
+        
         //Coloca os tons na combo para associação
         this.comboTomAssociacao.setItems(this.tonsMusica);
 
@@ -312,7 +317,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
                 TemplatePesquisaMusicaController templateMusicaController
                         = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
-                templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+                templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
                 templateMusicaController.atualizar();
 
                 //Limpa o conteúdo anterior e carrega a página
@@ -322,16 +327,32 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 pai.getChildren().add(root);
                 EfeitosUtil.rodarEfeitoCarregamento(root);
             } else {
+                TemplatePesquisaMusicaController templateMusicaController
+                        = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
+                templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+                templateMusicaController.atualizar();
+
+                final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot();
+
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
                 pai.getChildren().clear();
-                pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot());
+                pai.getChildren().add(root);
+                EfeitosUtil.rodarEfeitoCarregamento(root);
             }
         } else {
+            TemplatePesquisaMusicaController templateMusicaController
+                    = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
+            templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+            templateMusicaController.atualizar();
+
+            final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot();
+
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
             pai.getChildren().clear();
-            pai.getChildren().add((Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot());
+            pai.getChildren().add(root);
+            EfeitosUtil.rodarEfeitoCarregamento(root);
         }
     }
 
@@ -760,7 +781,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                             + "\nDeseja salvar a Música mesmo assim?",
                             "Criação de Música com mesmo nome", "Confirmação");
                 } else {
-                    StringBuffer textoQuestionamento = new StringBuffer();
+                    StringBuilder textoQuestionamento = new StringBuilder();
 
                     textoQuestionamento.append("Foram encontradas as seguintes Músicas com o mesmo nome:\n");
 

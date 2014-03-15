@@ -34,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -170,6 +171,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private TextField fldLinkVideo;
     @FXML
     private Label lblAtualizarMusica;
+    @FXML
+    private Button btnVoltar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -264,6 +267,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.fldAutor.setText(musica.getAutor().getNome());
         this.fldLinkVideo.setText(musica.getLinkVideo());
         this.fldLeituras.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas()));
+        this.fldLeituras.setTooltip(new Tooltip("Insira as Leituras Associadas separadas por \";\". Ex.: Leitura 1; Leitura 2; Leitura 3"));
+        this.fldLeituras.setPromptText("Ex.: Leitura 1; Leitura 2; Leitura 3");
 
         List<TipoMusica> tiposMusica = musica.getTipos();
 
@@ -299,7 +304,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                             + "\nDeseja atualizar a Música mesmo assim?",
                             "Criação de Música com mesmo nome", "Confirmação");
                 } else {
-                    StringBuffer textoQuestionamento = new StringBuffer();
+                    StringBuilder textoQuestionamento = new StringBuilder();
                     textoQuestionamento.append("Foram encontradas as seguintes Músicas com o mesmo nome:\n");
 
                     for (Musica musicaEncontrada : musicasEncontradas) {
@@ -782,6 +787,17 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             this.fldAutor.setText(autorSelecionado.getNome());
         }
         this.fldTitulo.requestFocus();//Coloca o foco no campo de título
+    }
+
+    @FXML
+    private void onActionFromBtnVoltar(ActionEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamento(content);
     }
 
     @FXML
