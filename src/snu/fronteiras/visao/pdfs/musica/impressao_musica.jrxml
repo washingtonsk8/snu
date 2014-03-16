@@ -4,6 +4,8 @@
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <parameter name="conteudoMusica" class="java.lang.String"/>
+    <parameter name="nomeMusica" class="java.lang.String"/>
+    <parameter name="autorMusica" class="java.lang.String"/>
     <parameter name="tituloMusica" class="java.lang.String"/>
     <parameter name="tiposMusica" class="java.lang.String"/>
     <parameter name="introducaoMusica" class="java.lang.String"/>
@@ -63,11 +65,11 @@
         <band height="77" splitType="Stretch">
             <printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() == 1]]></printWhenExpression>
             <textField>
-                <reportElement x="1" y="0" width="554" height="66" uuid="2705428e-ad68-4b52-a072-e3100b63a324"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
+                <reportElement x="76" y="0" width="479" height="38" uuid="2705428e-ad68-4b52-a072-e3100b63a324"/>
+                <textElement textAlignment="Center" verticalAlignment="Bottom">
                     <font fontName="Tahoma" size="20" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{tituloMusica}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{nomeMusica}]]></textFieldExpression>
             </textField>
             <frame>
                 <reportElement x="1" y="0" width="75" height="75" uuid="e469366f-648b-4f78-9cf4-eb62869e662b"/>
@@ -76,6 +78,13 @@
                     <imageExpression><![CDATA[$P{caminhoImagem}]]></imageExpression>
                 </image>
             </frame>
+            <textField>
+                <reportElement x="76" y="38" width="479" height="37" uuid="872ce733-823c-4a49-9e8d-0415ef039d66"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Tahoma" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{autorMusica}]]></textFieldExpression>
+            </textField>
         </band>
     </columnHeader>
     <detail>

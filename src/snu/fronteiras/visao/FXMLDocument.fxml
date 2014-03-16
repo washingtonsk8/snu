@@ -26,8 +26,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Integrante" fx:id="menuIntegrante">
                     <items>
-                        <MenuItem id="itemCadastrarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar Novo" fx:id="itemCadastrarIntegrante" />
-                        <MenuItem id="itemVisualizarDados" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosIntegrante" text="Visualizar Dados" fx:id="itemVisualizarDados" />
+                        <MenuItem mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar Novo" fx:id="itemCadastrarIntegrante" />
+                        <MenuItem mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosIntegrante" text="Visualizar Dados" fx:id="itemVisualizarDados" />
                         <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarIntegrante" text="Atualizar Dados" fx:id="itemAtualizarIntegrante" />
                         <MenuItem mnemonicParsing="false" onAction="#onActionFromItemRemoverIntegrante" text="Remover" fx:id="itemRemoverIntegrante" />
                     </items>
@@ -47,6 +47,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onActionFromItemMontarMissa" text="Montar" fx:id="itemMontarMissa" />
                         <MenuItem mnemonicParsing="false" onAction="#onActionFromPesquisarMissa" text="Pesquisar" fx:id="itemPesquisarMissa" />
+                        <MenuItem mnemonicParsing="false" onAction="#onActionFromItemLimparDadosMissa" text="Limpar Dados" fx:id="itemLimparDadosMissa" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Utilitários" fx:id="menuUtilitarios">
@@ -59,7 +60,7 @@
                         </Menu>
                     </items>
                 </Menu>
-                <Menu id="menuConfiguracoes" mnemonicParsing="false" text="Configurações" fx:id="menuConfiguracoes">
+                <Menu mnemonicParsing="false" text="Configurações" fx:id="menuConfiguracoes">
                     <items>
                         <Menu mnemonicParsing="false" text="Música" fx:id="menuConfiguracoesMusica">
                             <items>
@@ -80,7 +81,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane id="contentAnchor" fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="main">
+        <AnchorPane fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="main">
             <stylesheets>
                 <URL value="@../css/contents.css" />
             </stylesheets>

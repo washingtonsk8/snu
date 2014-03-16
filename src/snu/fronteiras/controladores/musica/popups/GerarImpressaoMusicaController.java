@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -228,7 +229,7 @@ public class GerarImpressaoMusicaController implements Initializable {
 
             final File arquivoGeracao = seletorArquivo.showSaveDialog(FXMLDocumentController.getInstancia().getStage());
             if (arquivoGeracao != null) {
-                SeletorArquivosUtil.mapSeletores.put("gerarImpressao", arquivoGeracao.getAbsolutePath());
+                SeletorArquivosUtil.mapSeletores.put("gerarImpressao", arquivoGeracao.getParent());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
                 Parent root = null;
                 try {
@@ -256,7 +257,24 @@ public class GerarImpressaoMusicaController implements Initializable {
                 final Task task = new Task<Void>() {
                     @Override
                     public Void call() {
-                        if (!gerarImpressao(parametros)) {
+                        gerarImpressao(parametros);
+                        //Instancia um novo controlador
+                        PDFController controladorPDF = new PDFController();
+                        try {
+                            controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper",
+                                    parametros, arquivoGeracao.getAbsolutePath());
+                        } catch (final JRException ex) {
+                            log.error("Erro ao gerar impressão de Música", ex);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                            "Erro ao gerar a impressão da Música."
+                                            + "\nÉ provável que o arquivo esteja aberto em outra aplicação."
+                                            + "\nCaso não esteja, favor entrar em contato com o Administrador.",
+                                            "Erro!", "Erro", ex);
+                                }
+                            });
                             cancel(true);
                         }
                         return null;
@@ -288,7 +306,11 @@ public class GerarImpressaoMusicaController implements Initializable {
                                 break;
                             case CANCELLED:
                             case FAILED:
+                                popupGerarImpressaoMusica.getScene().getWindow().hide();
                                 dialogStage.close();
+                                break;
+                            case SCHEDULED:
+                            case READY:
                                 break;
                             default:
                                 log.fatal("Caiu em DEFAULT CASE");
@@ -306,7 +328,7 @@ public class GerarImpressaoMusicaController implements Initializable {
         }
     }
 
-    protected final boolean gerarImpressao(Map<String, Object> parametros) {
+    protected final void gerarImpressao(Map<String, Object> parametros) {
         //Pré-definições
         Tom tomSelecionado = this.comboTom.getSelectionModel().getSelectedItem();
         Tom tomOriginal = this.musicaSelecionada.getTom();
@@ -321,6 +343,8 @@ public class GerarImpressaoMusicaController implements Initializable {
         parametros.put("cantorMusica", nomeCantorMusica == null ? "" : nomeCantorMusica);
         parametros.put("tomMusica", tomSelecionado.toString());
         parametros.put("caminhoImagem", caminhoImagem);
+        parametros.put("autorMusica", this.musicaSelecionada.getAutor().getNome());
+        parametros.put("nomeMusica", this.musicaSelecionada.getNome());
 
         if (tomOriginal.equals(tomSelecionado)) {
             parametros.put("introducaoMusica", introducaoMusica == null ? ""
@@ -338,20 +362,6 @@ public class GerarImpressaoMusicaController implements Initializable {
                             MusicaUtil.converterTom(conteudoMusica,
                                     this.musicaSelecionada.getTom(),
                                     tomSelecionado)));
-        }
-
-        //Instancia um novo controlador
-        PDFController controladorPDF = new PDFController();
-        try {
-            controladorPDF.gerarPDF("/snu/fronteiras/visao/pdfs/musica/impressao_musica.jasper",
-                    parametros, SeletorArquivosUtil.mapSeletores.get("gerarImpressao"));
-            return true;
-        } catch (JRException ex) {
-            log.error("Erro ao gerar impressão de Música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao gerar a impressão da Música."
-                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
-            return false;
         }
     }
 

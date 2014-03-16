@@ -31,11 +31,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
-import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
+import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
 import snu.util.EfeitosUtil;
@@ -80,9 +80,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     @FXML
     private Button btnLimpar;
 
-    private ObservableList<Integrante> integrantes = FXCollections.observableArrayList();
-
-    private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
+    private final ObservableList<FuncaoIntegrante> funcoesIntegrante
+            = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
     private TipoPagina tipoPagina;
 
@@ -156,8 +155,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         parametrosPesquisa.setNome(this.fldNome.getText());
         parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
 
-        this.integrantes = FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa));
-        this.tblIntegrantes.setItems(this.integrantes);
+        this.tblIntegrantes.setItems(FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa)));
     }
 
     private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
@@ -172,11 +170,13 @@ public class TemplatePesquisaIntegranteController implements Initializable {
             IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
             try {
                 integranteController.destroy(integranteSelecionado.getId());
-                this.integrantes.remove(integranteSelecionado);
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "O(A) Integrante foi removido(a) com sucesso!", "Sucesso!", "Informação");
+                this.tblIntegrantes.getItems().remove(integranteSelecionado);
             } catch (NonexistentEntityException ex) {
-                log.error("Erro ao remover o(a) Integrante", ex);
+                log.error("Erro ao excluir o(a) Integrante", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover o(a) Integrante.\nFavor entrar em contato com o Administrador.",
+                        "Erro ao excluir o(a) Integrante.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
             atualizarTabela();
@@ -284,6 +284,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                 this.lblTituloPagina.setText("Remover Integrante");
                 break;
             default:
+                log.fatal("Caiu em DEFAULT CASE");
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
                         + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;
@@ -302,11 +303,6 @@ public class TemplatePesquisaIntegranteController implements Initializable {
 
         final Integrante item = this.tblIntegrantes.getItems().get(0);
         itens.remove(0);
-        try {//Dorme um pouco para visualizarmos as alterações
-            Thread.sleep(300);
-        } catch (InterruptedException ex) {
-            log.info("Erro ao colocar Thread para dormir por 300ms", ex);
-        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

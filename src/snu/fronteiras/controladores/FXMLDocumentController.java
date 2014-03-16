@@ -40,6 +40,7 @@ import snu.controladores.SNU;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
 import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
+import snu.fronteiras.controladores.missa.LimparDadosMissasController;
 import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
 import snu.fronteiras.controladores.musica.CriarMusicaController;
 import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
@@ -116,6 +117,8 @@ public class FXMLDocumentController implements Initializable {
     private ImageView imgHome;
     @FXML
     private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
+    @FXML
+    private MenuItem itemLimparDadosMissa;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 
@@ -408,6 +411,32 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    private void onActionFromItemLimparDadosMissa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/LimparDadosMissas.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de limpeza de dados de Missas", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Limpeza de Dados de Missa."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Limpeza de Dados de Missas");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+
+        LimparDadosMissasController limparDadosMissaController = fxmlLoader.getController();
+        limparDadosMissaController.setFocusToContent();
+
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+    }
+
+    @FXML
     private void onActionFromItemImportarDados(ActionEvent event) {
         String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("importarDados");
         if (contextoUltimaSelecao == null) {
@@ -489,6 +518,9 @@ public class FXMLDocumentController implements Initializable {
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
                             dialogStage.close();
+                            break;
+                        case SCHEDULED:
+                        case READY:
                             break;
                         default:
                             log.fatal("Caiu em DEFAULT CASE");

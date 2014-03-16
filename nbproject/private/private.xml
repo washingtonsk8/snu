@@ -5,15 +5,15 @@
         <group>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/integrante/CadastrarIntegranteController.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/integrante/AtualizarIntegranteController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/interfaces/ControladorDeConteudoInterface.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/EscreverMusicaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/AtualizarMusicaController.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/CriarMusicaController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/AtualizarMusicaController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/EscreverMusicaController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/interfaces/ControladorDeConteudoInterface.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/manifest.mf</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/FXMLDocumentController.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/VisualizarMusicaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/missa/MontarMissaFinalizacaoController.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/integrante/TemplatePesquisaIntegranteController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/missa/MontarMissaFinalizacaoController.java</file>
         </group>
     </open-files>
 </project-private>

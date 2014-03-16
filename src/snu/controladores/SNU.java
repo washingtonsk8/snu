@@ -8,6 +8,7 @@ package snu.controladores;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,10 +16,12 @@ import javafx.scene.control.Dialogs;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 
 import org.apache.log4j.Logger;
+import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
  * Classe que inicializa tudo.
@@ -47,7 +50,7 @@ public class SNU extends Application {
     @Override
     @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
     public void start(Stage stage) {
-        log.info("Iniciando a aplicação");
+        log.info("Iniciando a aplicação...");
 
         try {
             //Inicializando o Gerenciador de Entidades!
@@ -96,6 +99,23 @@ public class SNU extends Application {
             stage.setMaxHeight(629.9);
 
             stage.setResizable(false);
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    Dialogs.DialogResponse resposta;
+                    resposta = Dialogs.showConfirmDialog(
+                            FXMLDocumentController.getInstancia().getStage(),
+                            "Tem certeza que deseja sair do sistema?",
+                            "Confirmação", "Confirmação");
+                    if (resposta != Dialogs.DialogResponse.YES) {
+                        event.consume();
+                    } else {
+                        log.info("Finalizando a aplicação...");
+                    }
+                }
+            });
+
             stage.show();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela principal", ex);

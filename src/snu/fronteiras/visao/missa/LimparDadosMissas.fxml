@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentLimparDadosMissa" onMouseClicked="#onMouseClickedFromContentLimparDadosMissa" prefHeight="150.0" prefWidth="520.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.missa.LimparDadosMissasController">
+    <children>
+        <Label fx:id="lblLimparDados" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Limpar Dados">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Button fx:id="btnOk" layoutX="426.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="30.0" prefWidth="80.0" text="Ok" />
+        <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" prefWidth="270.0" text="Limpar dados das Missas anteriores a:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

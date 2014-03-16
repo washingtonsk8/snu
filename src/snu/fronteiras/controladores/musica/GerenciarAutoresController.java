@@ -260,10 +260,10 @@ public class GerenciarAutoresController implements Initializable {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         Dialogs.DialogResponse resposta;
         resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                "Tem certeza que deseja remover o(a) Autor(a) \""
+                "Tem certeza que deseja excluir o(a) Autor(a) \""
                 + quantidadeAutoriaDtoSelecionado.getAutor().getNome() + "\" do sistema?"
-                + "\n\nATENÇÃO: Ao removê-lo(a), todas as músicas de sua autoria serão apagadas!",
-                "Remoção de Autor", "Confirmação");
+                + "\n\nATENÇÃO: Ao excluí-lo(a), todas as músicas de sua autoria serão excluídas também!",
+                "Exclusão de Autor", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
@@ -275,14 +275,14 @@ public class GerenciarAutoresController implements Initializable {
                 this.tblAutores.setItems(this.autores);
                 atualizarTabela();
             } catch (NonexistentEntityException ex) {
-                log.error("Erro ao remover o Autor", ex);
+                log.error("Erro ao excluir o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.",
+                        "Erro ao excluir o Autor.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             } catch (Exception ex) {
-                log.error("Erro ao remover o Autor", ex);
+                log.error("Erro ao excluir o Autor", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover o Autor.\nFavor entrar em contato com o Administrador.",
+                        "Erro ao excluir o Autor.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
         }

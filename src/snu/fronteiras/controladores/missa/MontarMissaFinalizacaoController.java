@@ -154,7 +154,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
         VisualizarDadosMissaController visualizarDadosMissaController
                 = this.controladorPrincipal.getTemplatePesquisaMissaLoader().getController();
         visualizarDadosMissaController.atualizar();
-        
+
         final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMissaLoader().getRoot();
 
         //Limpa o conteúdo anterior e carrega a página

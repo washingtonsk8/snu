@@ -55,6 +55,9 @@ import snu.util.StringUtil;
  */
 public class VisualizarMusicaController implements Initializable {
 
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(VisualizarMusicaController.class.getName());
+
     @FXML
     private AnchorPane contentVisualizarMusica;
     @FXML
@@ -115,9 +118,6 @@ public class VisualizarMusicaController implements Initializable {
     private Popup popup;
 
     private TableView<Missa> tblMissasPresente;
-
-    //Inicializando o Logger
-    private static final Logger log = Logger.getLogger(VisualizarMusicaController.class.getName());
 
     private void initComponents() {
 
@@ -276,24 +276,27 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onActionFromHplResultadoLinkVideo(ActionEvent event) {
-        try {
-            //Inicia a variável desktop, recebendo a area de trabalho do navegador
-            Desktop desktop = Desktop.getDesktop();
-            //Inicia a variável URI com uma endereço http
-            URI uri = new URI(this.hplResultadoLinkVideo.getText());
-            //Manda o desktop abrir a url criada acima
-            desktop.browse(uri);
-        } catch (URISyntaxException ex) {
-            log.error("Erro de sintaxe de URL de vídeo de música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao carregar a URL do vídeo. A sintaxe está incorreta.",
-                    "Erro!", "Erro", ex);
-        } catch (IOException ex) {
-            log.error("Erro ao abrir o navegador com o endereço informado.", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao abrir o navegador com a URL do vídeo."
-                    + "\nFavor entrar em contato com o Administrador.",
-                    "Erro!", "Erro", ex);
+        String linkParaVideo = this.hplResultadoLinkVideo.getText();
+        if (StringUtil.hasAlgo(linkParaVideo)) {
+            try {
+                //Inicia a variável desktop, recebendo a area de trabalho do navegador
+                Desktop desktop = Desktop.getDesktop();
+                //Inicia a variável URI com uma endereço http
+                URI uri = new URI(linkParaVideo);
+                //Manda o desktop abrir a url criada acima
+                desktop.browse(uri);
+            } catch (URISyntaxException ex) {
+                log.error("Erro de sintaxe de URL de vídeo de música", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao carregar a URL do vídeo. A sintaxe está incorreta.",
+                        "Erro!", "Erro", ex);
+            } catch (IOException ex) {
+                log.error("Erro ao abrir o navegador com o endereço informado.", ex);
+                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "Erro ao abrir o navegador com a URL do vídeo."
+                        + "\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
+            }
         }
     }
 

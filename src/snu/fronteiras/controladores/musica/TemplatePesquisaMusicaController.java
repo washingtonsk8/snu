@@ -270,12 +270,14 @@ public class TemplatePesquisaMusicaController implements Initializable {
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
                 MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
+                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "A Música foi removida com sucesso!", "Sucesso!", "Informação");
                 this.tblMusicas.getItems().remove(musicaSelecionada);
                 atualizarTabela();
             } catch (NonexistentEntityException ex) {
-                log.error("Erro ao remover Música", ex);
+                log.error("Erro ao excluir Música", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao remover a Música selecionada."
+                        "Erro ao excluir a Música selecionada."
                         + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
         }
@@ -287,9 +289,9 @@ public class TemplatePesquisaMusicaController implements Initializable {
         try {
             root = (AnchorPane) fxmlLoader.load();
         } catch (IOException ex) {
-            log.error("Erro ao remover Música", ex);
+            log.error("Erro ao excluir Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao remover a Música selecionada."
+                    "Erro ao excluir a Música selecionada."
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
 
@@ -591,6 +593,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 this.lblTituloPagina.setText("Gerar Impressão");
                 break;
             default:
+                log.fatal("Caiu em DEFAULT CASE");
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Erro de processamento interno."
                         + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;

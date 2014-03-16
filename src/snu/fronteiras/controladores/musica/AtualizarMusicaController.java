@@ -345,15 +345,25 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 //Remove as indexações anteriores
                 ObjetoListaInvertidaJpaController.getInstancia().destroyByMusicaId(this.musica.getId());
                 IndexadorController.getInstancia().indexar(this.musica);
-            } catch (NonexistentEntityException ex) {
+            } catch (final NonexistentEntityException ex) {
                 log.error("Erro ao remover Música", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-            } catch (Exception ex) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+                    }
+                });
+            } catch (final Exception ex) {
                 log.error("Erro ao indexar Música", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
-                        "Erro!", "Erro", ex);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
+                                "Erro!", "Erro", ex);
+                    }
+                });
             }
         }
 
@@ -859,6 +869,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                             case CANCELLED:
                             case FAILED:
                                 dialogStage.close();
+                                break;
+                            case SCHEDULED:
+                            case READY:
                                 break;
                             default:
                                 log.fatal("Caiu em DEFAULT CASE");

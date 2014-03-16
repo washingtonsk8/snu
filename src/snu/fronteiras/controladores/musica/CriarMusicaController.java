@@ -205,7 +205,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         //Definindo dicas
         this.fldLeituras.setTooltip(new Tooltip("Insira as Leituras Associadas separadas por \";\". Ex.: Leitura 1; Leitura 2; Leitura 3"));
         this.fldLeituras.setPromptText("Ex.: Leitura 1; Leitura 2; Leitura 3");
-        
+
         //Coloca os tons na combo para associação
         this.comboTomAssociacao.setItems(this.tonsMusica);
 
@@ -287,11 +287,16 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
         try {
             IndexadorController.getInstancia().indexar(musica);
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             log.error("Erro ao indexar Música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
-                    "Erro!", "Erro", ex);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
+                            "Erro!", "Erro", ex);
+                }
+            });
         }
     }
 
@@ -650,7 +655,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     "Tem certeza que deseja excluir a Associação?", "Exclusão de Associação", "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
-
                 this.itensAssociacao.remove(indiceSelecionado);
 
                 //Define a lista de associações atual na tabela
@@ -868,6 +872,9 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                             case CANCELLED:
                             case FAILED:
                                 dialogStage.close();
+                                break;
+                            case SCHEDULED:
+                            case READY:
                                 break;
                             default:
                                 log.fatal("Caiu em DEFAULT CASE");

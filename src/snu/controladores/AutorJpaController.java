@@ -28,6 +28,7 @@ import snu.exceptions.NonexistentEntityException;
  * @author Washington Luis
  */
 public class AutorJpaController implements Serializable {
+
     private volatile static AutorJpaController instancia;
 
     /**

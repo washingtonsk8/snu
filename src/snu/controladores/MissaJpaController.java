@@ -224,6 +224,49 @@ public class MissaJpaController implements Serializable {
     }
 
     /**
+     * Destrói todas as missas com data de acontecimento menor que a data
+     * passada por parâmetro.
+     *
+     * @param dataAcontecimento
+     * @return
+     * @throws snu.exceptions.NonexistentEntityException
+     */
+    public int destroyMissasBeforeDate(Date dataAcontecimento) throws NonexistentEntityException {
+
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Missa> cq = cb.createQuery(Missa.class);
+        Root<Missa> missaRoot = cq.from(Missa.class);
+
+        cq.select(missaRoot).where(cb.lessThan(missaRoot.<Date>get("dataAcontecimento"), dataAcontecimento));
+
+        List<Missa> missas = em.createQuery(cq).getResultList();
+
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            for (Missa missa : missas) {
+                try {
+                    missa = em.getReference(Missa.class, missa.getId());
+                } catch (EntityNotFoundException enfe) {
+                    throw new NonexistentEntityException("The missa with id " + missa.getId() + " no longer exists.", enfe);
+                }
+                Set<Musica> musicasUtilizadas = missa.getMusicasUtilizadas();
+                for (Musica musicasUtilizadasMusica : musicasUtilizadas) {
+                    musicasUtilizadasMusica.getMissasPresente().remove(missa);
+                    em.merge(musicasUtilizadasMusica);
+                }
+                em.remove(missa);
+            }
+            em.getTransaction().commit();
+            return missas.size();
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
      * Obtém a instância Singleton
      *
      * @return

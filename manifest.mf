@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
 X-COMMENT: Main-Class will be added automatically by build
-SplashScreen-Image: snu/fronteiras/images/splash.png
+SplashScreen-Image: snu/fronteiras/images/splash.gif
