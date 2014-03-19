@@ -156,6 +156,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         parametrosPesquisa.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
 
         this.tblIntegrantes.setItems(FXCollections.observableArrayList(integranteController.findByParametrosPesquisa(parametrosPesquisa)));
+        atualizarTabela();
     }
 
     private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
@@ -173,13 +174,13 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                 Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
                         "O(A) Integrante foi removido(a) com sucesso!", "Sucesso!", "Informação");
                 this.tblIntegrantes.getItems().remove(integranteSelecionado);
+                atualizarTabela();
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao excluir o(a) Integrante", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                         "Erro ao excluir o(a) Integrante.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }
-            atualizarTabela();
         }
     }
 
@@ -295,7 +296,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         pesquisarPorParametros();
     }
 
-    public void atualizarTabela() {
+    private void atualizarTabela() {
         final List<Integrante> itens = this.tblIntegrantes.getItems();
         if (itens == null || itens.isEmpty()) {
             return;

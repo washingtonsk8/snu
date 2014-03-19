@@ -608,7 +608,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         pesquisarPorParametros();
     }
 
-    private void atualizarTabela() {
+    public void atualizarTabela() {
         final List<Musica> itens = this.tblMusicas.getItems();
         if (itens == null || itens.isEmpty()) {
             return;

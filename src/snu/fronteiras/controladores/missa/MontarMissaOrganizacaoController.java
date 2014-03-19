@@ -1045,13 +1045,20 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                "As associações serão perdidas."
+                + "\nTem certeza que deseja voltar?",
+                "Voltar para tela de Seleção de Músicas", "Confirmação");
 
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            final AnchorPane content = this.controladorOrigem.getContent();
+
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
+            pai.getChildren().clear();
+            pai.getChildren().add(content);
+            EfeitosUtil.rodarEfeitoCarregamento(content);
+        }
     }
 
     public AnchorPane getContent() {

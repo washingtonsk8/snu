@@ -5,6 +5,7 @@
  */
 package snu.controladores;
 
+import java.awt.SplashScreen;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;

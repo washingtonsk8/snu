@@ -106,7 +106,6 @@ public class TemplatePesquisaIntegranteControllerTest {
     public void testAtualizarTabela() {
         System.out.println("atualizarTabela");
         TemplatePesquisaIntegranteController instance = new TemplatePesquisaIntegranteController();
-        instance.atualizarTabela();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

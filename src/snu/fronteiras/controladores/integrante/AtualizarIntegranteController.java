@@ -460,23 +460,25 @@ public class AtualizarIntegranteController implements Initializable {
             try {
                 //Atualizando no banco
                 IntegranteJpaController.getInstancia().edit(integrante);
+
+                if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
+                    Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados da Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
+                } else {
+                    Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados do Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
+                }
+
+                TemplatePesquisaIntegranteController templatePesquisaIntegranteController
+                        = FXMLDocumentController.getInstancia()
+                        .getTemplatePesquisaIntegranteLoader()
+                        .getController();
+
+                templatePesquisaIntegranteController.atualizar();
             } catch (Exception ex) {
                 log.error("Erro ao atualizar Integrante", ex);
                 Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                         "Erro ao atualizar Integrante.\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
-            if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados da Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
-            } else {
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados do Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
-            }
-
-            //Limpa o conteúdo anterior e carrega a página
-            AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
-            pai.getChildren().clear();
-            pai.getChildren().add(this.controladorOrigem.getContent());
-            this.controladorOrigem.atualizarTabela();
         } else {
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalado.", "Campos Inválidos!", "Aviso");
         }

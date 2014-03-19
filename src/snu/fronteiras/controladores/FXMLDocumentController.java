@@ -110,7 +110,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Menu menuBancoDados;
     @FXML
-    private MenuItem itemEscolhaDiretorioBancoDados;
+    private MenuItem itemEscolherDiretorioBancoDados;
     @FXML
     private Menu menuHome;
     @FXML
@@ -644,7 +644,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void onActionFromItemEscolhaDiretorioBancoDados(ActionEvent event) {
+    private void onActionFromItemEscolherDiretorioBancoDados(ActionEvent event) {
         String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("diretorioBD");
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = "C:";

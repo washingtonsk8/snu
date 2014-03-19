@@ -388,6 +388,13 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         try {
             //Atualizando no banco
             MusicaJpaController.getInstancia().edit(this.musica);
+            
+            TemplatePesquisaMusicaController templatePesquisaMusicaController
+                    = FXMLDocumentController.getInstancia()
+                    .getTemplatePesquisaMusicaLoader()
+                    .getController();
+
+            templatePesquisaMusicaController.atualizar();
         } catch (Exception ex) {
             log.error("Erro ao atualizar Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
