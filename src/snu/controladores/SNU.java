@@ -5,7 +5,6 @@
  */
 package snu.controladores;
 
-import java.awt.SplashScreen;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
@@ -16,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialogs;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import snu.bd.GerenciadorDeEntidades;
@@ -118,6 +118,7 @@ public class SNU extends Application {
             });
 
             stage.show();
+            stage.toFront();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela principal", ex);
             Dialogs.showErrorDialog(stage, "Erro ao carregar tela principal."
