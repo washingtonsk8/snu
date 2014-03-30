@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -136,6 +138,13 @@ public class MontarMissaSelecaoController implements Initializable {
             List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
                     .findMusicasByParametrosPesquisa(parametrosPesquisa);
 
+            Collections.sort(musicasEncontradas, new Comparator<Musica>() {
+                @Override
+                public int compare(Musica musica1, Musica musica2) {
+                    return musica1.getTipos().get(0).compareTo(musica2.getTipos().get(0));
+                }
+            });
+            
             this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
             atualizarTabela();
         } catch (IOException ex) {

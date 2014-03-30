@@ -19,6 +19,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
@@ -31,6 +32,7 @@ import snu.entidades.musica.Autor;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.EntidadeTipoMusica;
 import snu.entidades.musica.LeituraAssociada;
+import snu.entidades.musica.Musica_;
 import snu.entidades.musica.TipoMusica;
 import snu.util.StringUtil;
 
@@ -241,7 +243,9 @@ public class MusicaJpaController implements Serializable {
         }
 
         Predicate[] arrayPredicados = new Predicate[predicados.size()];
-        cq.select(musica).distinct(true).where(predicados.toArray(arrayPredicados));
+        cq.select(musica).distinct(true)
+                .where(predicados.toArray(arrayPredicados))
+                .orderBy(cb.asc(musica.get("nome")));
 
         return em.createQuery(cq).getResultList();
     }

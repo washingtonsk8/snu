@@ -25,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
 import snu.util.EfeitosUtil;
+import snu.util.MusicaUtil;
 
 /**
  * Classe controladora do FXML
@@ -72,8 +73,11 @@ public class VisualizarConteudoMusicaController implements Initializable {
 
     public void initData(Musica musica, VisualizarMusicaController controladorOrigem) {
         this.controladorOrigem = controladorOrigem;
-        this.fldIntroducao.setText(musica.getDocumentoMusica().getIntroducao());
-        this.areaVisualizarMusica.setText(musica.getDocumentoMusica().getConteudo());
+        this.fldIntroducao.setText(MusicaUtil.limparParaImpressao(
+                musica.getDocumentoMusica().getIntroducao()));
+        this.areaVisualizarMusica.setStyle("-fx-font-size: 12;");
+        this.areaVisualizarMusica.setText(MusicaUtil.limparParaImpressao(
+                musica.getDocumentoMusica().getConteudo()));
     }
 
     /**
