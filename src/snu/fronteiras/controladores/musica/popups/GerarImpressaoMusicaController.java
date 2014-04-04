@@ -221,7 +221,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                     infoTom = " (" + tomSelecionado.toString() + ")";
                 }
             } else {
-                infoTom = "(" + this.comboCantor.getSelectionModel().getSelectedItem() + ")";
+                infoTom = " (" + this.comboCantor.getSelectionModel().getSelectedItem() + ")";
             }
 
             String nomeArquivoMusica = this.musicaSelecionada.getAutor().getNome() + " - "

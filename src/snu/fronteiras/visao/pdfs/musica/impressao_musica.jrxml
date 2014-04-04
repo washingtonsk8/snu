@@ -54,7 +54,7 @@
 				<reportElement x="101" y="1" width="336" height="15" uuid="cf40891a-5b84-4a7e-93ac-eba8b2d4a52d">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() == 1]]></printWhenExpression>
 				</reportElement>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cantorMusica}]]></textFieldExpression>
