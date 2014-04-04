@@ -78,6 +78,8 @@ public class VisualizarConteudoMusicaController implements Initializable {
         this.areaVisualizarMusica.setStyle("-fx-font-size: 12;");
         this.areaVisualizarMusica.setText(MusicaUtil.limparParaImpressao(
                 musica.getDocumentoMusica().getConteudo()));
+        
+        this.contentVisualizarConteudoMusica.requestFocus();
     }
 
     /**

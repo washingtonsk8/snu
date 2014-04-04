@@ -213,8 +213,19 @@ public class GerarImpressaoMusicaController implements Initializable {
         if (validarGeracao()) {
             //Novas criações
             final Map<String, Object> parametros = new HashMap<>();
+            String infoTom = "";
+
+            if (this.radioTom.isSelected()) {
+                Tom tomSelecionado = this.comboTom.getSelectionModel().getSelectedItem();
+                if (!tomSelecionado.equals(this.musicaSelecionada.getTom())) {
+                    infoTom = " (" + tomSelecionado.toString() + ")";
+                }
+            } else {
+                infoTom = "(" + this.comboCantor.getSelectionModel().getSelectedItem() + ")";
+            }
+
             String nomeArquivoMusica = this.musicaSelecionada.getAutor().getNome() + " - "
-                    + this.musicaSelecionada.getNome() + ".pdf";
+                    + this.musicaSelecionada.getNome() + infoTom + ".pdf";
 
             //Escolha do local para salvar o arquivo
             String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("gerarImpressao");
