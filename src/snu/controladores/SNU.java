@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialogs;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import snu.bd.GerenciadorDeEntidades;
@@ -89,7 +88,6 @@ public class SNU extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/visao/FXMLDocument.fxml"));
 
             Scene scene = new Scene(root);
-
             stage.setTitle("Sistema Nova Unção");
             stage.setIconified(true);
             stage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeSistema.png"));
