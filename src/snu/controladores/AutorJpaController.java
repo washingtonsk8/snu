@@ -181,7 +181,7 @@ public class AutorJpaController implements Serializable {
             Root<Autor> rt = cq.from(Autor.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }
@@ -196,7 +196,7 @@ public class AutorJpaController implements Serializable {
             Join<Musica, Autor> autor = musica.join("autor", JoinType.LEFT);
             cq.select(cb.count(musica)).distinct(true).where(cb.equal(autor.get("id"), id));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

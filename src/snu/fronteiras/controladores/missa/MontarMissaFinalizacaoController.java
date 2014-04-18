@@ -94,7 +94,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
                 musicasEmail.append("\n");
             } else {
                 musicasEmail.append("Especiais:\n");
-                for (Musica musicaMissa : ((ArrayList<Musica>) entradaMusicasMissa.getValue())) {
+                for (Musica musicaMissa : ((Iterable<? extends Musica>) entradaMusicasMissa.getValue())) {
                     musicasEmail.append("\t");
                     musicasEmail.append(musicaMissa.getTitulo());
                     musicasEmail.append("\n");

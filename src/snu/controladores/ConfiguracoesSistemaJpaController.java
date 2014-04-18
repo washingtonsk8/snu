@@ -9,14 +9,14 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
+import snu.exceptions.NonexistentEntityException;
 
 /**
  * Classe que controla todas as conexões com o banco da entidade
@@ -133,13 +133,12 @@ public class ConfiguracoesSistemaJpaController implements Serializable {
         }
     }
 
-    public ConfiguracoesSistema findConfiguracoesSistemaByVersao(Double versao) {
+    public ConfiguracoesSistema findConfiguracoesSistema() {
         EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<ConfiguracoesSistema> cq = cb.createQuery(ConfiguracoesSistema.class);
-        Root<ConfiguracoesSistema> configuracaoSistema = cq.from(ConfiguracoesSistema.class);
-        cq.select(configuracaoSistema).distinct(true).where(cb.equal(configuracaoSistema.get("versao"), versao));
+        cq.from(ConfiguracoesSistema.class);
         List<ConfiguracoesSistema> configuracoesSistema = em.createQuery(cq).getResultList();
         return configuracoesSistema.isEmpty() ? null : configuracoesSistema.get(0);
     }
@@ -151,7 +150,7 @@ public class ConfiguracoesSistemaJpaController implements Serializable {
             Root<ConfiguracoesSistema> rt = cq.from(ConfiguracoesSistema.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

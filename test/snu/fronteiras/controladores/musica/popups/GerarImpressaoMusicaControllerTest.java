@@ -9,10 +9,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import snu.entidades.musica.Musica;
 
 /**

@@ -11,6 +11,7 @@ import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -710,7 +711,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 this.mapaMusicasMissa.put(TipoMusica.ESPECIAL, listaEspeciais);
             } else {
                 this.listaMusicasSelecionadas.getItems().remove(this.musicaArrastada);
-                ((ArrayList<Musica>) this.mapaMusicasMissa.get(TipoMusica.ESPECIAL)).add(this.musicaArrastada);
+                ((Collection<Musica>) this.mapaMusicasMissa.get(TipoMusica.ESPECIAL)).add(this.musicaArrastada);
             }
             this.listaMusicasSelecionadas.getSelectionModel().select(-1);
             atualizarLista();
@@ -990,7 +991,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
     @FXML
     private void onActionFromBtnRemoverMusicasEspeciais(ActionEvent event) {
         if (this.mapaMusicasMissa.containsKey(TipoMusica.ESPECIAL)) {
-            List<Musica> musicasRemovidas = (ArrayList<Musica>) this.mapaMusicasMissa.remove(TipoMusica.ESPECIAL);
+            List<Musica> musicasRemovidas = (List<Musica>) this.mapaMusicasMissa.remove(TipoMusica.ESPECIAL);
             for (Musica musicaRemovida : musicasRemovidas) {
                 this.listaMusicasSelecionadas.getItems().add(musicaRemovida);
             }

@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaIntegrante;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
+import snu.exceptions.NonexistentEntityException;
 import snu.util.StringUtil;
 
 /**
@@ -145,7 +145,7 @@ public class IntegranteJpaController implements Serializable {
             Root<Integrante> rt = cq.from(Integrante.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

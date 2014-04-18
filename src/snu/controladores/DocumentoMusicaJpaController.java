@@ -9,13 +9,13 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
 import snu.entidades.musica.DocumentoMusica;
+import snu.exceptions.NonexistentEntityException;
 
 /**
  * Classe que controla todas as conexões com o banco da entidade DocumentoMusica
@@ -138,7 +138,7 @@ public class DocumentoMusicaJpaController implements Serializable {
             Root<DocumentoMusica> rt = cq.from(DocumentoMusica.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

@@ -76,6 +76,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Ajuda">
           <items>
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemVerificarLog" text="Verificar Arquivo de Log" fx:id="itemVerificarLog" />
             <MenuItem mnemonicParsing="false" onAction="#onActionFromItemSobre" text="Sobre" fx:id="itemSobre" />
           </items>
         </Menu>

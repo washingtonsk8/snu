@@ -8,23 +8,23 @@ package snu.controladores;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import snu.entidades.musica.Musica;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
+import snu.entidades.musica.Musica;
+import snu.exceptions.NonexistentEntityException;
 import snu.util.StringUtil;
 
 /**
@@ -188,7 +188,7 @@ public class MissaJpaController implements Serializable {
             Root<Missa> rt = cq.from(Missa.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

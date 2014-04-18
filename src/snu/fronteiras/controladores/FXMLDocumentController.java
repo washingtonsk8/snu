@@ -18,7 +18,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CustomMenuItem;
@@ -133,6 +132,8 @@ public class FXMLDocumentController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(FXMLDocumentController.class.getName());
+    @FXML
+    private MenuItem itemVerificarLog;
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -426,7 +427,7 @@ public class FXMLDocumentController implements Initializable {
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Limpeza de Dados de Missas");
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+        dialogStage.initOwner(this.anchorPane.getScene().getWindow());
         dialogStage.setScene(new Scene(root));
 
         LimparDadosMissasController limparDadosMissaController = fxmlLoader.getController();
@@ -449,7 +450,7 @@ public class FXMLDocumentController implements Initializable {
 
         final File arquivoImportacao = seletorArquivo.showOpenDialog(FXMLDocumentController.getInstancia().getStage());
         if (arquivoImportacao != null) {
-            SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getAbsolutePath());
+            SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getParent());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
             Parent root = null;
@@ -471,7 +472,7 @@ public class FXMLDocumentController implements Initializable {
             dialogStage.toFront();
             dialogStage.setResizable(false);
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+            dialogStage.initOwner(this.anchorPane.getScene().getWindow());
             dialogStage.setScene(new Scene(root));
 
             final Task task = new Task<Void>() {
@@ -566,7 +567,7 @@ public class FXMLDocumentController implements Initializable {
             dialogStage.toFront();
             dialogStage.setResizable(false);
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+            dialogStage.initOwner(this.anchorPane.getScene().getWindow());
             dialogStage.setScene(new Scene(root));
 
             final Task task = new Task<Void>() {
@@ -669,6 +670,25 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    private void onActionFromItemVerificarLog(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/VerificarLog.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Verificação de Log", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Verificação de Log."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
     private void onActionFromItemSobre(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/Sobre.fxml"));
         Parent root = null;
@@ -684,7 +704,7 @@ public class FXMLDocumentController implements Initializable {
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Sobre");
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+        dialogStage.initOwner(this.anchorPane.getScene().getWindow());
         dialogStage.setScene(new Scene(root));
         // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();

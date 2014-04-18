@@ -7,33 +7,31 @@ package snu.controladores;
 
 import java.io.IOException;
 import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
 import snu.controladores.indexador.ProcessadorDeConsultas;
 import snu.dto.ParametrosPesquisaMusica;
-import snu.entidades.musica.Musica;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.EntidadeTipoMusica;
 import snu.entidades.musica.LeituraAssociada;
-import snu.entidades.musica.Musica_;
+import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
+import snu.exceptions.NonexistentEntityException;
 import snu.util.StringUtil;
 
 /**
@@ -175,7 +173,7 @@ public class MusicaJpaController implements Serializable {
             Root<Musica> rt = cq.from(Musica.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

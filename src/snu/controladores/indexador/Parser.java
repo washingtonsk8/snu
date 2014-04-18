@@ -16,10 +16,10 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import snu.controladores.DocumentoMusicaJpaController;
 import snu.controladores.VocabuloJpaController;
-import snu.entidades.musica.indexador.Vocabulo;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.indexador.ObjetoListaInvertida;
+import snu.entidades.musica.indexador.Vocabulo;
 import snu.util.MusicaUtil;
 
 /**

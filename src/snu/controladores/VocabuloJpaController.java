@@ -6,19 +6,19 @@
 package snu.controladores;
 
 import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import snu.entidades.musica.indexador.ObjetoListaInvertida;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import snu.bd.GerenciadorDeEntidades;
-import snu.exceptions.NonexistentEntityException;
+import snu.entidades.musica.indexador.ObjetoListaInvertida;
 import snu.entidades.musica.indexador.Vocabulo;
+import snu.exceptions.NonexistentEntityException;
 
 /**
  * Classe que controla todas as conexões com o banco da entidade Vocabulo
@@ -166,7 +166,7 @@ public class VocabuloJpaController implements Serializable {
             Root<Vocabulo> rt = cq.from(Vocabulo.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
+            return ((Number) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }

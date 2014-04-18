@@ -63,10 +63,10 @@ public class ProcessadorDeConsultasUtil {
             }
         }
 
-        TF = (double) tiq / (double) tmax;
+        TF = tiq / tmax;
 
         IDF = Math.log(quantidadeDocumentos.doubleValue()
-                / ((double) vocabulo.getListaInvertida().size()))
+                / vocabulo.getListaInvertida().size())
                 / Math.log(2.0);
 
         peso = TF * IDF;

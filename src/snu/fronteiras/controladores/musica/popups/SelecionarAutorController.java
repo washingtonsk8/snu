@@ -34,8 +34,8 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import snu.controladores.AutorJpaController;
-import snu.entidades.musica.Musica;
 import snu.entidades.musica.Autor;
+import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**

@@ -34,9 +34,9 @@ import javafx.util.Callback;
 import org.apache.log4j.Logger;
 import snu.controladores.AutorJpaController;
 import snu.controladores.MusicaJpaController;
-import snu.exceptions.NonexistentEntityException;
 import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
+import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.StringUtil;
 

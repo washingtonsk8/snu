@@ -17,10 +17,9 @@ import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.log4j.Logger;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
-
-import org.apache.log4j.Logger;
 import snu.fronteiras.controladores.FXMLDocumentController;
 
 /**
@@ -30,14 +29,14 @@ import snu.fronteiras.controladores.FXMLDocumentController;
  */
 public class SNU extends Application {
 
-    private static final Double VERSAO = 1.0;
+    private static final Double VERSAO = 1.1;
 
     private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
             = ConfiguracoesSistemaJpaController.getInstancia();
 
     //Realizando o carregamento das configurações padrões do sistema
     public static ConfiguracoesSistema configuracoesSistema
-            = configuracoesSistemaController.findConfiguracoesSistemaByVersao(VERSAO);
+            = configuracoesSistemaController.findConfiguracoesSistema();
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(SNU.class.getName());
@@ -83,6 +82,10 @@ public class SNU extends Application {
                         + "Ministério de Música Nova Unção.");
                 configuracoesSistemaController.create(novasConfiguracoesSistema);
                 configuracoesSistema = novasConfiguracoesSistema;
+            } else if (configuracoesSistema.getVersao() != VERSAO) {
+                //Atualiza a versão caso ainda não seja a atual
+                configuracoesSistema.setVersao(VERSAO);
+                configuracoesSistemaController.edit(configuracoesSistema);
             }
 
             Parent root = FXMLLoader.load(getClass().getResource("/snu/fronteiras/visao/FXMLDocument.fxml"));
