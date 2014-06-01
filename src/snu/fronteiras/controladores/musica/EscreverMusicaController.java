@@ -21,6 +21,7 @@ import snu.entidades.musica.Musica;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.EfeitosUtil;
 import snu.util.MusicaUtil;
+import snu.util.StringUtil;
 
 /**
  * Classe controladora do FXML
@@ -43,6 +44,10 @@ public class EscreverMusicaController implements Initializable {
     private Button btnCancelar;
     @FXML
     private Button btnDetectarAcordes;
+    @FXML
+    private Button btnRemoverDeteccoes;
+    @FXML
+    private Button btnPreVisualizar;
     @FXML
     private Label lblIntroducao;
     @FXML
@@ -111,5 +116,24 @@ public class EscreverMusicaController implements Initializable {
         pai.getChildren().clear();
         pai.getChildren().add(content);
         EfeitosUtil.rodarEfeitoCarregamento(content);
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverDeteccoes(ActionEvent event) {
+        //Remover os acordes
+        String introducaoMusica = this.fldIntroducao.getText();
+        if (StringUtil.hasAlgo(introducaoMusica)) {
+            this.fldIntroducao.setText(introducaoMusica.replace("@", ""));
+        }
+
+        String conteudoMusica = this.areaEscreverMusica.getText();
+        if (StringUtil.hasAlgo(conteudoMusica)) {
+            this.areaEscreverMusica.setText(conteudoMusica.replace("@", ""));
+        }
+    }
+
+    @FXML
+    private void onActionFromBtnPreVisualizar(ActionEvent event) {
+        //Prévisualizar
     }
 }
