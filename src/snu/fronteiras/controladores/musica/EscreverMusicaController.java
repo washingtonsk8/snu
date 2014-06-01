@@ -7,6 +7,7 @@ package snu.fronteiras.controladores.musica;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.EfeitosUtil;
@@ -52,6 +54,24 @@ public class EscreverMusicaController implements Initializable {
     private Label lblIntroducao;
     @FXML
     private TextField fldIntroducao;
+    @FXML
+    private TextField fldPreVisualizarIntroducao;
+    @FXML
+    private TextArea areaPreVisualizarEscreverMusica;
+    @FXML
+    private Button btnFecharPreVisualizacao;
+
+    private FadeTransition fadeInPreVisualizarIntroducao;
+
+    private FadeTransition fadeInPreVisualizarConteudo;
+
+    private FadeTransition fadeInIntroducao;
+
+    private FadeTransition fadeInConteudo;
+
+    private FadeTransition fadeInBtnPreVisualizar;
+
+    private FadeTransition fadeInBtnFecharPreVisualizacao;
 
     private ControladorDeConteudoInterface controladorOrigem;
 
@@ -65,6 +85,35 @@ public class EscreverMusicaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.fldPreVisualizarIntroducao.toBack();
+        this.areaPreVisualizarEscreverMusica.toBack();
+        this.btnFecharPreVisualizacao.setText("Fechar\nPré-Visualização");
+        this.btnFecharPreVisualizacao.toBack();
+
+        //Inicializa os objetos de transição visual
+        this.fadeInIntroducao = new FadeTransition(Duration.seconds(0.6), fldIntroducao);
+        this.fadeInConteudo = new FadeTransition(Duration.seconds(0.6), areaEscreverMusica);
+        this.fadeInPreVisualizarIntroducao = new FadeTransition(Duration.seconds(0.6), fldPreVisualizarIntroducao);
+        this.fadeInPreVisualizarConteudo = new FadeTransition(Duration.seconds(0.6), areaPreVisualizarEscreverMusica);
+        this.fadeInBtnPreVisualizar = new FadeTransition(Duration.seconds(0.6), btnFecharPreVisualizacao);
+        this.fadeInBtnFecharPreVisualizacao = new FadeTransition(Duration.seconds(0.6), btnFecharPreVisualizacao);
+
+        //Define valor de início da transição
+        this.fadeInIntroducao.setFromValue(0);
+        this.fadeInConteudo.setFromValue(0);
+        this.fadeInPreVisualizarIntroducao.setFromValue(0);
+        this.fadeInPreVisualizarConteudo.setFromValue(0);
+        this.fadeInBtnPreVisualizar.setFromValue(0);
+        this.fadeInBtnFecharPreVisualizacao.setFromValue(0);
+
+        //Define valor de fim da transição
+        this.fadeInIntroducao.setToValue(1);
+        this.fadeInConteudo.setToValue(1);
+        this.fadeInPreVisualizarIntroducao.setToValue(1);
+        this.fadeInPreVisualizarConteudo.setToValue(1);
+        this.fadeInBtnPreVisualizar.setToValue(1);
+        this.fadeInBtnFecharPreVisualizacao.setToValue(1);
+
     }
 
     public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
@@ -134,6 +183,45 @@ public class EscreverMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnPreVisualizar(ActionEvent event) {
-        //Prévisualizar
+        this.fldPreVisualizarIntroducao.setText(
+                MusicaUtil.limparParaImpressao(this.fldIntroducao.getText()));
+
+        this.areaPreVisualizarEscreverMusica.setText(
+                MusicaUtil.limparParaImpressao(this.areaEscreverMusica.getText()));
+
+        this.fldIntroducao.toBack();
+        this.areaEscreverMusica.toBack();
+        this.btnPreVisualizar.toBack();
+        
+        this.fldPreVisualizarIntroducao.toFront();
+        this.areaPreVisualizarEscreverMusica.toFront();
+        this.btnFecharPreVisualizacao.toFront();
+
+        this.fadeInPreVisualizarIntroducao.playFromStart();
+        this.fadeInPreVisualizarConteudo.playFromStart();
+        this.fadeInBtnFecharPreVisualizacao.playFromStart();
+        
+        this.btnDetectarAcordes.setDisable(true);
+        this.btnOk.setDisable(true);
+        this.btnRemoverDeteccoes.setDisable(true);
+    }
+
+    @FXML
+    private void onActionFromBtnFecharPreVisualizacao(ActionEvent event) {
+        this.fldPreVisualizarIntroducao.toBack();
+        this.areaPreVisualizarEscreverMusica.toBack();
+        this.btnFecharPreVisualizacao.toBack();
+
+        this.fldIntroducao.toFront();
+        this.areaEscreverMusica.toFront();
+        this.btnPreVisualizar.toFront();
+
+        this.fadeInIntroducao.playFromStart();
+        this.fadeInConteudo.playFromStart();
+        this.fadeInBtnPreVisualizar.playFromStart();
+        
+        this.btnDetectarAcordes.setDisable(false);
+        this.btnOk.setDisable(false);
+        this.btnRemoverDeteccoes.setDisable(false);
     }
 }

@@ -38,7 +38,14 @@
   </Button>
   <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
   <Button fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
+  <TextField fx:id="fldPreVisualizarIntroducao" disable="false" editable="false" layoutX="64.0" layoutY="60.0" opacity="1.0" prefWidth="600.0" />
+  <TextArea fx:id="areaPreVisualizarEscreverMusica" disable="false" editable="false" layoutX="64.0" layoutY="100.0" opacity="1.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
   <stylesheets>
     <URL value="@../../css/contents.css" />
   </stylesheets>
+  <Button fx:id="btnFecharPreVisualizacao" layoutX="686.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnFecharPreVisualizacao" prefHeight="40.0" prefWidth="100.0" text="" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+    <font>
+      <Font size="11.0" />
+    </font>
+  </Button>
 </AnchorPane>
