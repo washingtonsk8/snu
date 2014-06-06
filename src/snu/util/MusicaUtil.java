@@ -5,6 +5,8 @@
  */
 package snu.util;
 
+import snu.controladores.ConfiguracoesSistemaJpaController;
+import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.entidades.musica.Tom;
 
 /**
@@ -65,7 +67,7 @@ public class MusicaUtil {
     public static String converterTom(String conteudoEntrada, Tom tomOriginal, Tom tomParaConversao) {
         int contador = 0;
         Tom[] tons = Tom.values();
-        StringBuffer conteudoSaida = new StringBuffer();
+        StringBuilder conteudoSaida = new StringBuilder();
         /**
          * Quantidade de tons de diferença contando de meio em meio tom Soma-se
          * o tamanho do vetor para que se possa fazer a operação de MOD
@@ -140,6 +142,27 @@ public class MusicaUtil {
                 contador++;
             }
         }
-        return conteudoSaida.toString().replaceAll("#b", "");//Remove as irregularidades e retorna
+        return trocarPelasPreferencias(conteudoSaida.toString().replaceAll("#b", ""));//Remove as irregularidades e retorna
+    }
+    
+    private static String trocarPelasPreferencias(String entrada){
+        ConfiguracoesSistema configuracoesSistema
+                = ConfiguracoesSistemaJpaController.getInstancia().findConfiguracoesSistema();        
+        if(configuracoesSistema.isPreferenciaCsusDbem()){
+            entrada = entrada.replaceAll("C#", "Db");
+        }
+        if(configuracoesSistema.isPreferenciaDsusEbem()){
+            entrada = entrada.replaceAll("D#", "Eb");            
+        }
+        if(configuracoesSistema.isPreferenciaFsusGbem()){
+            entrada = entrada.replaceAll("F#", "Gb");            
+        }
+        if(configuracoesSistema.isPreferenciaGsusAbem()){
+            entrada = entrada.replaceAll("G#", "Ab");            
+        }
+        if(configuracoesSistema.isPreferenciaAsusBbem()){
+            entrada = entrada.replaceAll("A#", "Bb");            
+        }        
+        return entrada;
     }
 }

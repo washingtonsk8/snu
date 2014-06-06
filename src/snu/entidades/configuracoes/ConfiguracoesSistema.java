@@ -34,6 +34,21 @@ public class ConfiguracoesSistema implements Serializable {
 
     @Column(columnDefinition = "LONGTEXT", name = "template_descricao_email")
     private String templateDescricaoEmail;
+    
+    @Column(name="preferencia_Csus_Dbem", columnDefinition = "bit(1) default 0")
+    private Boolean preferenciaCsusDbem;
+    
+    @Column(name="preferencia_Dsus_Ebem", columnDefinition = "bit(1) default 0")
+    private Boolean preferenciaDsusEbem;
+    
+    @Column(name="preferencia_Fsus_Gbem", columnDefinition = "bit(1) default 0")
+    private Boolean preferenciaFsusGbem;
+    
+    @Column(name="preferencia_Gsus_Abem", columnDefinition = "bit(1) default 0")
+    private Boolean preferenciaGsusAbem;
+    
+    @Column(name="preferencia_Asus_Bbem", columnDefinition = "bit(1) default 0")
+    private Boolean preferenciaAsusBbem;
 
     public Long getId() {
         return id;
@@ -67,6 +82,46 @@ public class ConfiguracoesSistema implements Serializable {
         this.templateDescricaoEmail = templateDescricaoEmail;
     }
 
+    public Boolean isPreferenciaCsusDbem() {
+        return preferenciaCsusDbem;
+    }
+
+    public void setPreferenciaCsusDbem(Boolean preferenciaCsusDbem) {
+        this.preferenciaCsusDbem = preferenciaCsusDbem;
+    }
+
+    public Boolean isPreferenciaDsusEbem() {
+        return preferenciaDsusEbem;
+    }
+
+    public void setPreferenciaDsusEbem(Boolean preferenciaDsusEbem) {
+        this.preferenciaDsusEbem = preferenciaDsusEbem;
+    }
+
+    public Boolean isPreferenciaFsusGbem() {
+        return preferenciaFsusGbem;
+    }
+
+    public void setPreferenciaFsusGbem(Boolean preferenciaFsusGbem) {
+        this.preferenciaFsusGbem = preferenciaFsusGbem;
+    }
+
+    public Boolean isPreferenciaGsusAbem() {
+        return preferenciaGsusAbem;
+    }
+
+    public void setPreferenciaGsusAbem(Boolean preferenciaGsusAbem) {
+        this.preferenciaGsusAbem = preferenciaGsusAbem;
+    }
+
+    public Boolean isPreferenciaAsusBbem() {
+        return preferenciaAsusBbem;
+    }
+
+    public void setPreferenciaAsusBbem(Boolean preferenciaAsusBbem) {
+        this.preferenciaAsusBbem = preferenciaAsusBbem;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

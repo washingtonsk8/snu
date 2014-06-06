@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="popupDefinirPreferenciaTons" prefHeight="374.0" prefWidth="324.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.configuracoes.DefinirPreferenciaTonsController">
+  <Label fx:id="lblDefinirPreferenciaTons" layoutX="14.0" layoutY="14.0" prefWidth="296.0" styleClass="titulo" text="Definir Preferência de Tons" textFill="BLACK">
+    <font>
+      <Font size="14.0" fx:id="x1" />
+    </font>
+    <stylesheets>
+      <URL value="@../../css/contents.css" />
+    </stylesheets>
+  </Label>
+  <Label font="$x1" layoutX="14.0" layoutY="60.0" prefHeight="57.0" prefWidth="296.0" text="Defina, através dos seletores abaixo, a sua preferência entre os tons para o momento da impressão." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow />
+    </effect>
+  </Label>
+  <Button fx:id="btnOk" font="$x1" layoutX="230.0" layoutY="330.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="30.0" prefWidth="80.0" text="Ok" textAlignment="CENTER" textFill="BLACK" />
+  <Label fx:id="lblTomCsus" alignment="CENTER_RIGHT" layoutX="102.0" layoutY="120.0" prefHeight="30.0" prefWidth="30.0" text="C#" textAlignment="RIGHT" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+    <font>
+      <Font size="20.0" fx:id="x2" />
+    </font>
+  </Label>
+  <Label fx:id="lblTomDbem" font="$x2" layoutX="192.0" layoutY="120.0" prefHeight="30.0" prefWidth="30.0" text="Db" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Slider fx:id="sldTonsCD" layoutX="142.0" layoutY="120.0" prefHeight="30.0" prefWidth="40.0" />
+  <stylesheets>
+    <URL value="@../../css/contents.css" />
+  </stylesheets>
+  <Label fx:id="lblTomDsus" alignment="CENTER_RIGHT" font="$x2" layoutX="102.0" layoutY="160.0" prefHeight="30.0" prefWidth="30.0" text="D#" textAlignment="RIGHT" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Label fx:id="lblTomEbem" font="$x2" layoutX="192.0" layoutY="160.0" prefHeight="30.0" prefWidth="30.0" text="Eb" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Slider fx:id="sldTonsDE" layoutX="142.0" layoutY="160.0" prefHeight="30.0" prefWidth="40.0" />
+  <Label fx:id="lblTomFsus" alignment="CENTER_RIGHT" font="$x2" layoutX="102.0" layoutY="200.0" prefHeight="30.0" prefWidth="30.0" text="F#" textAlignment="RIGHT" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Label fx:id="lblTomGbem" font="$x2" layoutX="192.0" layoutY="200.0" prefHeight="30.0" prefWidth="30.0" text="Gb" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Slider fx:id="sldTonsFG" layoutX="141.0" layoutY="200.0" prefHeight="30.0" prefWidth="40.0" />
+  <Label fx:id="lblTomGsus" alignment="CENTER_RIGHT" font="$x2" layoutX="102.0" layoutY="240.0" prefHeight="30.0" prefWidth="30.0" text="G#" textAlignment="RIGHT" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Label fx:id="lblTomAbem" font="$x2" layoutX="192.0" layoutY="240.0" prefHeight="30.0" prefWidth="30.0" text="Ab" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Slider fx:id="sldTonsGA" layoutX="142.0" layoutY="240.0" prefHeight="30.0" prefWidth="40.0" />
+  <Label fx:id="lblTomAsus" alignment="CENTER_RIGHT" font="$x2" layoutX="102.0" layoutY="280.0" prefHeight="30.0" prefWidth="30.0" text="A#" textAlignment="RIGHT" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Label fx:id="lblTomBbem" font="$x2" layoutX="192.0" layoutY="280.0" prefHeight="30.0" prefWidth="30.0" text="Bb" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+    <effect>
+      <Glow level="1.0" />
+    </effect>
+  </Label>
+  <Slider fx:id="sldTonsAB" layoutX="142.0" layoutY="280.0" prefHeight="30.0" prefWidth="40.0" />
+</AnchorPane>

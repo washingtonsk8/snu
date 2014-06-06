@@ -12,16 +12,26 @@ package snu.entidades.musica;
  */
 public enum Tom {
 
-    C("C"), C_SUSTENIDO("C#"), D("D"), D_SUSTENIDO("D#"), E("E"),
-    F("F"), F_SUSTENIDO("F#"), G("G"), G_SUSTENIDO("G#"), A("A"),
-    A_SUSTENIDO("A#"), B("B");
+    C("C", ""), C_SUSTENIDO("C#", "Db"), D("D", ""), D_SUSTENIDO("D#", "Eb"), E("E", ""),
+    F("F", ""), F_SUSTENIDO("F#", "Gb"), G("G", ""), G_SUSTENIDO("G#", "Ab"), A("A", ""),
+    A_SUSTENIDO("A#", "Bb"), B("B", "");
 
     private final String valor;
+    private final String valorSecundario;
 
-    private Tom(String valor) {
+    private Tom(String valor, String valorSecundario) {
         this.valor = valor;
+        this.valorSecundario = valorSecundario;
     }
 
+    public String getValor() {
+        return valor;
+    }
+
+    public String getValorSecundario() {
+        return valorSecundario;
+    }
+        
     @Override
     public String toString() {
         return valor;

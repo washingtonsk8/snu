@@ -29,7 +29,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
  */
 public class SNU extends Application {
 
-    private static final Double VERSAO = 1.1;
+    private static final Double VERSAO = 1.3;
 
     private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
             = ConfiguracoesSistemaJpaController.getInstancia();

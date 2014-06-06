@@ -134,6 +134,8 @@ public class FXMLDocumentController implements Initializable {
     private static final Logger log = Logger.getLogger(FXMLDocumentController.class.getName());
     @FXML
     private MenuItem itemVerificarLog;
+    @FXML
+    private MenuItem itemDefinirPreferenciaTons;
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -623,6 +625,29 @@ public class FXMLDocumentController implements Initializable {
             });
             new Thread(task).start();
         }
+    }
+
+    @FXML
+    private void onActionFromItemDefinirPreferenciaTons(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/DefinirPreferenciaTons.fxml"));
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela para Definição de Preferência de Tons", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela para Definição de Preferência de Tons."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Definir Preferência de Tons");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
     }
 
     @FXML
