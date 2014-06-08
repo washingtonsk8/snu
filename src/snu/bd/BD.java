@@ -34,10 +34,10 @@ public class BD {
 
         String nomeArquivo = "bkp_snu_" + dateFormat.format(dataAtual);
 
-        String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD() + 
-                "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD + 
-                " --add-drop-database -B snu -r " + "\"" + diretorioArquivo + 
-                "\\" + nomeArquivo + ".sql\"";
+        String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD()
+                + "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD
+                + " --add-drop-database -B snu -r " + "\"" + diretorioArquivo
+                + "\\" + nomeArquivo + ".sql\"";
 
         Process processo = Runtime.getRuntime().exec(comando);
         int resultadoProcesso = processo.waitFor();
@@ -53,9 +53,9 @@ public class BD {
      * @throws InterruptedException
      */
     public static boolean doRestore(String caminhoArquivo) throws IOException, InterruptedException {
-        String[] comandos = new String[]{SNU.configuracoesSistema.getDiretorioSGBD() + 
-                "\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD, 
-                "-e", "source " + caminhoArquivo};
+        String[] comandos = new String[]{SNU.configuracoesSistema.getDiretorioSGBD()
+            + "\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD,
+            "-e", "source " + caminhoArquivo};
 
         Process processo = Runtime.getRuntime().exec(comandos);
         int resultadoProcesso = processo.waitFor();
