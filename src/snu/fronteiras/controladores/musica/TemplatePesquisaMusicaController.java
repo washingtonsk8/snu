@@ -265,7 +265,9 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
     private void removerMusicaSelecionada(Musica musicaSelecionada) {
         Dialogs.DialogResponse resposta;
-        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir a Música?", "Exclusão de Música", "Confirmação");
+        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                "Deseja realmente excluir a Música \"" + musicaSelecionada.getTitulo() + "\"?",
+                "Exclusão de Música", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {

@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.StringUtil;
 
 /**
  * Classe que inicializa tudo.
@@ -29,7 +30,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
  */
 public class SNU extends Application {
 
-    private static final Double VERSAO = 1.2;
+    private static final String VERSAO = "1.3.1";
 
     private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
             = ConfiguracoesSistemaJpaController.getInstancia();
@@ -82,7 +83,7 @@ public class SNU extends Application {
                         + "Ministério de Música Nova Unção.");
                 configuracoesSistemaController.create(novasConfiguracoesSistema);
                 configuracoesSistema = novasConfiguracoesSistema;
-            } else if (configuracoesSistema.getVersao() != VERSAO) {
+            } else if (StringUtil.diferentes(configuracoesSistema.getVersao(), VERSAO)) {
                 //Atualiza a versão caso ainda não seja a atual
                 configuracoesSistema.setVersao(VERSAO);
                 configuracoesSistemaController.edit(configuracoesSistema);
@@ -108,8 +109,8 @@ public class SNU extends Application {
                     Dialogs.DialogResponse resposta;
                     resposta = Dialogs.showConfirmDialog(
                             FXMLDocumentController.getInstancia().getStage(),
-                            "Tem certeza que deseja sair do sistema?",
-                            "Confirmação", "Confirmação");
+                            "Deseja realmente sair do sistema?",
+                            "Confirmação", "Confirmação", Dialogs.DialogOptions.YES_NO);
                     if (resposta != Dialogs.DialogResponse.YES) {
                         event.consume();
                     } else {

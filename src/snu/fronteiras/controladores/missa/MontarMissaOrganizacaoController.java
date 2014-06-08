@@ -1048,8 +1048,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
     private void onActionFromBtnVoltar(ActionEvent event) {
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                 "As associações serão perdidas."
-                + "\nTem certeza que deseja voltar?",
-                "Voltar para tela de Seleção de Músicas", "Confirmação");
+                + "\nDeseja realmente voltar?",
+                "Voltar para tela de Seleção de Músicas", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             final AnchorPane content = this.controladorOrigem.getContent();

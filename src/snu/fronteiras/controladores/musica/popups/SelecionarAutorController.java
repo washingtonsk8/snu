@@ -109,9 +109,8 @@ public class SelecionarAutorController implements Initializable {
         String nomeAutor = this.fldPesquisarAutor.getText();
 
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                "Tem certeza que deseja adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
-                "Adição de Autor",
-                "Confirmação");
+                "Deseja realmente adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
+                "Adição de Autor", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
         //Checa a resposta
         if (resposta.equals(Dialogs.DialogResponse.YES)) {

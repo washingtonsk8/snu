@@ -162,9 +162,13 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
         Dialogs.DialogResponse resposta;
         if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
-            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir a Integrante?", "Exclusão de Integrante", "Confirmação");
+            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Deseja realmente excluir a Integrante \"" + integranteSelecionado.getPrimeiroNome() + "\"?",
+                    "Exclusão de Integrante", "Confirmação", Dialogs.DialogOptions.YES_NO);
         } else {
-            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), "Tem certeza que deseja excluir o Integrante?", "Exclusão de Integrante", "Confirmação");
+            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Deseja realmente excluir o Integrante\"" + integranteSelecionado.getPrimeiroNome() + "\"?",
+                    "Exclusão de Integrante", "Confirmação", Dialogs.DialogOptions.YES_NO);
         }
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {

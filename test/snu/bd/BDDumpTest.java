@@ -38,7 +38,7 @@ public class BDDumpTest {
     }
 
     /**
-     * Test of doBakup method, of class BDDump.
+     * Test of doBakup method, of class BD.
      *
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
@@ -47,11 +47,11 @@ public class BDDumpTest {
     public void testDoBakup() throws IOException, InterruptedException {
         System.out.println("doBakup");
         String diretorioArquivo = "C:\\Users\\User\\Desktop";
-        BDDump.doBakup(diretorioArquivo);
+        BD.doBakup(diretorioArquivo);
     }
 
     /**
-     * Test of doRestore method, of class BDDump.
+     * Test of doRestore method, of class BD.
      *
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
@@ -60,7 +60,7 @@ public class BDDumpTest {
     public void testDoRestore() throws IOException, InterruptedException {
         System.out.println("doRestore");
         String caminhoArquivo = "C:\\Users\\User\\Desktop\\bkp_snu_06-03-2014_11-43-29.sql";
-        BDDump.doRestore(caminhoArquivo);
+        BD.doRestore(caminhoArquivo);
     }
 
 }

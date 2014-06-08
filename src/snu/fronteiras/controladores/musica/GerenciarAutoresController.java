@@ -260,10 +260,10 @@ public class GerenciarAutoresController implements Initializable {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         Dialogs.DialogResponse resposta;
         resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                "Tem certeza que deseja excluir o(a) Autor(a) \""
+                "Deseja realmente excluir o(a) Autor(a) \""
                 + quantidadeAutoriaDtoSelecionado.getAutor().getNome() + "\" do sistema?"
                 + "\n\nATENÇÃO: Ao excluí-lo(a), todas as músicas de sua autoria serão excluídas também!",
-                "Exclusão de Autor", "Confirmação");
+                "Exclusão de Autor", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {

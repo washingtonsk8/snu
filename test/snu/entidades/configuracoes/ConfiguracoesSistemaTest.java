@@ -72,8 +72,8 @@ public class ConfiguracoesSistemaTest {
     public void testGetVersao() {
         System.out.println("getVersao");
         ConfiguracoesSistema instance = new ConfiguracoesSistema();
-        Double expResult = null;
-        Double result = instance.getVersao();
+        String expResult = null;
+        String result = instance.getVersao();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -85,7 +85,7 @@ public class ConfiguracoesSistemaTest {
     @Test
     public void testSetVersao() {
         System.out.println("setVersao");
-        Double versao = null;
+        String versao = null;
         ConfiguracoesSistema instance = new ConfiguracoesSistema();
         instance.setVersao(versao);
         // TODO review the generated test code and remove the default call to fail.

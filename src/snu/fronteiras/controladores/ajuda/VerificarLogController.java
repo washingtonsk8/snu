@@ -49,7 +49,7 @@ public class VerificarLogController implements Initializable {
                 areaArquivoLog.appendText(linhaAtual);
                 areaArquivoLog.appendText("\n");
             }
-            
+
             //Utilizado se for de preferência ir para o começo do arquivo
             //areaArquivoLog.home();
         } catch (IOException ex) {

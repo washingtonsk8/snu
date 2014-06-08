@@ -8,18 +8,24 @@ package snu.fronteiras.controladores.musica;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import snu.entidades.musica.Musica;
+import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.EfeitosUtil;
 import snu.util.MusicaUtil;
@@ -76,6 +82,8 @@ public class EscreverMusicaController implements Initializable {
     private ControladorDeConteudoInterface controladorOrigem;
 
     private Musica musica;
+    @FXML
+    private Label lblInformacaoPaginas;
 
     /**
      * Inicializa as ações do controlador
@@ -114,6 +122,17 @@ public class EscreverMusicaController implements Initializable {
         this.fadeInBtnPreVisualizar.setToValue(1);
         this.fadeInBtnFecharPreVisualizacao.setToValue(1);
 
+        this.lblInformacaoPaginas.setText("A música está ocupando 1 página(s) no momento.");
+
+        this.areaEscreverMusica.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                lblInformacaoPaginas.setText("A música está ocupando "
+                        + MusicaUtil.contarPaginas(newValue)
+                        + " página(s) no momento.");
+            }
+        });
+
     }
 
     public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
@@ -122,10 +141,14 @@ public class EscreverMusicaController implements Initializable {
 
         this.fldIntroducao.setText(this.musica.getDocumentoMusica().getIntroducao());
         this.areaEscreverMusica.setText(this.musica.getDocumentoMusica().getConteudo());
+
+        this.lblInformacaoPaginas.setText("A música está ocupando "
+                + MusicaUtil.contarPaginas(musica.getDocumentoMusica().getConteudo()) + " página(s) no momento.");
     }
 
     @FXML
     private void onMouseClickedFromLblIntroducao(MouseEvent event) {
+        this.fldIntroducao.requestFocus();
     }
 
     @FXML
@@ -158,13 +181,19 @@ public class EscreverMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnCancelar(ActionEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContentPane();
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                "Deseja realmente cancelar?\nAo cancelar o conteúdo não salvo será perdido.",
+                "Cancelamento", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            final AnchorPane content = this.controladorOrigem.getContentPane();
+
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
+            pai.getChildren().clear();
+            pai.getChildren().add(content);
+            EfeitosUtil.rodarEfeitoCarregamento(content);
+        }
     }
 
     @FXML
@@ -192,7 +221,7 @@ public class EscreverMusicaController implements Initializable {
         this.fldIntroducao.toBack();
         this.areaEscreverMusica.toBack();
         this.btnPreVisualizar.toBack();
-        
+
         this.fldPreVisualizarIntroducao.toFront();
         this.areaPreVisualizarEscreverMusica.toFront();
         this.btnFecharPreVisualizacao.toFront();
@@ -200,7 +229,7 @@ public class EscreverMusicaController implements Initializable {
         this.fadeInPreVisualizarIntroducao.playFromStart();
         this.fadeInPreVisualizarConteudo.playFromStart();
         this.fadeInBtnFecharPreVisualizacao.playFromStart();
-        
+
         this.btnDetectarAcordes.setDisable(true);
         this.btnOk.setDisable(true);
         this.btnRemoverDeteccoes.setDisable(true);
@@ -219,7 +248,7 @@ public class EscreverMusicaController implements Initializable {
         this.fadeInIntroducao.playFromStart();
         this.fadeInConteudo.playFromStart();
         this.fadeInBtnPreVisualizar.playFromStart();
-        
+
         this.btnDetectarAcordes.setDisable(false);
         this.btnOk.setDisable(false);
         this.btnRemoverDeteccoes.setDisable(false);

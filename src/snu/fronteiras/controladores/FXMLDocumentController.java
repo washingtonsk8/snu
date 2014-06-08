@@ -33,7 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
-import snu.bd.BDDump;
+import snu.bd.BD;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.geral.ProgressoController;
@@ -79,8 +79,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemGerenciarAutores;
     @FXML
-    private Menu menuUtilitarios;
-    @FXML
     private MenuItem itemCriarMusica;
     @FXML
     private MenuItem itemVisualizarDadosMusica;
@@ -103,8 +101,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemExportarDados;
     @FXML
-    private Menu menuConfiguracoesMusica;
-    @FXML
     private MenuItem itemTemplateEmail;
     @FXML
     private Menu menuBancoDados;
@@ -118,6 +114,12 @@ public class FXMLDocumentController implements Initializable {
     private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
     @FXML
     private MenuItem itemLimparDadosMissa;
+    @FXML
+    private MenuItem itemVerificarLog;
+    @FXML
+    private MenuItem itemDefinirPreferenciaTons;
+    @FXML
+    private Menu menuConfiguracoesMissa;
 
     private FXMLLoader templatePesquisaIntegranteLoader;
 
@@ -132,10 +134,6 @@ public class FXMLDocumentController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(FXMLDocumentController.class.getName());
-    @FXML
-    private MenuItem itemVerificarLog;
-    @FXML
-    private MenuItem itemDefinirPreferenciaTons;
 
     private void iniciarControladorPesquisaIntegrante() {
         this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
@@ -481,7 +479,7 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public Void call() {
                     try {
-                        if (!BDDump.doRestore(arquivoImportacao.toString())) {
+                        if (!BD.doRestore(arquivoImportacao.toString())) {
                             cancel(true);
                         }
                     } catch (IOException | InterruptedException ex) {
@@ -526,7 +524,6 @@ public class FXMLDocumentController implements Initializable {
                         case READY:
                             break;
                         default:
-                            log.fatal("Caiu em DEFAULT CASE");
                             dialogStage.close();
                             break;
                     }
@@ -576,7 +573,7 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public Void call() {
                     try {
-                        if (!BDDump.doBakup(diretorioExportacao.toString())) {
+                        if (!BD.doBakup(diretorioExportacao.toString())) {
                             cancel(true);
                         }
                     } catch (IOException | InterruptedException ex) {
@@ -616,8 +613,10 @@ public class FXMLDocumentController implements Initializable {
                                     "Erro!", "Erro");
                             dialogStage.close();
                             break;
+                        case SCHEDULED:
+                        case READY:
+                            break;
                         default:
-                            log.fatal("Caiu em DEFAULT CASE");
                             dialogStage.close();
                             break;
                     }

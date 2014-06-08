@@ -27,27 +27,28 @@ public class ConfiguracoesSistema implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Double versao;
+    @Column(columnDefinition = "VARCHAR(16)", nullable = false)
+    private String versao;
 
     @Column(name = "diretorio_sgbd")
     private String diretorioSGBD;
 
     @Column(columnDefinition = "LONGTEXT", name = "template_descricao_email")
     private String templateDescricaoEmail;
-    
-    @Column(name="preferencia_Csus_Dbem", columnDefinition = "bit(1) default 0")
+
+    @Column(name = "preferencia_Csus_Dbem", columnDefinition = "bit(1) default 0")
     private Boolean preferenciaCsusDbem;
-    
-    @Column(name="preferencia_Dsus_Ebem", columnDefinition = "bit(1) default 0")
+
+    @Column(name = "preferencia_Dsus_Ebem", columnDefinition = "bit(1) default 0")
     private Boolean preferenciaDsusEbem;
-    
-    @Column(name="preferencia_Fsus_Gbem", columnDefinition = "bit(1) default 0")
+
+    @Column(name = "preferencia_Fsus_Gbem", columnDefinition = "bit(1) default 0")
     private Boolean preferenciaFsusGbem;
-    
-    @Column(name="preferencia_Gsus_Abem", columnDefinition = "bit(1) default 0")
+
+    @Column(name = "preferencia_Gsus_Abem", columnDefinition = "bit(1) default 0")
     private Boolean preferenciaGsusAbem;
-    
-    @Column(name="preferencia_Asus_Bbem", columnDefinition = "bit(1) default 0")
+
+    @Column(name = "preferencia_Asus_Bbem", columnDefinition = "bit(1) default 0")
     private Boolean preferenciaAsusBbem;
 
     public Long getId() {
@@ -58,11 +59,11 @@ public class ConfiguracoesSistema implements Serializable {
         this.id = id;
     }
 
-    public Double getVersao() {
+    public String getVersao() {
         return versao;
     }
 
-    public void setVersao(Double versao) {
+    public void setVersao(String versao) {
         this.versao = versao;
     }
 
@@ -121,7 +122,7 @@ public class ConfiguracoesSistema implements Serializable {
     public void setPreferenciaAsusBbem(Boolean preferenciaAsusBbem) {
         this.preferenciaAsusBbem = preferenciaAsusBbem;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

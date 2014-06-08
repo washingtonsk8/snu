@@ -388,7 +388,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         try {
             //Atualizando no banco
             MusicaJpaController.getInstancia().edit(this.musica);
-            
+
             TemplatePesquisaMusicaController templatePesquisaMusicaController
                     = FXMLDocumentController.getInstancia()
                     .getTemplatePesquisaMusicaLoader()
@@ -689,7 +689,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
         if (indiceSelecionado >= 0) {
             Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Tem certeza que deseja excluir a Associação?", "Exclusão de Associação", "Confirmação");
+                    "Deseja realmente excluir a Associação?", "Exclusão de Associação", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
                 this.itensAssociacao.remove(indiceSelecionado);

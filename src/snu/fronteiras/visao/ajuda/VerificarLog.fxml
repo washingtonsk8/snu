@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="contentVerificarLog" onMouseClicked="#onMouseClickedFromContentVisualizarLog" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.ajuda.VerificarLogController">
-  <Label fx:id="lblVerificarLog" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Arquivo de Log" textAlignment="LEFT" wrapText="false">
+    <Label fx:id="lblVerificarLog" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Arquivo de Log" textAlignment="LEFT" wrapText="false">
+        <stylesheets>
+            <URL value="@../../css/contents.css" />
+        </stylesheets>
+    </Label>
+    <TextArea fx:id="areaArquivoLog" disable="false" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="490.0" prefWidth="772.0" promptText="Arquivo de Log Vazio!" wrapText="true" />
     <stylesheets>
-      <URL value="@../../css/contents.css" />
+        <URL value="@../../css/contents.css" />
     </stylesheets>
-  </Label>
-  <TextArea fx:id="areaArquivoLog" disable="false" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="490.0" prefWidth="772.0" promptText="Arquivo de Log Vazio!" wrapText="true" />
-  <stylesheets>
-    <URL value="@../../css/contents.css" />
-  </stylesheets>
 </AnchorPane>

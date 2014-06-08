@@ -31,7 +31,7 @@ public enum Tom {
     public String getValorSecundario() {
         return valorSecundario;
     }
-        
+
     @Override
     public String toString() {
         return valor;

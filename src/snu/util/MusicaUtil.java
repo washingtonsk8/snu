@@ -5,6 +5,8 @@
  */
 package snu.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.entidades.musica.Tom;
@@ -15,6 +17,8 @@ import snu.entidades.musica.Tom;
  * @author Washington Luis
  */
 public class MusicaUtil {
+
+    private static final Integer LINHAS_POR_PAGINA = 31;
 
     /**
      * Detecta os acordes de um dado conteúdo de entrada e os anota com '@'
@@ -144,25 +148,42 @@ public class MusicaUtil {
         }
         return trocarPelasPreferencias(conteudoSaida.toString().replaceAll("#b", ""));//Remove as irregularidades e retorna
     }
-    
-    private static String trocarPelasPreferencias(String entrada){
+
+    private static String trocarPelasPreferencias(String entrada) {
         ConfiguracoesSistema configuracoesSistema
-                = ConfiguracoesSistemaJpaController.getInstancia().findConfiguracoesSistema();        
-        if(configuracoesSistema.isPreferenciaCsusDbem()){
+                = ConfiguracoesSistemaJpaController.getInstancia().findConfiguracoesSistema();
+        if (configuracoesSistema.isPreferenciaCsusDbem()) {
             entrada = entrada.replaceAll("C#", "Db");
         }
-        if(configuracoesSistema.isPreferenciaDsusEbem()){
-            entrada = entrada.replaceAll("D#", "Eb");            
+        if (configuracoesSistema.isPreferenciaDsusEbem()) {
+            entrada = entrada.replaceAll("D#", "Eb");
         }
-        if(configuracoesSistema.isPreferenciaFsusGbem()){
-            entrada = entrada.replaceAll("F#", "Gb");            
+        if (configuracoesSistema.isPreferenciaFsusGbem()) {
+            entrada = entrada.replaceAll("F#", "Gb");
         }
-        if(configuracoesSistema.isPreferenciaGsusAbem()){
-            entrada = entrada.replaceAll("G#", "Ab");            
+        if (configuracoesSistema.isPreferenciaGsusAbem()) {
+            entrada = entrada.replaceAll("G#", "Ab");
         }
-        if(configuracoesSistema.isPreferenciaAsusBbem()){
-            entrada = entrada.replaceAll("A#", "Bb");            
-        }        
+        if (configuracoesSistema.isPreferenciaAsusBbem()) {
+            entrada = entrada.replaceAll("A#", "Bb");
+        }
         return entrada;
+    }
+
+    public static int contarPaginas(String conteudoMusica) {
+        if (conteudoMusica == null) {
+            return 1;
+        }
+
+        Pattern pattern = Pattern.compile("\n");
+
+        Matcher matcher = pattern.matcher(conteudoMusica);
+        //.find() checks for all occurrances
+        int contagem = 0;
+        //you will see that only 2 are the matchine string
+        while (matcher.find()) {
+            contagem++;
+        }
+        return contagem / LINHAS_POR_PAGINA + 1;
     }
 }

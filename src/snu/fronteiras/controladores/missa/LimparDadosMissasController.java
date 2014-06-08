@@ -97,8 +97,8 @@ public class LimparDadosMissasController implements Initializable {
                     "A ação irá excluir todos os dados das Missas antes de "
                     + DataUtil.formatarData(dataAcontecimento)
                     + " do sistema, inclusive a relação com as músicas.\n"
-                    + "\nTem certeza que deseja excluir esses dados do sistema?",
-                    "Exclusão de Missa", "Confirmação");
+                    + "\nDeseja realmente excluir esses dados do sistema?",
+                    "Exclusão de Missa", "Confirmação", Dialogs.DialogOptions.YES_NO);
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));

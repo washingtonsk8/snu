@@ -144,7 +144,7 @@ public class MontarMissaSelecaoController implements Initializable {
                     return musica1.getTipos().get(0).compareTo(musica2.getTipos().get(0));
                 }
             });
-            
+
             this.tblMusicas.setItems(FXCollections.observableArrayList(musicasEncontradas));
             atualizarTabela();
         } catch (IOException ex) {
