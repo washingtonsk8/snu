@@ -30,7 +30,7 @@ import snu.util.StringUtil;
  */
 public class SNU extends Application {
 
-    private static final String VERSAO = "1.3.1";
+    private static final String VERSAO = "1.3.3";
 
     private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
             = ConfiguracoesSistemaJpaController.getInstancia();
