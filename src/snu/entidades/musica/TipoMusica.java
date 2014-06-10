@@ -27,7 +27,7 @@ public enum TipoMusica {
     /**
      * Música de aclamação ao evangelho
      */
-    ACLAMACAO("Aclamação ao Evangelho"),
+    ACLAMACAO("Aclamação"),
     /**
      * Música das ofertas
      */

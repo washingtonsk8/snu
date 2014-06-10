@@ -31,9 +31,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -173,6 +175,12 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private Label lblAtualizarMusica;
     @FXML
     private Button btnVoltar;
+    @FXML
+    private Label lblEstaImpressa;
+    @FXML
+    private RadioButton radioEstaImpressa;
+    @FXML
+    private RadioButton radioNaoEstaImpressa;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -256,6 +264,12 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
+        final ToggleGroup grupo = new ToggleGroup();
+
+        this.radioEstaImpressa.setToggleGroup(grupo);
+        this.radioNaoEstaImpressa.setToggleGroup(grupo);
+        this.radioNaoEstaImpressa.setSelected(true);
+        
         this.btnSelecionarAutor.requestFocus();
     }
 
@@ -283,6 +297,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.itensAssociacao.addAll(musica.getAssociacoes());
         this.tblAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
         this.conteudoAnterior = this.musica.getDocumentoMusica().getConteudo();
+        
+        this.radioEstaImpressa.setSelected(this.musica.isImpressa());
     }
 
     private boolean validarMusicaComMesmoNome(ActionEvent event) {
@@ -466,6 +482,11 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private void onMouseClickedFromContentAtualizarMusica(MouseEvent event) {
         this.contentAtualizarMusica.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblEstaImpressa(MouseEvent event) {
+        this.radioEstaImpressa.requestFocus();
     }
 
     @FXML
@@ -804,6 +825,16 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             this.fldAutor.setText(autorSelecionado.getNome());
         }
         this.fldTitulo.requestFocus();//Coloca o foco no campo de título
+    }
+
+    @FXML
+    private void onActionFromRadioEstaImpressa(ActionEvent event) {
+        this.musica.setImpressa(Boolean.TRUE);
+    }
+
+    @FXML
+    private void onActionFromRadioNaoEstaImpressa(ActionEvent event) {
+        this.musica.setImpressa(Boolean.FALSE);
     }
 
     @FXML

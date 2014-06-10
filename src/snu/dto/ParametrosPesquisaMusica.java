@@ -19,6 +19,7 @@ public class ParametrosPesquisaMusica {
     private String nomeMusica;
     private String descricaoLeituraAssociadas;
     private String trecho;
+    private Boolean impressa;
     private List<TipoMusica> tipos;
 
     public String getNomeAutor() {
@@ -51,6 +52,14 @@ public class ParametrosPesquisaMusica {
 
     public void setTrecho(String trecho) {
         this.trecho = trecho;
+    }
+
+    public Boolean isImpressa() {
+        return impressa;
+    }
+
+    public void setImpressa(Boolean impressa) {
+        this.impressa = impressa;
     }
 
     public List<TipoMusica> getTipos() {

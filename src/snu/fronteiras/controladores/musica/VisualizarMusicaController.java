@@ -110,6 +110,10 @@ public class VisualizarMusicaController implements Initializable {
     private Label lblMissasPresente;
     @FXML
     private Button btnVisualizaMissasPresente;
+    @FXML
+    private Label lblEstaImpressa;
+    @FXML
+    private Label lblResultadoEstaImpressa;
 
     private TemplatePesquisaMusicaController controladorOrigem;
 
@@ -196,6 +200,8 @@ public class VisualizarMusicaController implements Initializable {
 
         ObservableList<Missa> missasPresente = FXCollections.observableArrayList(new ArrayList<>(this.musica.getMissasPresente()));
         this.tblMissasPresente.setItems(missasPresente);
+        
+        this.lblResultadoEstaImpressa.setText(this.musica.isImpressa()? "Sim" : "Não");
     }
 
     private void carregarConteudoMusica() {

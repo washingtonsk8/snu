@@ -24,9 +24,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -125,6 +127,14 @@ public class TemplatePesquisaMusicaController implements Initializable {
     @FXML
     private TableColumn<Musica, String> clnLeituras;
     @FXML
+    private TableColumn<Musica, String> clnEstaImpressa;
+    @FXML
+    private Label lblEstaImpressa;
+    @FXML
+    private RadioButton radioEstaImpressa;
+    @FXML
+    private RadioButton radioNaoEstaImpressa;
+    @FXML
     private Button btnPesquisar;
     @FXML
     private Label lblTituloPagina;
@@ -170,6 +180,12 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
+        this.clnEstaImpressa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
+                return new SimpleStringProperty(musica.getValue().isImpressa()? "Sim" : "Não");
+            }
+        });
 
         //Adicionando as checkboxes na lista
         this.parTiposMusicaCheckBoxes = new ArrayList<>();
@@ -192,6 +208,11 @@ public class TemplatePesquisaMusicaController implements Initializable {
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
+        final ToggleGroup grupo = new ToggleGroup();
+
+        this.radioEstaImpressa.setToggleGroup(grupo);
+        this.radioNaoEstaImpressa.setToggleGroup(grupo);
+        
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
     }
 
@@ -202,6 +223,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         parametrosPesquisa.setTipos(this.tiposMusica);
         parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
+        parametrosPesquisa.setImpressa(this.radioEstaImpressa.isSelected());
 
         List<Musica> musicasEncontradas;
         try {
@@ -565,6 +587,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
         this.fldLeitura.setText(null);
         this.fldTitulo.setText(null);
         this.fldTrecho.setText(null);
+        this.radioEstaImpressa.setSelected(false);
+        this.radioNaoEstaImpressa.setSelected(false);
         for (Pair<TipoMusica, CheckBox> parTipoMusicaCheckBox : parTiposMusicaCheckBoxes) {
             parTipoMusicaCheckBox.getValue().setSelected(false);
         }
@@ -600,6 +624,14 @@ public class TemplatePesquisaMusicaController implements Initializable {
                         + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;
         }
+    }
+    
+    @FXML
+    private void onActionFromRadioEstaImpressa(ActionEvent event) {        
+    }
+
+    @FXML
+    private void onActionFromRadioNaoEstaImpressa(ActionEvent event) {
     }
 
     public AnchorPane getContent() {

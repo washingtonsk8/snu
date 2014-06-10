@@ -78,6 +78,9 @@ public class Musica implements Serializable {
             inverseJoinColumns = {
                 @JoinColumn(name = "musica_id", referencedColumnName = "id")})
     private Set<Missa> missasPresente;
+    
+    @Column(nullable=false, columnDefinition="BIT(1) DEFAULT 0")
+    private Boolean impressa;
 
     public Musica() {
         this.associacoes = new ArrayList<>();
@@ -140,6 +143,14 @@ public class Musica implements Serializable {
 
     public void setLinkVideo(String linkVideo) {
         this.linkVideo = linkVideo;
+    }
+
+    public Boolean isImpressa() {
+        return impressa;
+    }
+
+    public void setImpressa(Boolean impressa) {
+        this.impressa = impressa;
     }
 
     public List<TipoMusica> getTipos() {

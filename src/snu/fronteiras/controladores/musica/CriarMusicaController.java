@@ -263,6 +263,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.musica.setTom(this.comboTom.getValue());
         this.musica.setAfinacao(this.comboAfinacao.getValue());
         this.musica.setLinkVideo(this.fldLinkVideo.getText());
+        this.musica.setImpressa(Boolean.FALSE);
 
         String campoLeiturasAssociadas = this.fldLeituras.getText();
 
