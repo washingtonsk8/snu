@@ -183,7 +183,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         this.clnEstaImpressa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
-                return new SimpleStringProperty(musica.getValue().isImpressa()? "Sim" : "Não");
+                return new SimpleStringProperty(musica.getValue().isImpressa() ? "Sim" : "Não");
             }
         });
 
@@ -212,7 +212,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
         this.radioEstaImpressa.setToggleGroup(grupo);
         this.radioNaoEstaImpressa.setToggleGroup(grupo);
-        
+
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
     }
 
@@ -223,7 +223,12 @@ public class TemplatePesquisaMusicaController implements Initializable {
         parametrosPesquisa.setTipos(this.tiposMusica);
         parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
-        parametrosPesquisa.setImpressa(this.radioEstaImpressa.isSelected());
+        
+        if (this.radioEstaImpressa.isSelected()) {
+            parametrosPesquisa.setImpressa(Boolean.TRUE);
+        } else if (this.radioNaoEstaImpressa.isSelected()) {
+            parametrosPesquisa.setImpressa(Boolean.FALSE);
+        }
 
         List<Musica> musicasEncontradas;
         try {
@@ -625,9 +630,9 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 break;
         }
     }
-    
+
     @FXML
-    private void onActionFromRadioEstaImpressa(ActionEvent event) {        
+    private void onActionFromRadioEstaImpressa(ActionEvent event) {
     }
 
     @FXML
