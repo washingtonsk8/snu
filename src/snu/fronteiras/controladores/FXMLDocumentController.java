@@ -171,7 +171,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    private void iniciarPaginaInicial() {
+    public void iniciarPaginaInicial() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/Home.fxml"));
         Parent root = null;
         try {

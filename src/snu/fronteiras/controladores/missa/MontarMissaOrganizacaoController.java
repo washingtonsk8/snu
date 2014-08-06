@@ -6,7 +6,7 @@
 package snu.fronteiras.controladores.missa;
 
 import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
-import com.sun.javafx.scene.control.skin.SkinBase;
+import com.sun.javafx.scene.control.skin.TextAreaSkin;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.IOException;
 import java.net.URL;
@@ -212,7 +212,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.TAB) {
-                    SkinBase skin = (SkinBase) areaMusicasEspeciais.getSkin();
+                    TextAreaSkin skin = (TextAreaSkin) areaMusicasEspeciais.getSkin();
                     if (skin.getBehavior() instanceof TextAreaBehavior) {
                         TextAreaBehavior behavior = (TextAreaBehavior) skin.getBehavior();
                         behavior.callAction("TraverseNext");

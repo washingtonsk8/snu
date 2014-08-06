@@ -2,15 +2,13 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentAtualizarIntegrante" onMouseClicked="#onMouseClickedFromContentAtualizarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.AtualizarIntegranteController">
+<AnchorPane fx:id="contentAtualizarIntegrante" onMouseClicked="#onMouseClickedFromContentAtualizarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.integrante.AtualizarIntegranteController">
     <children>
         <Label fx:id="lblAtualizarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Atualizar Integrante" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -120,6 +118,11 @@
         <Button fx:id="btnVoltar" cache="true" font="$x2" layoutX="446.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
         <Button fx:id="btnLimpar" cache="true" font="$x2" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
         <Button fx:id="btnSalvar" cache="true" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
+        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+            </image>
+        </ImageView><DatePicker fx:id="dpDataNascimento" layoutX="185.0" layoutY="141.0" onAction="#onActionFromDpDataNascimento" prefHeight="25.0" prefWidth="150.0" promptText="DD/MM/AAAA" /><DatePicker fx:id="dpDataEntrada" layoutX="185.0" layoutY="380.0" onAction="#onActionFromDpDataEntrada" prefHeight="25.0" prefWidth="150.0" promptText="DD/MM/AAAA" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

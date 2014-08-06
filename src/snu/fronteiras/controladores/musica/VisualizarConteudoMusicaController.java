@@ -6,7 +6,7 @@
 package snu.fronteiras.controladores.musica;
 
 import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
-import com.sun.javafx.scene.control.skin.SkinBase;
+import com.sun.javafx.scene.control.skin.TextAreaSkin;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -60,7 +60,7 @@ public class VisualizarConteudoMusicaController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.TAB) {
-                    SkinBase skin = (SkinBase) areaVisualizarMusica.getSkin();
+                    TextAreaSkin skin = (TextAreaSkin) areaVisualizarMusica.getSkin();
                     if (skin.getBehavior() instanceof TextAreaBehavior) {
                         TextAreaBehavior behavior = (TextAreaBehavior) skin.getBehavior();
                         behavior.callAction("TraverseNext");

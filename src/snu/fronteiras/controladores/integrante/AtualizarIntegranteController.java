@@ -5,8 +5,9 @@
  */
 package snu.fronteiras.controladores.integrante;
 
-import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.scene.control.DatePicker;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -19,11 +20,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +37,7 @@ import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
@@ -109,9 +112,11 @@ public class AtualizarIntegranteController implements Initializable {
     private Button btnVoltar;
     @FXML
     private Label lblAtualizarIntegrante;
-
+    @FXML
+    private ImageView imgInicio;
+    @FXML
     private DatePicker dpDataNascimento;
-
+    @FXML
     private DatePicker dpDataEntrada;
 
     private Integrante integrante;
@@ -144,33 +149,24 @@ public class AtualizarIntegranteController implements Initializable {
                 }
             }
         });
-    }
 
-    private void resetarCamposDeData() {
-        //Formatando o DatePicker de Nascimento
-        this.dpDataNascimento = DataUtil.getDatePicker();
-        this.dpDataNascimento.setLayoutX(185);
-        this.dpDataNascimento.setLayoutY(140);
-        this.dpDataNascimento.setMaxWidth(150);
-        this.dpDataNascimento.setPromptText("DD/MM/AAAA");
-        this.dpDataNascimento.selectedDateProperty().addListener(new ChangeListener<Date>() {
+        this.dpDataNascimento.getEditor().textProperty().addListener(new ChangeListener() {
             @Override
-            public void changed(ObservableValue<? extends Date> observable, Date valorAntigo, Date novaDataNascimento) {
-                lblIdade.setText(DataUtil.getIdade(novaDataNascimento) + " anos");
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                LocalDate dataNascimento = dpDataNascimento.getValue();
+                if (dataNascimento != null) {
+                    lblIdade.setText(DataUtil.getIdade(DataUtil.toDate(dataNascimento)) + " anos");
+                }
             }
         });
 
-        //Formatando o DatePicker de Entrada
-        this.dpDataEntrada = DataUtil.getDatePicker();
-        this.dpDataEntrada.setLayoutX(185);
-        this.dpDataEntrada.setLayoutY(380);
-        this.dpDataEntrada.setMaxWidth(150);
-        this.dpDataEntrada.setPromptText("DD/MM/AAAA");
-
-        this.dpDataEntrada.selectedDateProperty().addListener(new ChangeListener<Date>() {
+        this.dpDataEntrada.getEditor().textProperty().addListener(new ChangeListener() {
             @Override
-            public void changed(ObservableValue<? extends Date> observable, Date valorAntigo, Date novaDataEntrada) {
-                lblIdadeMinisterial.setText(DataUtil.getIdade(novaDataEntrada) + " anos de ministério");
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                LocalDate dataEntrada = dpDataEntrada.getValue();
+                if (dataEntrada != null) {
+                    lblIdadeMinisterial.setText(DataUtil.getIdade(DataUtil.toDate(dataEntrada)) + " anos de ministério");
+                }
             }
         });
     }
@@ -198,9 +194,7 @@ public class AtualizarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setDisable(true);
         this.comboFuncaoSecundaria.setOpacity(0.6);
 
-        resetarCamposDeData();
-        this.contentAtualizarIntegrante.getChildren().add(this.dpDataNascimento);
-        this.contentAtualizarIntegrante.getChildren().add(this.dpDataEntrada);
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
 
         definirAtividadeDeFocoDosCampos();
     }
@@ -215,15 +209,24 @@ public class AtualizarIntegranteController implements Initializable {
         } else {
             this.radioMasculino.setSelected(true);
         }
-        this.dpDataNascimento.setSelectedDate(this.integrante.getDataNascimento());
+        this.dpDataNascimento.setValue(DataUtil.toLocalDate(this.integrante.getDataNascimento()));
         this.fldEndereco.setText(this.integrante.getEndereco());
         this.fldEmail.setText(this.integrante.getEmail());
         this.fldTelefoneResidencial.setText(this.integrante.getTelefoneResidencial());
         this.fldTelefoneCelular.setText(this.integrante.getTelefoneCelular());
         this.fldTelefoneComercial.setText(this.integrante.getTelefoneComercial());
-        this.dpDataEntrada.setSelectedDate(this.integrante.getDataEntrada());
+        this.dpDataEntrada.setValue(DataUtil.toLocalDate(this.integrante.getDataEntrada()));
         this.comboFuncaoPrincipal.setValue(this.integrante.getFuncaoPrimaria());
         this.comboFuncaoSecundaria.setValue(this.integrante.getFuncaoSecundaria());
+
+        Date dataNascimento = this.integrante.getDataNascimento();
+        Date dataEntrada = this.integrante.getDataEntrada();
+        if (dataNascimento != null) {
+            lblIdade.setText(DataUtil.getIdade(dataNascimento) + " anos");
+        }
+        if (dataEntrada != null) {
+            lblIdadeMinisterial.setText(DataUtil.getIdade(dataEntrada) + " anos de ministério");
+        }
     }
 
     /**
@@ -398,7 +401,8 @@ public class AtualizarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setValue(FuncaoIntegrante.NENHUMA);
         this.contentAtualizarIntegrante.getChildren().remove(this.dpDataNascimento);
         this.contentAtualizarIntegrante.getChildren().remove(this.dpDataEntrada);
-        resetarCamposDeData();
+        this.dpDataNascimento.getEditor().clear();
+        this.dpDataEntrada.getEditor().clear();
         this.contentAtualizarIntegrante.getChildren().add(this.dpDataNascimento);
         this.contentAtualizarIntegrante.getChildren().add(this.dpDataEntrada);
         this.fldEmail.clear();
@@ -446,9 +450,9 @@ public class AtualizarIntegranteController implements Initializable {
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
             this.integrante.setNome(this.fldNome.getText());
-            this.integrante.setDataNascimento(this.dpDataNascimento.getSelectedDate());
+            this.integrante.setDataNascimento(DataUtil.toDate(this.dpDataNascimento.getValue()));
             this.integrante.setEmail(this.fldEmail.getText().toLowerCase(new Locale("pt", "BR")));
-            this.integrante.setDataEntrada(this.dpDataEntrada.getSelectedDate());
+            this.integrante.setDataEntrada(DataUtil.toDate(this.dpDataEntrada.getValue()));
             this.integrante.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
             this.integrante.setTelefoneCelular(this.fldTelefoneCelular.getText());
             this.integrante.setTelefoneComercial(this.fldTelefoneComercial.getText());
@@ -480,8 +484,21 @@ public class AtualizarIntegranteController implements Initializable {
             }
 
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalado.", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
+    }
+
+    @FXML
+    private void onActionFromDpDataNascimento(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromDpDataEntrada(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML

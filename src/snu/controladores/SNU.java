@@ -12,7 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -110,7 +110,7 @@ public class SNU extends Application {
                     resposta = Dialogs.showConfirmDialog(
                             FXMLDocumentController.getInstancia().getStage(),
                             "Deseja realmente sair do sistema?",
-                            "Confirmação", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                            "Confirmação", "Confirmação");
                     if (resposta != Dialogs.DialogResponse.YES) {
                         event.consume();
                     } else {

@@ -8,6 +8,10 @@ package snu.util;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -36,18 +40,18 @@ public class DataUtil {
     /**
      * Calcula a idade de acordo com uma data passada
      *
-     * @param dataPassada
+     * @param data
      * @return
      */
-    public static Integer getIdade(Date dataPassada) {
+    public static Integer getIdade(Date data) {
         Calendar cData = Calendar.getInstance();
         Calendar cDataAtual = Calendar.getInstance();
-        cData.setTime(dataPassada);
+        cData.setTime(data);
         cData.set(Calendar.YEAR, cDataAtual.get(Calendar.YEAR));
 
         Integer idade = cData.after(cDataAtual) ? -1 : 0;
 
-        cData.setTime(dataPassada);
+        cData.setTime(data);
 
         idade += cDataAtual.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
 
@@ -67,5 +71,31 @@ public class DataUtil {
 
         SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
         return sdt.format(data);
+    }
+
+    /**
+     * Converte a data passada para data do tipo LocalDate
+     * @param data
+     * @return
+     */
+    public static LocalDate toLocalDate(Date data) {
+        if(data == null){
+            return null;
+        }
+        Instant instant = Instant.ofEpochMilli(data.getTime());
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+    }
+
+    /**
+     * Converte a data passada para data do tipo Date
+     * @param data
+     * @return
+     */
+    public static Date toDate(LocalDate data) {
+        if(data == null){
+            return null;
+        }
+        Instant instant = data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        return Date.from(instant);
     }
 }

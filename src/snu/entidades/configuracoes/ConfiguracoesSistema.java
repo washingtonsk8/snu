@@ -36,19 +36,19 @@ public class ConfiguracoesSistema implements Serializable {
     @Column(columnDefinition = "LONGTEXT", name = "template_descricao_email")
     private String templateDescricaoEmail;
 
-    @Column(name = "preferencia_Csus_Dbem", columnDefinition = "bit(1) default 0")
+    @Column(name = "preferencia_Csus_Dbem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaCsusDbem;
 
-    @Column(name = "preferencia_Dsus_Ebem", columnDefinition = "bit(1) default 0")
+    @Column(name = "preferencia_Dsus_Ebem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaDsusEbem;
 
-    @Column(name = "preferencia_Fsus_Gbem", columnDefinition = "bit(1) default 0")
+    @Column(name = "preferencia_Fsus_Gbem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaFsusGbem;
 
-    @Column(name = "preferencia_Gsus_Abem", columnDefinition = "bit(1) default 0")
+    @Column(name = "preferencia_Gsus_Abem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaGsusAbem;
 
-    @Column(name = "preferencia_Asus_Bbem", columnDefinition = "bit(1) default 0")
+    @Column(name = "preferencia_Asus_Bbem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaAsusBbem;
 
     public Long getId() {

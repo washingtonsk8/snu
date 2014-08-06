@@ -2,15 +2,13 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentVisualizarIntegrante" onMouseClicked="#onMouseClickedFromContentVisualizarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.VisualizarIntegranteController">
+<AnchorPane fx:id="contentVisualizarIntegrante" onMouseClicked="#onMouseClickedFromContentVisualizarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.integrante.VisualizarIntegranteController">
     <children>
         <Label fx:id="lblVisualizarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Integrante" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -93,7 +91,11 @@
         <Label fx:id="lblResultadoEmail" layoutX="185.0" layoutY="343.0" prefWidth="300.0" text="" />
         <Label fx:id="lblResultadoDataEntrada" layoutX="185.0" layoutY="383.0" prefWidth="150.0" text="" />
         <Label fx:id="lblResultadoFuncaoPrincipal" layoutX="185.0" layoutY="423.0" prefWidth="200.0" text="" />
-        <Label fx:id="lblResultadoFuncaoSecundaria" layoutX="185.0" layoutY="463.0" prefWidth="200.0" text="" />
+        <Label fx:id="lblResultadoFuncaoSecundaria" layoutX="185.0" layoutY="463.0" prefWidth="200.0" text="" /><ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<image>
+<Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+</image>
+</ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

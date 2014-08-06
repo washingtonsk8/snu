@@ -19,12 +19,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,6 +39,7 @@ import snu.entidades.integrante.Sexo;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 
 /**
@@ -79,6 +81,8 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private Label lblTituloPagina;
     @FXML
     private Button btnLimpar;
+    @FXML
+    private ImageView imgInicio;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante
             = FXCollections.observableArrayList(FuncaoIntegrante.values());
@@ -91,12 +95,14 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private void initComponents() {
 
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
-        this.clnNome.setCellValueFactory(new PropertyValueFactory<Integrante, String>("nome"));
-        this.clnTelefoneResidencial.setCellValueFactory(new PropertyValueFactory<Integrante, String>("telefoneResidencial"));
-        this.clnTelefoneCelular.setCellValueFactory(new PropertyValueFactory<Integrante, String>("telefoneCelular"));
-        this.clnEmail.setCellValueFactory(new PropertyValueFactory<Integrante, String>("email"));
-        this.clnFuncaoPrincipal.setCellValueFactory(new PropertyValueFactory<Integrante, String>("funcaoPrimaria"));
+        this.clnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        this.clnTelefoneResidencial.setCellValueFactory(new PropertyValueFactory<>("telefoneResidencial"));
+        this.clnTelefoneCelular.setCellValueFactory(new PropertyValueFactory<>("telefoneCelular"));
+        this.clnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        this.clnFuncaoPrincipal.setCellValueFactory(new PropertyValueFactory<>("funcaoPrimaria"));
 
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+        
         this.comboFuncaoPrincipal.setItems(funcoesIntegrante);
         this.comboFuncaoPrincipal.getItems().remove(FuncaoIntegrante.NENHUMA);
     }
@@ -164,11 +170,11 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
             resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Deseja realmente excluir a Integrante \"" + integranteSelecionado.getPrimeiroNome() + "\"?",
-                    "Exclusão de Integrante", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                    "Exclusão de Integrante", "Confirmação");
         } else {
             resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Deseja realmente excluir o Integrante\"" + integranteSelecionado.getPrimeiroNome() + "\"?",
-                    "Exclusão de Integrante", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                    "Deseja realmente excluir o Integrante \"" + integranteSelecionado.getPrimeiroNome() + "\"?",
+                    "Exclusão de Integrante", "Confirmação");
         }
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
@@ -294,6 +300,11 @@ public class TemplatePesquisaIntegranteController implements Initializable {
                         + "\nFavor entrar em contato com o administrador.", "Erro interno!", "Erro");
                 break;
         }
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     public void atualizar() {

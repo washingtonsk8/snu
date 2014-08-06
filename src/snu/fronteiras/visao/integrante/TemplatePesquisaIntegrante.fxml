@@ -2,16 +2,13 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentTemplatePesquisaIntegrante" onMouseClicked="#onMouseClickedFromContentTemplatePesquisaIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController">
+<AnchorPane fx:id="contentTemplatePesquisaIntegrante" onMouseClicked="#onMouseClickedFromContentTemplatePesquisaIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController">
     <children>
         <Label fx:id="lblTituloPagina" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Template Pesquisa Integrante" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -38,16 +35,20 @@
                 <Font size="14.0" fx:id="x2" />
             </font>
         </Button>
-        <Button fx:id="btnPesquisar" cache="true" layoutX="686.0" font="$x2" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
-        <TableView fx:id="tblIntegrantes" layoutX="14.0" layoutY="210.0" onMouseClicked="#onMouseClickedFromTblIntegrantes" prefHeight="340.0" prefWidth="772.0" >
+        <Button fx:id="btnPesquisar" cache="true" font="$x2" layoutX="686.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
+        <TableView fx:id="tblIntegrantes" layoutX="14.0" layoutY="210.0" onMouseClicked="#onMouseClickedFromTblIntegrantes" prefHeight="340.0" prefWidth="772.0">
             <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="230.0" text="Nome" fx:id="clnNome" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Tel. Residencial" fx:id="clnTelefoneResidencial" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Tel. Celular" fx:id="clnTelefoneCelular" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="200.0" text="E-mail" fx:id="clnEmail" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Função Principal" fx:id="clnFuncaoPrincipal" />
+                <TableColumn fx:id="clnNome" maxWidth="5000.0" minWidth="10.0" prefWidth="230.0" text="Nome" />
+                <TableColumn fx:id="clnTelefoneResidencial" maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Tel. Residencial" />
+                <TableColumn fx:id="clnTelefoneCelular" maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Tel. Celular" />
+                <TableColumn fx:id="clnEmail" maxWidth="5000.0" minWidth="10.0" prefWidth="200.0" text="E-mail" />
+                <TableColumn fx:id="clnFuncaoPrincipal" maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Função Principal" />
             </columns>
-        </TableView>
+        </TableView><ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<image>
+<Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+</image>
+</ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

@@ -5,9 +5,9 @@
  */
 package snu.fronteiras.controladores.integrante;
 
-import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.scene.control.DatePicker;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -20,11 +20,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -36,6 +37,7 @@ import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
@@ -110,9 +112,11 @@ public class CadastrarIntegranteController implements Initializable {
     private Label lblCadastrarIntegrante;
     @FXML
     private Font x4;
-
+    @FXML
+    private ImageView imgInicio;
+    @FXML
     private DatePicker dpDataNascimento;
-
+    @FXML
     private DatePicker dpDataEntrada;
 
     private Integrante integranteRow;
@@ -141,33 +145,24 @@ public class CadastrarIntegranteController implements Initializable {
                 }
             }
         });
-    }
 
-    private void resetarCamposDeData() {
-        //Formatando o DatePicker de Nascimento
-        this.dpDataNascimento = DataUtil.getDatePicker();
-        this.dpDataNascimento.setLayoutX(185);
-        this.dpDataNascimento.setLayoutY(140);
-        this.dpDataNascimento.setMaxWidth(150);
-        this.dpDataNascimento.setPromptText("DD/MM/AAAA");
-        this.dpDataNascimento.selectedDateProperty().addListener(new ChangeListener<Date>() {
+        this.dpDataNascimento.getEditor().textProperty().addListener(new ChangeListener() {
             @Override
-            public void changed(ObservableValue<? extends Date> observable, Date valorAntigo, Date novaDataNascimento) {
-                lblIdade.setText(DataUtil.getIdade(novaDataNascimento) + " anos");
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                LocalDate dataNascimento = dpDataNascimento.getValue();
+                if (dataNascimento != null) {
+                    lblIdade.setText(DataUtil.getIdade(DataUtil.toDate(dataNascimento)) + " anos");
+                }
             }
         });
 
-        //Formatando o DatePicker de Entrada
-        this.dpDataEntrada = DataUtil.getDatePicker();
-        this.dpDataEntrada.setLayoutX(185);
-        this.dpDataEntrada.setLayoutY(380);
-        this.dpDataEntrada.setMaxWidth(150);
-        this.dpDataEntrada.setPromptText("DD/MM/AAAA");
-
-        this.dpDataEntrada.selectedDateProperty().addListener(new ChangeListener<Date>() {
+        this.dpDataEntrada.getEditor().textProperty().addListener(new ChangeListener() {
             @Override
-            public void changed(ObservableValue<? extends Date> observable, Date valorAntigo, Date novaDataEntrada) {
-                lblIdadeMinisterial.setText(DataUtil.getIdade(novaDataEntrada) + " anos de ministério");
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                LocalDate dataEntrada = dpDataEntrada.getValue();
+                if (dataEntrada != null) {
+                    lblIdadeMinisterial.setText(DataUtil.getIdade(DataUtil.toDate(dataEntrada)) + " anos de ministério");
+                }
             }
         });
     }
@@ -199,9 +194,7 @@ public class CadastrarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setDisable(true);
         this.comboFuncaoSecundaria.setOpacity(0.6);
 
-        resetarCamposDeData();
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
 
         definirAtividadeDeFocoDosCampos();
 
@@ -381,7 +374,8 @@ public class CadastrarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setValue(FuncaoIntegrante.NENHUMA);
         this.contentCadastrarIntegrante.getChildren().remove(this.dpDataNascimento);
         this.contentCadastrarIntegrante.getChildren().remove(this.dpDataEntrada);
-        resetarCamposDeData();
+        this.dpDataNascimento.getEditor().clear();
+        this.dpDataEntrada.getEditor().clear();
         this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
         this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
         this.fldEmail.clear();
@@ -426,12 +420,25 @@ public class CadastrarIntegranteController implements Initializable {
     }
 
     @FXML
+    private void onActionFromDpDataEntrada(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromDpDataNascimento(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+    }
+
+    @FXML
     private void onActionFromBtnSalvar(ActionEvent event) {
         if (validarCampos()) {
             this.integranteRow.setNome(this.fldNome.getText());
-            this.integranteRow.setDataNascimento(this.dpDataNascimento.getSelectedDate());
+            this.integranteRow.setDataNascimento(DataUtil.toDate(this.dpDataNascimento.getValue()));
             this.integranteRow.setEmail(this.fldEmail.getText().toLowerCase(new Locale("pt", "BR")));
-            this.integranteRow.setDataEntrada(this.dpDataEntrada.getSelectedDate());
+            this.integranteRow.setDataEntrada(DataUtil.toDate(this.dpDataEntrada.getValue()));
             this.integranteRow.setSexo(this.radioFeminino.isSelected() ? Sexo.FEMININO : Sexo.MASCULINO);
             this.integranteRow.setTelefoneCelular(this.fldTelefoneCelular.getText());
             this.integranteRow.setTelefoneComercial(this.fldTelefoneComercial.getText());

@@ -13,11 +13,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
+import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
@@ -85,6 +88,8 @@ public class VisualizarIntegranteController implements Initializable {
     private Label lblVisualizarIntegrante;
     @FXML
     private Font x2;
+    @FXML
+    private ImageView imgInicio;
 
     private Integrante integrante;
 
@@ -108,6 +113,10 @@ public class VisualizarIntegranteController implements Initializable {
         FuncaoIntegrante funcaoSecundaria = this.integrante.getFuncaoSecundaria();
         this.lblResultadoFuncaoSecundaria.setText(funcaoSecundaria == null ? StringUtil.VAZIA : funcaoSecundaria.toString());
     }
+    
+    private void initComponents(){        
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+    }
 
     /**
      * Inicializa as ações do controlador
@@ -117,6 +126,7 @@ public class VisualizarIntegranteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
     }
 
     @FXML
@@ -170,6 +180,11 @@ public class VisualizarIntegranteController implements Initializable {
     @FXML
     private void onMouseClickedFromContentVisualizarIntegrante(MouseEvent event) {
         this.contentVisualizarIntegrante.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML
