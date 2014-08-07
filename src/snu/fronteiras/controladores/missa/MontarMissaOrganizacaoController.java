@@ -7,7 +7,6 @@ package snu.fronteiras.controladores.missa;
 
 import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
 import com.sun.javafx.scene.control.skin.TextAreaSkin;
-import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,13 +28,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -51,6 +52,7 @@ import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 
@@ -151,7 +153,9 @@ public class MontarMissaOrganizacaoController implements Initializable {
     private Button btnRemoverMusicaFinal;
     @FXML
     private Button btnRemoverMusicasEspeciais;
-
+    @FXML
+    private ImageView imgInicio;
+    @FXML
     private DatePicker dpDataMissa;
 
     /**
@@ -178,13 +182,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
     private static final Logger log = Logger.getLogger(MontarMissaOrganizacaoController.class.getName());
 
     private void initComponents() {
-        //Formatando o DatePicker de Acontecimento
-        this.dpDataMissa = DataUtil.getDatePicker();
-        this.dpDataMissa.setLayoutX(150);
-        this.dpDataMissa.setLayoutY(95);
-        this.dpDataMissa.setMaxWidth(150);
-        this.dpDataMissa.setPromptText("DD/MM/AAAA");
-        this.contentMontarMissaOrganizacao.getChildren().add(this.dpDataMissa);
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
 
         this.musicasParaMissa = new HashSet<>();
         this.missa = new Missa();
@@ -1003,10 +1002,19 @@ public class MontarMissaOrganizacaoController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+    }
+
+    @FXML
+    private void onActionFromDpDataMissa(ActionEvent event) {
+    }
+
+    @FXML
     private void onActionFromBtnAvancar(ActionEvent event) {
         this.missa.setNome(this.fldNomeMissa.getText());
 
-        if (this.dpDataMissa.getSelectedDate() == null) {
+        if (this.dpDataMissa.getValue() == null) {
             this.dpDataMissa.setEffect(EfeitosUtil.getEfeitoInvalido());
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
@@ -1019,7 +1027,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             }
 
             this.missa.setMusicasUtilizadas(this.musicasParaMissa);
-            this.missa.setDataAcontecimento(this.dpDataMissa.getSelectedDate());
+            this.missa.setDataAcontecimento(DataUtil.toDate(this.dpDataMissa.getValue()));
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaFinalizacao.fxml"));
 
@@ -1047,9 +1055,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                "As associações serão perdidas."
-                + "\nDeseja realmente voltar?",
-                "Voltar para tela de Seleção de Músicas", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                "As associações serão perdidas. Deseja realmente voltar?",
+                "Voltar para tela de Seleção de Músicas", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             final AnchorPane content = this.controladorOrigem.getContent();

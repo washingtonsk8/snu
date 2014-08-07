@@ -27,7 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +47,7 @@ import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
@@ -89,6 +90,10 @@ public class MontarMissaSelecaoController implements Initializable {
     private ComboBox<TipoMusica> comboTipo;
     @FXML
     private Label lblInformacaoFuncionamento;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private ImageView imgInicio;
 
     private Set<Musica> musicasSelecionadas;
 
@@ -99,8 +104,6 @@ public class MontarMissaSelecaoController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MontarMissaSelecaoController.class.getName());
-    @FXML
-    private Button btnLimpar;
 
     private void initComponents() {
         this.clnTituloMusica.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
@@ -118,6 +121,8 @@ public class MontarMissaSelecaoController implements Initializable {
             }
         });
 
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+        
         this.musicasSelecionadas = new HashSet<>();
 
         this.comboTipo.setItems(this.tiposMusica);
@@ -287,6 +292,11 @@ public class MontarMissaSelecaoController implements Initializable {
 
     public AnchorPane getContent() {
         return this.contentMontarMissaSelecao;
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     private void atualizarTabela() {

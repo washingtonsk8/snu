@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/TemplatePesquisaMusicaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/util/Dialogs.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/META-INF/persistence.xml</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/SNU.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/visao/missa/MontarMissaSelecao.fxml</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/missa/MontarMissaSelecaoController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/visao/missa/MontarMissaFinalizacao.fxml</file>
         </group>
     </open-files>
 </project-private>

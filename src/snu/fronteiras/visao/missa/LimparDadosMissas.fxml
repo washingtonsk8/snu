@@ -2,14 +2,12 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentLimparDadosMissa" onMouseClicked="#onMouseClickedFromContentLimparDadosMissa" prefHeight="150.0" prefWidth="520.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.missa.LimparDadosMissasController">
+<AnchorPane fx:id="contentLimparDadosMissa" onMouseClicked="#onMouseClickedFromContentLimparDadosMissa" prefHeight="150.0" prefWidth="520.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.missa.LimparDadosMissasController">
     <children>
         <Label fx:id="lblLimparDados" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Limpar Dados">
             <stylesheets>
@@ -25,6 +23,7 @@
                 <Font size="16.0" />
             </font>
         </Label>
+        <DatePicker fx:id="dpDataAcontecimento" layoutX="300.0" layoutY="61.0" onAction="#onActionFromDpDataAcontecimento" prefWidth="150.0" />
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

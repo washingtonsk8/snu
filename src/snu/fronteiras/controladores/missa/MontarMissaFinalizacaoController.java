@@ -20,9 +20,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -32,6 +33,7 @@ import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 
@@ -55,11 +57,11 @@ public class MontarMissaFinalizacaoController implements Initializable {
     @FXML
     private Label lblInformacaoFuncionamento;
     @FXML
-    private Font x2;
-    @FXML
     private TextArea areaDescricaoEmail;
     @FXML
     private Button btnVoltar;
+    @FXML
+    private ImageView imgInicio;
 
     private Missa missa;
 
@@ -126,6 +128,10 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         return saudacao;
     }
+    
+    private void initComponents(){
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+    }
 
     /**
      * Inicializa as ações do controlador
@@ -135,11 +141,17 @@ public class MontarMissaFinalizacaoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
     }
 
     @FXML
     private void onMouseClickedFromContentMontarMissaFinalizacao(MouseEvent event) {
         this.contentMontarMissaFinalizacao.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML

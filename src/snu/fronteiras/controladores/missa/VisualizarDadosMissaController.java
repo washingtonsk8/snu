@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores.missa;
 
-import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -18,12 +17,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import javafx.scene.control.DatePicker;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -35,6 +36,7 @@ import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
@@ -68,27 +70,23 @@ public class VisualizarDadosMissaController implements Initializable {
     private Font x2;
     @FXML
     private Label lblDataAcontecimentoMissa;
-
-    private DatePicker dpDataMissa;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private ImageView imgInicio;
+    @FXML
+    private DatePicker dpDataAcontecimento;
 
     private ObservableList<Missa> missas = FXCollections.observableArrayList();
 
     private Popup popup;
-    @FXML
-    private Button btnLimpar;
 
     private void initComponents() {
         this.popup = new Popup();
         this.popup.setAutoHide(true);
 
-        //Formatando o DatePicker de Acontecimento
-        this.dpDataMissa = DataUtil.getDatePicker();
-        this.dpDataMissa.setLayoutX(200);
-        this.dpDataMissa.setLayoutY(90);
-        this.dpDataMissa.setMaxWidth(150);
-        this.dpDataMissa.setPromptText("DD/MM/AAAA");
-        this.contentVisualizarDadosMissa.getChildren().add(this.dpDataMissa);
-
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+        
         this.clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
@@ -109,7 +107,7 @@ public class VisualizarDadosMissaController implements Initializable {
         ParametrosPesquisaMissa parametrosPesquisa = new ParametrosPesquisaMissa();
 
         parametrosPesquisa.setNomeMissa(this.fldNomeMissa.getText());
-        parametrosPesquisa.setDataAcontecimento(this.dpDataMissa.getSelectedDate());
+        parametrosPesquisa.setDataAcontecimento(DataUtil.toDate(this.dpDataAcontecimento.getValue()));
 
         this.missas = FXCollections.observableArrayList(MissaJpaController.getInstancia().
                 findByParametrosPesquisa(parametrosPesquisa));
@@ -134,7 +132,7 @@ public class VisualizarDadosMissaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromLblDataAcontecimentoMissa(MouseEvent event) {
-        this.dpDataMissa.requestFocus();
+        this.dpDataAcontecimento.requestFocus();
     }
 
     @FXML
@@ -177,9 +175,14 @@ public class VisualizarDadosMissaController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+    }
+
+    @FXML
     private void onActionFromBtnLimpar(ActionEvent event) {
         this.fldNomeMissa.setText(null);
-        this.dpDataMissa.setSelectedDate(null);
+        this.dpDataAcontecimento.setValue(null);
     }
 
     @FXML
@@ -189,5 +192,9 @@ public class VisualizarDadosMissaController implements Initializable {
 
     public void atualizar() {
         pesquisarPorParametros();
+    }
+
+    @FXML
+    private void onActionFromDpDataAcontecimento(ActionEvent event) {
     }
 }

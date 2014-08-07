@@ -5,7 +5,7 @@
  */
 package snu.fronteiras.controladores.missa;
 
-import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.scene.control.DatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -22,7 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
 import snu.controladores.MissaJpaController;
+import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.DataUtil;
@@ -48,20 +49,13 @@ public class LimparDadosMissasController implements Initializable {
     private Label lblLimparDados;
     @FXML
     private Button btnOk;
-
+    @FXML
     private DatePicker dpDataAcontecimento;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MontarMissaOrganizacaoController.class.getName());
 
     private void initComponents() {
-        //Formatando o DatePicker de Nascimento
-        this.dpDataAcontecimento = DataUtil.getDatePicker();
-        this.dpDataAcontecimento.setLayoutX(300);
-        this.dpDataAcontecimento.setLayoutY(61);
-        this.dpDataAcontecimento.setMaxWidth(100);
-        this.dpDataAcontecimento.setPromptText("DD/MM/AAAA");
-        this.contentLimparDadosMissa.getChildren().add(this.dpDataAcontecimento);
     }
 
     /**
@@ -90,7 +84,7 @@ public class LimparDadosMissasController implements Initializable {
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
         final MissaJpaController missaJpaController = MissaJpaController.getInstancia();
-        final Date dataAcontecimento = this.dpDataAcontecimento.getSelectedDate();
+        final Date dataAcontecimento = DataUtil.toDate(this.dpDataAcontecimento.getValue());
 
         if (dataAcontecimento != null) {
             Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
@@ -98,7 +92,7 @@ public class LimparDadosMissasController implements Initializable {
                     + DataUtil.formatarData(dataAcontecimento)
                     + " do sistema, inclusive a relação com as músicas.\n"
                     + "\nDeseja realmente excluir esses dados do sistema?",
-                    "Exclusão de Missa", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                    "Exclusão de Missa", "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
@@ -175,6 +169,10 @@ public class LimparDadosMissasController implements Initializable {
         }
     }
 
+    @FXML
+    private void onActionFromDpDataAcontecimento(ActionEvent event) {
+    }
+
     private void excluirMissas(MissaJpaController missaJpaController, Date dataAcontecimento) {
         try {
             //Destrói as Missas anteriores à data passada
@@ -201,7 +199,7 @@ public class LimparDadosMissasController implements Initializable {
                     }
                 }
             });
-        } catch (final Exception ex) {
+        } catch (final NonexistentEntityException ex) {
             log.error("Erro ao deletar Missas do banco", ex);
             Platform.runLater(new Runnable() {
                 @Override
