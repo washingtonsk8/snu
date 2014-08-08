@@ -18,12 +18,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
+import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 import snu.util.MusicaUtil;
 
@@ -48,6 +51,8 @@ public class VisualizarConteudoMusicaController implements Initializable {
     private Label lblIntroducao;
     @FXML
     private TextField fldIntroducao;
+    @FXML
+    private ImageView imgInicio;
 
     private VisualizarMusicaController controladorOrigem;
 
@@ -69,6 +74,8 @@ public class VisualizarConteudoMusicaController implements Initializable {
                 }
             }
         });
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
 
     public void initData(Musica musica, VisualizarMusicaController controladorOrigem) {
@@ -100,6 +107,11 @@ public class VisualizarConteudoMusicaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromLblIntroducao(MouseEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML

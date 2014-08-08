@@ -29,7 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -37,6 +37,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -64,6 +65,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 import snu.util.StringUtil;
@@ -181,6 +183,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private RadioButton radioEstaImpressa;
     @FXML
     private RadioButton radioNaoEstaImpressa;
+    @FXML
+    private ImageView imgInicio;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -269,6 +273,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.radioEstaImpressa.setToggleGroup(grupo);
         this.radioNaoEstaImpressa.setToggleGroup(grupo);
         this.radioNaoEstaImpressa.setSelected(true);
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
         
         this.btnSelecionarAutor.requestFocus();
     }
@@ -710,7 +716,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
         if (indiceSelecionado >= 0) {
             Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "Deseja realmente excluir a Associação?", "Exclusão de Associação", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                    "Deseja realmente excluir a Associação?", "Exclusão de Associação", "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
                 this.itensAssociacao.remove(indiceSelecionado);
@@ -835,6 +841,11 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private void onActionFromRadioNaoEstaImpressa(ActionEvent event) {
         this.musica.setImpressa(Boolean.FALSE);
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML

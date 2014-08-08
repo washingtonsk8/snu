@@ -29,12 +29,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -61,6 +62,7 @@ import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.geral.TipoPagina;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
@@ -169,6 +171,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private Label lblCriarMusica;
     @FXML
     private Button btnSalvar;
+    @FXML
+    private ImageView imgInicio;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -253,6 +257,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ORACAO, this.checkOracao));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
 
         this.btnSelecionarAutor.requestFocus();
     }
@@ -654,7 +660,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         if (indiceSelecionado >= 0) {
             Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Deseja realmente excluir a Associação?", "Exclusão de Associação",
-                    "Confirmação", Dialogs.DialogOptions.YES_NO);
+                    "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
                 this.itensAssociacao.remove(indiceSelecionado);
@@ -891,6 +897,11 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     private void atualizarTabela() {

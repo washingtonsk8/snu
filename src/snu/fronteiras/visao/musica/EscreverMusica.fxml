@@ -8,48 +8,56 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 
 <AnchorPane fx:id="contentEscreverMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.EscreverMusicaController">
-    <Label fx:id="lblEscreverMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Escrever Música" textAlignment="LEFT" wrapText="false">
-        <stylesheets>
-            <URL value="@../../css/contents.css" />
-        </stylesheets>
-    </Label>
-    <Label fx:id="lblIntroducao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblIntroducao" prefWidth="-1.0" text="Intro:" textFill="BLACK">
-        <effect>
-            <Glow />
-        </effect>
-        <font>
-            <Font size="16.0" />
-        </font>
-    </Label>
-    <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
-    <TextArea fx:id="areaEscreverMusica" layoutX="64.0" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
-    <Button fx:id="btnDetectarAcordes" layoutX="686.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionFromBtnDetectarAcordes" prefHeight="60.0" prefWidth="100.0" text="Detectar Acordes" textAlignment="CENTER" textFill="BLACK" wrapText="true">
-        <font>
-            <Font size="14.0" fx:id="x1" />
-        </font>
-    </Button>
-    <Button fx:id="btnRemoverDeteccoes" font="$x1" layoutX="686.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverDeteccoes" prefHeight="60.0" prefWidth="100.0" text="Remover Detecções" textAlignment="CENTER" textFill="BLACK" wrapText="true" />
-    <Button fx:id="btnPreVisualizar" layoutX="686.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnPreVisualizar" prefHeight="40.0" prefWidth="100.0" text="Pré-Visualizar..." textAlignment="CENTER" textFill="BLACK" wrapText="true">
-        <font>
-            <Font size="12.0" />
-        </font>
-    </Button>
-    <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
-    <Button fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
-    <TextField fx:id="fldPreVisualizarIntroducao" disable="false" editable="false" layoutX="64.0" layoutY="60.0" opacity="1.0" prefWidth="600.0" />
-    <TextArea fx:id="areaPreVisualizarEscreverMusica" disable="false" editable="false" layoutX="64.0" layoutY="100.0" opacity="1.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
-    <Button fx:id="btnFecharPreVisualizacao" layoutX="686.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnFecharPreVisualizacao" prefHeight="40.0" prefWidth="100.0" text="" textAlignment="CENTER" textFill="BLACK" wrapText="true">
-        <font>
-            <Font size="11.0" />
-        </font>
-    </Button>
-    <Label fx:id="lblInformacaoPaginas" alignment="CENTER" font="$x1" layoutX="686.0" layoutY="291.0" prefHeight="89.0" prefWidth="100.0" text="" textAlignment="LEFT" textFill="BLACK" wrapText="true">
-        <effect>
-            <Glow />
-        </effect>
-    </Label>
+    <children>
+        <Label fx:id="lblEscreverMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Escrever Música" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblIntroducao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblIntroducao" prefWidth="-1.0" text="Intro:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
+        <TextArea fx:id="areaEscreverMusica" layoutX="64.0" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+        <Button fx:id="btnDetectarAcordes" layoutX="686.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionFromBtnDetectarAcordes" prefHeight="60.0" prefWidth="100.0" text="Detectar Acordes" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+            <font>
+                <Font size="14.0" fx:id="x1" />
+            </font>
+        </Button>
+        <Button fx:id="btnRemoverDeteccoes" font="$x1" layoutX="686.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverDeteccoes" prefHeight="60.0" prefWidth="100.0" text="Remover Detecções" textAlignment="CENTER" textFill="BLACK" wrapText="true" />
+        <Button fx:id="btnPreVisualizar" layoutX="686.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnPreVisualizar" prefHeight="40.0" prefWidth="100.0" text="Pré-Visualizar..." textAlignment="CENTER" textFill="BLACK" wrapText="true">
+            <font>
+                <Font size="12.0" />
+            </font>
+        </Button>
+        <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
+        <Button fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
+        <TextField fx:id="fldPreVisualizarIntroducao" disable="false" editable="false" layoutX="64.0" layoutY="60.0" opacity="1.0" prefWidth="600.0" />
+        <TextArea fx:id="areaPreVisualizarEscreverMusica" disable="false" editable="false" layoutX="64.0" layoutY="100.0" opacity="1.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+        <Button fx:id="btnFecharPreVisualizacao" layoutX="686.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnFecharPreVisualizacao" prefHeight="40.0" prefWidth="100.0" text="" textAlignment="CENTER" textFill="BLACK" wrapText="true">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Button>
+        <Label fx:id="lblInformacaoPaginas" alignment="CENTER" font="$x1" layoutX="686.0" layoutY="291.0" prefHeight="89.0" prefWidth="100.0" text="" textAlignment="LEFT" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+            </image>
+        </ImageView>
+    </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />
     </stylesheets>

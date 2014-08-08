@@ -22,7 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -46,6 +47,7 @@ import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
 import snu.geral.TipoPagina;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
@@ -140,6 +142,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
     private Label lblTituloPagina;
     @FXML
     private Button btnLimpar;
+    @FXML
+    private ImageView imgInicio;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -212,6 +216,8 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
         this.radioEstaImpressa.setToggleGroup(grupo);
         this.radioNaoEstaImpressa.setToggleGroup(grupo);
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
 
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
     }
@@ -294,7 +300,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         Dialogs.DialogResponse resposta;
         resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Deseja realmente excluir a Música \"" + musicaSelecionada.getTitulo() + "\"?",
-                "Exclusão de Música", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                "Exclusão de Música", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
@@ -637,6 +643,11 @@ public class TemplatePesquisaMusicaController implements Initializable {
 
     @FXML
     private void onActionFromRadioNaoEstaImpressa(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     public AnchorPane getContent() {

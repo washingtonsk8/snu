@@ -21,7 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -110,7 +110,7 @@ public class SelecionarAutorController implements Initializable {
 
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Deseja realmente adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
-                "Adição de Autor", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                "Adição de Autor", "Confirmação");
 
         //Checa a resposta
         if (resposta.equals(Dialogs.DialogResponse.YES)) {

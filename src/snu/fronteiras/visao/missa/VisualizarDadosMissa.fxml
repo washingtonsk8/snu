@@ -45,7 +45,8 @@
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
             </image>
-        </ImageView><DatePicker fx:id="dpDataAcontecimento" layoutX="200.0" layoutY="90.0" onAction="#onActionFromDpDataAcontecimento" prefWidth="150.0" promptText="DD/MM/AAAA" />
+        </ImageView>
+        <DatePicker fx:id="dpDataAcontecimento" layoutX="200.0" layoutY="90.0" onAction="#onActionFromDpDataAcontecimento" prefWidth="150.0" promptText="DD/MM/AAAA" />
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

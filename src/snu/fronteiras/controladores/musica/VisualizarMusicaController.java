@@ -25,11 +25,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -43,6 +44,7 @@ import snu.entidades.missa.Missa;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
@@ -114,6 +116,8 @@ public class VisualizarMusicaController implements Initializable {
     private Label lblEstaImpressa;
     @FXML
     private Label lblResultadoEstaImpressa;
+    @FXML
+    private ImageView imgInicio;
 
     private TemplatePesquisaMusicaController controladorOrigem;
 
@@ -180,6 +184,8 @@ public class VisualizarMusicaController implements Initializable {
         this.tblMissasPresente.setEffect(EfeitosUtil.getEfeitoGeral());
 
         this.popup.getContent().addAll(this.tblMissasPresente);
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
 
     public void initData(Musica musica, TemplatePesquisaMusicaController controladorOrigem) {
@@ -326,6 +332,11 @@ public class VisualizarMusicaController implements Initializable {
                     proprietaria.getY() + proprietaria.getHeight() / 2 - 150);
             this.btnVisualizaMissasPresente.setText("Fechar");
         }
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML

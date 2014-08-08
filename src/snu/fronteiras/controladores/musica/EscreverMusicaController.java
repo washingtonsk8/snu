@@ -15,10 +15,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialogs;
+import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,7 @@ import javafx.util.Duration;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
+import snu.util.BotoesImagemUtil;
 import snu.util.EfeitosUtil;
 import snu.util.MusicaUtil;
 import snu.util.StringUtil;
@@ -66,6 +68,10 @@ public class EscreverMusicaController implements Initializable {
     private TextArea areaPreVisualizarEscreverMusica;
     @FXML
     private Button btnFecharPreVisualizacao;
+    @FXML
+    private Label lblInformacaoPaginas;
+    @FXML
+    private ImageView imgInicio;
 
     private FadeTransition fadeInPreVisualizarIntroducao;
 
@@ -82,17 +88,9 @@ public class EscreverMusicaController implements Initializable {
     private ControladorDeConteudoInterface controladorOrigem;
 
     private Musica musica;
-    @FXML
-    private Label lblInformacaoPaginas;
 
-    /**
-     * Inicializa as ações do controlador
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+
+    private void initComponents() {
         this.fldPreVisualizarIntroducao.toBack();
         this.areaPreVisualizarEscreverMusica.toBack();
         this.btnFecharPreVisualizacao.setText("Fechar\nPré-Visualização");
@@ -133,6 +131,18 @@ public class EscreverMusicaController implements Initializable {
             }
         });
 
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+    }
+    
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
     }
 
     public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
@@ -149,6 +159,11 @@ public class EscreverMusicaController implements Initializable {
     @FXML
     private void onMouseClickedFromLblIntroducao(MouseEvent event) {
         this.fldIntroducao.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML
@@ -183,7 +198,7 @@ public class EscreverMusicaController implements Initializable {
     private void onActionFromBtnCancelar(ActionEvent event) {
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Deseja realmente cancelar?\nAo cancelar o conteúdo não salvo será perdido.",
-                "Cancelamento", "Confirmação", Dialogs.DialogOptions.YES_NO);
+                "Cancelamento", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             final AnchorPane content = this.controladorOrigem.getContentPane();
