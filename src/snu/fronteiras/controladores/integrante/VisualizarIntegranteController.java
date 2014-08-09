@@ -90,6 +90,10 @@ public class VisualizarIntegranteController implements Initializable {
     private Font x2;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private Label lblMinisterio;
+    @FXML
+    private Label lblResultadoMinisterio;
 
     private Integrante integrante;
 
@@ -109,6 +113,7 @@ public class VisualizarIntegranteController implements Initializable {
         this.lblResultadoTelefoneComercial.setText(this.integrante.getTelefoneComercial());
         this.lblResultadoDataEntrada.setText(DataUtil.formatarData(this.integrante.getDataEntrada()));
         this.lblResultadoFuncaoPrincipal.setText(this.integrante.getFuncaoPrimaria().toString());
+        this.lblResultadoMinisterio.setText(this.integrante.getMinisterio());
 
         FuncaoIntegrante funcaoSecundaria = this.integrante.getFuncaoSecundaria();
         this.lblResultadoFuncaoSecundaria.setText(funcaoSecundaria == null ? StringUtil.VAZIA : funcaoSecundaria.toString());
@@ -171,6 +176,10 @@ public class VisualizarIntegranteController implements Initializable {
 
     @FXML
     private void onActionFromComboFuncaoSecundaria(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromLblMinisterio(MouseEvent event) {
     }
 
     @FXML

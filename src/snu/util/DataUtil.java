@@ -5,13 +5,13 @@
  */
 package snu.util;
 
-import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -22,20 +22,6 @@ import java.util.Locale;
  * @author Washington Luis
  */
 public class DataUtil {
-
-    /**
-     * Retorna um componente DatePicker com as configurações para o local atual.
-     *
-     * @return
-     */
-    public static DatePicker getDatePicker() {
-        DatePicker dp = new DatePicker();
-        dp.setDateFormat(DateFormat.getDateInstance(DateFormat.MEDIUM, new Locale("pt", "BR")));
-        dp.getCalendarView().todayButtonTextProperty().set("Hoje");
-        dp.getCalendarView().setShowWeeks(false);
-        dp.getStylesheets().add("/snu/fronteiras/css/datePicker.css");
-        return dp;
-    }
 
     /**
      * Calcula a idade de acordo com uma data passada
@@ -95,7 +81,7 @@ public class DataUtil {
         if(data == null){
             return null;
         }
-        Instant instant = data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        Instant instant = Instant.parse(data.atStartOfDay().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE));
         return Date.from(instant);
     }
 }

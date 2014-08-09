@@ -118,6 +118,10 @@ public class AtualizarIntegranteController implements Initializable {
     private DatePicker dpDataNascimento;
     @FXML
     private DatePicker dpDataEntrada;
+    @FXML
+    private Label lblMinisterio;
+    @FXML
+    private TextField fldMinisterio;
 
     private Integrante integrante;
 
@@ -183,6 +187,7 @@ public class AtualizarIntegranteController implements Initializable {
         this.fldTelefoneResidencial.setPromptText("(__) ____-____");
         this.fldTelefoneCelular.setPromptText("(__) ____-____");
         this.fldTelefoneComercial.setPromptText("(__) ____-____");
+        this.fldMinisterio.setPromptText("Nome do Ministério de Música que participa");
 
         //Adicionando a lista no combo
         this.comboFuncaoPrincipal.setItems(this.funcoesIntegrante);
@@ -364,7 +369,6 @@ public class AtualizarIntegranteController implements Initializable {
 
     @FXML
     private void onKeyTypedFromFldEndereco(KeyEvent event) {
-        this.fldEndereco.setEffect(null);
     }
 
     @FXML
@@ -411,6 +415,7 @@ public class AtualizarIntegranteController implements Initializable {
         this.fldTelefoneCelular.clear();
         this.fldTelefoneComercial.clear();
         this.fldTelefoneResidencial.clear();
+        this.fldMinisterio.clear();
         this.radioFeminino.setSelected(false);
         this.radioMasculino.setSelected(false);
         this.lblIdade.setText(StringUtil.VAZIA);
@@ -430,10 +435,6 @@ public class AtualizarIntegranteController implements Initializable {
         if (!this.radioFeminino.isSelected() && !this.radioMasculino.isSelected()) {
             this.radioFeminino.setEffect(EfeitosUtil.getEfeitoInvalido());
             this.radioMasculino.setEffect(EfeitosUtil.getEfeitoInvalido());
-            validadeDosCampos = false;
-        }
-        if (StringUtil.isVazia(this.fldEndereco.getText())) {
-            this.fldEndereco.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
         if (this.comboFuncaoPrincipal.getValue() == null) {
@@ -460,6 +461,7 @@ public class AtualizarIntegranteController implements Initializable {
             this.integrante.setEndereco(this.fldEndereco.getText());
             this.integrante.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
             this.integrante.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
+            this.integrante.setMinisterio(this.fldMinisterio.getText());
 
             try {
                 //Atualizando no banco
@@ -494,6 +496,15 @@ public class AtualizarIntegranteController implements Initializable {
 
     @FXML
     private void onActionFromDpDataEntrada(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromLblMinisterio(MouseEvent event) {
+        this.fldMinisterio.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromFldMinisterio(ActionEvent event) {
     }
 
     @FXML

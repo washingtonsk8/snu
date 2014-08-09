@@ -319,6 +319,17 @@ public class GerarImpressaoMusicaController implements Initializable {
                             case FAILED:
                                 popupGerarImpressaoMusica.getScene().getWindow().hide();
                                 dialogStage.close();
+                                log.error("Erro ao gerar impressão de Música");
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                                "Erro ao gerar a impressão da Música."
+                                                + "\nÉ provável que o arquivo esteja aberto em outra aplicação."
+                                                + "\nCaso não esteja, favor entrar em contato com o Administrador.",
+                                                "Erro!", "Erro");
+                                    }
+                                });
                                 break;
                             case SCHEDULED:
                             case READY:

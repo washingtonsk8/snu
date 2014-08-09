@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -21,6 +22,7 @@ import org.apache.log4j.Logger;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 
 /**
  * Classe controladora do FXML
@@ -43,11 +45,14 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
     private TextArea areaTemplateEmail;
     @FXML
     private Label lblInformacaoTags;
+    @FXML
+    private ImageView imgInicio;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName());
 
     private void initComponents() {
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
         this.areaTemplateEmail.setText(SNU.configuracoesSistema.getTemplateDescricaoEmail());
     }
 
@@ -60,6 +65,11 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML
@@ -80,5 +90,4 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
-
 }

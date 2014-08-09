@@ -15,10 +15,12 @@ import javafx.fxml.Initializable;
 import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.log4j.Logger;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.BotoesImagemUtil;
 
 /**
  * Classe que controla as ações da apresentação do arquivo de Log
@@ -33,11 +35,15 @@ public class VerificarLogController implements Initializable {
     private Label lblVerificarLog;
     @FXML
     private TextArea areaArquivoLog;
+    @FXML
+    private ImageView imgInicio;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(VerificarLogController.class.getName());
 
     private void initComponents() {
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+        
         BufferedReader br = null;
 
         try {
@@ -83,6 +89,12 @@ public class VerificarLogController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+    }
+
+    @FXML
     private void onMouseClickedFromContentVisualizarLog(MouseEvent event) {
+        this.contentVerificarLog.requestFocus();
     }
 }

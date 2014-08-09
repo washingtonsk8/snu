@@ -29,10 +29,14 @@ public class Integrante implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Sexo sexo;
+
     private String email;
 
     @Temporal(TemporalType.DATE)
@@ -51,15 +55,18 @@ public class Integrante implements Serializable {
 
     @Column(name = "telefone_comercial")
     private String telefoneComercial;
+    
     private String endereco;
 
-    @Column(name = "funcao_primaria")
+    @Column(name = "funcao_primaria", nullable = false)
     @Enumerated(EnumType.STRING)
     private FuncaoIntegrante funcaoPrimaria;
 
     @Column(name = "funcao_secundaria")
     @Enumerated(EnumType.STRING)
     private FuncaoIntegrante funcaoSecundaria;
+
+    private String ministerio;
 
     public Long getId() {
         return id;
@@ -155,6 +162,14 @@ public class Integrante implements Serializable {
 
     public void setDataEntrada(Date dataEntrada) {
         this.dataEntrada = dataEntrada;
+    }
+
+    public String getMinisterio() {
+        return ministerio;
+    }
+
+    public void setMinisterio(String ministerio) {
+        this.ministerio = ministerio;
     }
 
     public String getPrimeiroNome() {

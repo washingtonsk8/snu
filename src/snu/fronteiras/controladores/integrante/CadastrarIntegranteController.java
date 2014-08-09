@@ -118,6 +118,10 @@ public class CadastrarIntegranteController implements Initializable {
     private DatePicker dpDataNascimento;
     @FXML
     private DatePicker dpDataEntrada;
+    @FXML
+    private Label lblMinisterio;
+    @FXML
+    private TextField fldMinisterio;
 
     private Integrante integranteRow;
 
@@ -183,6 +187,7 @@ public class CadastrarIntegranteController implements Initializable {
         this.fldTelefoneResidencial.setPromptText("(__) ____-____");
         this.fldTelefoneCelular.setPromptText("(__) ____-____");
         this.fldTelefoneComercial.setPromptText("(__) ____-____");
+        this.fldMinisterio.setPromptText("Nome do Ministério de Música que participa");
 
         //Adicionando a lista no combo
         this.comboFuncaoPrincipal.setItems(this.funcoesIntegrante);
@@ -337,7 +342,6 @@ public class CadastrarIntegranteController implements Initializable {
 
     @FXML
     private void onKeyTypedFromFldEndereco(KeyEvent event) {
-        this.fldEndereco.setEffect(null);
     }
 
     @FXML
@@ -384,6 +388,7 @@ public class CadastrarIntegranteController implements Initializable {
         this.fldTelefoneCelular.clear();
         this.fldTelefoneComercial.clear();
         this.fldTelefoneResidencial.clear();
+        this.fldMinisterio.clear();
         this.radioFeminino.setSelected(false);
         this.radioMasculino.setSelected(false);
         this.lblIdade.setText(StringUtil.VAZIA);
@@ -405,10 +410,6 @@ public class CadastrarIntegranteController implements Initializable {
             this.radioMasculino.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
         }
-        if (StringUtil.isVazia(this.fldEndereco.getText())) {
-            this.fldEndereco.setEffect(EfeitosUtil.getEfeitoInvalido());
-            validadeDosCampos = false;
-        }
         if (this.comboFuncaoPrincipal.getValue() == null) {
             this.comboFuncaoPrincipal.setEffect(EfeitosUtil.getEfeitoInvalido());
             validadeDosCampos = false;
@@ -425,6 +426,15 @@ public class CadastrarIntegranteController implements Initializable {
 
     @FXML
     private void onActionFromDpDataNascimento(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromLblMinisterio(MouseEvent event) {
+        this.fldMinisterio.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromFldMinisterio(ActionEvent event) {
     }
 
     @FXML
@@ -446,6 +456,7 @@ public class CadastrarIntegranteController implements Initializable {
             this.integranteRow.setEndereco(this.fldEndereco.getText());
             this.integranteRow.setFuncaoPrimaria(this.comboFuncaoPrincipal.getValue());
             this.integranteRow.setFuncaoSecundaria(this.comboFuncaoSecundaria.getValue());
+            this.integranteRow.setMinisterio(this.fldMinisterio.getText());
 
             //Persistindo no banco
             IntegranteJpaController.getInstancia().create(this.integranteRow);

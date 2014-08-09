@@ -95,11 +95,11 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private void initComponents() {
 
         this.tipoPagina = TipoPagina.PESQUISA_VISUALIZACAO_DADOS;
-        this.clnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        this.clnTelefoneResidencial.setCellValueFactory(new PropertyValueFactory<>("telefoneResidencial"));
-        this.clnTelefoneCelular.setCellValueFactory(new PropertyValueFactory<>("telefoneCelular"));
-        this.clnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        this.clnFuncaoPrincipal.setCellValueFactory(new PropertyValueFactory<>("funcaoPrimaria"));
+        this.clnNome.setCellValueFactory(new PropertyValueFactory<Integrante, String>("nome"));
+        this.clnTelefoneResidencial.setCellValueFactory(new PropertyValueFactory<Integrante, String>("telefoneResidencial"));
+        this.clnTelefoneCelular.setCellValueFactory(new PropertyValueFactory<Integrante, String>("telefoneCelular"));
+        this.clnEmail.setCellValueFactory(new PropertyValueFactory<Integrante, String>("email"));
+        this.clnFuncaoPrincipal.setCellValueFactory(new PropertyValueFactory<Integrante, String>("funcaoPrimaria"));
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
         

@@ -5,7 +5,6 @@
  */
 package snu.util;
 
-import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,17 +36,6 @@ public class DataUtilTest {
 
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of getDatePicker method, of class DataUtil.
-     */
-    @Test
-    public void testGetDatePicker() {
-        System.out.println("getDatePicker");
-        DatePicker expResult = null;
-        DatePicker result = DataUtil.getDatePicker();
-        assertEquals(expResult, result);
     }
 
     /**
