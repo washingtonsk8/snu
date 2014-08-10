@@ -126,6 +126,8 @@ public class AtualizarIntegranteController implements Initializable {
     private ImageView iconeSalvar;
     @FXML
     private ImageView iconeLimpar;
+    @FXML
+    private ImageView iconeVoltar;
 
     private Integrante integrante;
 
