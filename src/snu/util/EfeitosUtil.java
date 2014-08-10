@@ -24,7 +24,7 @@ public class EfeitosUtil {
     private static final Effect efeitoInvalido = new DropShadow(BlurType.GAUSSIAN, Color.RED, 15, 0.0, 0, 0);
     private static final Effect efeitoValido = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
     private static final Effect efeitoAviso = new DropShadow(BlurType.GAUSSIAN, Color.YELLOW, 15, 0.0, 0, 0);
-    private static final Effect efeitoGeral = new DropShadow(BlurType.GAUSSIAN, Color.SKYBLUE, 15, 0.0, 0, 0);
+    private static final Effect efeitoGeral = new DropShadow(BlurType.GAUSSIAN, Color.BLUE, 15, 0.0, 0, 0);
     private static final Effect efeitoGlow = new Glow();
 
     /**
