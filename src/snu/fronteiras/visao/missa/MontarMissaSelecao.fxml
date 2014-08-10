@@ -54,7 +54,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <Button fx:id="btnPesquisar" font="$x1" layoutX="686.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
+        <Button fx:id="btnPesquisar" font="$x1" layoutX="676.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="110.0" text="Pesquisar" textFill="BLACK" />
         <TableView fx:id="tblMusicas" layoutX="14.0" layoutY="250.0" onDragDetected="#onDragDetectedFromTblMusicas" prefHeight="250.0" prefWidth="772.0">
             <columns>
                 <TableColumn fx:id="clnTituloMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="466.0" text="Título da Música" />
@@ -66,8 +66,23 @@
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
             </image>
         </ImageView>
-        <Button fx:id="btnAvancar" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="100.0" text="Avançar" textFill="BLACK" />
-        <Button fx:id="btnLimpar" font="$x1" layoutX="565.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+        <Button fx:id="btnAvancar" font="$x1" layoutX="676.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="110.0" text="Avançar" textFill="BLACK" />
+        <Button fx:id="btnLimpar" font="$x1" layoutX="556.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+        <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="562.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconePesquisar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconePesquisar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAvancar.png" />
+            </image>
+        </ImageView>
 
     </children>    
     <stylesheets>

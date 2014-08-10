@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -23,6 +22,7 @@ import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 
 /**
  * Classe controladora do FXML
@@ -47,6 +47,8 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
     private Label lblInformacaoTags;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeSalvar;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName());

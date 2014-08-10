@@ -7,22 +7,23 @@ package snu.fronteiras.controladores.configuracoes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import org.apache.log4j.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import org.apache.log4j.Logger;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.Dialogs;
 
 /**
  * Classe controladora do FXML
@@ -71,6 +72,8 @@ public class DefinirPreferenciaTonsController implements Initializable {
     private Label lblTomBbem;
     @FXML
     private Slider sldTonsAB;
+    @FXML
+    private ImageView iconeOk;
 
     private final ConfiguracoesSistema configuracoesSistema = SNU.configuracoesSistema;
 

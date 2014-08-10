@@ -78,8 +78,8 @@ public class Musica implements Serializable {
             inverseJoinColumns = {
                 @JoinColumn(name = "musica_id", referencedColumnName = "id")})
     private Set<Missa> missasPresente;
-    
-    @Column(nullable=false, columnDefinition="BIT(1) DEFAULT 0")
+
+    @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean impressa;
 
     public Musica() {

@@ -5,8 +5,7 @@
  */
 package snu.util;
 
-import impl.org.controlsfx.i18n.Localization;
-import java.util.Locale;
+import java.util.Optional;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -90,7 +89,7 @@ public class Dialogs {
                 .message(mensagem)
                 .showInformation();
     }
-    
+
     public static void showWarningDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
         org.controlsfx.dialog.Dialogs.create()
                 .owner(stage)
@@ -119,7 +118,7 @@ public class Dialogs {
                 .message(mensagem)
                 .showError();
     }
-    
+
     public static void showErrorDialog(Stage stage, String mensagem, String cabecalho, String titulo, Exception excecao) {
         org.controlsfx.dialog.Dialogs.create()
                 .owner(stage)
@@ -130,11 +129,12 @@ public class Dialogs {
     }
 
     public static String showInputDialog(Stage stage, String mensagem, String cabecalho, String titulo, String entrada) {
-        return org.controlsfx.dialog.Dialogs.create()
+        Optional<String> resposta = org.controlsfx.dialog.Dialogs.create()
                 .owner(stage)
                 .title(titulo)
                 .masthead(cabecalho)
                 .message(mensagem)
-                .showTextInput(entrada).get();
+                .showTextInput(entrada);
+        return resposta.isPresent() ? resposta.get() : null;
     }
 }

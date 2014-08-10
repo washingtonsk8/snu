@@ -2,64 +2,74 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
 <?import javafx.collections.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="popupGerarImpressaoMusica" prefHeight="230.0" prefWidth="340.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController">
-    <Label fx:id="lblConfiguracaoImpressao" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Configuração de Impressão" textFill="BLACK">
-        <font>
-            <Font size="14.0" fx:id="x1" />
-        </font>
-        <stylesheets>
-            <URL value="@../../../css/contents.css" />
-        </stylesheets>
-    </Label>
-    <Label fx:id="lblTipoImpressao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblTipoImpressao" prefWidth="135.0" text="Tipo de Impressão:" textFill="BLACK">
-        <effect>
-            <Glow />
-        </effect>
-        <font>
-            <Font size="16.0" fx:id="x2" />
-        </font>
-    </Label>
-    <RadioButton fx:id="radioTom" layoutX="160.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionFromRadioTom" text="Por Tom" />
-    <RadioButton fx:id="radioCantor" layoutX="244.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionFromRadioCantor" text="Por Cantor" />
-    <Label fx:id="lblCantor" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="90.0" onMouseClicked="#onMouseClickedFromLblCantor" prefWidth="135.0" text="Cantor:" textFill="BLACK">
-        <effect>
-            <Glow />
-        </effect>
-    </Label>
-    <ComboBox fx:id="comboCantor" layoutX="160.0" layoutY="90.0" onAction="#onActionFromComboCantor" prefHeight="22.0" prefWidth="160.0">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Item 1" />
-                <String fx:value="Item 2" />
-                <String fx:value="Item 3" />
-            </FXCollections>
-        </items>
-    </ComboBox>
-    <Label fx:id="lblTom" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="120.0" onMouseClicked="#onMouseClickedFromLblTom" prefWidth="135.0" text="Tom na Impressão:" textFill="BLACK">
-        <effect>
-            <Glow />
-        </effect>
-    </Label>
-    <ComboBox fx:id="comboTom" layoutX="160.0" layoutY="120.0" onAction="#onActionFromComboTom" prefHeight="22.0" prefWidth="160.0">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Item 1" />
-                <String fx:value="Item 2" />
-                <String fx:value="Item 3" />
-            </FXCollections>
-        </items>
-    </ComboBox>
-    <Button fx:id="btnCancelar" font="$x1" layoutX="99.0" layoutY="180.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="30.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
-    <Button fx:id="btnGerar" font="$x1" layoutX="220.0" layoutY="180.0" mnemonicParsing="false" onAction="#onActionFromBtnGerar" prefHeight="30.0" prefWidth="100.0" text="Gerar" textFill="BLACK" />
+<AnchorPane fx:id="popupGerarImpressaoMusica" prefHeight="230.0" prefWidth="340.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController">
+    <children>   
+        <Label fx:id="lblConfiguracaoImpressao" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Configuração de Impressão" textFill="BLACK">
+            <font>
+                <Font size="14.0" fx:id="x1" />
+            </font>
+            <stylesheets>
+                <URL value="@../../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblTipoImpressao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblTipoImpressao" prefWidth="135.0" text="Tipo de Impressão:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" fx:id="x2" />
+            </font>
+        </Label>
+        <RadioButton fx:id="radioTom" layoutX="160.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionFromRadioTom" text="Por Tom" />
+        <RadioButton fx:id="radioCantor" layoutX="244.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionFromRadioCantor" text="Por Cantor" />
+        <Label fx:id="lblCantor" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="90.0" onMouseClicked="#onMouseClickedFromLblCantor" prefWidth="135.0" text="Cantor:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <ComboBox fx:id="comboCantor" layoutX="160.0" layoutY="90.0" onAction="#onActionFromComboCantor" prefHeight="22.0" prefWidth="160.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Item 1" />
+                    <String fx:value="Item 2" />
+                    <String fx:value="Item 3" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Label fx:id="lblTom" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="120.0" onMouseClicked="#onMouseClickedFromLblTom" prefWidth="135.0" text="Tom na Impressão:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <ComboBox fx:id="comboTom" layoutX="160.0" layoutY="120.0" onAction="#onActionFromComboTom" prefHeight="22.0" prefWidth="160.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Item 1" />
+                    <String fx:value="Item 2" />
+                    <String fx:value="Item 3" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Button fx:id="btnCancelar" font="$x1" layoutX="99.0" layoutY="180.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="30.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
+        <Button fx:id="btnGerar" font="$x1" layoutX="220.0" layoutY="180.0" mnemonicParsing="false" onAction="#onActionFromBtnGerar" prefHeight="30.0" prefWidth="100.0" text="Gerar" textFill="BLACK" />
+        <ImageView fx:id="iconeCancelar" fitHeight="14.0" fitWidth="14.0" layoutX="106.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeRemover.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeGerar" fitHeight="16.0" fitWidth="16.0" layoutX="231.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeSalvar.png" />
+            </image>
+        </ImageView>
+    </children>   
     <stylesheets>
         <URL value="@../../../css/contents.css" />
     </stylesheets>

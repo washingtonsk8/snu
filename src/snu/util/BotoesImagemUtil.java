@@ -19,8 +19,8 @@ public class BotoesImagemUtil {
     private static final Double TAMANHO_AUMENTADO_IMAGEM = 1.15;
 
     private static boolean isMouseSobre(final ImageView imagem, MouseEvent evento) {
-        return (evento.getX() > 0 && evento.getX() < (imagem.getFitWidth() * imagem.getScaleX())) &&
-                (evento.getY() > 0 && evento.getY() < (imagem.getFitHeight() * imagem.getScaleY()));
+        return (evento.getX() > 0 && evento.getX() < (imagem.getFitWidth() * imagem.getScaleX()))
+                && (evento.getY() > 0 && evento.getY() < (imagem.getFitHeight() * imagem.getScaleY()));
     }
 
     public static void definirComportamento(final ImageView imagem) {

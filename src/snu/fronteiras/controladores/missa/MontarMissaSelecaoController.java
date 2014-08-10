@@ -27,7 +27,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,6 +47,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
@@ -94,6 +94,12 @@ public class MontarMissaSelecaoController implements Initializable {
     private Button btnLimpar;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeLimpar;
+    @FXML
+    private ImageView iconePesquisar;
+    @FXML
+    private ImageView iconeAvancar;
 
     private Set<Musica> musicasSelecionadas;
 
@@ -122,7 +128,7 @@ public class MontarMissaSelecaoController implements Initializable {
         });
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
-        
+
         this.musicasSelecionadas = new HashSet<>();
 
         this.comboTipo.setItems(this.tiposMusica);

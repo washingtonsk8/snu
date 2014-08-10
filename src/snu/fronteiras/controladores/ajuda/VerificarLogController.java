@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -21,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import org.apache.log4j.Logger;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 
 /**
  * Classe que controla as ações da apresentação do arquivo de Log
@@ -43,7 +43,7 @@ public class VerificarLogController implements Initializable {
 
     private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
-        
+
         BufferedReader br = null;
 
         try {

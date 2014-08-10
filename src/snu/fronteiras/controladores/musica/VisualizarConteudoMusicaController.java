@@ -53,6 +53,8 @@ public class VisualizarConteudoMusicaController implements Initializable {
     private TextField fldIntroducao;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeVoltar;
 
     private VisualizarMusicaController controladorOrigem;
 

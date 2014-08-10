@@ -55,7 +55,7 @@ public class Integrante implements Serializable {
 
     @Column(name = "telefone_comercial")
     private String telefoneComercial;
-    
+
     private String endereco;
 
     @Column(name = "funcao_primaria", nullable = false)

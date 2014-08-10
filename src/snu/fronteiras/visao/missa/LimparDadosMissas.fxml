@@ -4,6 +4,7 @@
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -24,6 +25,11 @@
             </font>
         </Label>
         <DatePicker fx:id="dpDataAcontecimento" layoutX="300.0" layoutY="61.0" onAction="#onActionFromDpDataAcontecimento" prefWidth="150.0" />
+        <ImageView fx:id="iconeOk" fitHeight="16.0" fitWidth="16.0" layoutX="436.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

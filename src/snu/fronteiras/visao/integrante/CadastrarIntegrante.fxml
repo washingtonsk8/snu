@@ -126,6 +126,16 @@
             </effect>
         </Label>
         <TextField fx:id="fldMinisterio" layoutX="185.0" layoutY="445.0" onAction="#onActionFromFldMinisterio" onContextMenuRequested="#onRequestedFromFldEmail" onKeyReleased="#onKeyReleasedFromFldEmail" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="573.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

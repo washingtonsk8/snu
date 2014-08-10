@@ -22,7 +22,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -48,6 +47,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
 import snu.geral.TipoPagina;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 
@@ -144,6 +144,10 @@ public class TemplatePesquisaMusicaController implements Initializable {
     private Button btnLimpar;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconePesquisar;
+    @FXML
+    private ImageView iconeLimpar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -163,7 +167,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
                 return new SimpleStringProperty(musica.getValue().getAutor().getNome());
             }
         });
-        this.clnTitulo.setCellValueFactory(new PropertyValueFactory<Musica, String>("nome"));
+        this.clnTitulo.setCellValueFactory(new PropertyValueFactory<>("nome"));
         this.clnLeituras.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
@@ -229,7 +233,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         parametrosPesquisa.setTipos(this.tiposMusica);
         parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
-        
+
         if (this.radioEstaImpressa.isSelected()) {
             parametrosPesquisa.setImpressa(Boolean.TRUE);
         } else if (this.radioNaoEstaImpressa.isSelected()) {
@@ -600,6 +604,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         this.fldTrecho.setText(null);
         this.radioEstaImpressa.setSelected(false);
         this.radioNaoEstaImpressa.setSelected(false);
+        this.tiposMusica.clear();
         for (Pair<TipoMusica, CheckBox> parTipoMusicaCheckBox : parTiposMusicaCheckBoxes) {
             parTipoMusicaCheckBox.getValue().setSelected(false);
         }

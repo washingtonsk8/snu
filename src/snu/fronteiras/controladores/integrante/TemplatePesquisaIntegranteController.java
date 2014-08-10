@@ -19,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,6 +39,7 @@ import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 
 /**
@@ -83,6 +83,10 @@ public class TemplatePesquisaIntegranteController implements Initializable {
     private Button btnLimpar;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeLimpar;
+    @FXML
+    private ImageView iconePesquisar;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante
             = FXCollections.observableArrayList(FuncaoIntegrante.values());
@@ -102,7 +106,7 @@ public class TemplatePesquisaIntegranteController implements Initializable {
         this.clnFuncaoPrincipal.setCellValueFactory(new PropertyValueFactory<Integrante, String>("funcaoPrimaria"));
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
-        
+
         this.comboFuncaoPrincipal.setItems(funcoesIntegrante);
         this.comboFuncaoPrincipal.getItems().remove(FuncaoIntegrante.NENHUMA);
     }

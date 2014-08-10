@@ -21,7 +21,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -37,6 +36,7 @@ import snu.controladores.AutorJpaController;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.Dialogs;
 
 /**
  * Classe controladora do FXML
@@ -57,6 +57,8 @@ public class SelecionarAutorController implements Initializable {
     private ImageView imgPesquisaAutor;
     @FXML
     private Button btnAdicionarAutor;
+    @FXML
+    private ImageView iconeAdicionarNovo;
 
     private ObservableList<Autor> autores;
 
@@ -87,6 +89,8 @@ public class SelecionarAutorController implements Initializable {
                         super.updateItem(autor, bln);
                         if (autor != null) {
                             setText(autor.getNome());
+                        } else {
+                            setText(null);
                         }
                     }
                 };
@@ -103,6 +107,7 @@ public class SelecionarAutorController implements Initializable {
         this.listSelecionarAutor.setItems(this.autores);
 
         this.btnAdicionarAutor.setVisible(false);
+        this.iconeAdicionarNovo.setVisible(false);
     }
 
     private void adicionarAutor() {
@@ -148,7 +153,9 @@ public class SelecionarAutorController implements Initializable {
 
     @FXML
     private void onActionFromFldPesquisarAutor(ActionEvent event) {
-        adicionarAutor();
+        if (this.btnAdicionarAutor.isVisible()) {
+            adicionarAutor();
+        }
     }
 
     @FXML
@@ -184,8 +191,10 @@ public class SelecionarAutorController implements Initializable {
             //Habilita a visualização do botão de adição de autor inexistente
             if (autoresFiltrados.isEmpty()) {
                 this.btnAdicionarAutor.setVisible(true);
+                this.iconeAdicionarNovo.setVisible(true);
             } else {
                 this.btnAdicionarAutor.setVisible(false);
+                this.iconeAdicionarNovo.setVisible(false);
             }
 
             this.listSelecionarAutor.setItems(autoresFiltrados);
@@ -193,6 +202,7 @@ public class SelecionarAutorController implements Initializable {
         } else {
             this.listSelecionarAutor.setItems(this.autores);
             this.btnAdicionarAutor.setVisible(false);
+            this.iconeAdicionarNovo.setVisible(false);
         }
     }
 

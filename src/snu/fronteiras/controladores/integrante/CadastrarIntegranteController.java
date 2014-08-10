@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores.integrante;
 
-import javafx.scene.control.DatePicker;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -20,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import snu.util.Dialogs;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -39,6 +38,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.geral.TipoPagina;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.RegexUtil;
 import snu.util.StringUtil;
@@ -122,6 +122,10 @@ public class CadastrarIntegranteController implements Initializable {
     private Label lblMinisterio;
     @FXML
     private TextField fldMinisterio;
+    @FXML
+    private ImageView iconeSalvar;
+    @FXML
+    private ImageView iconeLimpar;
 
     private Integrante integranteRow;
 
@@ -397,6 +401,12 @@ public class CadastrarIntegranteController implements Initializable {
         this.lblFuncaoSecundaria.setOpacity(0.6);
         this.comboFuncaoSecundaria.setDisable(true);
         this.comboFuncaoSecundaria.setOpacity(0.6);
+
+        //Limpar os efeitos
+        this.fldNome.setEffect(null);
+        this.radioFeminino.setEffect(null);
+        this.radioMasculino.setEffect(null);
+        this.comboFuncaoPrincipal.setEffect(null);
     }
 
     private boolean validarCampos() {

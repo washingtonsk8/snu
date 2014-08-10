@@ -18,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,6 +37,7 @@ import snu.entidades.missa.Missa;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
@@ -76,6 +76,10 @@ public class VisualizarDadosMissaController implements Initializable {
     private ImageView imgInicio;
     @FXML
     private DatePicker dpDataAcontecimento;
+    @FXML
+    private ImageView iconeLimpar;
+    @FXML
+    private ImageView iconePesquisar;
 
     private ObservableList<Missa> missas = FXCollections.observableArrayList();
 
@@ -86,7 +90,7 @@ public class VisualizarDadosMissaController implements Initializable {
         this.popup.setAutoHide(true);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
-        
+
         this.clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {

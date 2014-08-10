@@ -28,10 +28,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -48,6 +48,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.Tom;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.geral.ProgressoController;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 import snu.util.MusicaUtil;
@@ -86,6 +87,10 @@ public class GerarImpressaoMusicaController implements Initializable {
     private Label lblTom;
     @FXML
     private Label lblConfiguracaoImpressao;
+    @FXML
+    private ImageView iconeCancelar;
+    @FXML
+    private ImageView iconeGerar;
 
     private HashMap<String, Tom> mapaIntegrantesAssociados;
 

@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -20,6 +21,8 @@ public class HomeController implements Initializable {
 
     @FXML
     private AnchorPane contentHome;
+    @FXML
+    private ImageView logoSistema;
 
     /**
      * Inicializa as ações do controlador
@@ -30,5 +33,4 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-
 }

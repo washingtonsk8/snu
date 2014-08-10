@@ -21,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CustomMenuItem;
-import snu.util.Dialogs;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -44,6 +43,7 @@ import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
 import snu.fronteiras.controladores.musica.CriarMusicaController;
 import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
 import snu.geral.TipoPagina;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.SeletorArquivosUtil;
 

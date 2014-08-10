@@ -29,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -66,6 +65,7 @@ import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 import snu.util.StringUtil;
@@ -185,6 +185,12 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     private RadioButton radioNaoEstaImpressa;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeEditar;
+    @FXML
+    private ImageView iconeSalvar;
+    @FXML
+    private ImageView iconeVoltar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -275,7 +281,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.radioNaoEstaImpressa.setSelected(true);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
-        
+
         this.btnSelecionarAutor.requestFocus();
     }
 
@@ -303,7 +309,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.itensAssociacao.addAll(musica.getAssociacoes());
         this.tblAssociacoes.setItems(FXCollections.observableArrayList(musica.getAssociacoes()));
         this.conteudoAnterior = this.musica.getDocumentoMusica().getConteudo();
-        
+
         this.radioEstaImpressa.setSelected(this.musica.isImpressa());
     }
 

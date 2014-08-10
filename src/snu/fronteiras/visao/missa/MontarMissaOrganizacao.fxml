@@ -112,8 +112,8 @@
         <TextField fx:id="fldMusicaAcaoDeGracas" disable="false" editable="false" layoutX="150.0" layoutY="380.0" onDragDropped="#onDragDroppedFldMusicaAcaoDeGracas" onDragEntered="#onDragEnteredFldMusicaAcaoDeGracas" onDragExited="#onDragExitedFldMusicaAcaoDeGracas" onDragOver="#onDragOverFldMusicaAcaoDeGracas" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
         <TextField fx:id="fldMusicaFinal" disable="false" editable="false" layoutX="150.0" layoutY="410.0" onDragDropped="#onDragDroppedFldMusicaFinal" onDragEntered="#onDragEnteredFldMusicaFinal" onDragExited="#onDragExitedFldMusicaFinal" onDragOver="#onDragOverFldMusicaFinal" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
         <TextArea fx:id="areaMusicasEspeciais" editable="false" layoutX="150.0" layoutY="440.0" onDragDropped="#onDragDroppedAreaMusicasEspeciais" onDragEntered="#onDragEnteredAreaMusicasEspeciais" onDragExited="#onDragExitedAreaMusicasEspeciais" onDragOver="#onDragOverAreaMusicasEspeciais" prefHeight="50.0" prefWidth="270.0" promptText="Arraste para aqui as Músicas que não se encaixam nas opções acima" wrapText="true" />
-        <Button fx:id="btnVoltar" font="$x1" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
-        <Button fx:id="btnAvancar" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="100.0" text="Avançar" textFill="BLACK" />
+        <Button fx:id="btnVoltar" font="$x1" layoutX="556.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
+        <Button fx:id="btnAvancar" font="$x1" layoutX="676.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="110.0" text="Avançar" textFill="BLACK" />
         <Button fx:id="btnRemoverMusicaEntrada" layoutX="422.0" layoutY="140.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaEntrada" prefHeight="22.0" prefWidth="28.0" text="">
             <graphic>
                 <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
@@ -260,6 +260,16 @@
             </image>
         </ImageView>
         <DatePicker fx:id="dpDataMissa" layoutX="150.0" layoutY="95.0" onAction="#onActionFromDpDataMissa" prefWidth="150.0" promptText="DD/MM/AAAA" />
+        <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAvancar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeVoltar" fitHeight="18.0" fitWidth="18.0" layoutX="565.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

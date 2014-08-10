@@ -75,14 +75,15 @@
             <labelFor>
                 <ComboBox fx:id="comboFuncaoSecundaria" disable="true" layoutX="185.0" layoutY="480.0" onAction="#onActionFromComboFuncaoSecundaria" opacity="0.6" prefHeight="22.0" prefWidth="150.0" />
             </labelFor>
-        </Label><Label fx:id="lblMinisterio" alignment="CENTER_RIGHT" disable="false" font="$x1" layoutX="13.0" layoutY="445.0" onMouseClicked="#onMouseClickedFromLblMinisterio" opacity="1.0" prefWidth="150.0" text="Ministério:" textFill="BLACK" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<effect>
-<Glow />
-</effect>
-<labelFor>
-<ComboBox disable="true" layoutX="185.0" layoutY="480.0" onAction="#onActionFromComboFuncaoSecundaria" opacity="0.6" prefHeight="22.0" prefWidth="150.0" />
-</labelFor>
-</Label>
+        </Label>
+        <Label fx:id="lblMinisterio" alignment="CENTER_RIGHT" disable="false" font="$x1" layoutX="13.0" layoutY="445.0" onMouseClicked="#onMouseClickedFromLblMinisterio" opacity="1.0" prefWidth="150.0" text="Ministério:" textFill="BLACK" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <effect>
+                <Glow />
+            </effect>
+            <labelFor>
+                <ComboBox disable="true" layoutX="185.0" layoutY="480.0" onAction="#onActionFromComboFuncaoSecundaria" opacity="0.6" prefHeight="22.0" prefWidth="150.0" />
+            </labelFor>
+        </Label>
         <Button fx:id="btnVoltar" cache="true" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK">
             <font>
                 <Font size="14.0" fx:id="x2" />
@@ -98,10 +99,16 @@
         <Label fx:id="lblResultadoEmail" layoutX="185.0" layoutY="305.0" prefHeight="25.0" prefWidth="300.0" text="" />
         <Label fx:id="lblResultadoDataEntrada" layoutX="185.0" layoutY="340.0" prefHeight="25.0" prefWidth="150.0" text="" />
         <Label fx:id="lblResultadoFuncaoPrincipal" layoutX="185.0" layoutY="375.0" prefHeight="25.0" prefWidth="200.0" text="" />
-        <Label fx:id="lblResultadoFuncaoSecundaria" layoutX="185.0" layoutY="410.0" prefHeight="25.0" prefWidth="200.0" text="" /><Label fx:id="lblResultadoMinisterio" layoutX="185.0" layoutY="445.0" prefHeight="25.0" prefWidth="200.0" text="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+        <Label fx:id="lblResultadoFuncaoSecundaria" layoutX="185.0" layoutY="410.0" prefHeight="25.0" prefWidth="200.0" text="" />
+        <Label fx:id="lblResultadoMinisterio" layoutX="185.0" layoutY="445.0" prefHeight="25.0" prefWidth="200.0" text="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
         <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeVoltar" fitHeight="18.0" fitWidth="18.0" layoutX="695.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeVoltar.png" />
             </image>
         </ImageView>
     </children>

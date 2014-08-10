@@ -94,6 +94,8 @@ public class VisualizarIntegranteController implements Initializable {
     private Label lblMinisterio;
     @FXML
     private Label lblResultadoMinisterio;
+    @FXML
+    private ImageView iconeVoltar;
 
     private Integrante integrante;
 
@@ -118,8 +120,8 @@ public class VisualizarIntegranteController implements Initializable {
         FuncaoIntegrante funcaoSecundaria = this.integrante.getFuncaoSecundaria();
         this.lblResultadoFuncaoSecundaria.setText(funcaoSecundaria == null ? StringUtil.VAZIA : funcaoSecundaria.toString());
     }
-    
-    private void initComponents(){        
+
+    private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
 

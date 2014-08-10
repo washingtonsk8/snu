@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,6 +38,7 @@ import snu.entidades.musica.Autor;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.StringUtil;
 
 /**
@@ -74,6 +74,12 @@ public class GerenciarAutoresController implements Initializable {
     private Label lblInformacaoQuantidades;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeAdicionar;
+    @FXML
+    private ImageView iconeEditar;
+    @FXML
+    private ImageView iconeRemover;
 
     private ObservableList<QuantidadeAutoriaDTO> autores;
 
@@ -116,7 +122,9 @@ public class GerenciarAutoresController implements Initializable {
         this.tblAutores.setItems(this.autores);
 
         this.btnEditarAutor.setVisible(false);
+        this.iconeEditar.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
+        this.iconeRemover.setVisible(false);
         this.lblInformacaoQuantidades.setText("O sistema contém " + entidadesAutor.size() + " autor(es) e "
                 + MusicaJpaController.getInstancia().getMusicaCount() + " música(s).");
 
@@ -209,15 +217,21 @@ public class GerenciarAutoresController implements Initializable {
     @FXML
     private void onMouseClickedFromFldPesquisarAutor(MouseEvent event) {
         this.btnAdicionarAutor.setVisible(true);
+        this.iconeAdicionar.setVisible(true);
         this.btnEditarAutor.setVisible(false);
+        this.iconeEditar.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
+        this.iconeRemover.setVisible(false);
     }
 
     @FXML
     private void onMouseClickedFromContentGerenciarAutores(MouseEvent event) {
         this.btnAdicionarAutor.setVisible(true);
+        this.iconeAdicionar.setVisible(true);
         this.btnEditarAutor.setVisible(false);
+        this.iconeEditar.setVisible(false);
         this.btnRemoverAutor.setVisible(false);
+        this.iconeRemover.setVisible(false);
         this.contentGerenciarAutores.requestFocus();
     }
 
@@ -230,8 +244,11 @@ public class GerenciarAutoresController implements Initializable {
     private void onMouseClickedFromTblAutores(MouseEvent event) {
         if (this.tblAutores.getSelectionModel().getSelectedItem() != null) {
             this.btnAdicionarAutor.setVisible(false);
+            this.iconeAdicionar.setVisible(false);
             this.btnEditarAutor.setVisible(true);
+            this.iconeEditar.setVisible(true);
             this.btnRemoverAutor.setVisible(true);
+            this.iconeRemover.setVisible(true);
         }
     }
 
@@ -242,31 +259,33 @@ public class GerenciarAutoresController implements Initializable {
         String novoNomeAutor = Dialogs.showInputDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Edite o nome do(a) Autor(a) e confirme para alterar."
                 + "\nObs.: O nome não pode estar vazio.", "Edição de Autor", "Edição de Autor", nomeAutor);
-        if (StringUtil.hasAlgo(novoNomeAutor) && !nomeAutor.equals(novoNomeAutor)) {
-            quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
-            try {
-                AutorJpaController.getInstancia().edit(quantidadeAutoriaDtoSelecionado.getAutor());
-                
-                atualizarTabela();
-                
-                //Atualizar tabela da pesquisa de música
-                TemplatePesquisaMusicaController templatePesquisaMusicaController
-                        = FXMLDocumentController.getInstancia().getTemplatePesquisaMusicaLoader().getController();
+        if (novoNomeAutor != null) {
+            if (!novoNomeAutor.equals(StringUtil.VAZIA) && !nomeAutor.equals(novoNomeAutor)) {
+                quantidadeAutoriaDtoSelecionado.getAutor().setNome(novoNomeAutor);
+                try {
+                    AutorJpaController.getInstancia().edit(quantidadeAutoriaDtoSelecionado.getAutor());
 
-                templatePesquisaMusicaController.atualizarTabela();
-                
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Os dados do(a) Autor(a) foram atualizados com sucesso!", "Sucesso!", "Informação");
-            } catch (Exception ex) {
-                log.error("Erro ao atualizar o Autor", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
-                        "Erro ao atualizar o(a) Autor(a).\nFavor entrar em contato com o Administrador.",
-                        "Erro!", "Erro", ex);
+                    atualizarTabela();
+
+                    //Atualizar tabela da pesquisa de música
+                    TemplatePesquisaMusicaController templatePesquisaMusicaController
+                            = FXMLDocumentController.getInstancia().getTemplatePesquisaMusicaLoader().getController();
+
+                    templatePesquisaMusicaController.atualizarTabela();
+
+                    Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Os dados do(a) Autor(a) foram atualizados com sucesso!", "Sucesso!", "Informação");
+                } catch (Exception ex) {
+                    log.error("Erro ao atualizar o Autor", ex);
+                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                            "Erro ao atualizar o(a) Autor(a).\nFavor entrar em contato com o Administrador.",
+                            "Erro!", "Erro", ex);
+                }
+            } else {
+                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                        "O nome do(a) Autor(a) não pode estar vazio e deve ser diferente do atual.",
+                        "Valor Inválido!", "Aviso");
             }
-        } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
-                    "O nome do(a) Autor(a) não pode estar vazio e deve ser diferente do atual.",
-                    "Valor Inválido!", "Aviso");
         }
     }
 
@@ -288,15 +307,15 @@ public class GerenciarAutoresController implements Initializable {
                         + AutorJpaController.getInstancia().getAutorCount() + " autor(es) e "
                         + MusicaJpaController.getInstancia().getMusicaCount() + " música(s).");
                 this.tblAutores.setItems(this.autores);
-                                                
+
                 atualizarTabela();
-                                
+
                 //Atualizar tabela da pesquisa de música
                 TemplatePesquisaMusicaController templatePesquisaMusicaController
                         = FXMLDocumentController.getInstancia().getTemplatePesquisaMusicaLoader().getController();
 
                 templatePesquisaMusicaController.atualizarTabela();
-                
+
                 Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
                         "O(A) Autor(a) foi removido com sucesso!", "Sucesso!", "Informação");
             } catch (NonexistentEntityException ex) {

@@ -20,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -35,6 +34,7 @@ import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 
 /**
@@ -62,6 +62,10 @@ public class MontarMissaFinalizacaoController implements Initializable {
     private Button btnVoltar;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeVoltar;
+    @FXML
+    private ImageView iconeOk;
 
     private Missa missa;
 
@@ -128,8 +132,8 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         return saudacao;
     }
-    
-    private void initComponents(){
+
+    private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
 

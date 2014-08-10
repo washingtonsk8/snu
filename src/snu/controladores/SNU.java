@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import snu.util.Dialogs;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -21,6 +20,7 @@ import org.apache.log4j.Logger;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.util.Dialogs;
 import snu.util.StringUtil;
 
 /**

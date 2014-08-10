@@ -5,13 +5,11 @@
  */
 package snu.util;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -61,11 +59,12 @@ public class DataUtil {
 
     /**
      * Converte a data passada para data do tipo LocalDate
+     *
      * @param data
      * @return
      */
     public static LocalDate toLocalDate(Date data) {
-        if(data == null){
+        if (data == null) {
             return null;
         }
         Instant instant = Instant.ofEpochMilli(data.getTime());
@@ -74,14 +73,15 @@ public class DataUtil {
 
     /**
      * Converte a data passada para data do tipo Date
+     *
      * @param data
      * @return
      */
     public static Date toDate(LocalDate data) {
-        if(data == null){
+        if (data == null) {
             return null;
         }
-        Instant instant = Instant.parse(data.atStartOfDay().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE));
+        Instant instant = data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
     }
 }

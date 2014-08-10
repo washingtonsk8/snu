@@ -2,16 +2,13 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentTemplateEmail" onMouseClicked="#onMouseClickedFromContentMontarMissaFinalizacao" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.configuracoes.ConfiguracaoTemplateEmailController">
+<AnchorPane fx:id="contentTemplateEmail" onMouseClicked="#onMouseClickedFromContentMontarMissaFinalizacao" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.configuracoes.ConfiguracaoTemplateEmailController">
     <children>   
         <Label fx:id="lblTemplateEmail" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Template de E-mail" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -39,6 +36,11 @@
         <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
             </image>
         </ImageView>
     </children>

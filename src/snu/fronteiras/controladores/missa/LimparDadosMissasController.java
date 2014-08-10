@@ -5,7 +5,6 @@
  */
 package snu.fronteiras.controladores.missa;
 
-import javafx.scene.control.DatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -22,8 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -35,6 +35,7 @@ import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.DataUtil;
+import snu.util.Dialogs;
 
 /**
  * FXML Controller class
@@ -51,6 +52,8 @@ public class LimparDadosMissasController implements Initializable {
     private Button btnOk;
     @FXML
     private DatePicker dpDataAcontecimento;
+    @FXML
+    private ImageView iconeOk;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MontarMissaOrganizacaoController.class.getName());

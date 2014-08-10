@@ -29,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -63,6 +62,7 @@ import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.geral.TipoPagina;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.StringUtil;
 
@@ -173,6 +173,10 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private Button btnSalvar;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeSalvar;
+    @FXML
+    private ImageView iconeEditar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 

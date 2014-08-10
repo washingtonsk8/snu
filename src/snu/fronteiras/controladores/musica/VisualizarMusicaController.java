@@ -25,7 +25,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -46,6 +45,7 @@ import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
 import snu.util.StringUtil;
@@ -118,6 +118,10 @@ public class VisualizarMusicaController implements Initializable {
     private Label lblResultadoEstaImpressa;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeVoltar;
+    @FXML
+    private ImageView iconeVisualizarConteudo;
 
     private TemplatePesquisaMusicaController controladorOrigem;
 
@@ -206,8 +210,8 @@ public class VisualizarMusicaController implements Initializable {
 
         ObservableList<Missa> missasPresente = FXCollections.observableArrayList(new ArrayList<>(this.musica.getMissasPresente()));
         this.tblMissasPresente.setItems(missasPresente);
-        
-        this.lblResultadoEstaImpressa.setText(this.musica.isImpressa()? "Sim" : "Não");
+
+        this.lblResultadoEstaImpressa.setText(this.musica.isImpressa() ? "Sim" : "Não");
     }
 
     private void carregarConteudoMusica() {

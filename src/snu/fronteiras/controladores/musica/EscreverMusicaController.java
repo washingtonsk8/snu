@@ -11,16 +11,13 @@ import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import snu.util.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -29,6 +26,7 @@ import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.MusicaUtil;
 import snu.util.StringUtil;
@@ -72,6 +70,10 @@ public class EscreverMusicaController implements Initializable {
     private Label lblInformacaoPaginas;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView iconeOk;
+    @FXML
+    private ImageView iconeCancelar;
 
     private FadeTransition fadeInPreVisualizarIntroducao;
 
@@ -88,7 +90,6 @@ public class EscreverMusicaController implements Initializable {
     private ControladorDeConteudoInterface controladorOrigem;
 
     private Musica musica;
-
 
     private void initComponents() {
         this.fldPreVisualizarIntroducao.toBack();
@@ -133,7 +134,7 @@ public class EscreverMusicaController implements Initializable {
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
-    
+
     /**
      * Inicializa as ações do controlador
      *
