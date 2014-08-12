@@ -171,8 +171,6 @@ public class GerarImpressaoMusicaController implements Initializable {
 
     @FXML
     private void onActionFromComboCantor(ActionEvent event) {
-        this.comboTom.getSelectionModel().select(this.mapaIntegrantesAssociados.get(
-                this.comboCantor.getSelectionModel().getSelectedItem()));
         this.comboCantor.setEffect(null);
     }
 

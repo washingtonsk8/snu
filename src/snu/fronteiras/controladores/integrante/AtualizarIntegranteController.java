@@ -229,6 +229,7 @@ public class AtualizarIntegranteController implements Initializable {
         this.dpDataEntrada.setValue(DataUtil.toLocalDate(this.integrante.getDataEntrada()));
         this.comboFuncaoPrincipal.setValue(this.integrante.getFuncaoPrimaria());
         this.comboFuncaoSecundaria.setValue(this.integrante.getFuncaoSecundaria());
+        this.fldMinisterio.setText(this.integrante.getMinisterio());
 
         Date dataNascimento = this.integrante.getDataNascimento();
         Date dataEntrada = this.integrante.getDataEntrada();

@@ -60,7 +60,7 @@
             </font>
         </Button>
         <TextField fx:id="fldTitulo" layoutX="175.0" layoutY="90.0" onAction="#onActionFromFldTitulo" prefWidth="250.0" />
-        <ComboBox fx:id="comboTom" layoutX="175.0" layoutY="120.0" onAction="#onActionFromComboTom" prefHeight="22.0" prefWidth="50.0" />
+        <ComboBox fx:id="comboTom" layoutX="175.0" layoutY="120.0" onAction="#onActionFromComboTom" prefHeight="22.0" prefWidth="60.0" />
         <ComboBox fx:id="comboAfinacao" layoutX="175.0" layoutY="150.0" onAction="#onActionFromComboAfinacao" prefHeight="22.0" prefWidth="150.0" />
         <TextField fx:id="fldLeituras" layoutX="175.0" layoutY="180.0" onAction="#onActionFromFldLeituras" prefWidth="500.0" />
         <CheckBox fx:id="checkEntrada" font="$x2" layoutX="175.0" layoutY="211.0" mnemonicParsing="false" onAction="#onActionFromCheckEntrada" prefHeight="20.0" text="Entrada" />
@@ -88,7 +88,7 @@
             </columns>
         </TableView>
         <ComboBox fx:id="comboNomeAssociacao" layoutX="586.0" layoutY="309.0" onAction="#onActionFromComboNomeAssociacao" prefHeight="22.0" prefWidth="200.0" />
-        <ComboBox fx:id="comboTomAssociacao" layoutX="586.0" layoutY="339.0" onAction="#onActionFromComboTomAssociacao" prefHeight="22.0" prefWidth="50.0" />
+        <ComboBox fx:id="comboTomAssociacao" layoutX="586.0" layoutY="339.0" onAction="#onActionFromComboTomAssociacao" prefHeight="22.0" prefWidth="60.0" />
         <Label fx:id="lblNomeAssociacao" alignment="CENTER_RIGHT" font="$x2" layoutX="530.0" layoutY="310.0" onMouseClicked="#onMouseClickedFromLblTitulo" prefHeight="20.0" prefWidth="50.0" text="Nome:" textFill="BLACK">
             <effect>
                 <Glow />

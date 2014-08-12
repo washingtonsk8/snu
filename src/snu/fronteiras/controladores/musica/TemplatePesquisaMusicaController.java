@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -50,6 +51,7 @@ import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
+import snu.util.StringUtil;
 
 /**
  * Classe controladora do FXML
@@ -605,6 +607,7 @@ public class TemplatePesquisaMusicaController implements Initializable {
         this.radioEstaImpressa.setSelected(false);
         this.radioNaoEstaImpressa.setSelected(false);
         this.tiposMusica.clear();
+        definirPesquisaTrecho(false);
         for (Pair<TipoMusica, CheckBox> parTipoMusicaCheckBox : parTiposMusicaCheckBoxes) {
             parTipoMusicaCheckBox.getValue().setSelected(false);
         }
@@ -653,6 +656,57 @@ public class TemplatePesquisaMusicaController implements Initializable {
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
         FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+    }
+
+    @FXML
+    private void onKeyReleasedFromFldTrecho(KeyEvent event) {
+        if (StringUtil.isVazia(this.fldTrecho.getText())) {
+            definirPesquisaTrecho(false);
+        } else {
+            definirPesquisaTrecho(true);
+        }
+    }
+
+    /**
+     * A pesquisa por trecho desconsidera os outros parâmetros
+     * @param ligada 
+     */
+    private void definirPesquisaTrecho(boolean ligada) {
+        if (ligada) {
+            this.lblAutor.setOpacity(0.6);
+            this.lblTitulo.setOpacity(0.6);
+            this.lblLeitura.setOpacity(0.6);
+            this.lblTipos.setOpacity(0.6);
+            this.lblEstaImpressa.setOpacity(0.6);
+            this.fldAutor.setEditable(false);
+            this.fldLeitura.setEditable(false);
+            this.fldTitulo.setEditable(false);
+            this.fldAutor.setOpacity(0.6);
+            this.fldLeitura.setOpacity(0.6);
+            this.fldTitulo.setOpacity(0.6);
+            this.radioEstaImpressa.setOpacity(0.6);
+            this.radioNaoEstaImpressa.setOpacity(0.6);
+            for (Pair<TipoMusica, CheckBox> parTipoMusicaCheckBox : parTiposMusicaCheckBoxes) {
+                parTipoMusicaCheckBox.getValue().setOpacity(0.6);
+            }
+        } else {
+            this.lblAutor.setOpacity(1);
+            this.lblTitulo.setOpacity(1);
+            this.lblLeitura.setOpacity(1);
+            this.lblTipos.setOpacity(1);
+            this.lblEstaImpressa.setOpacity(1);
+            this.fldAutor.setEditable(true);
+            this.fldLeitura.setEditable(true);
+            this.fldTitulo.setEditable(true);
+            this.fldAutor.setOpacity(1);
+            this.fldLeitura.setOpacity(1);
+            this.fldTitulo.setOpacity(1);
+            this.radioEstaImpressa.setOpacity(1);
+            this.radioNaoEstaImpressa.setOpacity(1);
+            for (Pair<TipoMusica, CheckBox> parTipoMusicaCheckBox : parTiposMusicaCheckBoxes) {
+                parTipoMusicaCheckBox.getValue().setOpacity(1);
+            }
+        }
     }
 
     public AnchorPane getContent() {
