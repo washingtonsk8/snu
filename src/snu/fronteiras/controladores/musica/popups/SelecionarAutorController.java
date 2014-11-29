@@ -155,6 +155,12 @@ public class SelecionarAutorController implements Initializable {
     private void onActionFromFldPesquisarAutor(ActionEvent event) {
         if (this.btnAdicionarAutor.isVisible()) {
             adicionarAutor();
+        } else if(this.listSelecionarAutor.getItems().size() == 1) {
+            Autor autorSelecionado = this.listSelecionarAutor.getItems().get(0);
+            if (autorSelecionado != null) {
+                this.musica.setAutor(autorSelecionado);
+                this.popupSelecionarAutor.getScene().getWindow().hide();
+            }
         }
     }
 

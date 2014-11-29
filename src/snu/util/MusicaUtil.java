@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
+import snu.entidades.musica.Musica;
 import snu.entidades.musica.Tom;
 
 /**
@@ -146,7 +147,14 @@ public class MusicaUtil {
                 contador++;
             }
         }
-        return trocarPelasPreferencias(conteudoSaida.toString().replaceAll("#b", ""));//Remove as irregularidades e retorna
+        //Remove as irregularidades e retorna
+        return trocarPelasPreferencias(removerIrregularidades(conteudoSaida.toString())); 
+    }
+
+    private static String removerIrregularidades(String entrada) {
+        return entrada.replaceAll("#b", "")
+                .replaceAll("Cb", "B")
+                .replaceAll("Fb", "E");
     }
 
     private static String trocarPelasPreferencias(String entrada) {
@@ -185,5 +193,13 @@ public class MusicaUtil {
             contagem++;
         }
         return contagem / LINHAS_POR_PAGINA + 1;
+    }
+
+    public static boolean isConteudoIdentico(Musica musica, String introducao, String conteudo) {
+        String introducaoMusica = musica.getDocumentoMusica().getIntroducao();
+        String conteudoMusica = musica.getDocumentoMusica().getConteudo();
+        boolean introducaoIdentica = introducaoMusica != null ? introducaoMusica.equals(introducao) : introducao == null;
+        boolean conteudoIdentico = conteudoMusica != null ? conteudoMusica.equals(conteudo) : conteudo == null;
+        return introducaoIdentica && conteudoIdentico;
     }
 }

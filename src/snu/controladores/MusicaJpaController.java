@@ -256,6 +256,25 @@ public class MusicaJpaController implements Serializable {
     }
 
     /**
+     * Retorna as músicas contendo o mesmo nome
+     * @param nomeMusica
+     * @return 
+     */
+    public List<Musica> findMusicasMesmoNome(String nomeMusica) {
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Musica> cq = cb.createQuery(Musica.class);
+        Root<Musica> musica = cq.from(Musica.class);
+       
+        cq.select(musica).distinct(true)
+                .where(cb.equal(cb.lower(musica.<String>get("nome")),
+                        nomeMusica.toLowerCase(new Locale("pt", "BR"))));
+
+        return em.createQuery(cq).getResultList(); 
+    }
+
+    /**
      * Obtém a instância Singleton
      *
      * @return

@@ -90,6 +90,8 @@ public class EscreverMusicaController implements Initializable {
     private ControladorDeConteudoInterface controladorOrigem;
 
     private Musica musica;
+    
+    private boolean acordesDetectados;
 
     private void initComponents() {
         this.fldPreVisualizarIntroducao.toBack();
@@ -147,14 +149,26 @@ public class EscreverMusicaController implements Initializable {
     }
 
     public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
+        final String introducaoMusica = musica.getDocumentoMusica().getIntroducao();
+        final String conteudoMusica = musica.getDocumentoMusica().getConteudo();
+        
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
-        this.fldIntroducao.setText(this.musica.getDocumentoMusica().getIntroducao());
-        this.areaEscreverMusica.setText(this.musica.getDocumentoMusica().getConteudo());
+        this.fldIntroducao.setText(introducaoMusica);
+        this.areaEscreverMusica.setText(conteudoMusica);
 
         this.lblInformacaoPaginas.setText("A música está ocupando "
                 + MusicaUtil.contarPaginas(musica.getDocumentoMusica().getConteudo()) + " página(s) no momento.");
+        
+        //Definindo habilitação do botão de detecção
+        if(introducaoMusica != null){
+            this.acordesDetectados = introducaoMusica.contains("@");
+        } 
+        if(conteudoMusica != null && !this.acordesDetectados) {
+            this.acordesDetectados = conteudoMusica.contains("@");            
+        }
+        this.btnDetectarAcordes.setDisable(this.acordesDetectados);
     }
 
     @FXML
@@ -179,6 +193,7 @@ public class EscreverMusicaController implements Initializable {
 
         //Desabilitar botão para eliminar possível recursão de detecção
         this.btnDetectarAcordes.setDisable(true);
+        this.acordesDetectados = true;
     }
 
     @FXML
@@ -197,7 +212,11 @@ public class EscreverMusicaController implements Initializable {
 
     @FXML
     private void onActionFromBtnCancelar(ActionEvent event) {
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+        boolean conteudoIdentico = MusicaUtil.isConteudoIdentico(this.musica, 
+                this.fldIntroducao.getText(), this.areaEscreverMusica.getText());
+        
+        Dialogs.DialogResponse resposta = conteudoIdentico? Dialogs.DialogResponse.YES :
+                Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
                 "Deseja realmente cancelar?\nAo cancelar o conteúdo não salvo será perdido.",
                 "Cancelamento", "Confirmação");
 
@@ -224,6 +243,10 @@ public class EscreverMusicaController implements Initializable {
         if (StringUtil.hasAlgo(conteudoMusica)) {
             this.areaEscreverMusica.setText(conteudoMusica.replace("@", ""));
         }
+        
+        //Reabilitar o botão de detecção de acordes
+        this.btnDetectarAcordes.setDisable(false);
+        this.acordesDetectados = false;
     }
 
     @FXML
@@ -265,7 +288,7 @@ public class EscreverMusicaController implements Initializable {
         this.fadeInConteudo.playFromStart();
         this.fadeInBtnPreVisualizar.playFromStart();
 
-        this.btnDetectarAcordes.setDisable(false);
+        this.btnDetectarAcordes.setDisable(this.acordesDetectados);
         this.btnOk.setDisable(false);
         this.btnRemoverDeteccoes.setDisable(false);
     }

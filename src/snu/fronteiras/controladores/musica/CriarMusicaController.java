@@ -784,10 +784,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
     private boolean validarMusicaComMesmoNome(ActionEvent event) {
         try {
-            ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
-            parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
             List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
-                    .findMusicasByParametrosPesquisa(parametrosPesquisa);
+                    .findMusicasMesmoNome(this.fldTitulo.getText());
             if (!musicasEncontradas.isEmpty()) {
                 Dialogs.DialogResponse resposta;
                 if (musicasEncontradas.size() == 1) {
@@ -814,7 +812,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 return resposta.equals(Dialogs.DialogResponse.YES);
             }
             return true;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             log.error("Erro ao pesquisar músicas por parâmetros para salvar Música", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
                     "Erro ao salvar Música.\nFavor entrar em contato com o Administrador.",
