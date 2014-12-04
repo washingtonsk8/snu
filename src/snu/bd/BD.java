@@ -5,10 +5,17 @@
  */
 package snu.bd;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import snu.controladores.SNU;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import org.hibernate.internal.SessionImpl;
 
 /**
  * Classe necessária para realizar operações com o mysqldump (Backup e Restore).
@@ -23,42 +30,107 @@ public class BD {
     /**
      * Realiza o backup do banco no diretório escolhido
      *
-     * @param diretorioArquivo
+     * @param diretorioExportacao
      * @return
      * @throws IOException
      * @throws InterruptedException
      */
-    public static boolean doBakup(String diretorioArquivo) throws IOException, InterruptedException {
-        Date dataAtual = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+    public static boolean doBakup(String diretorioExportacao) throws IOException, InterruptedException {
 
-        String nomeArquivo = "bkp_snu_" + dateFormat.format(dataAtual);
+        try {
+            Date hoje = new Date();
+            SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yy_hh-mm-ss");
+            diretorioExportacao += "\\bkp_snu " + sdt.format(hoje) + "\\";
+            File diretorio = new File(diretorioExportacao);
+            if (!diretorio.mkdir()) {
+                throw new IOException("O diretório não pode ser criado, verifique as permissões da pasta!");
+            }
 
-        String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD()
-                + "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD
-                + " --add-drop-database -B snu -r " + "\"" + diretorioArquivo
-                + "\\" + nomeArquivo + ".sql\"";
+            EntityManager em = GerenciadorDeEntidades.getInstancia().getFabrica().createEntityManager();
+            em.getTransaction().begin();
+            Connection conn = em.unwrap(SessionImpl.class).connection();
 
-        Process processo = Runtime.getRuntime().exec(comando);
-        int resultadoProcesso = processo.waitFor();
-        return resultadoProcesso == 0;
+            exportarTabela(conn, "INTEGRANTE", diretorioExportacao);
+            exportarTabela(conn, "SYS", diretorioExportacao);
+            exportarTabela(conn, "MISSA", diretorioExportacao);
+            exportarTabela(conn, "MUSICA_AUTORES", diretorioExportacao);
+            exportarTabela(conn, "MUSICA_DOCUMENTO", diretorioExportacao);
+            exportarTabela(conn, "DOCUMENTOMUSICA_VOCABULARIO", diretorioExportacao);
+            exportarTabela(conn, "DOCUMENTOMUSICA_LISTAINVERTIDA", diretorioExportacao);
+            exportarTabela(conn, "MUSICA", diretorioExportacao);
+            exportarTabela(conn, "MISSAS_MUSICAS", diretorioExportacao);
+            exportarTabela(conn, "MUSICA_ASSOCIACOES", diretorioExportacao);
+            exportarTabela(conn, "MUSICA_LEITURASASSOCIADAS", diretorioExportacao);
+            exportarTabela(conn, "MUSICA_TIPOS", diretorioExportacao);
+            em.getTransaction().commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     /**
      * Realiza o restore para o banco a partir do arquivo escolhido
      *
-     * @param caminhoArquivo
+     * @param diretorioImportacao
      * @return
      * @throws IOException
      * @throws InterruptedException
      */
-    public static boolean doRestore(String caminhoArquivo) throws IOException, InterruptedException {
-        String[] comandos = new String[]{SNU.configuracoesSistema.getDiretorioSGBD()
-            + "\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD,
-            "-e", "source " + caminhoArquivo};
+    public static boolean doRestore(String diretorioImportacao) throws IOException, InterruptedException {
+        try {
+            EntityManager em = GerenciadorDeEntidades.getInstancia().getFabrica().createEntityManager();
+            em.getTransaction().begin();
+            Connection conn = em.unwrap(SessionImpl.class).connection();
+            diretorioImportacao += "\\";
+            /*
+                ATENÇÃO: NÃO ALTERAR A ORDEM DE IMPORTAÇÃO DAS TABELAS!
+                As Foreign Keys definem qual deve ser a ordem
+            */
+            importarTabela(conn, "INTEGRANTE", diretorioImportacao);
+            importarTabela(conn, "SYS", diretorioImportacao);
+            importarTabela(conn, "MISSA", diretorioImportacao);
+            importarTabela(conn, "MUSICA_AUTORES", diretorioImportacao);
+            importarTabela(conn, "MUSICA_DOCUMENTO", diretorioImportacao);
+            importarTabela(conn, "DOCUMENTOMUSICA_VOCABULARIO", diretorioImportacao);
+            importarTabela(conn, "DOCUMENTOMUSICA_LISTAINVERTIDA", diretorioImportacao);
+            importarTabela(conn, "MUSICA", diretorioImportacao);
+            importarTabela(conn, "MISSAS_MUSICAS", diretorioImportacao);
+            importarTabela(conn, "MUSICA_ASSOCIACOES", diretorioImportacao);
+            importarTabela(conn, "MUSICA_LEITURASASSOCIADAS", diretorioImportacao);
+            importarTabela(conn, "MUSICA_TIPOS", diretorioImportacao);
+            em.getTransaction().commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 
-        Process processo = Runtime.getRuntime().exec(comandos);
-        int resultadoProcesso = processo.waitFor();
-        return resultadoProcesso == 0;
+    private static void exportarTabela(Connection conn, String nomeTabela, String diretorioExportacao) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(
+                "CALL SYSCS_UTIL.SYSCS_EXPORT_TABLE (?,?,?,?,?,?)");
+        ps.setString(1, null);
+        ps.setString(2, nomeTabela);
+        ps.setString(3, diretorioExportacao + nomeTabela);
+        ps.setString(4, "%");
+        ps.setString(5, null);
+        ps.setString(6, "UTF-8");
+        ps.execute();
+        ps.close();
+    }
+
+    private static void importarTabela(Connection conn, String nomeTabela, String diretorioImportacao) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(
+                "CALL SYSCS_UTIL.SYSCS_IMPORT_TABLE (?,?,?,?,?,?,?)");
+        ps.setString(1, null);
+        ps.setString(2, nomeTabela);
+        ps.setString(3, diretorioImportacao + nomeTabela);
+        ps.setString(4, "%");
+        ps.setString(5, null);
+        ps.setString(6, "UTF-8");
+        //1 representa que todos os dados serão apagados
+        ps.setInt(7, 1);
+        ps.execute();
+        ps.close();
     }
 }

@@ -29,7 +29,7 @@ public class DocumentoMusica implements Serializable {
 
     private String introducao;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "CLOB")
     private String conteudo;
 
     @Column(name = "quantidade_tokens")

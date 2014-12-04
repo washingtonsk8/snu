@@ -443,14 +443,12 @@ public class FXMLDocumentController implements Initializable {
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
         }
-        final FileChooser seletorArquivo = new FileChooser();
-        seletorArquivo.setInitialDirectory(new File(contextoUltimaSelecao));
-        seletorArquivo.setTitle("Escolha do arquivo para importação");
-        seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQL", "*.sql"));
-
-        final File arquivoImportacao = seletorArquivo.showOpenDialog(FXMLDocumentController.getInstancia().getStage());
-        if (arquivoImportacao != null) {
-            SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getParent());
+        final DirectoryChooser seletorDiretorio = new DirectoryChooser();
+        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorDiretorio.setTitle("Escolha do diretório para exportação");
+        final File diretorioExportacao = seletorDiretorio.showDialog(FXMLDocumentController.getInstancia().getStage());
+        if (diretorioExportacao != null) {
+            SeletorArquivosUtil.mapSeletores.put("exportarDados", diretorioExportacao.getAbsolutePath());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
             Parent root = null;
@@ -479,7 +477,7 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public Void call() {
                     try {
-                        if (!BD.doRestore(arquivoImportacao.toString())) {
+                        if (!BD.doRestore(diretorioExportacao.toString())) {
                             cancel(true);
                         }
                     } catch (IOException | InterruptedException ex) {
@@ -629,9 +627,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void onActionFromItemDefinirPreferenciaTons(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/DefinirPreferenciaTons.fxml"));
-        AnchorPane root = null;
+        AnchorPane root;
         try {
             root = (AnchorPane) fxmlLoader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Definir Preferência de Tons");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Definição de Preferência de Tons", ex);
             Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
@@ -640,13 +645,6 @@ public class FXMLDocumentController implements Initializable {
                     "Erro!", "Erro", ex);
         }
 
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Definir Preferência de Tons");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(this.anchorPane.getScene().getWindow());
-        dialogStage.setScene(new Scene(root));
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
     }
 
     @FXML
