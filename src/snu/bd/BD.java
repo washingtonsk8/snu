@@ -15,6 +15,11 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.ZipParameters;
+import net.lingala.zip4j.util.Zip4jConstants;
+import org.apache.derby.iapi.services.io.FileUtil;
 import org.hibernate.internal.SessionImpl;
 
 /**
@@ -24,24 +29,34 @@ import org.hibernate.internal.SessionImpl;
  */
 public class BD {
 
-    private static final String usuarioBD = "snu";
-    private static final String senhaBD = "snu#1.0rocks!";
+    private static final String SENHA_ARQUIVO_ZIP = "snu#2.0rocks!";
+
+    /*
+     ATENÇÃO: NÃO ALTERAR A ORDEM DE IMPORTAÇÃO DAS TABELAS!
+     As Foreign Keys definem qual deve ser a ordem
+     */
+    private static final String[] nomesTabelas = {"INTEGRANTE", "SYS", "MISSA", "MUSICA_AUTORES", "MUSICA_DOCUMENTO",
+        "DOCUMENTOMUSICA_VOCABULARIO", "DOCUMENTOMUSICA_LISTAINVERTIDA", "MUSICA", "MISSAS_MUSICAS",
+        "MUSICA_ASSOCIACOES", "MUSICA_LEITURASASSOCIADAS", "MUSICA_TIPOS"};
 
     /**
      * Realiza o backup do banco no diretório escolhido
      *
-     * @param diretorioExportacao
+     * @param nomeDiretorioExportacao
      * @return
      * @throws IOException
      * @throws InterruptedException
+     * @throws net.lingala.zip4j.exception.ZipException
+     * @throws java.sql.SQLException
      */
-    public static boolean doBakup(String diretorioExportacao) throws IOException, InterruptedException {
+    public static boolean doBakup(String nomeDiretorioExportacao) throws IOException, InterruptedException, ZipException, SQLException {
 
-        try {
             Date hoje = new Date();
             SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yy_hh-mm-ss");
-            diretorioExportacao += "\\bkp_snu " + sdt.format(hoje) + "\\";
-            File diretorio = new File(diretorioExportacao);
+            nomeDiretorioExportacao += "\\bkp_snu " + sdt.format(hoje);
+            String arquivoZip = nomeDiretorioExportacao + ".zip";
+            nomeDiretorioExportacao += "\\";
+            File diretorio = new File(nomeDiretorioExportacao);
             if (!diretorio.mkdir()) {
                 throw new IOException("O diretório não pode ser criado, verifique as permissões da pasta!");
             }
@@ -50,68 +65,65 @@ public class BD {
             em.getTransaction().begin();
             Connection conn = em.unwrap(SessionImpl.class).connection();
 
-            exportarTabela(conn, "INTEGRANTE", diretorioExportacao);
-            exportarTabela(conn, "SYS", diretorioExportacao);
-            exportarTabela(conn, "MISSA", diretorioExportacao);
-            exportarTabela(conn, "MUSICA_AUTORES", diretorioExportacao);
-            exportarTabela(conn, "MUSICA_DOCUMENTO", diretorioExportacao);
-            exportarTabela(conn, "DOCUMENTOMUSICA_VOCABULARIO", diretorioExportacao);
-            exportarTabela(conn, "DOCUMENTOMUSICA_LISTAINVERTIDA", diretorioExportacao);
-            exportarTabela(conn, "MUSICA", diretorioExportacao);
-            exportarTabela(conn, "MISSAS_MUSICAS", diretorioExportacao);
-            exportarTabela(conn, "MUSICA_ASSOCIACOES", diretorioExportacao);
-            exportarTabela(conn, "MUSICA_LEITURASASSOCIADAS", diretorioExportacao);
-            exportarTabela(conn, "MUSICA_TIPOS", diretorioExportacao);
+            ZipFile zipFile = new ZipFile(arquivoZip);
+
+            ZipParameters parametros = new ZipParameters();
+            parametros.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+            parametros.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+            parametros.setEncryptFiles(true);
+            parametros.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
+            parametros.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
+            parametros.setPassword(SENHA_ARQUIVO_ZIP);
+
+            String arquivoExportacao;
+            for (String nomeTabela : nomesTabelas) {
+                arquivoExportacao = nomeDiretorioExportacao + nomeTabela;
+                exportarTabela(conn, nomeTabela, arquivoExportacao);
+                zipFile.addFile(new File(arquivoExportacao), parametros);
+            }
             em.getTransaction().commit();
-        } catch (SQLException ex) {
-            Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+            FileUtil.removeDirectory(diretorio);
         return true;
     }
 
     /**
      * Realiza o restore para o banco a partir do arquivo escolhido
      *
-     * @param diretorioImportacao
+     * @param arquivoImportacao
      * @return
      * @throws IOException
      * @throws InterruptedException
+     * @throws net.lingala.zip4j.exception.ZipException
      */
-    public static boolean doRestore(String diretorioImportacao) throws IOException, InterruptedException {
-        try {
-            EntityManager em = GerenciadorDeEntidades.getInstancia().getFabrica().createEntityManager();
-            em.getTransaction().begin();
-            Connection conn = em.unwrap(SessionImpl.class).connection();
-            diretorioImportacao += "\\";
-            /*
-                ATENÇÃO: NÃO ALTERAR A ORDEM DE IMPORTAÇÃO DAS TABELAS!
-                As Foreign Keys definem qual deve ser a ordem
-            */
-            importarTabela(conn, "INTEGRANTE", diretorioImportacao);
-            importarTabela(conn, "SYS", diretorioImportacao);
-            importarTabela(conn, "MISSA", diretorioImportacao);
-            importarTabela(conn, "MUSICA_AUTORES", diretorioImportacao);
-            importarTabela(conn, "MUSICA_DOCUMENTO", diretorioImportacao);
-            importarTabela(conn, "DOCUMENTOMUSICA_VOCABULARIO", diretorioImportacao);
-            importarTabela(conn, "DOCUMENTOMUSICA_LISTAINVERTIDA", diretorioImportacao);
-            importarTabela(conn, "MUSICA", diretorioImportacao);
-            importarTabela(conn, "MISSAS_MUSICAS", diretorioImportacao);
-            importarTabela(conn, "MUSICA_ASSOCIACOES", diretorioImportacao);
-            importarTabela(conn, "MUSICA_LEITURASASSOCIADAS", diretorioImportacao);
-            importarTabela(conn, "MUSICA_TIPOS", diretorioImportacao);
-            em.getTransaction().commit();
-        } catch (SQLException ex) {
-            Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
+    public static boolean doRestore(File arquivoImportacao) throws IOException, InterruptedException, ZipException, SQLException {
+
+        ZipFile zipFile = new ZipFile(arquivoImportacao);
+        zipFile.setPassword(SENHA_ARQUIVO_ZIP);
+        String nomeDiretorioImportacao = arquivoImportacao.toString().replaceFirst(".zip", "");
+        zipFile.extractAll(nomeDiretorioImportacao);
+
+        EntityManager em = GerenciadorDeEntidades.getInstancia().getFabrica().createEntityManager();
+        em.getTransaction().begin();
+        Connection conn = em.unwrap(SessionImpl.class).connection();
+
+        nomeDiretorioImportacao += "\\";
+
+        String nomeArquivoImportacao;
+        for (String nomeTabela : nomesTabelas) {
+            nomeArquivoImportacao = nomeDiretorioImportacao + nomeTabela;
+            importarTabela(conn, nomeTabela, nomeArquivoImportacao);
         }
+        em.getTransaction().commit();
         return true;
     }
 
-    private static void exportarTabela(Connection conn, String nomeTabela, String diretorioExportacao) throws SQLException {
+    private static void exportarTabela(Connection conn, String nomeTabela, String nomeArquivoExportacao) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(
                 "CALL SYSCS_UTIL.SYSCS_EXPORT_TABLE (?,?,?,?,?,?)");
         ps.setString(1, null);
         ps.setString(2, nomeTabela);
-        ps.setString(3, diretorioExportacao + nomeTabela);
+        ps.setString(3, nomeArquivoExportacao);
         ps.setString(4, "%");
         ps.setString(5, null);
         ps.setString(6, "UTF-8");
@@ -119,12 +131,12 @@ public class BD {
         ps.close();
     }
 
-    private static void importarTabela(Connection conn, String nomeTabela, String diretorioImportacao) throws SQLException {
+    private static void importarTabela(Connection conn, String nomeTabela, String nomeArquivoImportacao) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(
                 "CALL SYSCS_UTIL.SYSCS_IMPORT_TABLE (?,?,?,?,?,?,?)");
         ps.setString(1, null);
         ps.setString(2, nomeTabela);
-        ps.setString(3, diretorioImportacao + nomeTabela);
+        ps.setString(3, nomeArquivoImportacao);
         ps.setString(4, "%");
         ps.setString(5, null);
         ps.setString(6, "UTF-8");

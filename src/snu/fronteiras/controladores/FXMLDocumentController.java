@@ -8,7 +8,9 @@ package snu.fronteiras.controladores;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -31,6 +33,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.lingala.zip4j.exception.ZipException;
 import org.apache.log4j.Logger;
 import snu.bd.BD;
 import snu.controladores.ConfiguracoesSistemaJpaController;
@@ -443,12 +446,13 @@ public class FXMLDocumentController implements Initializable {
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
         }
-        final DirectoryChooser seletorDiretorio = new DirectoryChooser();
-        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
-        seletorDiretorio.setTitle("Escolha do diretório para exportação");
-        final File diretorioExportacao = seletorDiretorio.showDialog(FXMLDocumentController.getInstancia().getStage());
-        if (diretorioExportacao != null) {
-            SeletorArquivosUtil.mapSeletores.put("exportarDados", diretorioExportacao.getAbsolutePath());
+        final FileChooser seletorArquivo = new FileChooser();
+        seletorArquivo.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorArquivo.setTitle("Escolha do arquivo para importação");
+        seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos Compactados (*.zip)", "*.zip"));
+        final File arquivoImportacao = seletorArquivo.showOpenDialog(FXMLDocumentController.getInstancia().getStage());
+        if (arquivoImportacao != null) {
+            SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getAbsolutePath());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
             Parent root = null;
@@ -477,10 +481,10 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public Void call() {
                     try {
-                        if (!BD.doRestore(diretorioExportacao.toString())) {
+                        if (!BD.doRestore(arquivoImportacao)) {
                             cancel(true);
                         }
-                    } catch (IOException | InterruptedException ex) {
+                    } catch (IOException | InterruptedException | ZipException | SQLException ex) {
                         log.error("Erro ao realizar restore para o banco", ex);
                         cancel(true);
                     }
@@ -489,7 +493,6 @@ public class FXMLDocumentController implements Initializable {
             };
 
             dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
                 @Override
                 public void handle(WindowEvent event) {
                     if (task.isRunning()) {
@@ -514,7 +517,8 @@ public class FXMLDocumentController implements Initializable {
                         case CANCELLED:
                         case FAILED:
                             Dialogs.showErrorDialog(getStage(), "Erro ao importar dados."
-                                    + "\nFavor entrar em contato com o Administrador.",
+                                    + "\nVerifique se o arquivo escolhido para importação"
+                                    + "\né realmente um arquivo de backup deste sistema.",
                                     "Erro!", "Erro");
                             dialogStage.close();
                             break;
@@ -574,7 +578,7 @@ public class FXMLDocumentController implements Initializable {
                         if (!BD.doBakup(diretorioExportacao.toString())) {
                             cancel(true);
                         }
-                    } catch (IOException | InterruptedException ex) {
+                    } catch (IOException | InterruptedException | ZipException | SQLException ex) {
                         log.error("Erro ao realizar backup do banco", ex);
                         cancel(true);
                     }
