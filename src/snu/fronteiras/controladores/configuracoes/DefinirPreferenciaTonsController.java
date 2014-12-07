@@ -23,6 +23,7 @@ import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.Dialogs;
 
 /**
@@ -166,12 +167,12 @@ public class DefinirPreferenciaTonsController implements Initializable {
     private void onActionFromBtnOk(ActionEvent event) {
         try {
             ConfiguracoesSistemaJpaController.getInstancia().edit(configuracoesSistema);
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                     "Alterações realizadas com sucesso!", "Sucesso!", "Informação");
             this.popupDefinirPreferenciaTons.getScene().getWindow().hide();
         } catch (Exception ex) {
             log.error("Erro ao carregar salvar as Configurações do Sistema", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
         }
     }

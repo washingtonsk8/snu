@@ -33,6 +33,7 @@ import org.apache.log4j.Logger;
 import snu.controladores.MissaJpaController;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -90,7 +91,7 @@ public class LimparDadosMissasController implements Initializable {
         final Date dataAcontecimento = DataUtil.toDate(this.dpDataAcontecimento.getValue());
 
         if (dataAcontecimento != null) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "A ação irá excluir todos os dados das Missas antes de "
                     + DataUtil.formatarData(dataAcontecimento)
                     + " do sistema, inclusive a relação com as músicas.\n"
@@ -104,7 +105,7 @@ public class LimparDadosMissasController implements Initializable {
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
@@ -118,7 +119,7 @@ public class LimparDadosMissasController implements Initializable {
                 dialogStage.toFront();
                 dialogStage.setResizable(false);
                 dialogStage.initModality(Modality.WINDOW_MODAL);
-                dialogStage.initOwner(FXMLDocumentController.getInstancia().getStage());
+                dialogStage.initOwner(HomeController.getInstancia().getStage());
                 dialogStage.setScene(new Scene(root));
 
                 final Task task = new Task<Void>() {
@@ -167,7 +168,7 @@ public class LimparDadosMissasController implements Initializable {
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Selecione uma data, por favor.", "A data não foi selecionada!", "Aviso");
         }
     }
@@ -192,11 +193,11 @@ public class LimparDadosMissasController implements Initializable {
                 @Override
                 public void run() {
                     if (quantidadeMissasExcluidas == 1) {
-                        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                        Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                                 "Foi excluída " + quantidadeMissasExcluidas + " Missa do sistema!",
                                 "Sucesso!", "Informação");
                     } else {
-                        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                        Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                                 "Foram excluídas " + quantidadeMissasExcluidas + " Missas do sistema!",
                                 "Sucesso!", "Informação");
                     }
@@ -207,7 +208,7 @@ public class LimparDadosMissasController implements Initializable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao excluir as Missas.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }

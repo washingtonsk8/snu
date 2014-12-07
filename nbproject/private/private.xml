@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/musica/Musica.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/configuracoes/ConfiguracoesSistema.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/missa/Missa.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/configuracoes/DefinirPreferenciaTonsController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/bd/BD.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/integrante/AtualizarIntegranteController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/integrante/PesquisarIntegranteController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/HomeController.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/musica/TipoMusica.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/SNU.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/visao/integrante/PesquisarIntegrante.fxml</file>
         </group>
     </open-files>
 </project-private>

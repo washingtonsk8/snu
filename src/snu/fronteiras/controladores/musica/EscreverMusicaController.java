@@ -24,6 +24,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
@@ -207,7 +208,7 @@ public class EscreverMusicaController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
     }
 
     @FXML
@@ -216,7 +217,7 @@ public class EscreverMusicaController implements Initializable {
                 this.fldIntroducao.getText(), this.areaEscreverMusica.getText());
         
         Dialogs.DialogResponse resposta = conteudoIdentico? Dialogs.DialogResponse.YES :
-                Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente cancelar?\nAo cancelar o conteúdo não salvo será perdido.",
                 "Cancelamento", "Confirmação");
 
@@ -227,7 +228,7 @@ public class EscreverMusicaController implements Initializable {
             AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
             pai.getChildren().clear();
             pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamento(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
         }
     }
 

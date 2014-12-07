@@ -43,6 +43,7 @@ import snu.entidades.missa.Missa;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -123,7 +124,7 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private ImageView iconeVisualizarConteudo;
 
-    private TemplatePesquisaMusicaController controladorOrigem;
+    private PesquisarMusicaController controladorOrigem;
 
     private Musica musica;
 
@@ -192,7 +193,7 @@ public class VisualizarMusicaController implements Initializable {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
 
-    public void initData(Musica musica, TemplatePesquisaMusicaController controladorOrigem) {
+    public void initData(Musica musica, PesquisarMusicaController controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
@@ -222,7 +223,7 @@ public class VisualizarMusicaController implements Initializable {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
             log.error("Erro ao carregar a tela de Visualização de Conteúdo de Música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar a tela de Visualização de Conteúdo de Música."
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
@@ -234,7 +235,7 @@ public class VisualizarMusicaController implements Initializable {
         visualizarConteudoMusicaController.initData(this.musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     /**
@@ -303,12 +304,12 @@ public class VisualizarMusicaController implements Initializable {
                 desktop.browse(uri);
             } catch (URISyntaxException ex) {
                 log.error("Erro de sintaxe de URL de vídeo de música", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao carregar a URL do vídeo. A sintaxe está incorreta.",
                         "Erro!", "Erro", ex);
             } catch (IOException ex) {
                 log.error("Erro ao abrir o navegador com o endereço informado.", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao abrir o navegador com a URL do vídeo."
                         + "\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
@@ -356,6 +357,6 @@ public class VisualizarMusicaController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentVisualizarMusica.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
     }
 }

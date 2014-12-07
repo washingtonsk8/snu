@@ -99,9 +99,9 @@ public class VisualizarIntegranteController implements Initializable {
 
     private Integrante integrante;
 
-    private TemplatePesquisaIntegranteController controladorOrigem;
+    private PesquisarIntegranteController controladorOrigem;
 
-    public void initData(Integrante integranteSelecionado, TemplatePesquisaIntegranteController controladorOrigem) {
+    public void initData(Integrante integranteSelecionado, PesquisarIntegranteController controladorOrigem) {
         this.integrante = integranteSelecionado;
         this.controladorOrigem = controladorOrigem;
 
@@ -206,6 +206,6 @@ public class VisualizarIntegranteController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
     }
 }

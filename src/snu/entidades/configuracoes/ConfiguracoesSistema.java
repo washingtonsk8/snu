@@ -30,9 +30,6 @@ public class ConfiguracoesSistema implements Serializable {
     @Column(columnDefinition = "VARCHAR(16)", nullable = false)
     private String versao;
 
-    @Column(name = "diretorio_sgbd")
-    private String diretorioSGBD;
-
     @Column(columnDefinition = "CLOB", name = "template_descricao_email")
     private String templateDescricaoEmail;
 
@@ -65,14 +62,6 @@ public class ConfiguracoesSistema implements Serializable {
 
     public void setVersao(String versao) {
         this.versao = versao;
-    }
-
-    public String getDiretorioSGBD() {
-        return diretorioSGBD;
-    }
-
-    public void setDiretorioSGBD(String diretorioSGBD) {
-        this.diretorioSGBD = diretorioSGBD;
     }
 
     public String getTemplateDescricaoEmail() {

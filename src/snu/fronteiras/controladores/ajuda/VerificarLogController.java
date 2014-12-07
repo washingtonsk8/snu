@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.log4j.Logger;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 
@@ -60,7 +61,7 @@ public class VerificarLogController implements Initializable {
             //areaArquivoLog.home();
         } catch (IOException ex) {
             log.error("Erro ao abrir ou ler o arquivo de Log", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao abrir ou ler o arquivo de Log.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         } finally {
@@ -70,7 +71,7 @@ public class VerificarLogController implements Initializable {
                 }
             } catch (IOException ex) {
                 log.error("Erro ao fechar o arquivo de Log", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao fechar o arquivo de Log.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }

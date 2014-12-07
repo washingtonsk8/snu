@@ -46,6 +46,7 @@ import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
@@ -160,7 +161,7 @@ public class MontarMissaSelecaoController implements Initializable {
             atualizarTabela();
         } catch (IOException ex) {
             log.error("Erro ao pesquisar músicas por parâmetros", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao realizar a pesquisa.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
@@ -195,7 +196,7 @@ public class MontarMissaSelecaoController implements Initializable {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
             log.error("Erro ao carregar a tela de Organização de Montagem de Missa", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar a tela de Organização de Montagem de Missa.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
@@ -207,7 +208,7 @@ public class MontarMissaSelecaoController implements Initializable {
         montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this, this.controladorPrincipal);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -271,7 +272,7 @@ public class MontarMissaSelecaoController implements Initializable {
         boolean success = false;
         if (db.hasString()) {//Ocorrendo o sucesso, adiciona
             if (!this.musicasSelecionadas.add(this.tblMusicas.getSelectionModel().getSelectedItem())) {
-                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                         "A música arrastada não foi adicionada.", "Aviso!", "Aviso");
             }
             success = true;

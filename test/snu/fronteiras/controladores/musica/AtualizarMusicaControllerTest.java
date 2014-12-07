@@ -49,7 +49,7 @@ public class AtualizarMusicaControllerTest {
     public void testInitData() {
         System.out.println("initData");
         Musica musica = null;
-        TemplatePesquisaMusicaController controladorOrigem = null;
+        PesquisarMusicaController controladorOrigem = null;
         AtualizarMusicaController instance = new AtualizarMusicaController();
         instance.initData(musica, controladorOrigem);
         // TODO review the generated test code and remove the default call to fail.

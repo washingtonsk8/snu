@@ -32,6 +32,7 @@ import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -164,7 +165,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
         MissaJpaController.getInstancia().create(this.missa);
 
-        Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+        Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                 "Os dados da Missa foram salvos com sucesso!", "Sucesso!", "Informação");
 
         VisualizarDadosMissaController visualizarDadosMissaController
@@ -177,7 +178,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -188,6 +189,6 @@ public class MontarMissaFinalizacaoController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
     }
 }

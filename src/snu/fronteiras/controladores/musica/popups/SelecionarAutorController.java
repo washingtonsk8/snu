@@ -36,6 +36,7 @@ import snu.controladores.AutorJpaController;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.Dialogs;
 
 /**
@@ -113,7 +114,7 @@ public class SelecionarAutorController implements Initializable {
     private void adicionarAutor() {
         String nomeAutor = this.fldPesquisarAutor.getText();
 
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
                 "Adição de Autor", "Confirmação");
 

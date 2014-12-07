@@ -105,9 +105,9 @@ public class Dialogs {
                 .title(titulo)
                 .masthead(cabecalho)
                 .message(mensagem)
-                .actions(Dialog.Actions.YES, Dialog.Actions.NO)
+                .actions(Dialog.ACTION_YES, Dialog.ACTION_NO)
                 .showConfirm();
-        return resposta == Dialog.Actions.YES ? DialogResponse.YES : DialogResponse.NO;
+        return resposta == Dialog.ACTION_YES ? DialogResponse.YES : DialogResponse.NO;
     }
 
     public static void showErrorDialog(Stage stage, String mensagem, String cabecalho, String titulo) {

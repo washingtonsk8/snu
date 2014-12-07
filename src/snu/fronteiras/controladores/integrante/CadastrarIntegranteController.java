@@ -35,7 +35,7 @@ import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
 import snu.fronteiras.controladores.FXMLDocumentController;
-import snu.geral.TipoPagina;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -129,7 +129,7 @@ public class CadastrarIntegranteController implements Initializable {
 
     private Integrante integranteRow;
 
-    private FXMLDocumentController controladorPrincipal;
+    private PesquisarIntegranteController controladorOrigem;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante = FXCollections.observableArrayList(FuncaoIntegrante.values());
 
@@ -175,8 +175,8 @@ public class CadastrarIntegranteController implements Initializable {
         });
     }
 
-    public void initData(FXMLDocumentController controladorPrincipal) {
-        this.controladorPrincipal = controladorPrincipal;
+    public void initData(PesquisarIntegranteController controladorOrigem) {
+        this.controladorOrigem = controladorOrigem;
     }
 
     private void initComponents() {
@@ -380,12 +380,8 @@ public class CadastrarIntegranteController implements Initializable {
 
         this.comboFuncaoPrincipal.setValue(null);
         this.comboFuncaoSecundaria.setValue(FuncaoIntegrante.NENHUMA);
-        this.contentCadastrarIntegrante.getChildren().remove(this.dpDataNascimento);
-        this.contentCadastrarIntegrante.getChildren().remove(this.dpDataEntrada);
         this.dpDataNascimento.getEditor().clear();
         this.dpDataEntrada.getEditor().clear();
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataNascimento);
-        this.contentCadastrarIntegrante.getChildren().add(this.dpDataEntrada);
         this.fldEmail.clear();
         this.fldNome.clear();
         this.fldEndereco.clear();
@@ -472,26 +468,23 @@ public class CadastrarIntegranteController implements Initializable {
             IntegranteJpaController.getInstancia().create(this.integranteRow);
 
             if (this.integranteRow.getSexo().equals(Sexo.FEMININO)) {
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "A Integrante foi salva com sucesso!", "Sucesso!", "Informação");
+                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "A Integrante foi salva com sucesso!", "Sucesso!", "Informação");
             } else {
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O Integrante foi salvo com sucesso!", "Sucesso!", "Informação");
+                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "O Integrante foi salvo com sucesso!", "Sucesso!", "Informação");
             }
 
-            TemplatePesquisaIntegranteController templatePesquisaIntegrante
-                    = this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getController();
-
-            templatePesquisaIntegrante.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
-            templatePesquisaIntegrante.atualizar();
-
-            final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaIntegranteLoader().getRoot();
+            //Atualiza a página adicionando o novo integrante cadastrado
+            this.controladorOrigem.atualizar();
+            
+            final AnchorPane content = this.controladorOrigem.getContent();
 
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
             pai.getChildren().clear();
-            pai.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamento(root);
+            pai.getChildren().add(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }
 }

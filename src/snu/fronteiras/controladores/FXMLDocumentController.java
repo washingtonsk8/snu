@@ -40,11 +40,11 @@ import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
-import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
+import snu.fronteiras.controladores.integrante.PesquisarIntegranteController;
 import snu.fronteiras.controladores.missa.LimparDadosMissasController;
 import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
 import snu.fronteiras.controladores.musica.CriarMusicaController;
-import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
+import snu.fronteiras.controladores.musica.PesquisarMusicaController;
 import snu.geral.TipoPagina;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
@@ -110,12 +110,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem itemEscolherDiretorioBancoDados;
     @FXML
-    private Menu menuHome;
-    @FXML
-    private ImageView imgHome;
-    @FXML
-    private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
-    @FXML
     private MenuItem itemLimparDadosMissa;
     @FXML
     private MenuItem itemVerificarLog;
@@ -123,10 +117,6 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem itemDefinirPreferenciaTons;
     @FXML
     private Menu menuConfiguracoesMissa;
-
-    private FXMLLoader templatePesquisaIntegranteLoader;
-
-    private FXMLLoader templatePesquisaMusicaLoader;
 
     private FXMLLoader templatePesquisaMissaLoader;
 
@@ -137,30 +127,6 @@ public class FXMLDocumentController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(FXMLDocumentController.class.getName());
-
-    private void iniciarControladorPesquisaIntegrante() {
-        this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
-
-        try {
-            this.templatePesquisaIntegranteLoader.load();
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Template de Pesquisa de Integrante", ex);
-            Dialogs.showErrorDialog(getStage(),
-                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-        }
-    }
-
-    private void iniciarControladorPesquisaMusica() {
-        this.templatePesquisaMusicaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/TemplatePesquisaMusica.fxml"));
-
-        try {
-            this.templatePesquisaMusicaLoader.load();
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Template de Pesquisa de Música", ex);
-            Dialogs.showErrorDialog(getStage(),
-                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-        }
-    }
 
     private void iniciarControladorPesquisaMissa() {
         this.templatePesquisaMissaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/VisualizarDadosMissa.fxml"));
@@ -188,13 +154,11 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     private void initComponents() {
         instancia = this;
-        iniciarControladorPesquisaIntegrante();
-        iniciarControladorPesquisaMusica();
         iniciarControladorPesquisaMissa();
         iniciarPaginaInicial();
     }
@@ -209,158 +173,14 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
     }
-
-    public FXMLLoader getTemplatePesquisaIntegranteLoader() {
-        return templatePesquisaIntegranteLoader;
-    }
-
-    public FXMLLoader getTemplatePesquisaMusicaLoader() {
-        return templatePesquisaMusicaLoader;
-    }
-
+    
     public FXMLLoader getTemplatePesquisaMissaLoader() {
         return templatePesquisaMissaLoader;
     }
 
-    @FXML
     private void onShowingFromMenuHome(Event event) {
         event.consume();
         iniciarPaginaInicial();
-    }
-
-    @FXML
-    private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Cadastro de Integrante", ex);
-            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Cadastro de Integrante."
-                    + "\nFavor entrar em contato com o Administrador.",
-                    "Erro!", "Erro", ex);
-        }
-
-        CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
-        cadastrarIntegranteController.initData(this);
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemVisualizarDadosIntegrante(ActionEvent event) {
-        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
-
-        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
-        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
-
-        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemRemoverIntegrante(ActionEvent event) {
-        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
-
-        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemCriarMusica(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/CriarMusica.fxml"));
-        Parent root = null;
-        try {
-            root = (Parent) fxmlLoader.load();
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Criação de Música", ex);
-            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Criação de Música."
-                    + "\nFavor entrar em contato com o Administrador.",
-                    "Erro!", "Erro", ex);
-        }
-
-        CriarMusicaController criarIntegranteController = fxmlLoader.getController();
-        criarIntegranteController.initData(this);
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemVisualizarDadosMusica(ActionEvent event) {
-        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
-
-        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemAtualizarDadosMusica(ActionEvent event) {
-        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
-
-        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemRemoverMusica(ActionEvent event) {
-        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
-
-        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
-    }
-
-    @FXML
-    private void onActionFromItemGerarImpressao(ActionEvent event) {
-        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
-        controlador.setTipoPagina(TipoPagina.PESQUISA_GERACAO_IMPRESSAO);
-
-        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        this.contentAnchorPane.getChildren().clear();
-        this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
     }
 
     @FXML
@@ -379,7 +199,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -401,7 +221,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -411,7 +231,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -450,7 +270,7 @@ public class FXMLDocumentController implements Initializable {
         seletorArquivo.setInitialDirectory(new File(contextoUltimaSelecao));
         seletorArquivo.setTitle("Escolha do arquivo para importação");
         seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos Compactados (*.zip)", "*.zip"));
-        final File arquivoImportacao = seletorArquivo.showOpenDialog(FXMLDocumentController.getInstancia().getStage());
+        final File arquivoImportacao = seletorArquivo.showOpenDialog(HomeController.getInstancia().getStage());
         if (arquivoImportacao != null) {
             SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getAbsolutePath());
 
@@ -544,7 +364,7 @@ public class FXMLDocumentController implements Initializable {
         final DirectoryChooser seletorDiretorio = new DirectoryChooser();
         seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
         seletorDiretorio.setTitle("Escolha do diretório para exportação");
-        final File diretorioExportacao = seletorDiretorio.showDialog(FXMLDocumentController.getInstancia().getStage());
+        final File diretorioExportacao = seletorDiretorio.showDialog(HomeController.getInstancia().getStage());
         if (diretorioExportacao != null) {
             SeletorArquivosUtil.mapSeletores.put("exportarDados", diretorioExportacao.getAbsolutePath());
 
@@ -643,7 +463,7 @@ public class FXMLDocumentController implements Initializable {
             dialogStage.showAndWait();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Definição de Preferência de Tons", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar tela para Definição de Preferência de Tons."
                     + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
@@ -667,32 +487,13 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
+    @Deprecated
     private void onActionFromItemEscolherDiretorioBancoDados(ActionEvent event) {
-        String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("diretorioBD");
-        if (contextoUltimaSelecao == null) {
-            contextoUltimaSelecao = "C:";
-        }
-        DirectoryChooser seletorDiretorio = new DirectoryChooser();
-        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
-        seletorDiretorio.setTitle("Escolha do diretório do SGBD");
-        File diretorio = seletorDiretorio.showDialog(getStage());
-        if (diretorio != null) {
-            SeletorArquivosUtil.mapSeletores.put("diretorioBD", diretorio.getAbsolutePath());
-            String diretorioSGBD = diretorio.toString();
-            SNU.configuracoesSistema.setDiretorioSGBD(diretorioSGBD);
-            try {
-                ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
-            } catch (Exception ex) {
-                log.error("Erro ao atualizar as configurações do sistema", ex);
-                Dialogs.showErrorDialog(getStage(), "Erro ao atualizar o diretório do Sistema de Gerenciamento de Banco de Dados."
-                        + "\nFavor entrar em contato com o Administrador.",
-                        "Erro!", "Erro", ex);
-            }
-        }
+        //SNU 2.0 BETA
     }
 
     @FXML
@@ -711,7 +512,7 @@ public class FXMLDocumentController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         this.contentAnchorPane.getChildren().clear();
         this.contentAnchorPane.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -747,5 +548,21 @@ public class FXMLDocumentController implements Initializable {
      */
     public static FXMLDocumentController getInstancia() {
         return instancia;
+    }
+
+    @FXML
+    private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemVisualizarDadosIntegrante(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemRemoverIntegrante(ActionEvent event) {
     }
 }

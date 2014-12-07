@@ -50,6 +50,7 @@ import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -867,7 +868,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ENTRADA));
             this.fldMusicaEntrada.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -877,7 +878,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ATO_PENITENCIAL));
             this.fldMusicaAtoPenitencial.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -887,7 +888,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.GLORIA));
             this.fldMusicaGloria.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -897,7 +898,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.OFERTORIO));
             this.fldMusicaOfertorio.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -907,7 +908,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACLAMACAO));
             this.fldMusicaAclamacao.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -917,7 +918,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.SANTO));
             this.fldMusicaSanto.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -927,7 +928,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.PAZ));
             this.fldMusicaPaz.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -937,7 +938,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.COMUNHAO));
             this.fldMusicaComunhao.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -947,7 +948,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.ACAO_DE_GRACAS));
             this.fldMusicaAcaoDeGracas.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -957,7 +958,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             this.listaMusicasSelecionadas.getItems().add((Musica) this.mapaMusicasMissa.remove(TipoMusica.FINAL));
             this.fldMusicaFinal.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
@@ -970,13 +971,13 @@ public class MontarMissaOrganizacaoController implements Initializable {
             }
             this.areaMusicasEspeciais.setText(null);
         } else {
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Não há música para remover.", "Música inexistente!", "Erro");
         }
     }
 
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "As associações serão perdidas. Deseja realmente voltar?",
                 "Voltar para tela de Seleção de Músicas", "Confirmação");
 
@@ -995,7 +996,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
         if (this.dpDataMissa.getValue() == null) {
             this.dpDataMissa.setEffect(EfeitosUtil.getEfeitoInvalido());
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         } else {
             this.dpDataMissa.setEffect(null);
@@ -1015,7 +1016,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 root = (Parent) fxmlLoader.load();
             } catch (IOException ex) {
                 log.error("Erro ao carregar tela de Finalização de Montagem de Missa", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao carregar tela de Finalização de Montagem de Missa."
                         + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
@@ -1027,13 +1028,13 @@ public class MontarMissaOrganizacaoController implements Initializable {
             montarMissaFinalizacaoController.initData(this.missa, this.mapaMusicasMissa, this, this.controladorPrincipal);
             pai.getChildren().clear();
             pai.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamento(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFade(root);
         }
     }
 
     @FXML
     private void onActionFromBtnVoltar(ActionEvent event) {
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "As associações serão perdidas. Deseja realmente voltar?",
                 "Voltar para tela de Seleção de Músicas", "Confirmação");
 
@@ -1044,7 +1045,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
             AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
             pai.getChildren().clear();
             pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamento(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
         }
     }
 

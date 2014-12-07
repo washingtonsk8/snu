@@ -9,21 +9,8 @@
     <children>
         <MenuBar fx:id="menubar" blendMode="DARKEN" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="12.0" prefWidth="800.0">
             <menus>
-                <Menu fx:id="menuIntegrante" mnemonicParsing="false" text="Integrante">
-                    <items>
-                        <MenuItem fx:id="itemCadastrarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar" />
-                        <MenuItem fx:id="itemVisualizarDados" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosIntegrante" text="Visualizar Dados" />
-                        <MenuItem fx:id="itemAtualizarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemAtualizarIntegrante" text="Atualizar Dados" />
-                        <MenuItem fx:id="itemRemoverIntegrante" mnemonicParsing="false" onAction="#onActionFromItemRemoverIntegrante" text="Remover" />
-                    </items>
-                </Menu>
                 <Menu fx:id="menuMusica" mnemonicParsing="false" text="Música">
                     <items>
-                        <MenuItem fx:id="itemCriarMusica" mnemonicParsing="false" onAction="#onActionFromItemCriarMusica" text="Criar" />
-                        <MenuItem fx:id="itemVisualizarDadosMusica" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosMusica" text="Visualizar Dados" />
-                        <MenuItem fx:id="itemAtualizarDadosMusica" mnemonicParsing="false" onAction="#onActionFromItemAtualizarDadosMusica" text="Atualizar Dados" />
-                        <MenuItem fx:id="itemRemoverMusica" mnemonicParsing="false" onAction="#onActionFromItemRemoverMusica" text="Remover" />
-                        <MenuItem fx:id="itemGerarImpressao" mnemonicParsing="false" onAction="#onActionFromItemGerarImpressao" text="Gerar Impressão" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="itemGerenciarAutores" mnemonicParsing="false" onAction="#onActionFromItemGerenciarAutores" text="Gerenciar Autores" />
                     </items>

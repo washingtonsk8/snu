@@ -36,6 +36,7 @@ import snu.entidades.integrante.FuncaoIntegrante;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.integrante.Sexo;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -131,7 +132,7 @@ public class AtualizarIntegranteController implements Initializable {
 
     private Integrante integrante;
 
-    private TemplatePesquisaIntegranteController controladorOrigem;
+    private PesquisarIntegranteController controladorOrigem;
 
     private final ObservableList<FuncaoIntegrante> funcoesIntegrante
             = FXCollections.observableArrayList(FuncaoIntegrante.values());
@@ -210,7 +211,7 @@ public class AtualizarIntegranteController implements Initializable {
         definirAtividadeDeFocoDosCampos();
     }
 
-    public void initData(Integrante integranteSelecionado, TemplatePesquisaIntegranteController controladorOrigem) {
+    public void initData(Integrante integranteSelecionado, PesquisarIntegranteController controladorOrigem) {
         this.integrante = integranteSelecionado;
         this.controladorOrigem = controladorOrigem;
 
@@ -410,12 +411,8 @@ public class AtualizarIntegranteController implements Initializable {
 
         this.comboFuncaoPrincipal.setValue(null);
         this.comboFuncaoSecundaria.setValue(FuncaoIntegrante.NENHUMA);
-        this.contentAtualizarIntegrante.getChildren().remove(this.dpDataNascimento);
-        this.contentAtualizarIntegrante.getChildren().remove(this.dpDataEntrada);
         this.dpDataNascimento.getEditor().clear();
         this.dpDataEntrada.getEditor().clear();
-        this.contentAtualizarIntegrante.getChildren().add(this.dpDataNascimento);
-        this.contentAtualizarIntegrante.getChildren().add(this.dpDataEntrada);
         this.fldEmail.clear();
         this.fldNome.clear();
         this.fldEndereco.clear();
@@ -481,25 +478,21 @@ public class AtualizarIntegranteController implements Initializable {
                 IntegranteJpaController.getInstancia().edit(integrante);
 
                 if (this.integrante.getSexo().equals(Sexo.FEMININO)) {
-                    Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados da Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
+                    Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "Os dados da Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
                 } else {
-                    Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "Os dados do Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
+                    Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "Os dados do Integrante foram atualizados com sucesso!", "Sucesso!", "Informação");
                 }
 
-                TemplatePesquisaIntegranteController templatePesquisaIntegranteController
-                        = FXMLDocumentController.getInstancia()
-                        .getTemplatePesquisaIntegranteLoader()
-                        .getController();
-
-                templatePesquisaIntegranteController.atualizar();
+                //Atualiza os integrantes da tela de pesquisa
+                this.controladorOrigem.atualizar();
             } catch (Exception ex) {
                 log.error("Erro ao atualizar Integrante", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao atualizar Integrante.\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
             }
 
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }
 
@@ -533,6 +526,6 @@ public class AtualizarIntegranteController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
     }
 }

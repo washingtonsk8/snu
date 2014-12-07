@@ -6,6 +6,8 @@
 package snu.util;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -25,6 +27,7 @@ public class EfeitosUtil {
     private static final Effect efeitoValido = new DropShadow(BlurType.GAUSSIAN, Color.GREEN, 15, 0.0, 0, 0);
     private static final Effect efeitoAviso = new DropShadow(BlurType.GAUSSIAN, Color.YELLOW, 15, 0.0, 0, 0);
     private static final Effect efeitoGeral = new DropShadow(BlurType.GAUSSIAN, Color.BLUE, 15, 0.0, 0, 0);
+    private static final Effect efeitoCeuAzul = new DropShadow(BlurType.GAUSSIAN, Color.SKYBLUE, 15, 0.0, 0, 0);
     private static final Effect efeitoGlow = new Glow();
 
     /**
@@ -73,14 +76,41 @@ public class EfeitosUtil {
     }
 
     /**
+     * Retorna o efeito de céu azul
+     *
+     * @return
+     */
+    public static Effect getEfeitoCeuAzul() {
+        return efeitoCeuAzul;
+    }
+
+    /**
      * Roda efeito FADE IN na tela passada por parâmetro
      *
      * @param tela
      */
-    public static void rodarEfeitoCarregamento(Node tela) {
-        final FadeTransition ft = new FadeTransition(Duration.millis(300), tela);
+    public static void rodarEfeitoCarregamentoFade(Node tela) {
+        final FadeTransition ft = new FadeTransition(Duration.millis(500), tela);
         ft.setFromValue(0.);
         ft.setToValue(1.);
         ft.play();
+    }
+
+    /**
+     * Roda efeito TRANSLATE na tela passada por parâmetro
+     *
+     * @param tela
+     * @param voltando
+     */
+    public static void rodarEfeitoCarregamentoTranslate(Node tela, boolean voltando) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(250), tela);
+        if (voltando) {
+            tt.setFromX(0f);
+            tt.setToX(800f);
+        } else {
+            tt.setFromX(800f);
+            tt.setToX(0f);
+        }
+        tt.play();
     }
 }

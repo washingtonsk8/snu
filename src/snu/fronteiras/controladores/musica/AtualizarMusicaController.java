@@ -61,6 +61,7 @@ import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
@@ -204,7 +205,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
     private Musica musica;
 
-    private TemplatePesquisaMusicaController controladorOrigem;
+    private PesquisarMusicaController controladorOrigem;
 
     private String conteudoAnterior;
 
@@ -285,7 +286,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.btnSelecionarAutor.requestFocus();
     }
 
-    public void initData(Musica musica, TemplatePesquisaMusicaController controladorOrigem) {
+    public void initData(Musica musica, PesquisarMusicaController controladorOrigem) {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
@@ -326,7 +327,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             if (!musicasEncontradas.isEmpty()) {
                 Dialogs.DialogResponse resposta;
                 if (musicasEncontradas.size() == 1) {
-                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                             "Foi encontrada a seguinte Música com o mesmo nome:\n"
                             + "\t" + musicasEncontradas.get(0).getTitulo() + "\n"
                             + "\nDeseja atualizar a Música mesmo assim?",
@@ -341,7 +342,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
                     textoQuestionamento.append("\nDeseja atualizar a Música mesmo assim?");
 
-                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(), textoQuestionamento.toString(),
+                    resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(), textoQuestionamento.toString(),
                             "Criação de Música com mesmo nome", "Confirmação");
                 }
 
@@ -350,7 +351,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             return true;
         } catch (IOException ex) {
             log.error("Erro ao pesquisar músicas por parâmetros para atualizar Música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao atualizar Música.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
@@ -378,7 +379,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                                 "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
                     }
                 });
@@ -387,7 +388,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                        Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                                 "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
                                 "Erro!", "Erro", ex);
                     }
@@ -417,15 +418,10 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             //Atualizando no banco
             MusicaJpaController.getInstancia().edit(this.musica);
 
-            TemplatePesquisaMusicaController templatePesquisaMusicaController
-                    = FXMLDocumentController.getInstancia()
-                    .getTemplatePesquisaMusicaLoader()
-                    .getController();
-
-            templatePesquisaMusicaController.atualizar();
+            this.controladorOrigem.atualizar();
         } catch (Exception ex) {
             log.error("Erro ao atualizar Música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao atualizar a Música!\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
@@ -711,7 +707,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             //Atualiza a tabela
             atualizarTabela();
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor selecionar um Integrante e um Tom para associar.", "Valores inválidos!", "Aviso");
         }
     }
@@ -721,7 +717,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         int indiceSelecionado = this.tblAssociacoes.getSelectionModel().getSelectedIndex();
 
         if (indiceSelecionado >= 0) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "Deseja realmente excluir a Associação?", "Exclusão de Associação", "Confirmação");
 
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
@@ -731,7 +727,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 atualizarTabela();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor selecionar uma Associação para a exclusão.", "Associação não selecionada!", "Aviso");
         }
     }
@@ -758,7 +754,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Escrever o Conteúdo", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar tela para Escrever o Conteúdo.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
@@ -770,7 +766,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     private boolean validarCampos() {
@@ -814,7 +810,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             root = (AnchorPane) fxmlLoader.load();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Seleção de Autor", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar tela para Seleção de Autor.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
@@ -862,7 +858,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamento(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
     }
 
     @FXML
@@ -875,7 +871,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
@@ -889,7 +885,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 dialogStage.toFront();
                 dialogStage.setResizable(false);
                 dialogStage.initModality(Modality.WINDOW_MODAL);
-                dialogStage.initOwner(FXMLDocumentController.getInstancia().getStage());
+                dialogStage.initOwner(HomeController.getInstancia().getStage());
                 dialogStage.setScene(new Scene(root));
 
                 final Task task = new Task<Void>() {
@@ -917,7 +913,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                                 dialogStage.showAndWait();
                                 break;
                             case SUCCEEDED:
-                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                                         "A Música foi atualizada com sucesso!", "Sucesso!", "Informação");
                                 dialogStage.close();
                                 break;
@@ -938,7 +934,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }

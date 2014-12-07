@@ -57,6 +57,7 @@ import snu.entidades.musica.Musica;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
@@ -190,7 +191,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
     private final ObservableList<Afinacao> afinacoesMusica = FXCollections.observableArrayList(Afinacao.values());
 
-    private FXMLDocumentController controladorPrincipal;
+    private PesquisarMusicaController controladorOrigem;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(CriarMusicaController.class.getName());
@@ -303,7 +304,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao realizar a indexação da Música.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
@@ -314,7 +315,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private void questionamentoFinalArmazenamento() {
         if (StringUtil.isVazia(this.musica.getDocumentoMusica().getConteudo())) {
             Dialogs.DialogResponse resposta;
-            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+            resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "O conteúdo da Música não foi escrito."
                     + "\nDeseja ir para a página de atualização?", "Confirmação", "Confirmação");
             if (resposta.equals(Dialogs.DialogResponse.YES)) {
@@ -325,55 +326,46 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
                     log.error("Erro ao carregar tela de Atualização de Música", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao carregar tela de Atualização de Música."
                             + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
                 }
 
-                AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
-                TemplatePesquisaMusicaController templateMusicaController
-                        = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
-                templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
-                templateMusicaController.atualizar();
+                this.controladorOrigem.atualizar();
+
+                final AnchorPane content = this.controladorOrigem.getContent();
 
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-                atualizarMusicaController.initData(this.musica, templateMusicaController);
                 pai.getChildren().clear();
-                pai.getChildren().add(root);
-                EfeitosUtil.rodarEfeitoCarregamento(root);
+                pai.getChildren().add(content);
+                EfeitosUtil.rodarEfeitoCarregamentoFade(content);
             } else {
-                TemplatePesquisaMusicaController templateMusicaController
-                        = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
-                templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
-                templateMusicaController.atualizar();
+                this.controladorOrigem.atualizar();
 
-                final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot();
+                final Parent root = (Parent) this.controladorOrigem.getContent();
 
                 //Limpa o conteúdo anterior e carrega a página
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
                 pai.getChildren().clear();
                 pai.getChildren().add(root);
-                EfeitosUtil.rodarEfeitoCarregamento(root);
+                EfeitosUtil.rodarEfeitoCarregamentoFade(root);
             }
         } else {
-            TemplatePesquisaMusicaController templateMusicaController
-                    = this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getController();
-            templateMusicaController.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
-            templateMusicaController.atualizar();
+            this.controladorOrigem.atualizar();
 
-            final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMusicaLoader().getRoot();
+            final AnchorPane content = this.controladorOrigem.getContent();
 
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
             pai.getChildren().clear();
-            pai.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamento(root);
+            pai.getChildren().add(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
         }
     }
 
-    public void initData(FXMLDocumentController controladorPrincipal) {
-        this.controladorPrincipal = controladorPrincipal;
+    public void initData(PesquisarMusicaController controladorPrincipal) {
+        this.controladorOrigem = controladorPrincipal;
     }
 
     /**
@@ -652,7 +644,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             //Atualiza a tabela
             atualizarTabela();
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor selecionar um Integrante e um Tom para associar.", "Valores inválidos!", "Aviso");
         }
     }
@@ -662,7 +654,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         int indiceSelecionado = this.tblAssociacoes.getSelectionModel().getSelectedIndex();
 
         if (indiceSelecionado >= 0) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "Deseja realmente excluir a Associação?", "Exclusão de Associação",
                     "Confirmação");
 
@@ -675,7 +667,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 atualizarTabela();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor selecionar uma Associação para a exclusão.", "Associação não selecionada!", "Aviso");
         }
     }
@@ -699,7 +691,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Escrever o Conteúdo", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar tela para Escrever o Conteúdo."
                     + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
@@ -712,7 +704,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamento(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
     }
 
     @FXML
@@ -723,7 +715,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             root = (AnchorPane) fxmlLoader.load();
         } catch (IOException ex) {
             log.error("Erro ao carregar tela para Seleção de Autor", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao carregar tela para Seleção de Autor."
                     + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
@@ -789,7 +781,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             if (!musicasEncontradas.isEmpty()) {
                 Dialogs.DialogResponse resposta;
                 if (musicasEncontradas.size() == 1) {
-                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                             "Foi encontrada a seguinte Música com o mesmo nome:\n"
                             + "\t" + musicasEncontradas.get(0).getTitulo() + "\n"
                             + "\nDeseja salvar a Música mesmo assim?",
@@ -805,7 +797,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
 
                     textoQuestionamento.append("\nDeseja salvar a Música mesmo assim?");
 
-                    resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+                    resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                             textoQuestionamento.toString(), "Criação de Música com mesmo nome", "Confirmação");
                 }
 
@@ -814,7 +806,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             return true;
         } catch (Exception ex) {
             log.error("Erro ao pesquisar músicas por parâmetros para salvar Música", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao salvar Música.\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
@@ -831,7 +823,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
@@ -845,7 +837,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 dialogStage.toFront();
                 dialogStage.setResizable(false);
                 dialogStage.initModality(Modality.WINDOW_MODAL);
-                dialogStage.initOwner(FXMLDocumentController.getInstancia().getStage());
+                dialogStage.initOwner(HomeController.getInstancia().getStage());
                 dialogStage.setScene(new Scene(root));
 
                 final Task task = new Task<Void>() {
@@ -874,7 +866,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                                 dialogStage.showAndWait();
                                 break;
                             case SUCCEEDED:
-                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                                         "A Música foi salva com sucesso!", "Sucesso!", "Informação");
                                 questionamentoFinalArmazenamento();
                                 dialogStage.close();
@@ -896,7 +888,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }

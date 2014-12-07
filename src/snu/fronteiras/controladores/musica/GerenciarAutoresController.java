@@ -37,6 +37,7 @@ import snu.dto.QuantidadeAutoriaDTO;
 import snu.entidades.musica.Autor;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 import snu.util.StringUtil;
@@ -136,7 +137,7 @@ public class GerenciarAutoresController implements Initializable {
 
         if (StringUtil.hasAlgo(textoPesquisa)) {
             Dialogs.DialogResponse resposta;
-            resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+            resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "Deseja realmente adicionar o(a) Autor(a) \"" + textoPesquisa + "\" ao sistema?",
                     "Adição de Autor", "Confirmação");
 
@@ -158,7 +159,7 @@ public class GerenciarAutoresController implements Initializable {
                 this.tblAutores.setItems(this.autores);
                 atualizarTabela();
 
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                         "O(A) Autor(a) foi salvo(a) com sucesso!", "Sucesso!", "Informação");
 
                 this.fldPesquisarAutor.requestFocus();
@@ -166,7 +167,7 @@ public class GerenciarAutoresController implements Initializable {
                         + MusicaJpaController.getInstancia().getMusicaCount() + " música(s).");
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "O nome do(a) Autor(a) deve ter pelo menos 1 caractere.", "Nome vazio!", "Aviso");
         }
     }
@@ -256,7 +257,7 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnEditarAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         String nomeAutor = quantidadeAutoriaDtoSelecionado.getAutor().getNome();
-        String novoNomeAutor = Dialogs.showInputDialog(FXMLDocumentController.getInstancia().getStage(),
+        String novoNomeAutor = Dialogs.showInputDialog(HomeController.getInstancia().getStage(),
                 "Edite o nome do(a) Autor(a) e confirme para alterar."
                 + "\nObs.: O nome não pode estar vazio.", "Edição de Autor", "Edição de Autor", nomeAutor);
         if (novoNomeAutor != null) {
@@ -268,21 +269,21 @@ public class GerenciarAutoresController implements Initializable {
                     atualizarTabela();
 
                     //Atualizar tabela da pesquisa de música
-                    TemplatePesquisaMusicaController templatePesquisaMusicaController
-                            = FXMLDocumentController.getInstancia().getTemplatePesquisaMusicaLoader().getController();
+//                    PesquisarMusicaController pesquisarMusicaController
+//                            = FXMLDocumentController.getInstancia().getController();
+//
+//                    pesquisarMusicaController.atualizarTabela();
 
-                    templatePesquisaMusicaController.atualizarTabela();
-
-                    Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                             "Os dados do(a) Autor(a) foram atualizados com sucesso!", "Sucesso!", "Informação");
                 } catch (Exception ex) {
                     log.error("Erro ao atualizar o Autor", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao atualizar o(a) Autor(a).\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
             } else {
-                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                         "O nome do(a) Autor(a) não pode estar vazio e deve ser diferente do atual.",
                         "Valor Inválido!", "Aviso");
             }
@@ -293,7 +294,7 @@ public class GerenciarAutoresController implements Initializable {
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
         Dialogs.DialogResponse resposta;
-        resposta = Dialogs.showConfirmDialog(FXMLDocumentController.getInstancia().getStage(),
+        resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente excluir o(a) Autor(a) \""
                 + quantidadeAutoriaDtoSelecionado.getAutor().getNome() + "\" do sistema?"
                 + "\n\nATENÇÃO: Ao excluí-lo(a), todas as músicas de sua autoria serão excluídas também!",
@@ -310,22 +311,22 @@ public class GerenciarAutoresController implements Initializable {
 
                 atualizarTabela();
 
-                //Atualizar tabela da pesquisa de música
-                TemplatePesquisaMusicaController templatePesquisaMusicaController
-                        = FXMLDocumentController.getInstancia().getTemplatePesquisaMusicaLoader().getController();
+//                //Atualizar tabela da pesquisa de música
+//                PesquisarMusicaController pesquisarMusicaController
+//                        = FXMLDocumentController.getInstancia().getPesquisarMusicaLoader().getController();
+//
+//                pesquisarMusicaController.atualizarTabela();
 
-                templatePesquisaMusicaController.atualizarTabela();
-
-                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                         "O(A) Autor(a) foi removido com sucesso!", "Sucesso!", "Informação");
             } catch (NonexistentEntityException ex) {
                 log.error("Erro ao excluir o Autor", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao excluir o Autor.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             } catch (Exception ex) {
                 log.error("Erro ao excluir o Autor", ex);
-                Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                         "Erro ao excluir o Autor.\nFavor entrar em contato com o Administrador.",
                         "Erro!", "Erro", ex);
             }

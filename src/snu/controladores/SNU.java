@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.Dialogs;
 import snu.util.StringUtil;
 
@@ -30,7 +31,7 @@ import snu.util.StringUtil;
  */
 public class SNU extends Application {
 
-    private static final String VERSAO = "1.5";
+    private static final String VERSAO = "2.0 BETA";
 
     private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
             = ConfiguracoesSistemaJpaController.getInstancia();
@@ -60,18 +61,6 @@ public class SNU extends Application {
                 ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
                 novasConfiguracoesSistema.setVersao(VERSAO);
 
-                Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
-                        + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
-
-                final DirectoryChooser seletorDiretorio = new DirectoryChooser();
-                seletorDiretorio.setInitialDirectory(new File("C:\\"));
-                seletorDiretorio.setTitle("Escolha do diretório do SGBD");
-                String diretorioSGBD = "C:";
-                final File diretorio = seletorDiretorio.showDialog(stage);
-                if (diretorio != null) {
-                    diretorioSGBD = diretorio.getAbsolutePath();
-                }
-                novasConfiguracoesSistema.setDiretorioSGBD(diretorioSGBD);
                 novasConfiguracoesSistema.setTemplateDescricaoEmail("<saudação diária>,\n"
                         + "\n"
                         + "segue abaixo a relação de músicas para a missa do dia <data>.\n"
@@ -108,7 +97,7 @@ public class SNU extends Application {
                 public void handle(WindowEvent event) {
                     Dialogs.DialogResponse resposta;
                     resposta = Dialogs.showConfirmDialog(
-                            FXMLDocumentController.getInstancia().getStage(),
+                            HomeController.getInstancia().getStage(),
                             "Deseja realmente sair do sistema?",
                             "Confirmação", "Confirmação");
                     if (resposta != Dialogs.DialogResponse.YES) {

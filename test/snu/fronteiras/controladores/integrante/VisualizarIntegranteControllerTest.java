@@ -61,7 +61,7 @@ public class VisualizarIntegranteControllerTest {
     public void testInitData() {
         System.out.println("initData");
         Integrante integranteSelecionado = null;
-        TemplatePesquisaIntegranteController controladorOrigem = null;
+        PesquisarIntegranteController controladorOrigem = null;
         VisualizarIntegranteController instance = new VisualizarIntegranteController();
         instance.initData(integranteSelecionado, controladorOrigem);
         // TODO review the generated test code and remove the default call to fail.

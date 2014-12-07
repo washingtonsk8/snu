@@ -47,6 +47,7 @@ import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Musica;
 import snu.entidades.musica.Tom;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
@@ -241,7 +242,7 @@ public class GerarImpressaoMusicaController implements Initializable {
             seletorArquivo.setTitle("Salvar arquivo de impressão");
             seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
 
-            final File arquivoGeracao = seletorArquivo.showSaveDialog(FXMLDocumentController.getInstancia().getStage());
+            final File arquivoGeracao = seletorArquivo.showSaveDialog(HomeController.getInstancia().getStage());
             if (arquivoGeracao != null) {
                 SeletorArquivosUtil.mapSeletores.put("gerarImpressao", arquivoGeracao.getParent());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
@@ -250,7 +251,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                     root = (Parent) fxmlLoader.load();
                 } catch (IOException ex) {
                     log.error("Erro ao carregar popup de Progresso", ex);
-                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                             "Erro ao carregar popup de Progresso.\nFavor entrar em contato com o Administrador.",
                             "Erro!", "Erro", ex);
                 }
@@ -282,7 +283,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                                             "Erro ao gerar a impressão da Música."
                                             + "\nÉ provável que o arquivo esteja aberto em outra aplicação."
                                             + "\nCaso não esteja, favor entrar em contato com o Administrador.",
@@ -313,7 +314,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                                 dialogStage.showAndWait();
                                 break;
                             case SUCCEEDED:
-                                Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(),
+                                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                                         "O arquivo da Música foi gerado com sucesso!", "Sucesso!", "Informação");
                                 popupGerarImpressaoMusica.getScene().getWindow().hide();
                                 dialogStage.close();
@@ -326,7 +327,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                                        Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                                                 "Erro ao gerar a impressão da Música."
                                                 + "\nÉ provável que o arquivo esteja aberto em outra aplicação."
                                                 + "\nCaso não esteja, favor entrar em contato com o Administrador.",
@@ -348,7 +349,7 @@ public class GerarImpressaoMusicaController implements Initializable {
                 new Thread(task).start();
             }
         } else {
-            Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
     }

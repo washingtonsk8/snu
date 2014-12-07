@@ -35,6 +35,7 @@ import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -172,7 +173,7 @@ public class VisualizarDadosMissaController implements Initializable {
 
                 this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
             } else {
-                Dialogs.showWarningDialog(FXMLDocumentController.getInstancia().getStage(),
+                Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                         "A descrição de e-mail desta Missa está vazia.", "Descrição Vazia!", "Aviso");
             }
         }

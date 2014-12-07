@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 
@@ -84,10 +85,10 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
         SNU.configuracoesSistema.setTemplateDescricaoEmail(this.areaTemplateEmail.getText());
         try {
             ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
-            Dialogs.showInformationDialog(FXMLDocumentController.getInstancia().getStage(), "O template foi salvo com sucesso!", "Sucesso!", "Informação");
+            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "O template foi salvo com sucesso!", "Sucesso!", "Informação");
         } catch (Exception ex) {
             log.error("Erro ao salvar template de e-mail", ex);
-            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
                     "Erro ao salvar o Template de E-mail."
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }

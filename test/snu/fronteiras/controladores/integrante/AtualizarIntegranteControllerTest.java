@@ -47,7 +47,7 @@ public class AtualizarIntegranteControllerTest {
     public void testInitData() {
         System.out.println("initData");
         Integrante integranteSelecionado = null;
-        TemplatePesquisaIntegranteController controladorOrigem = null;
+        PesquisarIntegranteController controladorOrigem = null;
         AtualizarIntegranteController instance = new AtualizarIntegranteController();
         instance.initData(integranteSelecionado, controladorOrigem);
         // TODO review the generated test code and remove the default call to fail.
