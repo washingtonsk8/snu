@@ -526,6 +526,6 @@ public class AtualizarIntegranteController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 }

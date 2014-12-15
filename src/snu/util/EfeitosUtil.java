@@ -13,6 +13,7 @@ import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -89,10 +90,24 @@ public class EfeitosUtil {
      *
      * @param tela
      */
-    public static void rodarEfeitoCarregamentoFade(Node tela) {
+    public static void rodarEfeitoCarregamentoFadeIn(Node tela) {
+        for (Node filho : ((AnchorPane) tela).getChildren()) {
+            final FadeTransition ft = new FadeTransition(Duration.millis(500), filho);
+            ft.setFromValue(0.);
+            ft.setToValue(1.);
+            ft.play();
+        }
+    }
+
+    /**
+     * Roda efeito FADE OUT na tela passada por parâmetro
+     *
+     * @param tela
+     */
+    public static void rodarEfeitoCarregamentoFadeOut(Node tela) {
         final FadeTransition ft = new FadeTransition(Duration.millis(500), tela);
-        ft.setFromValue(0.);
-        ft.setToValue(1.);
+        ft.setFromValue(1.);
+        ft.setToValue(0.);
         ft.play();
     }
 
@@ -100,17 +115,12 @@ public class EfeitosUtil {
      * Roda efeito TRANSLATE na tela passada por parâmetro
      *
      * @param tela
-     * @param voltando
      */
-    public static void rodarEfeitoCarregamentoTranslate(Node tela, boolean voltando) {
+    public static void rodarEfeitoCarregamentoTranslate(Node tela) {
         TranslateTransition tt = new TranslateTransition(Duration.millis(250), tela);
-        if (voltando) {
-            tt.setFromX(0f);
-            tt.setToX(800f);
-        } else {
-            tt.setFromX(800f);
-            tt.setToX(0f);
-        }
+
+        tt.setFromX(800f);
+        tt.setToX(0f);
         tt.play();
     }
 }

@@ -482,7 +482,7 @@ public class CadastrarIntegranteController implements Initializable {
             AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
             pai.getChildren().clear();
             pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
         } else {
             Dialogs.showWarningDialog(HomeController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }

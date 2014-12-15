@@ -208,7 +208,7 @@ public class EscreverMusicaController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 
     @FXML
@@ -228,7 +228,7 @@ public class EscreverMusicaController implements Initializable {
             AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
             pai.getChildren().clear();
             pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
         }
     }
 

@@ -124,6 +124,6 @@ public class VisualizarConteudoMusicaController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentVisualizarConteudoMusica.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 }

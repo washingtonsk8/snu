@@ -107,7 +107,7 @@ public class MontarMissaSelecaoController implements Initializable {
     private final ObservableList<TipoMusica> tiposMusica
             = FXCollections.observableList(Arrays.asList(TipoMusica.values()));
 
-    private FXMLDocumentController controladorPrincipal;
+    private PesquisarMissaController controladorOrigem;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MontarMissaSelecaoController.class.getName());
@@ -178,8 +178,8 @@ public class MontarMissaSelecaoController implements Initializable {
         initComponents();
     }
 
-    public void initData(FXMLDocumentController controladorPrincipal) {
-        this.controladorPrincipal = controladorPrincipal;
+    public void initData(PesquisarMissaController controladorOrigem) {
+        this.controladorOrigem = controladorOrigem;
     }
 
     @FXML
@@ -205,10 +205,10 @@ public class MontarMissaSelecaoController implements Initializable {
 
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaSelecao.getParent());
-        montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this, this.controladorPrincipal);
+        montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this, this.controladorOrigem);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     @FXML

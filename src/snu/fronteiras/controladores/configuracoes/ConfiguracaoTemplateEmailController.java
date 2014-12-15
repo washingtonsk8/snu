@@ -7,9 +7,13 @@ package snu.fronteiras.controladores.configuracoes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -17,11 +21,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import org.apache.log4j.Logger;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
+import snu.fronteiras.controladores.ajuda.AjudaController;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 
@@ -49,14 +55,24 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
     @FXML
     private ImageView imgInicio;
     @FXML
+    private ImageView imgVoltar;
+    @FXML
     private ImageView iconeSalvar;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName());
+    
+    private ConfiguracoesController controladorOrigem;
 
     private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
+        
         this.areaTemplateEmail.setText(SNU.configuracoesSistema.getTemplateDescricaoEmail());
+    }
+
+    public void initData(ConfiguracoesController controladorOrigem) {
+        this.controladorOrigem = controladorOrigem;
     }
 
     /**
@@ -92,5 +108,25 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
                     "Erro ao salvar o Template de E-mail."
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentTemplateEmail.getParent());
+        ObservableList<Node> filhos = pai.getChildren();
+
+        final FadeTransition ft = new FadeTransition(Duration.millis(500), filhos.get(filhos.size() - 1));
+        ft.setFromValue(1.);
+        ft.setToValue(0.);
+        ft.play();
+
+        ft.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                filhos.remove(filhos.size() - 1);
+            }
+        });
     }
 }

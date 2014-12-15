@@ -10,13 +10,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import org.apache.log4j.Logger;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
@@ -38,12 +44,17 @@ public class VerificarLogController implements Initializable {
     private TextArea areaArquivoLog;
     @FXML
     private ImageView imgInicio;
+    @FXML
+    private ImageView imgVoltar;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(VerificarLogController.class.getName());
 
+    private AjudaController controladorOrigem;
+
     private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
 
         BufferedReader br = null;
 
@@ -78,6 +89,10 @@ public class VerificarLogController implements Initializable {
         }
     }
 
+    public void initData(AjudaController controladorOrigem) {
+        this.controladorOrigem = controladorOrigem;
+    }
+
     /**
      * Inicializa as ações do controlador
      *
@@ -97,5 +112,25 @@ public class VerificarLogController implements Initializable {
     @FXML
     private void onMouseClickedFromContentVisualizarLog(MouseEvent event) {
         this.contentVerificarLog.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentVerificarLog.getParent());
+        ObservableList<Node> filhos = pai.getChildren();
+
+        final FadeTransition ft = new FadeTransition(Duration.millis(500), filhos.get(filhos.size() - 1));
+        ft.setFromValue(1.);
+        ft.setToValue(0.);
+        ft.play();
+
+        ft.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                filhos.remove(filhos.size() - 1);
+            }
+        });
     }
 }

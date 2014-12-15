@@ -180,7 +180,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     private Musica musicaArrastada;//Música que foi arrastada
 
-    private FXMLDocumentController controladorPrincipal;
+    private PesquisarMissaController controladorPesquisa;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MontarMissaOrganizacaoController.class.getName());
@@ -230,10 +230,10 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     public void initData(Set<Musica> musicasSelecionadas,
             MontarMissaSelecaoController controladorOrigem,
-            FXMLDocumentController controladorPrincipal) {
+            PesquisarMissaController controladorPesquisa) {
         this.musicasParaMissa = musicasSelecionadas;
         this.controladorOrigem = controladorOrigem;
-        this.controladorPrincipal = controladorPrincipal;
+        this.controladorPesquisa = controladorPesquisa;
 
         Collections.sort(new ArrayList<>(this.musicasParaMissa), new Comparator<Musica>() {
             @Override
@@ -1025,10 +1025,10 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
-            montarMissaFinalizacaoController.initData(this.missa, this.mapaMusicasMissa, this, this.controladorPrincipal);
+            montarMissaFinalizacaoController.initData(this.missa, this.mapaMusicasMissa, this, this.controladorPesquisa);
             pai.getChildren().clear();
             pai.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         }
     }
 
@@ -1045,11 +1045,15 @@ public class MontarMissaOrganizacaoController implements Initializable {
             AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
             pai.getChildren().clear();
             pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
         }
     }
 
     public AnchorPane getContent() {
         return this.contentMontarMissaOrganizacao;
+    }
+    
+    public MontarMissaSelecaoController getControladorOrigem(){
+        return this.controladorOrigem;
     }
 }

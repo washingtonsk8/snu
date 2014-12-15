@@ -766,7 +766,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     private boolean validarCampos() {
@@ -858,7 +858,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 
     @FXML

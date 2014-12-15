@@ -351,7 +351,7 @@ public class PesquisarMusicaController implements Initializable {
             //Limpa o conteúdo anterior e carrega a página
             this.contentPesquisarMusica.getChildren().clear();
             this.contentPesquisarMusica.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Criação de Música", ex);
             Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar tela de Criação de Música."
@@ -373,7 +373,7 @@ public class PesquisarMusicaController implements Initializable {
             atualizarMusicaController.initData(musicaSelecionada, this);
             pai.getChildren().clear();
             pai.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Atualização de Música", ex);
             Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
@@ -395,7 +395,7 @@ public class PesquisarMusicaController implements Initializable {
             visualizarMusicaController.initData(musicaSelecionada, this);
             pai.getChildren().clear();
             pai.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Visualização de Música", ex);
             Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),

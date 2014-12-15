@@ -40,14 +40,14 @@ public class VisualizarDadosMissaControllerTest {
     }
 
     /**
-     * Test of initialize method, of class VisualizarDadosMissaController.
+     * Test of initialize method, of class PesquisarMissaController.
      */
     @Test
     public void testInitialize() {
         System.out.println("initialize");
         URL url = null;
         ResourceBundle rb = null;
-        VisualizarDadosMissaController instance = new VisualizarDadosMissaController();
+        PesquisarMissaController instance = new PesquisarMissaController();
         instance.initialize(url, rb);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

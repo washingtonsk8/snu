@@ -201,7 +201,7 @@ public class PesquisarIntegranteController implements Initializable {
         cadastrarIntegranteController.initData(this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     private void carregarAtualizacaoIntegrante(Integrante integranteSelecionado) {
@@ -225,7 +225,7 @@ public class PesquisarIntegranteController implements Initializable {
         atualizarIntegranteController.initData(integranteSelecionado, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     private void carregarVisualizacaoIntegrante(Integrante integranteSelecionado) {
@@ -248,7 +248,7 @@ public class PesquisarIntegranteController implements Initializable {
         visualizarIntegranteController.initData(integranteSelecionado, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     private void pesquisarPorParametros() {

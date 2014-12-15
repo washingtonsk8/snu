@@ -339,7 +339,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
                 pai.getChildren().clear();
                 pai.getChildren().add(content);
-                EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+                EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
             } else {
                 this.controladorOrigem.atualizar();
 
@@ -349,7 +349,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
                 pai.getChildren().clear();
                 pai.getChildren().add(root);
-                EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+                EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
             }
         } else {
             this.controladorOrigem.atualizar();
@@ -360,7 +360,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
             pai.getChildren().clear();
             pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
         }
     }
 
@@ -704,7 +704,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         escreverMusicaController.initData(musica, this);
         pai.getChildren().clear();
         pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     @FXML

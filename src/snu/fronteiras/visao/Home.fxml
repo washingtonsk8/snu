@@ -7,23 +7,43 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="contentHome" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.HomeController">
+<AnchorPane fx:id="contentHome" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.HomeController">
     <children>
-        <ImageView fx:id="logoSistema" fitHeight="340.0" fitWidth="272.0" layoutX="264.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="logoSistema" fitHeight="340.0" fitWidth="272.0" layoutX="264.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/logo.png" />
             </image>
         </ImageView>
-      <ImageView fx:id="iconeIntegrantes" fitHeight="77.0" fitWidth="120.0" layoutX="118.0" layoutY="102.0" onMouseClicked="#onClickFromIconeIntegrantes" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/iconeIntegrantes.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="iconeMusicas" fitHeight="77.0" fitWidth="120.0" layoutX="58.0" layoutY="247.0" onMouseClicked="#onClickFromIconeMusicas" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/iconeMusicas.png" />
-         </image>
-      </ImageView>
+        <ImageView fx:id="iconeIntegrantes" fitHeight="77.0" fitWidth="120.0" layoutX="178.0" layoutY="84.0" onMouseClicked="#onClickFromIconeIntegrantes" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/iconeIntegrantes.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeMusicas" fitHeight="77.0" fitWidth="120.0" layoutX="63.0" layoutY="208.0" onMouseClicked="#onClickFromIconeMusicas" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/iconeMusicas.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeMissas" fitHeight="129.0" fitWidth="120.0" layoutX="106.0" layoutY="359.0" onMouseClicked="#onClickFromIconeMissas" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/iconeMissas.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeConfiguracoes" fitHeight="77.0" fitWidth="148.0" layoutX="471.0" layoutY="86.0" onMouseClicked="#onClickFromIconeConfiguracoes" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/iconeConfiguracoes.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeAutores" fitHeight="77.0" fitWidth="95.0" layoutX="639.0" layoutY="208.0" onMouseClicked="#onClickFromIconeAutores" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/iconeAutores.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeAjuda" fitHeight="97.0" fitWidth="72.0" layoutX="590.0" layoutY="391.0" onMouseClicked="#onClickFromIconeAjuda" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/iconeInfo.png" />
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@../css/contents.css" />

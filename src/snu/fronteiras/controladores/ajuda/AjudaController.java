@@ -1,0 +1,160 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores.ajuda;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.apache.log4j.Logger;
+import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
+import snu.util.BotoesImagemUtil;
+import snu.util.Dialogs;
+import snu.util.EfeitosUtil;
+
+/**
+ * FXML Controller class
+ *
+ * @author User
+ */
+public class AjudaController implements Initializable {
+
+    @FXML
+    private AnchorPane contentAjuda;
+    @FXML
+    private ImageView logoSistema;
+    @FXML
+    private ImageView iconeAquivoLog;
+    @FXML
+    private ImageView iconeSobre;
+    @FXML
+    private ImageView imgVoltar;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(AjudaController.class.getName());
+
+    private HomeController controladorOrigem;
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
+    }
+
+    private void initComponents() {
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
+
+        this.logoSistema.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                logoSistema.setEffect(EfeitosUtil.getEfeitoCeuAzul());
+            }
+        });
+
+        this.logoSistema.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                logoSistema.setEffect(null);
+            }
+        });
+
+        BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeSobre);
+        BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeAquivoLog);
+    }
+
+    public void initData(HomeController controladorOrigem) {
+        this.controladorOrigem = controladorOrigem;
+    }
+
+    @FXML
+    private void onClickFromIconeArquivoLog(MouseEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/VerificarLog.fxml"));
+
+        try {
+            Parent root = (Parent) fxmlLoader.load();
+
+            VerificarLogController verificarLogController = fxmlLoader.getController();
+
+            //Limpa o conteúdo anterior e carrega a página
+            verificarLogController.initData(this);
+            this.contentAjuda.getChildren().add(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Verificação de Log", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar tela de Verificação de Log."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+    }
+
+    @FXML
+    private void onClickFromIconeSobre(MouseEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/Sobre.fxml"));
+
+        try {
+            Parent root = (Parent) fxmlLoader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Sobre");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(this.contentAjuda.getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de informações sobre o software", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar tela de informações sobre o software."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentAjuda.getParent());
+        ObservableList<Node> filhos = pai.getChildren();
+
+        //Roda o efeito de retorno
+        TranslateTransition tt = new TranslateTransition(Duration.millis(250), filhos.get(filhos.size() - 1));
+
+        tt.setFromX(0f);
+        tt.setToX(800f);
+        tt.play();
+
+        tt.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                filhos.remove(filhos.size() - 1);
+            }
+        });
+    }
+
+    public AnchorPane getContent() {
+        return this.contentAjuda;
+    }
+}

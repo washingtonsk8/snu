@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -72,13 +73,13 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     private MontarMissaOrganizacaoController controladorOrigem;
 
-    private FXMLDocumentController controladorPrincipal;
+    private PesquisarMissaController controladorPesquisa;
 
     public void initData(Missa missa, Map<TipoMusica, Object> mapaMusicasMissa,
-            MontarMissaOrganizacaoController controladorOrigem, FXMLDocumentController controladorPrincipal) {
+            MontarMissaOrganizacaoController controladorOrigem, PesquisarMissaController controladorPesquisa) {
         this.missa = missa;
         this.controladorOrigem = controladorOrigem;
-        this.controladorPrincipal = controladorPrincipal;
+        this.controladorPesquisa = controladorPesquisa;
 
         StringBuilder musicasEmail = new StringBuilder();
         String textoEmail = SNU.configuracoesSistema.getTemplateDescricaoEmail();
@@ -168,17 +169,9 @@ public class MontarMissaFinalizacaoController implements Initializable {
         Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                 "Os dados da Missa foram salvos com sucesso!", "Sucesso!", "Informação");
 
-        VisualizarDadosMissaController visualizarDadosMissaController
-                = this.controladorPrincipal.getTemplatePesquisaMissaLoader().getController();
-        visualizarDadosMissaController.atualizar();
+        this.controladorPesquisa.atualizar();
 
-        final Parent root = (Parent) this.controladorPrincipal.getTemplatePesquisaMissaLoader().getRoot();
-
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(root);
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
 
     @FXML
@@ -189,6 +182,6 @@ public class MontarMissaFinalizacaoController implements Initializable {
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaFinalizacao.getParent());
         pai.getChildren().clear();
         pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFade(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 }

@@ -120,7 +120,7 @@ public class SNU extends Application {
             log.error("Erro ao iniciar a unidade de persistencia (SNUPU)", ex);
             Dialogs.showErrorDialog(stage,
                     "Erro ao iniciar a aplicação."
-                    + "\nVerifique se o SGBD está em execução.", "Erro!", "Erro", ex);
+                    + "\nEntre em contato com o administrador.", "Erro!", "Erro", ex);
         }
 
     }
