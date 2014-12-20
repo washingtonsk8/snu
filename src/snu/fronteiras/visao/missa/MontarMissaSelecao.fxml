@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentMontarMissaSelecao" onMouseClicked="#onMouseClickedFromContentMontarMissaSelecao" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.missa.MontarMissaSelecaoController">
+<AnchorPane fx:id="contentMontarMissaSelecao" onMouseClicked="#onMouseClickedFromContentMontarMissaSelecao" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.missa.MontarMissaSelecaoController">
     <children>
         <Label fx:id="lblMontarMissaSelecao" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Montar Missa - Pesquisa e Seleção" textAlignment="LEFT" wrapText="false">
             <stylesheets>
                 <URL value="@../../css/contents.css" />
             </stylesheets>
         </Label>
-        <Label fx:id="lblInformacaoPasso" alignment="CENTER_LEFT" layoutX="14.0" layoutY="530.0" prefHeight="20.0" prefWidth="80.0" text="Passo 1 de 3" textAlignment="LEFT" textFill="BLUE">
+        <Label fx:id="lblInformacaoPasso" alignment="CENTER_LEFT" layoutX="14.0" layoutY="560.0" prefHeight="20.0" prefWidth="80.0" text="Passo 1 de 3" textAlignment="LEFT" textFill="BLUE">
             <font>
                 <Font size="14.0" fx:id="x1" />
             </font>
@@ -55,18 +55,13 @@
             </items>
         </ComboBox>
         <Button fx:id="btnPesquisar" font="$x1" layoutX="676.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="110.0" text="Pesquisar" textFill="BLACK" />
-        <TableView fx:id="tblMusicas" layoutX="14.0" layoutY="250.0" onDragDetected="#onDragDetectedFromTblMusicas" prefHeight="250.0" prefWidth="772.0">
+        <TableView fx:id="tblMusicas" layoutX="14.0" layoutY="250.0" onDragDetected="#onDragDetectedFromTblMusicas" prefHeight="280.0" prefWidth="772.0">
             <columns>
                 <TableColumn fx:id="clnTituloMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="466.0" text="Título da Música" />
                 <TableColumn fx:id="clnTipoMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="303.0" text="Tipos" />
             </columns>
         </TableView>
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
-        <Button fx:id="btnAvancar" font="$x1" layoutX="676.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="110.0" text="Avançar" textFill="BLACK" />
+        <Button fx:id="btnAvancar" font="$x1" layoutX="676.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="110.0" text="Avançar" textFill="BLACK" />
         <Button fx:id="btnLimpar" font="$x1" layoutX="556.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
         <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="562.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
@@ -78,12 +73,21 @@
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconePesquisar.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAvancar.png" />
             </image>
+        </ImageView>        
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
         </ImageView>
-
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
+            </image>
+        </ImageView>
     </children>    
     <stylesheets>
         <URL value="@../../css/contents.css" />

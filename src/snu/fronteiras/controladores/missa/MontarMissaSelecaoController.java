@@ -101,6 +101,8 @@ public class MontarMissaSelecaoController implements Initializable {
     private ImageView iconePesquisar;
     @FXML
     private ImageView iconeAvancar;
+    @FXML
+    private ImageView imgVoltar;
 
     private Set<Musica> musicasSelecionadas;
 
@@ -129,6 +131,7 @@ public class MontarMissaSelecaoController implements Initializable {
         });
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
 
         this.musicasSelecionadas = new HashSet<>();
 
@@ -320,5 +323,16 @@ public class MontarMissaSelecaoController implements Initializable {
                 itens.add(0, item);
             }
         });
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentMontarMissaSelecao.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 }

@@ -126,6 +126,8 @@ public class CadastrarIntegranteController implements Initializable {
     private ImageView iconeSalvar;
     @FXML
     private ImageView iconeLimpar;
+    @FXML
+    private ImageView imgVoltar;
 
     private Integrante integranteRow;
 
@@ -204,6 +206,7 @@ public class CadastrarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setOpacity(0.6);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
 
         definirAtividadeDeFocoDosCampos();
 
@@ -475,7 +478,7 @@ public class CadastrarIntegranteController implements Initializable {
 
             //Atualiza a página adicionando o novo integrante cadastrado
             this.controladorOrigem.atualizar();
-            
+
             final AnchorPane content = this.controladorOrigem.getContent();
 
             //Limpa o conteúdo anterior e carrega a página
@@ -486,5 +489,16 @@ public class CadastrarIntegranteController implements Initializable {
         } else {
             Dialogs.showWarningDialog(HomeController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 }

@@ -110,8 +110,6 @@ public class AtualizarIntegranteController implements Initializable {
     @FXML
     private Button btnLimpar;
     @FXML
-    private Button btnVoltar;
-    @FXML
     private Label lblAtualizarIntegrante;
     @FXML
     private ImageView imgInicio;
@@ -128,7 +126,7 @@ public class AtualizarIntegranteController implements Initializable {
     @FXML
     private ImageView iconeLimpar;
     @FXML
-    private ImageView iconeVoltar;
+    private ImageView imgVoltar;
 
     private Integrante integrante;
 
@@ -207,6 +205,7 @@ public class AtualizarIntegranteController implements Initializable {
         this.comboFuncaoSecundaria.setOpacity(0.6);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
 
         definirAtividadeDeFocoDosCampos();
     }
@@ -517,9 +516,9 @@ public class AtualizarIntegranteController implements Initializable {
     private void onMouseClickedFromImgInicio(MouseEvent event) {
         FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
-
+    
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
 
         //Limpa o conteúdo anterior e carrega a página

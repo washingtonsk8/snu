@@ -147,10 +147,10 @@ public class ConfiguracoesController implements Initializable {
                 @Override
                 public Void call() {
                     try {
-                        if (!BD.doBakup(diretorioExportacao.toString())) {
+                        if (!BD.doBakup(diretorioExportacao.getAbsolutePath())) {
                             cancel(true);
                         }
-                    } catch (IOException | ZipException ex) {
+                    } catch (IOException | InterruptedException ex) {
                         log.error("Erro ao realizar backup do banco", ex);
                         cancel(true);
                     }
@@ -206,10 +206,7 @@ public class ConfiguracoesController implements Initializable {
         try {
             Parent root = (Parent) fxmlLoader.load();
 
-            ConfiguracaoTemplateEmailController configuracaoTemplateEmailController = fxmlLoader.getController();
-
             //Limpa o conteúdo anterior e carrega a página
-            configuracaoTemplateEmailController.initData(this);
             this.contentConfiguracoes.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
@@ -229,7 +226,7 @@ public class ConfiguracoesController implements Initializable {
         final FileChooser seletorArquivo = new FileChooser();
         seletorArquivo.setInitialDirectory(new File(contextoUltimaSelecao));
         seletorArquivo.setTitle("Escolha do arquivo para importação");
-        seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos compactados (*.zip)", "*.zip"));
+        seletorArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos de Script (*.sql)", "*.sql"));
         final File arquivoImportacao = seletorArquivo.showOpenDialog(HomeController.getInstancia().getStage());
         if (arquivoImportacao != null) {
             SeletorArquivosUtil.mapSeletores.put("importarDados", arquivoImportacao.getAbsolutePath());
@@ -261,10 +258,10 @@ public class ConfiguracoesController implements Initializable {
                 @Override
                 public Void call() {
                     try {
-                        if (!BD.doRestore(arquivoImportacao)) {
+                        if (!BD.doRestore(arquivoImportacao.getAbsolutePath())) {
                             cancel(true);
                         }
-                    } catch (IOException | ZipException ex) {
+                    } catch (IOException | InterruptedException ex) {
                         log.error("Erro ao realizar restore para o banco", ex);
                         cancel(true);
                     }
@@ -289,9 +286,8 @@ public class ConfiguracoesController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
-                            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "Dados importados com sucesso!"
-                                    + "\nReinicie o sistema para que as alterações sofram efeito.",
-                                    "Sucesso!", "Informação");
+                            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
+                                    "Dados importados com sucesso!", "Sucesso!", "Informação");
                             dialogStage.close();
                             break;
                         case CANCELLED:

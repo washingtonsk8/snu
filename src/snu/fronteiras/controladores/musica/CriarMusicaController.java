@@ -47,7 +47,6 @@ import org.apache.log4j.Logger;
 import snu.controladores.IntegranteJpaController;
 import snu.controladores.MusicaJpaController;
 import snu.controladores.indexador.IndexadorController;
-import snu.dto.ParametrosPesquisaMusica;
 import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
@@ -61,7 +60,6 @@ import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
-import snu.geral.TipoPagina;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
@@ -178,6 +176,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     private ImageView iconeSalvar;
     @FXML
     private ImageView iconeEditar;
+    @FXML
+    private ImageView imgVoltar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -264,6 +264,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
 
         this.btnSelecionarAutor.requestFocus();
     }
@@ -912,5 +913,16 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                 itens.add(0, item);
             }
         });
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 }

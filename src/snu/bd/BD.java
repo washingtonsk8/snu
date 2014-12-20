@@ -5,19 +5,10 @@
  */
 package snu.bd;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.EntityManager;
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import net.lingala.zip4j.model.ZipParameters;
-import net.lingala.zip4j.util.Zip4jConstants;
-import org.hibernate.internal.SessionImpl;
+import snu.controladores.SNU;
 
 /**
  * Classe necessária para realizar operações com o mysqldump (Backup e Restore).
@@ -26,97 +17,48 @@ import org.hibernate.internal.SessionImpl;
  */
 public class BD {
 
-    private static final String SENHA_ARQUIVO_ZIP = "snu#2.0rocks!";
-
-    /*
-     ATENÇÃO: NÃO ALTERAR A ORDEM DE IMPORTAÇÃO DAS TABELAS!
-     As Foreign Keys definem qual deve ser a ordem
-     */
-    private static final String[] nomesTabelas = {"INTEGRANTE", "SYS", "MISSA", "MUSICA_AUTORES", "MUSICA_DOCUMENTO",
-        "DOCUMENTOMUSICA_VOCABULARIO", "DOCUMENTOMUSICA_LISTAINVERTIDA", "MUSICA", "MISSAS_MUSICAS",
-        "MUSICA_ASSOCIACOES", "MUSICA_LEITURASASSOCIADAS", "MUSICA_TIPOS"};
+    private static final String usuarioBD = "snu";
+    private static final String senhaBD = "snu#1.0rocks!";
 
     /**
      * Realiza o backup do banco no diretório escolhido
      *
-     * @param nomeDiretorioExportacao
+     * @param diretorioArquivo
      * @return
      * @throws IOException
-     * @throws net.lingala.zip4j.exception.ZipException
+     * @throws InterruptedException
      */
-    public static boolean doBakup(String nomeDiretorioExportacao) throws IOException, ZipException {
+    public static boolean doBakup(String diretorioArquivo) throws IOException, InterruptedException {
+        Date dataAtual = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 
-        Date hoje = new Date();
-        SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yy_hh-mm-ss");
-        nomeDiretorioExportacao += "\\bkp_snu " + sdt.format(hoje);
-        String arquivoZip = nomeDiretorioExportacao + ".zip";
-        nomeDiretorioExportacao += "\\";
-        File diretorio = new File(nomeDiretorioExportacao);
-        if (!diretorio.mkdir()) {
-            throw new IOException("O diretório não pode ser criado, verifique as permissões da pasta!");
-        }
+        String nomeArquivo = "bkp_snu_" + dateFormat.format(dataAtual);
 
-        ZipFile zipFile = new ZipFile(arquivoZip);
+        String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD()
+                + "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD
+                + " --add-drop-database -B snu -r " + "\"" + diretorioArquivo
+                + "\\" + nomeArquivo + ".sql\"";
 
-        ZipParameters parametros = new ZipParameters();
-        parametros.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
-        parametros.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-        parametros.setEncryptFiles(true);
-        parametros.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
-        parametros.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
-        parametros.setPassword(SENHA_ARQUIVO_ZIP);
-
-        zipFile.addFile(new File("snu/snu.script"), parametros);
-
-        return true;
+        Process processo = Runtime.getRuntime().exec(comando);
+        int resultadoProcesso = processo.waitFor();
+        return resultadoProcesso == 0;
     }
 
     /**
      * Realiza o restore para o banco a partir do arquivo escolhido
      *
-     * @param arquivoImportacao
+     * @param caminhoArquivo
      * @return
      * @throws IOException
-     * @throws net.lingala.zip4j.exception.ZipException
+     * @throws InterruptedException
      */
-    public static boolean doRestore(File arquivoImportacao) throws IOException, ZipException {
+    public static boolean doRestore(String caminhoArquivo) throws IOException, InterruptedException {
+        String[] comandos = new String[]{SNU.configuracoesSistema.getDiretorioSGBD()
+            + "\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD,
+            "-e", "source " + caminhoArquivo};
 
-        File arquivoScriptAtual = new File("snu/snu.script");
-        File arquivoScriptBkp = new File("snu/snu.script.bkp");
-        
-        if(arquivoScriptBkp.exists()){
-            arquivoScriptBkp.delete();
-        }
-
-        if (!arquivoScriptAtual.renameTo(arquivoScriptBkp)) {
-            throw new IOException("Não foi possível criar o arquivo de backup das informações atuais");
-        }
-
-        ZipFile zipFile = new ZipFile(arquivoImportacao);
-        zipFile.setPassword(SENHA_ARQUIVO_ZIP);
-
-        //Extrai o arquivo de script para a pasta do banco
-        zipFile.extractAll("snu");
-
-        return true;
-    }
-
-    /**
-     * Restaura a versão anterior do banco
-     *
-     * @return
-     * @throws IOException
-     */
-    public static boolean restorePreviousVersion() throws IOException {
-        File arquivoScriptVersaoAnterior = new File("snu/snu.script.bkp");
-
-        if (!arquivoScriptVersaoAnterior.exists()) {
-            throw new IOException("Não foi possível restaurar a versão anterior, pois o arquivo não existe");
-        }
-
-        if (!arquivoScriptVersaoAnterior.renameTo(new File("snu/snu.script"))) {
-            throw new IOException("Não foi possível restaurar a versão anterior");
-        }
-        return true;
+        Process processo = Runtime.getRuntime().exec(comandos);
+        int resultadoProcesso = processo.waitFor();
+        return resultadoProcesso == 0;
     }
 }

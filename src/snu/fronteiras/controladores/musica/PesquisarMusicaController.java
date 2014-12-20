@@ -341,16 +341,17 @@ public class PesquisarMusicaController implements Initializable {
 
     private void carregarCriacaoMusica() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/CriarMusica.fxml"));
-
         try {
             Parent root = (Parent) fxmlLoader.load();
 
-            CriarMusicaController criarIntegranteController = fxmlLoader.getController();
-            criarIntegranteController.initData(this);
+            CriarMusicaController criarMusicaController = fxmlLoader.getController();
+            criarMusicaController.initData(this);
 
             //Limpa o conteúdo anterior e carrega a página
-            this.contentPesquisarMusica.getChildren().clear();
-            this.contentPesquisarMusica.getChildren().add(root);
+            AnchorPane pai = ((AnchorPane) this.contentPesquisarMusica.getParent());
+            criarMusicaController.initData(this);
+            pai.getChildren().clear();
+            pai.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Criação de Música", ex);

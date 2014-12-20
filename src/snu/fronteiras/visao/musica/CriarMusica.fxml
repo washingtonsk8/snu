@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentCriarMusica" onMouseClicked="#onMouseClickedFromContentCriarMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.CriarMusicaController">
+<AnchorPane fx:id="contentCriarMusica" onMouseClicked="#onMouseClickedFromContentCriarMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.CriarMusicaController">
     <children>
         <Label fx:id="lblCriarMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Criar Música" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -107,8 +107,8 @@
             </effect>
         </Label>
         <TextField fx:id="fldLinkVideo" layoutX="175.0" layoutY="440.0" onAction="#onActionFromFldLinkVideo" prefWidth="500.0" />
-        <Button fx:id="btnEscreverConteudo" font="$x2" layoutX="496.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnEscreverConteudo" prefHeight="40.0" prefWidth="170.0" text="Escrever Conteúdo" textFill="BLACK" />
-        <Button fx:id="btnSalvar" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
+        <Button fx:id="btnEscreverConteudo" font="$x2" layoutX="496.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnEscreverConteudo" prefHeight="40.0" prefWidth="170.0" text="Escrever Conteúdo" textFill="BLACK" />
+        <Button fx:id="btnSalvar" font="$x2" layoutX="686.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
         <Label layoutX="155.0" layoutY="55.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
             <effect>
                 <Glow />
@@ -137,19 +137,24 @@
                 <Glow />
             </effect>
         </Label>
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="iconeEditar" fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <ImageView fx:id="iconeEditar" fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeEditar.png" />
+            </image>
+        </ImageView>    
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
             </image>
         </ImageView>
     </children>

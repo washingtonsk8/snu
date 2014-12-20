@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentEscreverMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.EscreverMusicaController">
+<AnchorPane fx:id="contentEscreverMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.EscreverMusicaController">
     <children>
         <Label fx:id="lblEscreverMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Escrever Música" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -24,7 +24,7 @@
             </font>
         </Label>
         <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
-        <TextArea fx:id="areaEscreverMusica" layoutX="64.0" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+        <TextArea fx:id="areaEscreverMusica" layoutX="64.0" layoutY="100.0" prefHeight="480.0" prefWidth="600.0" wrapText="true" />
         <Button fx:id="btnDetectarAcordes" layoutX="686.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionFromBtnDetectarAcordes" prefHeight="60.0" prefWidth="100.0" text="Detectar Acordes" textAlignment="CENTER" textFill="BLACK" wrapText="true">
             <font>
                 <Font size="14.0" fx:id="x1" />
@@ -36,10 +36,9 @@
                 <Font size="12.0" />
             </font>
         </Button>
-        <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" AnchorPane.rightAnchor="14.0" />
-        <Button fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
+        <Button fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
         <TextField fx:id="fldPreVisualizarIntroducao" disable="false" editable="false" layoutX="64.0" layoutY="60.0" opacity="1.0" prefWidth="600.0" />
-        <TextArea fx:id="areaPreVisualizarEscreverMusica" disable="false" editable="false" layoutX="64.0" layoutY="100.0" opacity="1.0" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+        <TextArea fx:id="areaPreVisualizarEscreverMusica" disable="false" editable="false" layoutX="64.0" layoutY="100.0" opacity="1.0" prefHeight="480.0" prefWidth="600.0" wrapText="true" />
         <Button fx:id="btnFecharPreVisualizacao" layoutX="686.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnFecharPreVisualizacao" prefHeight="40.0" prefWidth="100.0" text="" textAlignment="CENTER" textFill="BLACK" wrapText="true">
             <font>
                 <Font size="11.0" />
@@ -50,19 +49,19 @@
                 <Glow />
             </effect>
         </Label>
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="iconeOk" fitHeight="20.0" fitWidth="20.0" layoutX="698.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <ImageView fx:id="iconeOk" fitHeight="20.0" fitWidth="20.0" layoutX="698.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
             </image>
-        </ImageView>
-        <ImageView fx:id="iconeCancelar" fitHeight="16.0" fitWidth="16.0" layoutX="692.0" layoutY="472.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        </ImageView>    
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeRemover.png" />
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
             </image>
         </ImageView>
     </children>

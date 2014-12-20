@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentVisualizarMusica" onMouseClicked="#onMouseClickedFromContentVisualizarMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.VisualizarMusicaController">
+<AnchorPane fx:id="contentVisualizarMusica" onMouseClicked="#onMouseClickedFromContentVisualizarMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.VisualizarMusicaController">
     <children>
         <Label fx:id="lblVisualizarMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Música" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -70,13 +70,6 @@
             </columns>
         </TableView>
         <Hyperlink fx:id="hplResultadoLinkVideo" layoutX="170.0" layoutY="410.0" onAction="#onActionFromHplResultadoLinkVideo" prefHeight="16.0" prefWidth="600.0" text="" />
-        <Button fx:id="btnVisualizaMissasPresente" layoutX="170.0" layoutY="440.0" mnemonicParsing="false" onAction="#onActionFromBtnVisualizarMissasPresente" prefHeight="22.0" prefWidth="100.0" text="Visualizar..." />
-        <Button fx:id="btnVoltar" layoutX="486.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK">
-            <font>
-                <Font size="14.0" fx:id="x2" />
-            </font>
-        </Button>
-        <Button fx:id="btnVisualizarConteudo" font="$x2" layoutX="606.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVisualizarConteudo" prefHeight="40.0" prefWidth="180.0" text="Visualizar Conteúdo" textFill="BLACK" />
         <Label fx:id="lblResultadoAutor" layoutX="170.0" layoutY="63.0" prefWidth="300.0" text="" />
         <Label fx:id="lblResultadoTitulo" layoutX="170.0" layoutY="93.0" prefWidth="300.0" text="" />
         <Label fx:id="lblResultadoTom" layoutX="170.0" layoutY="123.0" prefWidth="50.0" text="" />
@@ -89,19 +82,25 @@
             </effect>
         </Label>
         <Label fx:id="lblResultadoEstaImpressa" layoutX="170.0" layoutY="473.0" prefWidth="100.0" text="" />
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="iconeVoltar" fitHeight="18.0" fitWidth="18.0" layoutX="495.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeVoltar.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="iconeVisualizarConteudo" fitHeight="18.0" fitWidth="18.0" layoutX="616.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <Button fx:id="btnVisualizaMissasPresente" layoutX="170.0" layoutY="440.0" mnemonicParsing="false" onAction="#onActionFromBtnVisualizarMissasPresente" prefHeight="22.0" prefWidth="100.0" text="Visualizar..." />
+        <Button fx:id="btnVisualizarConteudo" layoutX="606.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnVisualizarConteudo" prefHeight="40.0" prefWidth="180.0" text="Visualizar Conteúdo" textFill="BLACK">
+            <font>
+                <Font size="14.0" fx:id="x2" />
+            </font>
+        </Button>
+        <ImageView fx:id="iconeVisualizarConteudo" fitHeight="18.0" fitWidth="18.0" layoutX="616.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeArquivo.png" />
+            </image>
+        </ImageView>    
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
             </image>
         </ImageView>
     </children>

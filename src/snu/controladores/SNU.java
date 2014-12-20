@@ -5,7 +5,6 @@
  */
 package snu.controladores;
 
-import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -13,13 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
 import snu.bd.GerenciadorDeEntidades;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
-import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
 import snu.util.Dialogs;
 import snu.util.StringUtil;
@@ -33,12 +30,10 @@ public class SNU extends Application {
 
     private static final String VERSAO = "2.0 BETA";
 
-    private static final ConfiguracoesSistemaJpaController configuracoesSistemaController
-            = ConfiguracoesSistemaJpaController.getInstancia();
+    private static ConfiguracoesSistemaJpaController configuracoesSistemaController;
 
     //Realizando o carregamento das configurações padrões do sistema
-    public static ConfiguracoesSistema configuracoesSistema
-            = configuracoesSistemaController.findConfiguracoesSistema();
+    public static ConfiguracoesSistema configuracoesSistema;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(SNU.class.getName());
@@ -57,6 +52,9 @@ public class SNU extends Application {
             //Inicializando o Gerenciador de Entidades!
             GerenciadorDeEntidades.getInstancia();
 
+            configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
+            configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistema();
+            
             if (configuracoesSistema == null) {
                 ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
                 novasConfiguracoesSistema.setVersao(VERSAO);

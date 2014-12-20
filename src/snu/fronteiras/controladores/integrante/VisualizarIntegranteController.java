@@ -61,8 +61,6 @@ public class VisualizarIntegranteController implements Initializable {
     @FXML
     private ComboBox<FuncaoIntegrante> comboFuncaoSecundaria;
     @FXML
-    private Button btnVoltar;
-    @FXML
     private Label lblResultadoNome;
     @FXML
     private Label lblResultadoSexo;
@@ -87,15 +85,13 @@ public class VisualizarIntegranteController implements Initializable {
     @FXML
     private Label lblVisualizarIntegrante;
     @FXML
-    private Font x2;
-    @FXML
     private ImageView imgInicio;
     @FXML
     private Label lblMinisterio;
     @FXML
     private Label lblResultadoMinisterio;
     @FXML
-    private ImageView iconeVoltar;
+    private ImageView imgVoltar;
 
     private Integrante integrante;
 
@@ -123,6 +119,7 @@ public class VisualizarIntegranteController implements Initializable {
 
     private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
 
     /**
@@ -199,7 +196,7 @@ public class VisualizarIntegranteController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
 
         //Limpa o conteúdo anterior e carrega a página

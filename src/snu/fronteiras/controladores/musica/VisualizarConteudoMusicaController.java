@@ -9,12 +9,10 @@ import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
 import com.sun.javafx.scene.control.skin.TextAreaSkin;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,7 +21,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.util.BotoesImagemUtil;
@@ -42,10 +39,6 @@ public class VisualizarConteudoMusicaController implements Initializable {
     @FXML
     private TextArea areaVisualizarMusica;
     @FXML
-    private Button btnVoltar;
-    @FXML
-    private Font x1;
-    @FXML
     private AnchorPane contentVisualizarConteudoMusica;
     @FXML
     private Label lblIntroducao;
@@ -54,7 +47,7 @@ public class VisualizarConteudoMusicaController implements Initializable {
     @FXML
     private ImageView imgInicio;
     @FXML
-    private ImageView iconeVoltar;
+    private ImageView imgVoltar;
 
     private VisualizarMusicaController controladorOrigem;
 
@@ -78,6 +71,7 @@ public class VisualizarConteudoMusicaController implements Initializable {
         });
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
 
     public void initData(Musica musica, VisualizarMusicaController controladorOrigem) {
@@ -117,7 +111,7 @@ public class VisualizarConteudoMusicaController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         final Parent root = this.controladorOrigem.getContentVisualizarMusica();
 
         //Limpa o conteúdo anterior e carrega a página

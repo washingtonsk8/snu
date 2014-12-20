@@ -177,8 +177,6 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private Label lblAtualizarMusica;
     @FXML
-    private Button btnVoltar;
-    @FXML
     private Label lblEstaImpressa;
     @FXML
     private RadioButton radioEstaImpressa;
@@ -191,7 +189,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private ImageView iconeSalvar;
     @FXML
-    private ImageView iconeVoltar;
+    private ImageView imgVoltar;
 
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
 
@@ -282,6 +280,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.radioNaoEstaImpressa.setSelected(true);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
 
         this.btnSelecionarAutor.requestFocus();
     }
@@ -411,7 +410,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             }
             this.musica.setLeiturasAssociadas(leiturasAssociadas);
         } else {
-            this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
+            this.musica.setLeiturasAssociadas(new ArrayList<>());
         }
 
         try {
@@ -851,17 +850,6 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     }
 
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
-    }
-
-    @FXML
     private void onActionFromBtnSalvarAtleracoes(ActionEvent event) {
         if (validarCampos()) {
             if (validarMusicaComMesmoNome(event)) {
@@ -953,5 +941,16 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
                 itens.add(0, item);
             }
         });
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        final AnchorPane content = this.controladorOrigem.getContent();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
+        pai.getChildren().clear();
+        pai.getChildren().add(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
     }
 }

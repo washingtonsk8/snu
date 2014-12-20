@@ -50,8 +50,6 @@ public class EscreverMusicaController implements Initializable {
     @FXML
     private Font x1;
     @FXML
-    private Button btnCancelar;
-    @FXML
     private Button btnDetectarAcordes;
     @FXML
     private Button btnRemoverDeteccoes;
@@ -74,7 +72,7 @@ public class EscreverMusicaController implements Initializable {
     @FXML
     private ImageView iconeOk;
     @FXML
-    private ImageView iconeCancelar;
+    private ImageView imgVoltar;
 
     private FadeTransition fadeInPreVisualizarIntroducao;
 
@@ -91,7 +89,7 @@ public class EscreverMusicaController implements Initializable {
     private ControladorDeConteudoInterface controladorOrigem;
 
     private Musica musica;
-    
+
     private boolean acordesDetectados;
 
     private void initComponents() {
@@ -136,6 +134,7 @@ public class EscreverMusicaController implements Initializable {
         });
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
 
     /**
@@ -152,7 +151,7 @@ public class EscreverMusicaController implements Initializable {
     public void initData(Musica musica, ControladorDeConteudoInterface controladorOrigem) {
         final String introducaoMusica = musica.getDocumentoMusica().getIntroducao();
         final String conteudoMusica = musica.getDocumentoMusica().getConteudo();
-        
+
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
@@ -161,13 +160,13 @@ public class EscreverMusicaController implements Initializable {
 
         this.lblInformacaoPaginas.setText("A música está ocupando "
                 + MusicaUtil.contarPaginas(musica.getDocumentoMusica().getConteudo()) + " página(s) no momento.");
-        
+
         //Definindo habilitação do botão de detecção
-        if(introducaoMusica != null){
+        if (introducaoMusica != null) {
             this.acordesDetectados = introducaoMusica.contains("@");
-        } 
-        if(conteudoMusica != null && !this.acordesDetectados) {
-            this.acordesDetectados = conteudoMusica.contains("@");            
+        }
+        if (conteudoMusica != null && !this.acordesDetectados) {
+            this.acordesDetectados = conteudoMusica.contains("@");
         }
         this.btnDetectarAcordes.setDisable(this.acordesDetectados);
     }
@@ -212,27 +211,6 @@ public class EscreverMusicaController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnCancelar(ActionEvent event) {
-        boolean conteudoIdentico = MusicaUtil.isConteudoIdentico(this.musica, 
-                this.fldIntroducao.getText(), this.areaEscreverMusica.getText());
-        
-        Dialogs.DialogResponse resposta = conteudoIdentico? Dialogs.DialogResponse.YES :
-                Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
-                "Deseja realmente cancelar?\nAo cancelar o conteúdo não salvo será perdido.",
-                "Cancelamento", "Confirmação");
-
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
-            final AnchorPane content = this.controladorOrigem.getContentPane();
-
-            //Limpa o conteúdo anterior e carrega a página
-            AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
-            pai.getChildren().clear();
-            pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
-        }
-    }
-
-    @FXML
     private void onActionFromBtnRemoverDeteccoes(ActionEvent event) {
         //Remover os acordes
         String introducaoMusica = this.fldIntroducao.getText();
@@ -244,7 +222,7 @@ public class EscreverMusicaController implements Initializable {
         if (StringUtil.hasAlgo(conteudoMusica)) {
             this.areaEscreverMusica.setText(conteudoMusica.replace("@", ""));
         }
-        
+
         //Reabilitar o botão de detecção de acordes
         this.btnDetectarAcordes.setDisable(false);
         this.acordesDetectados = false;
@@ -292,5 +270,26 @@ public class EscreverMusicaController implements Initializable {
         this.btnDetectarAcordes.setDisable(this.acordesDetectados);
         this.btnOk.setDisable(false);
         this.btnRemoverDeteccoes.setDisable(false);
+    }
+
+    @FXML
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
+        boolean conteudoIdentico = MusicaUtil.isConteudoIdentico(this.musica,
+                this.fldIntroducao.getText(), this.areaEscreverMusica.getText());
+
+        Dialogs.DialogResponse resposta = conteudoIdentico ? Dialogs.DialogResponse.YES
+                : Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+                        "Deseja realmente voltar?\nAo voltar o conteúdo não salvo será perdido.",
+                        "Cancelamento", "Confirmação");
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            final AnchorPane content = this.controladorOrigem.getContentPane();
+
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
+            pai.getChildren().clear();
+            pai.getChildren().add(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        }
     }
 }

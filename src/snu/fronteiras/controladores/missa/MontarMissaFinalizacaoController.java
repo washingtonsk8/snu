@@ -17,9 +17,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -61,13 +59,11 @@ public class MontarMissaFinalizacaoController implements Initializable {
     @FXML
     private TextArea areaDescricaoEmail;
     @FXML
-    private Button btnVoltar;
-    @FXML
     private ImageView imgInicio;
     @FXML
-    private ImageView iconeVoltar;
-    @FXML
     private ImageView iconeOk;
+    @FXML
+    private ImageView imgVoltar;
 
     private Missa missa;
 
@@ -137,6 +133,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
 
     /**
@@ -157,7 +154,13 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
-        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+                "A montagem da Missa será perdida. Deseja realmente ir para o Início?",
+                "Ir para tela de Início", "Confirmação");
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+        }
     }
 
     @FXML
@@ -175,7 +178,7 @@ public class MontarMissaFinalizacaoController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
 
         //Limpa o conteúdo anterior e carrega a página

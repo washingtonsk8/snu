@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentAtualizarMusica" onMouseClicked="#onMouseClickedFromContentAtualizarMusica" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.AtualizarMusicaController">
+<AnchorPane fx:id="contentAtualizarMusica" onMouseClicked="#onMouseClickedFromContentAtualizarMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.AtualizarMusicaController">
     <children>
         <Label fx:id="lblAtualizarMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Atualizar Música" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -107,8 +107,8 @@
             </effect>
         </Label>
         <TextField fx:id="fldLinkVideo" layoutX="175.0" layoutY="440.0" onAction="#onActionFromFldLinkVideo" prefWidth="500.0" />
-        <Button fx:id="btnAtualizarConteudo" font="$x2" layoutX="496.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAtualizarConteudo" prefHeight="40.0" prefWidth="170.0" text="Atualizar Conteúdo" textFill="BLACK" />
-        <Button fx:id="btnSalvarAtleracoes" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvarAtleracoes" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
+        <Button fx:id="btnAtualizarConteudo" font="$x2" layoutX="496.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnAtualizarConteudo" prefHeight="40.0" prefWidth="170.0" text="Atualizar Conteúdo" textFill="BLACK" />
+        <Button fx:id="btnSalvarAtleracoes" font="$x2" layoutX="686.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvarAtleracoes" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
         <Label layoutX="155.0" layoutY="55.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
             <effect>
                 <Glow />
@@ -137,32 +137,31 @@
                 <Glow />
             </effect>
         </Label>
-        <Button fx:id="btnVoltar" font="$x2" layoutX="376.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
-        <Label fx:id="lblEstaImpressa" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="470.0" onMouseClicked="#onMouseClickedFromLblEstaImpressa" prefWidth="140.0" text="Está impressa?" textFill="BLACK">
+        <Label fx:id="lblEstaImpressa" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="475.0" onMouseClicked="#onMouseClickedFromLblEstaImpressa" prefWidth="140.0" text="Está impressa?" textFill="BLACK">
             <effect>
                 <Glow />
             </effect>
         </Label>
-        <RadioButton fx:id="radioEstaImpressa" font="$x2" layoutX="175.0" layoutY="471.0" mnemonicParsing="false" onAction="#onActionFromRadioEstaImpressa" prefHeight="-1.0" prefWidth="50.0" text="Sim" />
-        <RadioButton fx:id="radioNaoEstaImpressa" font="$x2" layoutX="245.0" layoutY="471.0" mnemonicParsing="false" onAction="#onActionFromRadioNaoEstaImpressa" prefHeight="20.0" prefWidth="54.0" text="Não" />
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="iconeEditar" fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <RadioButton fx:id="radioEstaImpressa" font="$x2" layoutX="175.0" layoutY="476.0" mnemonicParsing="false" onAction="#onActionFromRadioEstaImpressa" prefHeight="-1.0" prefWidth="50.0" text="Sim" />
+        <RadioButton fx:id="radioNaoEstaImpressa" font="$x2" layoutX="245.0" layoutY="476.0" mnemonicParsing="false" onAction="#onActionFromRadioNaoEstaImpressa" prefHeight="20.0" prefWidth="54.0" text="Não" />
+        <ImageView fx:id="iconeEditar" fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeEditar.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
             </image>
-        </ImageView>
-        <ImageView fx:id="iconeVoltar" fitHeight="18.0" fitWidth="18.0" layoutX="385.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        </ImageView>    
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeVoltar.png" />
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
             </image>
         </ImageView>
     </children>

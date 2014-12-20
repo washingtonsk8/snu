@@ -184,24 +184,24 @@ public class PesquisarIntegranteController implements Initializable {
 
     private void carregarCadastroIntegrante() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
-        Parent root = null;
+
         try {
-            root = (Parent) fxmlLoader.load();
+            Parent root = (Parent) fxmlLoader.load();
+
+            CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
+
+            //Limpa o conteúdo anterior e carrega a página
+            AnchorPane pai = ((AnchorPane) this.contentPesquisarIntegrante.getParent());
+            cadastrarIntegranteController.initData(this);
+            pai.getChildren().clear();
+            pai.getChildren().add(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Cadastro de Integrante", ex);
             Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar tela de Cadastro de Integrante."
                     + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
-
-        CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
-
-        //Limpa o conteúdo anterior e carrega a página
-        AnchorPane pai = ((AnchorPane) this.contentPesquisarIntegrante.getParent());
-        cadastrarIntegranteController.initData(this);
-        pai.getChildren().clear();
-        pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
 
     private void carregarAtualizacaoIntegrante(Integrante integranteSelecionado) {

@@ -40,7 +40,7 @@ public class Missa implements Serializable {
     @ManyToMany(mappedBy = "missasPresente")
     private Set<Musica> musicasUtilizadas;
 
-    @Column(name = "descricao_email", columnDefinition = "CLOB")
+    @Column(name = "descricao_email", columnDefinition = "LONGTEXT")
     private String descricaoEmail;
 
     public Long getId() {

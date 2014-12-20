@@ -90,8 +90,6 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private Button btnVisualizarConteudo;
     @FXML
-    private Button btnVoltar;
-    @FXML
     private Label lblResultadoAutor;
     @FXML
     private Label lblResultadoTitulo;
@@ -120,7 +118,7 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private ImageView imgInicio;
     @FXML
-    private ImageView iconeVoltar;
+    private ImageView imgVoltar;
     @FXML
     private ImageView iconeVisualizarConteudo;
 
@@ -191,6 +189,7 @@ public class VisualizarMusicaController implements Initializable {
         this.popup.getContent().addAll(this.tblMissasPresente);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
 
     public void initData(Musica musica, PesquisarMusicaController controladorOrigem) {
@@ -350,7 +349,7 @@ public class VisualizarMusicaController implements Initializable {
     }
 
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         final AnchorPane content = this.controladorOrigem.getContent();
 
         //Limpa o conteúdo anterior e carrega a página

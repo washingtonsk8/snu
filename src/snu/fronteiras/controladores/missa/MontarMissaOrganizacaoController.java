@@ -100,8 +100,6 @@ public class MontarMissaOrganizacaoController implements Initializable {
     @FXML
     private Button btnAvancar;
     @FXML
-    private Button btnVoltar;
-    @FXML
     private Label lblNomeMissa;
     @FXML
     private Label lblDataMissa;
@@ -160,7 +158,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
     @FXML
     private ImageView iconeAvancar;
     @FXML
-    private ImageView iconeVoltar;
+    private ImageView imgVoltar;
 
     /**
      * Mantém, até o momento do armazenamento, todas as músicas No momento do
@@ -186,8 +184,6 @@ public class MontarMissaOrganizacaoController implements Initializable {
     private static final Logger log = Logger.getLogger(MontarMissaOrganizacaoController.class.getName());
 
     private void initComponents() {
-
-        BotoesImagemUtil.definirComportamento(this.imgInicio);
 
         this.musicasParaMissa = new HashSet<>();
         this.missa = new Missa();
@@ -226,6 +222,9 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 }
             }
         });
+        
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+        BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
 
     public void initData(Set<Musica> musicasSelecionadas,
@@ -978,8 +977,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
-                "As associações serão perdidas. Deseja realmente voltar?",
-                "Voltar para tela de Seleção de Músicas", "Confirmação");
+                "As associações serão perdidas. Deseja realmente ir para o Início?",
+                "Ir para tela de Início", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             FXMLDocumentController.getInstancia().iniciarPaginaInicial();
@@ -1032,8 +1031,16 @@ public class MontarMissaOrganizacaoController implements Initializable {
         }
     }
 
+    public AnchorPane getContent() {
+        return this.contentMontarMissaOrganizacao;
+    }
+    
+    public MontarMissaSelecaoController getControladorOrigem(){
+        return this.controladorOrigem;
+    }
+
     @FXML
-    private void onActionFromBtnVoltar(ActionEvent event) {
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "As associações serão perdidas. Deseja realmente voltar?",
                 "Voltar para tela de Seleção de Músicas", "Confirmação");
@@ -1047,13 +1054,5 @@ public class MontarMissaOrganizacaoController implements Initializable {
             pai.getChildren().add(content);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
         }
-    }
-
-    public AnchorPane getContent() {
-        return this.contentMontarMissaOrganizacao;
-    }
-    
-    public MontarMissaSelecaoController getControladorOrigem(){
-        return this.controladorOrigem;
     }
 }

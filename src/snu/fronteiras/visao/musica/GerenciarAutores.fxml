@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentGerenciarAutores" onMouseClicked="#onMouseClickedFromContentGerenciarAutores" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.GerenciarAutoresController">
+<AnchorPane fx:id="contentGerenciarAutores" onMouseClicked="#onMouseClickedFromContentGerenciarAutores" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.GerenciarAutoresController">
     <children>
         <Label fx:id="lblGerenciarAutores" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Gerenciar Autores" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -44,11 +44,6 @@
             </columns>
         </TableView>
         <Label fx:id="lblInformacaoQuantidades" font="$x1" layoutX="286.0" layoutY="420.0" text="" textFill="BLACK" />
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
         <ImageView fx:id="iconeEditar" fitHeight="18.0" fitWidth="18.0" layoutX="57.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeEditar.png" />
@@ -57,6 +52,11 @@
         <ImageView fx:id="iconeRemover" fitHeight="18.0" fitWidth="18.0" layoutX="178.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLixeira.png" />
+            </image>
+        </ImageView>    
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
             </image>
         </ImageView>
     </children>

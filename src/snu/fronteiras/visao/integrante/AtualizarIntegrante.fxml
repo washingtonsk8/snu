@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentAtualizarIntegrante" onMouseClicked="#onMouseClickedFromContentAtualizarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.integrante.AtualizarIntegranteController">
+<AnchorPane fx:id="contentAtualizarIntegrante" onMouseClicked="#onMouseClickedFromContentAtualizarIntegrante" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.integrante.AtualizarIntegranteController">
     <children>
         <Label fx:id="lblAtualizarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Atualizar Integrante" textAlignment="LEFT" wrapText="false">
             <stylesheets>
@@ -107,14 +107,8 @@
                 <Glow />
             </effect>
         </Label>
-        <Button fx:id="btnVoltar" cache="true" font="$x2" layoutX="446.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
-        <Button fx:id="btnLimpar" cache="true" font="$x2" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
-        <Button fx:id="btnSalvar" cache="true" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
-        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
-            </image>
-        </ImageView>
+        <Button fx:id="btnLimpar" cache="true" font="$x2" layoutX="566.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+        <Button fx:id="btnSalvar" cache="true" font="$x2" layoutX="686.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
         <DatePicker fx:id="dpDataNascimento" layoutX="185.0" layoutY="130.0" onAction="#onActionFromDpDataNascimento" prefHeight="25.0" prefWidth="150.0" promptText="DD/MM/AAAA" />
         <DatePicker fx:id="dpDataEntrada" layoutX="185.0" layoutY="340.0" onAction="#onActionFromDpDataEntrada" prefHeight="25.0" prefWidth="150.0" promptText="DD/MM/AAAA" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
         <Label fx:id="lblMinisterio" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="445.0" onMouseClicked="#onMouseClickedFromLblMinisterio" prefWidth="149.9998779296875" text="Ministério:" textFill="BLACK" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -123,21 +117,26 @@
             </effect>
         </Label>
         <TextField fx:id="fldMinisterio" layoutX="185.0" layoutY="445.0" onAction="#onActionFromFldMinisterio" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
-        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="573.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="573.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
                 <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
             </image>
-        </ImageView>
-        <ImageView fx:id="iconeVoltar" fitHeight="18.0" fitWidth="18.0" layoutX="455.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        </ImageView>        
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeVoltar.png" />
+                <Image url="@../../images/icons/iconeVoltar.png" />
             </image>
-        </ImageView>  
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

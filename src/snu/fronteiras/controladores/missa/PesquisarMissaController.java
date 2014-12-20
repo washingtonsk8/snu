@@ -21,7 +21,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -46,7 +45,6 @@ import org.apache.log4j.Logger;
 import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
-import snu.entidades.musica.Musica;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
@@ -303,11 +301,12 @@ public class PesquisarMissaController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
 
             MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
-            montarMissaSelecaoController.initData(this);
 
             //Limpa o conteúdo anterior e carrega a página
-            this.contentPesquisarMissa.getChildren().clear();
-            this.contentPesquisarMissa.getChildren().add(root);
+            AnchorPane pai = ((AnchorPane) this.contentPesquisarMissa.getParent());
+            montarMissaSelecaoController.initData(this);
+            pai.getChildren().clear();
+            pai.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
 
         } catch (IOException ex) {

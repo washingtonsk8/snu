@@ -62,17 +62,11 @@ public class ConfiguracaoTemplateEmailController implements Initializable {
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(ConfiguracaoTemplateEmailController.class.getName());
     
-    private ConfiguracoesController controladorOrigem;
-
     private void initComponents() {
         BotoesImagemUtil.definirComportamento(this.imgInicio);
         BotoesImagemUtil.definirComportamento(this.imgVoltar);
         
         this.areaTemplateEmail.setText(SNU.configuracoesSistema.getTemplateDescricaoEmail());
-    }
-
-    public void initData(ConfiguracoesController controladorOrigem) {
-        this.controladorOrigem = controladorOrigem;
     }
 
     /**

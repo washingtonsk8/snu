@@ -5,37 +5,18 @@
  */
 package snu.fronteiras.controladores;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import net.lingala.zip4j.exception.ZipException;
 import org.apache.log4j.Logger;
-import snu.bd.BD;
-import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
-import snu.util.SeletorArquivosUtil;
 
 /**
  * Classe que controla a tela principal do programa
@@ -48,34 +29,6 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     private AnchorPane contentAnchorPane;
-    @FXML
-    private MenuBar menubar;
-    @FXML
-    private MenuItem itemSobre;
-    @FXML
-    private Menu menuMissa;
-    @FXML
-    private Menu menuConfiguracoes;
-    @FXML
-    private Menu menuBackup;
-    @FXML
-    private MenuItem itemImportarDados;
-    @FXML
-    private MenuItem itemExportarDados;
-    @FXML
-    private MenuItem itemTemplateEmail;
-    @FXML
-    private Menu menuBancoDados;
-    @FXML
-    private MenuItem itemEscolherDiretorioBancoDados;
-    @FXML
-    private MenuItem itemLimparDadosMissa;
-    @FXML
-    private MenuItem itemVerificarLog;
-    @FXML
-    private MenuItem itemDefinirPreferenciaTons;
-    @FXML
-    private Menu menuConfiguracoesMissa;
 
     /**
      * Fábrica Singleton do sistema
@@ -116,11 +69,6 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
-    }
-    
-    private void onShowingFromMenuHome(Event event) {
-        event.consume();
-        iniciarPaginaInicial();
     }
     
     public Stage getStage() {

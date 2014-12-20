@@ -30,23 +30,26 @@ public class ConfiguracoesSistema implements Serializable {
     @Column(columnDefinition = "VARCHAR(16)", nullable = false)
     private String versao;
 
-    @Column(columnDefinition = "CLOB", name = "template_descricao_email")
+    @Column(name = "diretorio_sgbd")
+    private String diretorioSGBD;
+
+    @Column(columnDefinition = "LONGTEXT", name = "template_descricao_email")
     private String templateDescricaoEmail;
 
-    @Column(name = "preferencia_Csus_Dbem", nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-    private Boolean preferenciaCsusDbem = Boolean.FALSE;
+    @Column(name = "preferencia_Csus_Dbem", columnDefinition = "BIT(1) DEFAULT 0")
+    private Boolean preferenciaCsusDbem;
 
-    @Column(name = "preferencia_Dsus_Ebem", nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-    private Boolean preferenciaDsusEbem = Boolean.FALSE;
+    @Column(name = "preferencia_Dsus_Ebem", columnDefinition = "BIT(1) DEFAULT 0")
+    private Boolean preferenciaDsusEbem;
 
-    @Column(name = "preferencia_Fsus_Gbem", nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-    private Boolean preferenciaFsusGbem = Boolean.FALSE;
+    @Column(name = "preferencia_Fsus_Gbem", columnDefinition = "BIT(1) DEFAULT 0")
+    private Boolean preferenciaFsusGbem;
 
-    @Column(name = "preferencia_Gsus_Abem", nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-    private Boolean preferenciaGsusAbem = Boolean.FALSE;
+    @Column(name = "preferencia_Gsus_Abem", columnDefinition = "BIT(1) DEFAULT 0")
+    private Boolean preferenciaGsusAbem;
 
-    @Column(name = "preferencia_Asus_Bbem", nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-    private Boolean preferenciaAsusBbem = Boolean.FALSE;
+    @Column(name = "preferencia_Asus_Bbem", columnDefinition = "BIT(1) DEFAULT 0")
+    private Boolean preferenciaAsusBbem;
 
     public Long getId() {
         return id;
@@ -62,6 +65,14 @@ public class ConfiguracoesSistema implements Serializable {
 
     public void setVersao(String versao) {
         this.versao = versao;
+    }
+
+    public String getDiretorioSGBD() {
+        return diretorioSGBD;
+    }
+
+    public void setDiretorioSGBD(String diretorioSGBD) {
+        this.diretorioSGBD = diretorioSGBD;
     }
 
     public String getTemplateDescricaoEmail() {
