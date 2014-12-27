@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -322,6 +323,7 @@ public class ConfiguracoesController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(this.contentConfiguracoes.getScene().getWindow());
             dialogStage.setScene(new Scene(root));
+            dialogStage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeConfiguracao.png"));
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         } catch (IOException ex) {

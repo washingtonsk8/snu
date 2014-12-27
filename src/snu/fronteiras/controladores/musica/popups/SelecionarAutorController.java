@@ -35,7 +35,6 @@ import javafx.util.Duration;
 import snu.controladores.AutorJpaController;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.Musica;
-import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
 import snu.util.Dialogs;
 

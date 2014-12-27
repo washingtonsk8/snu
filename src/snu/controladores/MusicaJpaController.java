@@ -257,8 +257,9 @@ public class MusicaJpaController implements Serializable {
 
     /**
      * Retorna as músicas contendo o mesmo nome
+     *
      * @param nomeMusica
-     * @return 
+     * @return
      */
     public List<Musica> findMusicasMesmoNome(String nomeMusica) {
         EntityManager em = getEntityManager();
@@ -266,12 +267,19 @@ public class MusicaJpaController implements Serializable {
 
         CriteriaQuery<Musica> cq = cb.createQuery(Musica.class);
         Root<Musica> musica = cq.from(Musica.class);
-       
+
         cq.select(musica).distinct(true)
                 .where(cb.equal(cb.lower(musica.<String>get("nome")),
-                        nomeMusica.toLowerCase(new Locale("pt", "BR"))));
+                                nomeMusica.toLowerCase(new Locale("pt", "BR"))));
 
-        return em.createQuery(cq).getResultList(); 
+        return em.createQuery(cq).getResultList();
+    }
+
+    public void marcarComoImpressas(List<Musica> musicasSelecionadas) throws Exception {
+        for (Musica musicaSelecionada : musicasSelecionadas) {
+            musicaSelecionada.setImpressa(true);
+            edit(musicaSelecionada);
+        }
     }
 
     /**

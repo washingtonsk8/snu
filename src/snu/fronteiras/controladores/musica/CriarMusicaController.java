@@ -34,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -731,6 +732,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
         dialogStage.setScene(new Scene(root));
+        dialogStage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeAutor.png"));
         // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();
 

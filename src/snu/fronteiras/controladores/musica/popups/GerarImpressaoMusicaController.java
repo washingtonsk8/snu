@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -362,6 +363,11 @@ public class GerarImpressaoMusicaController implements Initializable {
         String introducaoMusica = this.musicaSelecionada.getDocumentoMusica().getIntroducao();
         String conteudoMusica = this.musicaSelecionada.getDocumentoMusica().getConteudo();
         String caminhoImagem = getClass().getResource("/snu/fronteiras/images/logoSemDescricao.jpg").toExternalForm();
+
+        //Trocando o tom em caso de associação
+        if (nomeCantorMusica != null) {
+            tomSelecionado = this.mapaIntegrantesAssociados.get(nomeCantorMusica);
+        }
 
         //Definições para impressão
         parametros.put("tiposMusica", ListaUtil.getListaSeparadaPorVirgula(this.musicaSelecionada.getTipos()));

@@ -21,7 +21,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
@@ -32,22 +34,26 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Popup;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.apache.log4j.Logger;
+import org.controlsfx.control.PopOver;
 import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
+import snu.fronteiras.controladores.missa.popups.MarcarImpressaoMassaController;
 import snu.util.BotoesImagemUtil;
 import snu.util.DataUtil;
 import snu.util.Dialogs;
@@ -99,16 +105,23 @@ public class PesquisarMissaController implements Initializable {
     private Font x11;
     @FXML
     private ImageView iconeMontarMissa;
+    @FXML
+    private TextArea areaApresentacaoMissa;
 
-    private Popup popup;
+    private PopOver popup;
 
     private ObservableList<Missa> missas = FXCollections.observableArrayList();
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(PesquisarMissaController.class.getName());
 
+    private static final int LARGURA_POPUP = 550;
+    private static final int ALTURA_POPUP = 350;
+    private static final int DESLOCAMENTO_X_POPUP = 200;
+    private static final int DESLOCAMENTO_Y_POPUP = 60;
+
     private void initComponents() {
-        this.popup = new Popup();
+        this.popup = new PopOver();
         this.popup.setAutoHide(true);
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
@@ -143,7 +156,21 @@ public class PesquisarMissaController implements Initializable {
 
                             @Override
                             public void handle(ActionEvent event) {
-                                carregarVisualizacaoMissa(linha.itemProperty().get());
+                                carregarVisualizacaoMissa(linha.itemProperty().get(),
+                                        linha.getLayoutX(),
+                                        linha.getLayoutY());
+                            }
+                        });
+
+                        ImageView iconeOk = new ImageView("/snu/fronteiras/images/icons/iconeOk.png");
+                        iconeOk.setFitHeight(10.);
+                        iconeOk.setFitWidth(15.);
+                        MenuItem itemMarcarEmLote = new MenuItem("Marcar Impressões em Lote", iconeOk);
+                        itemMarcarEmLote.setOnAction(new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                carregarMarcacaoImpressaoEmMassa(linha.itemProperty().get());
                             }
                         });
 
@@ -159,7 +186,7 @@ public class PesquisarMissaController implements Initializable {
                             }
                         });
 
-                        menuContexto.getItems().addAll(itemVisualizarMissa, itemRemoverMissa);
+                        menuContexto.getItems().addAll(itemVisualizarMissa, itemRemoverMissa, itemMarcarEmLote);
 
                         //Seleciona antes de mostrar o menu de contexto
                         menuContexto.setOnShowing(new EventHandler<WindowEvent>() {
@@ -190,29 +217,64 @@ public class PesquisarMissaController implements Initializable {
         this.tblMissas.setItems(this.missas);
     }
 
-    private void carregarVisualizacaoMissa(Missa missaSelecionada) {
+    private void carregarVisualizacaoMissa(Missa missaSelecionada, double posicaoLinhaX, double posicaoLinhaY) {
 
         if (StringUtil.hasAlgo(missaSelecionada.getDescricaoEmail())) {
-            TextArea areaApresentacaoMissa = new TextArea(missaSelecionada.getDescricaoEmail());
-            areaApresentacaoMissa.setMinWidth(500);
-            areaApresentacaoMissa.setPrefHeight(350);
-            areaApresentacaoMissa.setEditable(false);
-            areaApresentacaoMissa.setEffect(EfeitosUtil.getEfeitoGeral());
+            this.areaApresentacaoMissa.setText(missaSelecionada.getDescricaoEmail());
+            this.areaApresentacaoMissa.setPrefWidth(LARGURA_POPUP);
+            this.areaApresentacaoMissa.setPrefHeight(ALTURA_POPUP);
+            this.areaApresentacaoMissa.setEditable(true);
+            this.areaApresentacaoMissa.setVisible(true);
+
             Window proprietaria = HomeController.getInstancia().getStage().getScene().getWindow();
 
-            this.popup.getContent().clear();
-            this.popup.getContent().add(areaApresentacaoMissa);
+            this.popup.setContentNode(this.areaApresentacaoMissa);
 
             FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.6), areaApresentacaoMissa);
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
             fadeIn.playFromStart();
 
-            this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
+            double posicaoX = posicaoLinhaX + proprietaria.getX() + this.tblMissas.getLayoutX() + DESLOCAMENTO_X_POPUP;
+            double posicaoY = posicaoLinhaY + proprietaria.getY() + this.tblMissas.getLayoutY() + DESLOCAMENTO_Y_POPUP;
+
+            if (posicaoY + ALTURA_POPUP > proprietaria.getY() + proprietaria.getHeight()) {
+                this.areaApresentacaoMissa.setPrefHeight(proprietaria.getY() + proprietaria.getHeight()
+                        + DESLOCAMENTO_Y_POPUP / 2 - posicaoY);
+            }
+
+            this.popup.show(this.tblMissas, posicaoX, posicaoY);
         } else {
             Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
                     "A descrição de e-mail desta Missa está vazia.", "Descrição Vazia!", "Aviso");
         }
+    }
+
+    private void carregarMarcacaoImpressaoEmMassa(Missa missaSelecionada) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/popups/MarcarImpressaoMassa.fxml"));
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela para Seleção de Autor", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                    "Erro ao carregar tela para Seleção de Autor."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        //Inicializa os dados passando a música por parâmetro
+        MarcarImpressaoMassaController marcarImpressaoMassa = fxmlLoader.getController();
+        marcarImpressaoMassa.initData(missaSelecionada);
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Marcação de Impressão em Lote");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(HomeController.getInstancia().getStage());
+        dialogStage.setScene(new Scene(root));
+        dialogStage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeImpressao.png"));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
     }
 
     private void removerMissaSelecionada(Missa missaSelecionada) {

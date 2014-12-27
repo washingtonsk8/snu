@@ -80,7 +80,6 @@ public class SNU extends Application {
 
             Scene scene = new Scene(root);
             stage.setTitle("Sistema Nova Unção");
-            stage.setIconified(true);
             stage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeSistema.png"));
             stage.setScene(scene);
 

@@ -256,7 +256,7 @@
         <DatePicker fx:id="dpDataMissa" layoutX="150.0" layoutY="95.0" onAction="#onActionFromDpDataMissa" prefWidth="150.0" promptText="DD/MM/AAAA" />
         <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAvancar.png" />
+                <Image smooth="false" url="@../../images/icons/iconeAvancar.png" />
             </image>
         </ImageView>        
         <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

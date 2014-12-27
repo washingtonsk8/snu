@@ -34,6 +34,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -442,6 +443,7 @@ public class PesquisarMusicaController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(HomeController.getInstancia().getStage());
             dialogStage.setScene(new Scene(root));
+        dialogStage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeImpressao.png"));
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         } catch (IOException ex) {
