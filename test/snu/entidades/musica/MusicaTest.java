@@ -123,28 +123,28 @@ public class MusicaTest {
     }
 
     /**
-     * Test of getLeiturasAssociadas method, of class Musica.
+     * Test of getTags method, of class Musica.
      */
     @Test
-    public void testGetLeiturasAssociadas() {
+    public void testGetTags() {
         System.out.println("getLeiturasAssociadas");
         Musica instance = new Musica();
-        List<LeituraAssociada> expResult = null;
-        List<LeituraAssociada> result = instance.getLeiturasAssociadas();
+        List<Tag> expResult = null;
+        List<Tag> result = instance.getTags();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of setLeiturasAssociadas method, of class Musica.
+     * Test of setTags method, of class Musica.
      */
     @Test
-    public void testSetLeiturasAssociadas() {
+    public void testSetTags() {
         System.out.println("setLeiturasAssociadas");
-        List<LeituraAssociada> leiturasAssociadas = null;
+        List<Tag> leiturasAssociadas = null;
         Musica instance = new Musica();
-        instance.setLeiturasAssociadas(leiturasAssociadas);
+        instance.setTags(leiturasAssociadas);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

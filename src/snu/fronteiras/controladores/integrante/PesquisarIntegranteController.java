@@ -193,7 +193,6 @@ public class PesquisarIntegranteController implements Initializable {
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentPesquisarIntegrante.getParent());
             cadastrarIntegranteController.initData(this);
-            pai.getChildren().clear();
             pai.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         } catch (IOException ex) {
@@ -223,7 +222,6 @@ public class PesquisarIntegranteController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentPesquisarIntegrante.getParent());
         atualizarIntegranteController.initData(integranteSelecionado, this);
-        pai.getChildren().clear();
         pai.getChildren().add(root);
         EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
@@ -246,7 +244,6 @@ public class PesquisarIntegranteController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentPesquisarIntegrante.getParent());
         visualizarIntegranteController.initData(integranteSelecionado, this);
-        pai.getChildren().clear();
         pai.getChildren().add(root);
         EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }

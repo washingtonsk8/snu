@@ -56,8 +56,8 @@ import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Autor;
-import snu.entidades.musica.LeituraAssociada;
 import snu.entidades.musica.Musica;
+import snu.entidades.musica.Tag;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.exceptions.NonexistentEntityException;
@@ -80,7 +80,7 @@ import snu.util.StringUtil;
 public class AtualizarMusicaController implements Initializable, ControladorDeConteudoInterface {
 
     @FXML
-    private Label lblLeituras;
+    private Label lblTags;
     @FXML
     private Font x1;
     @FXML
@@ -110,7 +110,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     @FXML
     private TextField fldTitulo;
     @FXML
-    private TextField fldLeituras;
+    private TextField fldTags;
     @FXML
     private ComboBox<Tom> comboTom;
     @FXML
@@ -293,9 +293,9 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         this.comboAfinacao.setValue(musica.getAfinacao());
         this.fldAutor.setText(musica.getAutor().getNome());
         this.fldLinkVideo.setText(musica.getLinkVideo());
-        this.fldLeituras.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas()));
-        this.fldLeituras.setTooltip(new Tooltip("Insira as Leituras Associadas separadas por \";\". Ex.: Leitura 1; Leitura 2; Leitura 3"));
-        this.fldLeituras.setPromptText("Ex.: Leitura 1; Leitura 2; Leitura 3");
+        this.fldTags.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getTags()));
+        this.fldTags.setTooltip(new Tooltip("Insira as Tags Associadas separadas por \";\". Ex.: Tag 1; Tag 2; Tag 3"));
+        this.fldTags.setPromptText("Ex.: Tag 1; Tag 2; Tag 3");
 
         List<TipoMusica> tiposMusica = musica.getTipos();
 
@@ -396,22 +396,22 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
             }
         }
 
-        String campoLeiturasAssociadas = this.fldLeituras.getText();
+        String campoTags = this.fldTags.getText();
 
-        if (!campoLeiturasAssociadas.isEmpty()) {
-            List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
+        if (!campoTags.isEmpty()) {
+            List<Tag> tags = new ArrayList<>();
 
-            for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
-                    LeituraAssociada leituraAssociada = new LeituraAssociada();
-                    leituraAssociada.setDescricao(descricaoLeituraAssociada);
-                    leituraAssociada.setMusica(this.musica);
-                    leiturasAssociadas.add(leituraAssociada);
+            for (String descricaoTag : Arrays.asList(campoTags.split(";"))) {
+                if (StringUtil.hasAlgo(descricaoTag = descricaoTag.trim())) {
+                    Tag tag = new Tag();
+                    tag.setDescricao(descricaoTag);
+                    tag.setMusica(this.musica);
+                    tags.add(tag);
                 }
             }
-            this.musica.setLeiturasAssociadas(leiturasAssociadas);
+            this.musica.setTags(tags);
         } else {
-            this.musica.setLeiturasAssociadas(new ArrayList<>());
+            this.musica.setTags(new ArrayList<>());
         }
 
         try {
@@ -448,8 +448,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     }
 
     @FXML
-    private void onMouseClickedFromLblLeituras(MouseEvent event) {
-        this.fldLeituras.requestFocus();
+    private void onMouseClickedFromLblTags(MouseEvent event) {
+        this.fldTags.requestFocus();
     }
 
     @FXML
@@ -506,7 +506,7 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
     }
 
     @FXML
-    private void onActionFromFldLeituras(ActionEvent event) {
+    private void onActionFromFldTags(ActionEvent event) {
     }
 
     @FXML
@@ -947,12 +947,8 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
 
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentAtualizarMusica, pai.getChildren());
     }
 }

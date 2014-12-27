@@ -21,7 +21,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -367,7 +366,6 @@ public class PesquisarMissaController implements Initializable {
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentPesquisarMissa.getParent());
             montarMissaSelecaoController.initData(this);
-            pai.getChildren().clear();
             pai.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -24,7 +26,7 @@
                 <Image url="@../../images/iconeTemplateEmail.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="iconeImportarDados" fitHeight="72.0" fitWidth="163.0" layoutX="386.0" layoutY="300.0" onMouseClicked="#onClickFromIconeImportarDados" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="iconeImportarDados" fitHeight="72.0" fitWidth="163.0" layoutX="386.0" layoutY="310.0" onMouseClicked="#onClickFromIconeImportarDados" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../images/iconeImportarDados.png" />
             </image>
@@ -38,7 +40,17 @@
             <image>
                 <Image url="@../../images/icons/iconeVoltar.png" />
             </image>
-        </ImageView> 
+        </ImageView>
+      <Label fx:id="lblDataImportacao" alignment="TOP_LEFT" layoutX="380.0" layoutY="381.0" prefHeight="47.0" prefWidth="176.0" text="Não ocorreram importações na versão mais recente do sistema." wrapText="true">
+         <effect>
+            <Glow level="0.5" />
+         </effect>
+      </Label>
+      <Label fx:id="lblDataExportacao" alignment="TOP_LEFT" layoutX="328.0" layoutY="259.0" prefHeight="47.0" prefWidth="176.0" text="Não ocorreram exportações na versão mais recente do sistema." wrapText="true">
+         <effect>
+            <Glow level="0.5" />
+         </effect>
+      </Label> 
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

@@ -58,6 +58,21 @@ public class DataUtil {
     }
 
     /**
+     * Realiza a formatação de data e hora de acordo com o local atual (Brasil)
+     *
+     * @param data
+     * @return
+     */
+    public static String formatarDataHora(Date data) {
+        if (data == null) {
+            return null;
+        }
+
+        SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", new Locale("pt", "BR"));
+        return sdt.format(data);
+    }
+
+    /**
      * Converte a data passada para data do tipo LocalDate
      *
      * @param data

@@ -15,13 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Entidade que mantém as Leituras Associadas às Músicas
+ * Entidade que mantém as Tags associadas às Músicas
  *
  * @author Washington Luis
  */
 @Entity
-@Table(name = "musica_leiturasassociadas")
-public class LeituraAssociada implements Serializable {
+@Table(name = "musica_tags")
+public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,10 +68,10 @@ public class LeituraAssociada implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LeituraAssociada)) {
+        if (!(object instanceof Tag)) {
             return false;
         }
-        LeituraAssociada other = (LeituraAssociada) object;
+        Tag other = (Tag) object;
         return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 

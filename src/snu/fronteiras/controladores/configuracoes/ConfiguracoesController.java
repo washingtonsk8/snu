@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.configuracoes;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
@@ -22,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,13 +34,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import net.lingala.zip4j.exception.ZipException;
 import org.apache.log4j.Logger;
 import snu.bd.BD;
-import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.controladores.ConfiguracoesSistemaJpaController;
+import snu.controladores.SNU;
 import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.BotoesImagemUtil;
+import snu.util.DataUtil;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.SeletorArquivosUtil;
@@ -64,6 +67,10 @@ public class ConfiguracoesController implements Initializable {
     private ImageView iconeImportarDados;
     @FXML
     private ImageView iconeDefinirPreferenciaTons;
+    @FXML
+    private Label lblDataImportacao;
+    @FXML
+    private Label lblDataExportacao;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(ConfiguracoesController.class.getName());
@@ -102,6 +109,17 @@ public class ConfiguracoesController implements Initializable {
         BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeExportarDados);
         BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeImportarDados);
         BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeDefinirPreferenciaTons);
+
+        Date dataUltimaExportacao = SNU.configuracoesSistema.getDataUltimaExportacao();
+        Date dataUltimaImportacao = SNU.configuracoesSistema.getDataUltimaImportacao();
+        if (dataUltimaExportacao != null) {
+            lblDataExportacao.setText("A última exportação foi realizada em: "
+                    + DataUtil.formatarDataHora(dataUltimaExportacao));
+        }
+        if (dataUltimaImportacao != null) {
+            lblDataImportacao.setText("A última importação foi realizada em: "
+                    + DataUtil.formatarDataHora(dataUltimaImportacao));
+        }
     }
 
     public void initData(HomeController controladorOrigem) {
@@ -176,13 +194,27 @@ public class ConfiguracoesController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
-                            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(), "Dados exportados com sucesso!",
-                                    "Sucesso!", "Informação");
+                            try {
+                                SNU.configuracoesSistema.setDataUltimaExportacao(new Date());
+                                ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
+                                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
+                                        "Dados exportados com sucesso!",
+                                        "Sucesso!", "Informação");
+                                lblDataExportacao.setText("A última exportação foi realizada em: "
+                                        + DataUtil.formatarDataHora(SNU.configuracoesSistema.getDataUltimaExportacao()));
+                            } catch (Exception ex) {
+                                log.error("Erro ao salvar data de exportação", ex);
+                                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                                        "Erro ao salvar data de exportação."
+                                        + "\nFavor entrar em contato com o Administrador.",
+                                        "Erro!", "Erro", ex);
+                            }
                             dialogStage.close();
                             break;
                         case CANCELLED:
                         case FAILED:
-                            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao exportar dados."
+                            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                                    "Erro ao exportar dados."
                                     + "\nFavor entrar em contato com o Administrador.",
                                     "Erro!", "Erro");
                             dialogStage.close();
@@ -287,18 +319,32 @@ public class ConfiguracoesController implements Initializable {
                             dialogStage.showAndWait();
                             break;
                         case SUCCEEDED:
-                            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
-                                    "Dados importados com sucesso!", "Sucesso!", "Informação");
+                            try {
+                                SNU.configuracoesSistema.setDataUltimaImportacao(new Date());
+                                ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
+                                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
+                                        "Dados importados com sucesso!", "Sucesso!", "Informação");
+                                lblDataImportacao.setText("A última exportação foi realizada em: "
+                                        + DataUtil.formatarDataHora(SNU.configuracoesSistema.getDataUltimaImportacao()));
+                            } catch (Exception ex) {
+                                log.error("Erro ao salvar data de exportação", ex);
+                                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                                        "Erro ao salvar data de exportação."
+                                        + "\nFavor entrar em contato com o Administrador.",
+                                        "Erro!", "Erro", ex);
+                            }
                             dialogStage.close();
                             break;
                         case CANCELLED:
                         case FAILED:
-                            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao importar dados."
+                            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                                    "Erro ao importar dados."
                                     + "\nVerifique se o arquivo escolhido para importação"
                                     + "\né realmente um arquivo de backup deste sistema.",
                                     "Erro!", "Erro");
                             dialogStage.close();
                             break;
+
                         case SCHEDULED:
                         case READY:
                             break;

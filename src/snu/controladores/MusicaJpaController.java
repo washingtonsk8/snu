@@ -28,8 +28,8 @@ import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Autor;
 import snu.entidades.musica.DocumentoMusica;
 import snu.entidades.musica.EntidadeTipoMusica;
-import snu.entidades.musica.LeituraAssociada;
 import snu.entidades.musica.Musica;
+import snu.entidades.musica.Tag;
 import snu.entidades.musica.TipoMusica;
 import snu.exceptions.NonexistentEntityException;
 import snu.util.StringUtil;
@@ -225,9 +225,9 @@ public class MusicaJpaController implements Serializable {
         if (StringUtil.hasAlgo(parametrosPesquisa.getNomeMusica())) {
             predicados.add(cb.like(cb.lower(musica.<String>get("nome")), "%" + parametrosPesquisa.getNomeMusica().toLowerCase(new Locale("pt", "BR")) + "%"));
         }
-        if (StringUtil.hasAlgo(parametrosPesquisa.getDescricaoLeiturasAssociadas())) {
-            Join<Musica, LeituraAssociada> leiturasAssociadas = musica.join("leiturasAssociadas", JoinType.LEFT);
-            predicados.add(cb.like(cb.lower(leiturasAssociadas.<String>get("descricao")), "%" + parametrosPesquisa.getDescricaoLeiturasAssociadas().toLowerCase() + "%"));
+        if (StringUtil.hasAlgo(parametrosPesquisa.getDescricaoTag())) {
+            Join<Musica, Tag> tags = musica.join("tags", JoinType.LEFT);
+            predicados.add(cb.like(cb.lower(tags.<String>get("descricao")), "%" + parametrosPesquisa.getDescricaoTag().toLowerCase() + "%"));
         }
         if (parametrosPesquisa.isImpressa() != null) {
             if (parametrosPesquisa.isImpressa()) {

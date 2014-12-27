@@ -27,7 +27,6 @@ import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
-import snu.fronteiras.controladores.ajuda.AjudaController;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
 

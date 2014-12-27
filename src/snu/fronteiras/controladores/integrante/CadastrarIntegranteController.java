@@ -16,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -493,12 +492,8 @@ public class CadastrarIntegranteController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentCadastrarIntegrante, pai.getChildren());
     }
 }

@@ -32,10 +32,10 @@ public class DocumentoMusica implements Serializable {
     @Column(columnDefinition = "LONGTEXT")
     private String conteudo;
 
-    @Column(name = "quantidade_tokens")
+    @Column(name = "quantidade_tokens", nullable = false)
     private Integer quantidadeTokens;
 
-    @Column(name = "frequencia_maxima_token")
+    @Column(name = "frequencia_maxima_token", nullable = false)
     private Integer frequenciaMaximaToken;
 
     public Long getId() {

@@ -52,8 +52,8 @@ import snu.entidades.integrante.Integrante;
 import snu.entidades.musica.Afinacao;
 import snu.entidades.musica.AssociacaoIntegranteMusica;
 import snu.entidades.musica.Autor;
-import snu.entidades.musica.LeituraAssociada;
 import snu.entidades.musica.Musica;
+import snu.entidades.musica.Tag;
 import snu.entidades.musica.TipoMusica;
 import snu.entidades.musica.Tom;
 import snu.fronteiras.controladores.FXMLDocumentController;
@@ -74,7 +74,7 @@ import snu.util.StringUtil;
 public class CriarMusicaController implements Initializable, ControladorDeConteudoInterface {
 
     @FXML
-    private Label lblLeituras;
+    private Label lblTags;
     @FXML
     private Font x1;
     @FXML
@@ -106,7 +106,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     @FXML
     private TextField fldTitulo;
     @FXML
-    private TextField fldLeituras;
+    private TextField fldTags;
     @FXML
     private ComboBox<Tom> comboTom;
     @FXML
@@ -213,8 +213,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.comboAfinacao.getSelectionModel().select(Afinacao.EADGBE);//Define uma afinação padrão
 
         //Definindo dicas
-        this.fldLeituras.setTooltip(new Tooltip("Insira as Leituras Associadas separadas por \";\". Ex.: Leitura 1; Leitura 2; Leitura 3"));
-        this.fldLeituras.setPromptText("Ex.: Leitura 1; Leitura 2; Leitura 3");
+        this.fldTags.setTooltip(new Tooltip("Insira as Tags Associadas separadas por \";\". Ex.: Tag 1; Tag 2; Tag 3"));
+        this.fldTags.setPromptText("Ex.: Tag 1; Tag 2; Tag 3");
 
         //Coloca os tons na combo para associação
         this.comboTomAssociacao.setItems(this.tonsMusica);
@@ -278,22 +278,22 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         this.musica.setLinkVideo(this.fldLinkVideo.getText());
         this.musica.setImpressa(Boolean.FALSE);
 
-        String campoLeiturasAssociadas = this.fldLeituras.getText();
+        String campoTags = this.fldTags.getText();
 
-        if (!campoLeiturasAssociadas.isEmpty()) {
-            List<LeituraAssociada> leiturasAssociadas = new ArrayList<>();
+        if (!campoTags.isEmpty()) {
+            List<Tag> tags = new ArrayList<>();
 
-            for (String descricaoLeituraAssociada : Arrays.asList(campoLeiturasAssociadas.split(";"))) {
-                if (StringUtil.hasAlgo(descricaoLeituraAssociada = descricaoLeituraAssociada.trim())) {
-                    LeituraAssociada leituraAssociada = new LeituraAssociada();
-                    leituraAssociada.setDescricao(descricaoLeituraAssociada);
-                    leituraAssociada.setMusica(this.musica);
-                    leiturasAssociadas.add(leituraAssociada);
+            for (String descricaoTag : Arrays.asList(campoTags.split(";"))) {
+                if (StringUtil.hasAlgo(descricaoTag = descricaoTag.trim())) {
+                    Tag tag = new Tag();
+                    tag.setDescricao(descricaoTag);
+                    tag.setMusica(this.musica);
+                    tags.add(tag);
                 }
             }
-            this.musica.setLeiturasAssociadas(leiturasAssociadas);
+            this.musica.setTags(tags);
         } else {
-            this.musica.setLeiturasAssociadas(new ArrayList<LeituraAssociada>());
+            this.musica.setTags(new ArrayList<Tag>());
         }
 
         //Persistindo no banco (PS.: Realizar antes da indexação!!!)
@@ -392,8 +392,8 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
-    private void onMouseClickedFromLblLeituras(MouseEvent event) {
-        this.fldLeituras.requestFocus();
+    private void onMouseClickedFromLblTags(MouseEvent event) {
+        this.fldTags.requestFocus();
     }
 
     @FXML
@@ -445,7 +445,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
-    private void onActionFromFldLeituras(ActionEvent event) {
+    private void onActionFromFldTags(ActionEvent event) {
     }
 
     @FXML
@@ -918,13 +918,9 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
-    private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {        
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentCriarMusica, pai.getChildren());
     }
 }

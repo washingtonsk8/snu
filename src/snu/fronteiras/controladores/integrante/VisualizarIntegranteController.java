@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -197,12 +196,8 @@ public class VisualizarIntegranteController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentVisualizarIntegrante.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentVisualizarIntegrante, pai.getChildren());
     }
 }

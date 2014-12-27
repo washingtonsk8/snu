@@ -15,7 +15,7 @@
                 <URL value="@../../css/contents.css" />
             </stylesheets>
         </Label>
-        <Label fx:id="lblLeituras" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="180.0" onMouseClicked="#onMouseClickedFromLblLeituras" prefWidth="140.0" text="Leituras Associadas:" textFill="BLACK">
+        <Label fx:id="lblTags" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="180.0" onMouseClicked="#onMouseClickedFromLblTags" prefWidth="140.0" text="Tags Associadas:" textFill="BLACK">
             <effect>
                 <Glow />
             </effect>
@@ -62,7 +62,7 @@
         <TextField fx:id="fldTitulo" layoutX="175.0" layoutY="90.0" onAction="#onActionFromFldTitulo" prefWidth="250.0" />
         <ComboBox fx:id="comboTom" layoutX="175.0" layoutY="120.0" onAction="#onActionFromComboTom" prefHeight="22.0" prefWidth="60.0" />
         <ComboBox fx:id="comboAfinacao" layoutX="175.0" layoutY="150.0" onAction="#onActionFromComboAfinacao" prefHeight="22.0" prefWidth="150.0" />
-        <TextField fx:id="fldLeituras" layoutX="175.0" layoutY="180.0" onAction="#onActionFromFldLeituras" prefWidth="500.0" />
+        <TextField fx:id="fldTags" layoutX="175.0" layoutY="180.0" onAction="#onActionFromFldTags" prefWidth="500.0" />
         <CheckBox fx:id="checkEntrada" font="$x2" layoutX="175.0" layoutY="211.0" mnemonicParsing="false" onAction="#onActionFromCheckEntrada" prefHeight="20.0" text="Entrada" />
         <CheckBox fx:id="checkAtoPenitencial" font="$x2" layoutX="278.0" layoutY="211.0" mnemonicParsing="false" onAction="#onActionFromCheckAtoPenitencial" prefHeight="20.0" text="Ato Penit." />
         <CheckBox fx:id="checkGloria" font="$x2" layoutX="390.0" layoutY="211.0" mnemonicParsing="false" onAction="#onActionFromCheckGloria" prefHeight="20.0" text="Glória" />

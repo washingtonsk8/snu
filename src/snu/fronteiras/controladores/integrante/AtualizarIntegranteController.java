@@ -519,12 +519,8 @@ public class AtualizarIntegranteController implements Initializable {
     
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentAtualizarIntegrante.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentAtualizarIntegrante, pai.getChildren());
     }
 }

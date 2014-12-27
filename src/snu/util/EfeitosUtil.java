@@ -6,8 +6,10 @@
 package snu.util;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -101,14 +103,24 @@ public class EfeitosUtil {
 
     /**
      * Roda efeito FADE OUT na tela passada por parâmetro
+     * e remove a tela atual dos filhos do pai
      *
      * @param tela
+     * @param componentes
      */
-    public static void rodarEfeitoCarregamentoFadeOut(Node tela) {
-        final FadeTransition ft = new FadeTransition(Duration.millis(500), tela);
+    public static void rodarEfeitoCarregamentoFadeOut(Node tela, ObservableList<Node> componentes) {
+        final FadeTransition ft = new FadeTransition(Duration.millis(300), tela);
         ft.setFromValue(1.);
         ft.setToValue(0.);
         ft.play();
+        
+        //Remove esta tela do vetor de componentes
+        ft.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                componentes.remove(tela);
+            }
+        });
     }
 
     /**

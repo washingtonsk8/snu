@@ -9,10 +9,10 @@
     <class>snu.entidades.musica.DocumentoMusica</class>
     <class>snu.entidades.musica.indexador.Vocabulo</class>
     <class>snu.entidades.musica.indexador.ObjetoListaInvertida</class>
-    <class>snu.entidades.musica.LeituraAssociada</class>
     <class>snu.entidades.musica.EntidadeTipoMusica</class>
     <class>snu.entidades.missa.Missa</class>
     <class>snu.entidades.configuracoes.ConfiguracoesSistema</class>
+    <class>snu.entidades.musica.Tag</class>
     <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>

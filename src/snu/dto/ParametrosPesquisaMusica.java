@@ -17,7 +17,7 @@ public class ParametrosPesquisaMusica {
 
     private String nomeAutor;
     private String nomeMusica;
-    private String descricaoLeituraAssociadas;
+    private String descricaoTag;
     private String trecho;
     private Boolean impressa;
     private List<TipoMusica> tipos;
@@ -38,12 +38,12 @@ public class ParametrosPesquisaMusica {
         this.nomeMusica = nomeMusica;
     }
 
-    public String getDescricaoLeiturasAssociadas() {
-        return descricaoLeituraAssociadas;
+    public String getDescricaoTag() {
+        return descricaoTag;
     }
 
-    public void setDescricaoLeiturasAssociadas(String descricaoLeiturasAssociadas) {
-        this.descricaoLeituraAssociadas = descricaoLeiturasAssociadas;
+    public void setTag(String descricaoTag) {
+        this.descricaoTag = descricaoTag;
     }
 
     public String getTrecho() {

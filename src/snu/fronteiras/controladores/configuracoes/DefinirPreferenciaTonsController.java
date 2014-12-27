@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 import snu.controladores.ConfiguracoesSistemaJpaController;
 import snu.controladores.SNU;
 import snu.entidades.configuracoes.ConfiguracoesSistema;
-import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
 import snu.util.Dialogs;
 

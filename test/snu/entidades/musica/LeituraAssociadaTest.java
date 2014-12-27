@@ -39,12 +39,12 @@ public class LeituraAssociadaTest {
     }
 
     /**
-     * Test of getId method, of class LeituraAssociada.
+     * Test of getId method, of class Tag.
      */
     @Test
     public void testGetId() {
         System.out.println("getId");
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         Long expResult = null;
         Long result = instance.getId();
         assertEquals(expResult, result);
@@ -53,25 +53,25 @@ public class LeituraAssociadaTest {
     }
 
     /**
-     * Test of setId method, of class LeituraAssociada.
+     * Test of setId method, of class Tag.
      */
     @Test
     public void testSetId() {
         System.out.println("setId");
         Long id = null;
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getDescricao method, of class LeituraAssociada.
+     * Test of getDescricao method, of class Tag.
      */
     @Test
     public void testGetDescricao() {
         System.out.println("getDescricao");
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         String expResult = "";
         String result = instance.getDescricao();
         assertEquals(expResult, result);
@@ -80,25 +80,25 @@ public class LeituraAssociadaTest {
     }
 
     /**
-     * Test of setDescricao method, of class LeituraAssociada.
+     * Test of setDescricao method, of class Tag.
      */
     @Test
     public void testSetDescricao() {
         System.out.println("setDescricao");
         String descricao = "";
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         instance.setDescricao(descricao);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getMusica method, of class LeituraAssociada.
+     * Test of getMusica method, of class Tag.
      */
     @Test
     public void testGetMusica() {
         System.out.println("getMusica");
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         Musica expResult = null;
         Musica result = instance.getMusica();
         assertEquals(expResult, result);
@@ -107,25 +107,25 @@ public class LeituraAssociadaTest {
     }
 
     /**
-     * Test of setMusica method, of class LeituraAssociada.
+     * Test of setMusica method, of class Tag.
      */
     @Test
     public void testSetMusica() {
         System.out.println("setMusica");
         Musica musica = null;
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         instance.setMusica(musica);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of hashCode method, of class LeituraAssociada.
+     * Test of hashCode method, of class Tag.
      */
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
@@ -134,13 +134,13 @@ public class LeituraAssociadaTest {
     }
 
     /**
-     * Test of equals method, of class LeituraAssociada.
+     * Test of equals method, of class Tag.
      */
     @Test
     public void testEquals() {
         System.out.println("equals");
         Object object = null;
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         boolean expResult = false;
         boolean result = instance.equals(object);
         assertEquals(expResult, result);
@@ -149,12 +149,12 @@ public class LeituraAssociadaTest {
     }
 
     /**
-     * Test of toString method, of class LeituraAssociada.
+     * Test of toString method, of class Tag.
      */
     @Test
     public void testToString() {
         System.out.println("toString");
-        LeituraAssociada instance = new LeituraAssociada();
+        Tag instance = new Tag();
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);

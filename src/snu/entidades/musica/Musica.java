@@ -46,8 +46,8 @@ public class Musica implements Serializable {
     private String nome;
 
     @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, orphanRemoval = true,
-            targetEntity = LeituraAssociada.class, fetch = FetchType.LAZY)
-    private List<LeituraAssociada> leiturasAssociadas;
+            targetEntity = Tag.class, fetch = FetchType.LAZY)
+    private List<Tag> tags;
 
     @Enumerated(EnumType.STRING)
     private Tom tom;
@@ -84,7 +84,7 @@ public class Musica implements Serializable {
 
     public Musica() {
         this.associacoes = new ArrayList<>();
-        this.leiturasAssociadas = new ArrayList<>();
+        this.tags = new ArrayList<>();
         this.tipos = new ArrayList<>();
         this.documentoMusica = new DocumentoMusica();
     }
@@ -113,12 +113,12 @@ public class Musica implements Serializable {
         this.nome = nome;
     }
 
-    public List<LeituraAssociada> getLeiturasAssociadas() {
-        return leiturasAssociadas;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setLeiturasAssociadas(List<LeituraAssociada> leiturasAssociadas) {
-        this.leiturasAssociadas = leiturasAssociadas;
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public Tom getTom() {
@@ -243,6 +243,6 @@ public class Musica implements Serializable {
 
     @Override
     public String toString() {
-        return "Musica{" + "id=" + id + ", autor=" + autor.getNome() + ", titulo=" + nome + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
+        return "Musica{" + "id=" + id + ", autor=" + autor.getNome() + ", titulo=" + nome + ", tags=" + tags + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
     }
 }

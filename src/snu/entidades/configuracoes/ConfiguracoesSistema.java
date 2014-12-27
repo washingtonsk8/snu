@@ -6,12 +6,15 @@
 package snu.entidades.configuracoes;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entidade que gerencia as variáveis de configuração geral do sistema.
@@ -50,6 +53,14 @@ public class ConfiguracoesSistema implements Serializable {
 
     @Column(name = "preferencia_Asus_Bbem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaAsusBbem;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_ultima_exportacao")
+    private Date dataUltimaExportacao;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_ultima_importacao")
+    private Date dataUltimaImportacao;
 
     public Long getId() {
         return id;
@@ -121,6 +132,22 @@ public class ConfiguracoesSistema implements Serializable {
 
     public void setPreferenciaAsusBbem(Boolean preferenciaAsusBbem) {
         this.preferenciaAsusBbem = preferenciaAsusBbem;
+    }
+
+    public Date getDataUltimaExportacao() {
+        return dataUltimaExportacao;
+    }
+
+    public void setDataUltimaExportacao(Date dataUltimaExportacao) {
+        this.dataUltimaExportacao = dataUltimaExportacao;
+    }
+
+    public Date getDataUltimaImportacao() {
+        return dataUltimaImportacao;
+    }
+
+    public void setDataUltimaImportacao(Date dataUltimaImportacao) {
+        this.dataUltimaImportacao = dataUltimaImportacao;
     }
 
     @Override

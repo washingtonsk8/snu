@@ -64,7 +64,7 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private AnchorPane contentVisualizarMusica;
     @FXML
-    private Label lblLeituras;
+    private Label lblTags;
     @FXML
     private Font x1;
     @FXML
@@ -98,7 +98,7 @@ public class VisualizarMusicaController implements Initializable {
     @FXML
     private Label lblResultadoAfinacao;
     @FXML
-    private Label lblResultadoLeituras;
+    private Label lblResultadoTags;
     @FXML
     private Label lblResultadoTipos;
     @FXML
@@ -196,11 +196,11 @@ public class VisualizarMusicaController implements Initializable {
         this.musica = musica;
         this.controladorOrigem = controladorOrigem;
 
-        String leiturasAssociadas = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getLeiturasAssociadas());
+        String tags = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getTags());
 
         this.lblResultadoAfinacao.setText(musica.getAfinacao().toString());
         this.lblResultadoAutor.setText(musica.getAutor().getNome());
-        this.lblResultadoLeituras.setText((leiturasAssociadas != null && !leiturasAssociadas.isEmpty()) ? leiturasAssociadas : "Não há leituras associadas");
+        this.lblResultadoTags.setText((tags != null && !tags.isEmpty()) ? tags : "Não há tags associadas");
         this.lblResultadoTipos.setText(ListaUtil.getListaSeparadaPorPontoVirgula(musica.getTipos()));
         this.lblResultadoTitulo.setText(musica.getNome());
         this.hplResultadoLinkVideo.setText(musica.getLinkVideo());
@@ -253,7 +253,7 @@ public class VisualizarMusicaController implements Initializable {
     }
 
     @FXML
-    private void onMouseClickedFromLblLeituras(MouseEvent event) {
+    private void onMouseClickedFromLblTags(MouseEvent event) {
     }
 
     @FXML
@@ -350,12 +350,8 @@ public class VisualizarMusicaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final AnchorPane content = this.controladorOrigem.getContent();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentVisualizarMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentVisualizarMusica, pai.getChildren());
     }
 }

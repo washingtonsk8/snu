@@ -15,7 +15,7 @@
                 <URL value="@../../css/contents.css" />
             </stylesheets>
         </Label>
-        <Label fx:id="lblLeituras" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="180.0" onMouseClicked="#onMouseClickedFromLblLeituras" prefWidth="140.0" text="Leituras Associadas:" textFill="BLACK">
+        <Label fx:id="lblTags" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="180.0" onMouseClicked="#onMouseClickedFromLblTags" prefWidth="140.0" text="Tags Associadas:" textFill="BLACK">
             <effect>
                 <Glow />
             </effect>
@@ -74,7 +74,7 @@
         <Label fx:id="lblResultadoTitulo" layoutX="170.0" layoutY="93.0" prefWidth="300.0" text="" />
         <Label fx:id="lblResultadoTom" layoutX="170.0" layoutY="123.0" prefWidth="50.0" text="" />
         <Label fx:id="lblResultadoAfinacao" layoutX="170.0" layoutY="153.0" prefWidth="150.0" text="" />
-        <Label fx:id="lblResultadoLeituras" layoutX="170.0" layoutY="183.0" prefWidth="500.0" text="" />
+        <Label fx:id="lblResultadoTags" layoutX="170.0" layoutY="183.0" prefWidth="500.0" text="" />
         <Label fx:id="lblResultadoTipos" layoutX="170.0" layoutY="213.0" prefWidth="500.0" text="" />
         <Label fx:id="lblEstaImpressa" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="470.0" onMouseClicked="#onMouseClickedFromLblLinkVideo" prefWidth="140.0" text="Está Impressa?" textFill="BLACK">
             <effect>
