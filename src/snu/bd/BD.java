@@ -32,7 +32,7 @@ public class BD {
         Date dataAtual = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 
-        String nomeArquivo = "bkp_snu_" + dateFormat.format(dataAtual);
+        String nomeArquivo = "bkp_snu2_" + dateFormat.format(dataAtual);
 
         String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD()
                 + "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD

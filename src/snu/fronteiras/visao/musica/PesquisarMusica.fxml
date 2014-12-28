@@ -89,18 +89,18 @@
         <RadioButton fx:id="radioNaoEstaImpressa" font="$x2" layoutX="230.0" layoutY="213.0" mnemonicParsing="false" onAction="#onActionFromRadioNaoEstaImpressa" prefHeight="20.0" prefWidth="54.0" text="Não" />
         <ImageView fx:id="iconePesquisar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconePesquisar.png" />
+                <Image smooth="false" url="@../../images/icons/iconePesquisar.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="562.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+                <Image smooth="false" url="@../../images/icons/iconeLimparCampos.png" />
             </image>
         </ImageView>
         <Button fx:id="btnCriarNova" cache="true" font="$x2" layoutX="14.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnCriarNova" prefHeight="40.0" prefWidth="130.0" text="Criar Nova" textFill="BLACK" />
         <ImageView fx:id="iconeCriarNova" fitHeight="18.0" fitWidth="18.0" layoutX="23.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAdicionar.png" />
+                <Image url="@../../images/icons/iconeAdicionar.png" />
             </image>
         </ImageView>    
         <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">

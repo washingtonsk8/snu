@@ -61,12 +61,12 @@
         <Button fx:id="btnGerar" font="$x1" layoutX="220.0" layoutY="180.0" mnemonicParsing="false" onAction="#onActionFromBtnGerar" prefHeight="30.0" prefWidth="100.0" text="Gerar" textFill="BLACK" />
         <ImageView fx:id="iconeCancelar" fitHeight="14.0" fitWidth="14.0" layoutX="106.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeRemover.png" />
+                <Image smooth="false" url="@../../../images/icons/iconeRemover.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconeGerar" fitHeight="16.0" fitWidth="16.0" layoutX="231.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeSalvar.png" />
+                <Image smooth="false" url="@../../../images/icons/iconeSalvar.png" />
             </image>
         </ImageView>
     </children>   

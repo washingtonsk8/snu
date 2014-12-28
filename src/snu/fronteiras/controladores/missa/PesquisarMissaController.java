@@ -7,6 +7,7 @@ package snu.fronteiras.controladores.missa;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -49,6 +50,7 @@ import org.controlsfx.control.PopOver;
 import snu.controladores.MissaJpaController;
 import snu.dto.ParametrosPesquisaMissa;
 import snu.entidades.missa.Missa;
+import snu.entidades.musica.Musica;
 import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
@@ -169,7 +171,25 @@ public class PesquisarMissaController implements Initializable {
 
                             @Override
                             public void handle(ActionEvent event) {
-                                carregarMarcacaoImpressaoEmMassa(linha.itemProperty().get());
+
+                                List<Musica> musicasNaoImpressas
+                                = new ArrayList<>(linha.itemProperty().get().getMusicasUtilizadas());
+                                int i = 0;
+                                while (i < musicasNaoImpressas.size()) {
+                                    if (musicasNaoImpressas.get(i).isImpressa()) {
+                                        musicasNaoImpressas.remove(i);
+                                    } else {
+                                        i++;
+                                    }
+                                }
+
+                                if (!musicasNaoImpressas.isEmpty()) {
+                                    carregarMarcacaoImpressaoEmMassa(musicasNaoImpressas);
+                                } else {
+                                    Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
+                                            "Todas as músicas da Missa selecionada já estão marcadas como impressas.",
+                                            "Aviso!", "Aviso");
+                                }
                             }
                         });
 
@@ -249,7 +269,7 @@ public class PesquisarMissaController implements Initializable {
         }
     }
 
-    private void carregarMarcacaoImpressaoEmMassa(Missa missaSelecionada) {
+    private void carregarMarcacaoImpressaoEmMassa(List<Musica> musicasNaoImpressas) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/popups/MarcarImpressaoMassa.fxml"));
         AnchorPane root = null;
         try {
@@ -264,7 +284,8 @@ public class PesquisarMissaController implements Initializable {
 
         //Inicializa os dados passando a música por parâmetro
         MarcarImpressaoMassaController marcarImpressaoMassa = fxmlLoader.getController();
-        marcarImpressaoMassa.initData(missaSelecionada);
+
+        marcarImpressaoMassa.initData(musicasNaoImpressas);
 
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Marcação de Impressão em Lote");
@@ -368,7 +389,6 @@ public class PesquisarMissaController implements Initializable {
             montarMissaSelecaoController.initData(this);
             pai.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
-
         } catch (IOException ex) {
             log.error("Erro ao carregar tela de Montagem de Missa", ex);
             Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar tela de Montagem de Missa."
@@ -382,7 +402,9 @@ public class PesquisarMissaController implements Initializable {
     }
 
     public void atualizar() {
-        pesquisarPorParametros();
+        if (!tblMissas.getItems().isEmpty()) {
+            pesquisarPorParametros();
+        }
     }
 
     public void atualizarTabela() {

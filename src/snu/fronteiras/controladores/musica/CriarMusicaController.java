@@ -293,7 +293,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             }
             this.musica.setTags(tags);
         } else {
-            this.musica.setTags(new ArrayList<Tag>());
+            this.musica.setTags(new ArrayList<>());
         }
 
         //Persistindo no banco (PS.: Realizar antes da indexação!!!)
@@ -311,58 +311,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                             "Erro!", "Erro", ex);
                 }
             });
-        }
-    }
-
-    private void questionamentoFinalArmazenamento() {
-        if (StringUtil.isVazia(this.musica.getDocumentoMusica().getConteudo())) {
-            Dialogs.DialogResponse resposta;
-            resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
-                    "O conteúdo da Música não foi escrito."
-                    + "\nDeseja ir para a página de atualização?", "Confirmação", "Confirmação");
-            if (resposta.equals(Dialogs.DialogResponse.YES)) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarMusica.fxml"));
-
-                Parent root = null;
-                try {
-                    root = (Parent) fxmlLoader.load();
-                } catch (IOException ex) {
-                    log.error("Erro ao carregar tela de Atualização de Música", ex);
-                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
-                            "Erro ao carregar tela de Atualização de Música."
-                            + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
-                }
-
-                this.controladorOrigem.atualizar();
-
-                final AnchorPane content = this.controladorOrigem.getContent();
-
-                //Limpa o conteúdo anterior e carrega a página
-                AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-                pai.getChildren().clear();
-                pai.getChildren().add(content);
-                EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
-            } else {
-                this.controladorOrigem.atualizar();
-
-                final Parent root = (Parent) this.controladorOrigem.getContent();
-
-                //Limpa o conteúdo anterior e carrega a página
-                AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-                pai.getChildren().clear();
-                pai.getChildren().add(root);
-                EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
-            }
-        } else {
-            this.controladorOrigem.atualizar();
-
-            final AnchorPane content = this.controladorOrigem.getContent();
-
-            //Limpa o conteúdo anterior e carrega a página
-            AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
-            pai.getChildren().clear();
-            pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
         }
     }
 
@@ -704,7 +652,6 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
         escreverMusicaController.initData(musica, this);
-        pai.getChildren().clear();
         pai.getChildren().add(root);
         EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }
@@ -871,7 +818,11 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                             case SUCCEEDED:
                                 Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
                                         "A Música foi salva com sucesso!", "Sucesso!", "Informação");
-                                questionamentoFinalArmazenamento();
+                                controladorOrigem.atualizar();
+
+                                //Carrega a página anterior
+                                AnchorPane pai = ((AnchorPane) contentCriarMusica.getParent());
+                                EfeitosUtil.rodarEfeitoCarregamentoFadeOut(contentCriarMusica, pai.getChildren());
                                 dialogStage.close();
                                 break;
                             case CANCELLED:
@@ -918,7 +869,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
     }
 
     @FXML
-    private void onMouseClickedFromImgVoltar(MouseEvent event) {        
+    private void onMouseClickedFromImgVoltar(MouseEvent event) {
         //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentCriarMusica.getParent());
         EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentCriarMusica, pai.getChildren());

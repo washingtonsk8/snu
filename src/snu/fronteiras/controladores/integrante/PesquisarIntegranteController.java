@@ -365,7 +365,9 @@ public class PesquisarIntegranteController implements Initializable {
     }
 
     public void atualizar() {
-        pesquisarPorParametros();
+        if (!tblIntegrantes.getItems().isEmpty()) {
+            pesquisarPorParametros();
+        }
     }
 
     private void atualizarTabela() {

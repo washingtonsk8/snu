@@ -146,12 +146,12 @@
         <RadioButton fx:id="radioNaoEstaImpressa" font="$x2" layoutX="245.0" layoutY="476.0" mnemonicParsing="false" onAction="#onActionFromRadioNaoEstaImpressa" prefHeight="20.0" prefWidth="54.0" text="Não" />
         <ImageView fx:id="iconeEditar" fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeEditar.png" />
+                <Image smooth="false" url="@../../images/icons/iconeEditar.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+                <Image smooth="false" url="@../../images/icons/iconeOk.png" />
             </image>
         </ImageView>    
         <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

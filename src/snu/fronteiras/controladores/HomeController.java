@@ -45,6 +45,14 @@ public class HomeController implements Initializable {
     private ImageView iconeConfiguracoes;
     @FXML
     private ImageView iconeAutores;
+    @FXML
+    private ImageView iconeAjuda;
+
+    private Parent rootPesquisaIntegrante;
+
+    private Parent rootPesquisaMusica;
+
+    private Parent rootPesquisaMissa;
 
     /**
      * Fábrica Singleton do sistema
@@ -53,8 +61,6 @@ public class HomeController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(HomeController.class.getName());
-    @FXML
-    private ImageView iconeAjuda;
 
     private void initComponents() {
         instancia = this;
@@ -79,6 +85,25 @@ public class HomeController implements Initializable {
         BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeConfiguracoes);
         BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeAutores);
         BotoesImagemUtil.definirComportamentoTelaInicial(this.iconeAjuda);
+
+        carregarTelasPesquisa();
+    }
+
+    public void carregarTelasPesquisa() {
+        FXMLLoader fxmlLoaderPesquisaIntegrante = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/PesquisarIntegrante.fxml"));
+        FXMLLoader fxmlLoaderPesquisaMissa = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/PesquisarMissa.fxml"));
+        FXMLLoader fxmlLoaderPesquisaMusica = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/PesquisarMusica.fxml"));
+
+        try {
+            this.rootPesquisaIntegrante = (Parent) fxmlLoaderPesquisaIntegrante.load();
+            this.rootPesquisaMissa = (Parent) fxmlLoaderPesquisaMissa.load();
+            this.rootPesquisaMusica = (Parent) fxmlLoaderPesquisaMusica.load();
+
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Pesquisa de Integrante/Música/Missa", ex);
+            Dialogs.showErrorDialog(getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+        }
     }
 
     /**
@@ -94,38 +119,18 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onClickFromIconeIntegrantes(MouseEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/PesquisarIntegrante.fxml"));
-
-        try {
-            Parent root = (Parent) fxmlLoader.load();
-
-            //Limpa o conteúdo anterior e carrega a página
-            this.contentHome.getChildren().clear();
-            this.contentHome.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Pesquisa de Integrante", ex);
-            Dialogs.showErrorDialog(getStage(),
-                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-        }
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentHome.getChildren().clear();
+        this.contentHome.getChildren().add(this.rootPesquisaIntegrante);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(this.rootPesquisaIntegrante);
     }
 
     @FXML
     private void onClickFromIconeMusicas(MouseEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/PesquisarMusica.fxml"));
-
-        try {
-            Parent root = (Parent) fxmlLoader.load();
-
-            //Limpa o conteúdo anterior e carrega a página
-            this.contentHome.getChildren().clear();
-            this.contentHome.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Pesquisa de Músicas", ex);
-            Dialogs.showErrorDialog(getStage(),
-                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-        }
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentHome.getChildren().clear();
+        this.contentHome.getChildren().add(this.rootPesquisaMusica);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(this.rootPesquisaMusica);
     }
 
     @FXML
@@ -149,20 +154,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onClickFromIconeMissas(MouseEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/PesquisarMissa.fxml"));
-
-        try {
-            Parent root = (Parent) fxmlLoader.load();
-
-            //Limpa o conteúdo anterior e carrega a página
-            this.contentHome.getChildren().clear();
-            this.contentHome.getChildren().add(root);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
-        } catch (IOException ex) {
-            log.error("Erro ao carregar tela de Pesquisa de Missa", ex);
-            Dialogs.showErrorDialog(getStage(),
-                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
-        }
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentHome.getChildren().clear();
+        this.contentHome.getChildren().add(this.rootPesquisaMissa);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(this.rootPesquisaMissa);
     }
 
     @FXML

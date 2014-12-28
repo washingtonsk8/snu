@@ -477,14 +477,10 @@ public class CadastrarIntegranteController implements Initializable {
 
             //Atualiza a página adicionando o novo integrante cadastrado
             this.controladorOrigem.atualizar();
-
-            final AnchorPane content = this.controladorOrigem.getContent();
-
-            //Limpa o conteúdo anterior e carrega a página
+            
+            //Carrega a página anterior
             AnchorPane pai = ((AnchorPane) this.contentCadastrarIntegrante.getParent());
-            pai.getChildren().clear();
-            pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentCadastrarIntegrante, pai.getChildren());
         } else {
             Dialogs.showWarningDialog(HomeController.getInstancia().getStage(), "Favor corrigir os campos assinalados.", "Campos Inválidos!", "Aviso");
         }

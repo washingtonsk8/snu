@@ -73,6 +73,12 @@ public class EscreverMusicaController implements Initializable {
     private ImageView iconeOk;
     @FXML
     private ImageView imgVoltar;
+    @FXML
+    private Label lblEspacamentoEntreAcordes;
+    @FXML
+    private ImageView iconeAumentoEspacamento;
+    @FXML
+    private ImageView iconeReducaoEspacamento;
 
     private FadeTransition fadeInPreVisualizarIntroducao;
 
@@ -135,6 +141,8 @@ public class EscreverMusicaController implements Initializable {
 
         BotoesImagemUtil.definirComportamento(this.imgInicio);
         BotoesImagemUtil.definirComportamento(this.imgVoltar);
+        BotoesImagemUtil.definirComportamento(this.iconeAumentoEspacamento);
+        BotoesImagemUtil.definirComportamento(this.iconeReducaoEspacamento);
     }
 
     /**
@@ -168,7 +176,9 @@ public class EscreverMusicaController implements Initializable {
         if (conteudoMusica != null && !this.acordesDetectados) {
             this.acordesDetectados = conteudoMusica.contains("@");
         }
-        this.btnDetectarAcordes.setDisable(this.acordesDetectados);
+        this.btnDetectarAcordes.setDisable(this.acordesDetectados);        
+        this.iconeAumentoEspacamento.setMouseTransparent(!this.acordesDetectados);
+        this.iconeReducaoEspacamento.setMouseTransparent(!this.acordesDetectados);
     }
 
     @FXML
@@ -191,6 +201,9 @@ public class EscreverMusicaController implements Initializable {
         String conteudoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(conteudoMusica);
         this.areaEscreverMusica.setText(conteudoMusicaComAcordesDetectados);
 
+        this.iconeAumentoEspacamento.setMouseTransparent(false);
+        this.iconeReducaoEspacamento.setMouseTransparent(false);
+        
         //Desabilitar botão para eliminar possível recursão de detecção
         this.btnDetectarAcordes.setDisable(true);
         this.acordesDetectados = true;
@@ -201,13 +214,9 @@ public class EscreverMusicaController implements Initializable {
         this.musica.getDocumentoMusica().setIntroducao(this.fldIntroducao.getText());
         this.musica.getDocumentoMusica().setConteudo(this.areaEscreverMusica.getText());
 
-        final AnchorPane content = this.controladorOrigem.getContentPane();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(content);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentEscreverMusica, pai.getChildren());
     }
 
     @FXML
@@ -222,6 +231,9 @@ public class EscreverMusicaController implements Initializable {
         if (StringUtil.hasAlgo(conteudoMusica)) {
             this.areaEscreverMusica.setText(conteudoMusica.replace("@", ""));
         }
+        
+        this.iconeAumentoEspacamento.setMouseTransparent(true);
+        this.iconeReducaoEspacamento.setMouseTransparent(true);
 
         //Reabilitar o botão de detecção de acordes
         this.btnDetectarAcordes.setDisable(false);
@@ -273,6 +285,22 @@ public class EscreverMusicaController implements Initializable {
     }
 
     @FXML
+    private void onMouseClickedFromIconeAumentoEspacamento(MouseEvent event) {
+        String conteudo = this.areaEscreverMusica.getText();
+        conteudo = conteudo.replaceAll("@", " @");
+        this.areaEscreverMusica.setText(conteudo);
+        this.areaPreVisualizarEscreverMusica.setText(MusicaUtil.limparParaImpressao(conteudo));
+    }
+
+    @FXML
+    private void onMouseClickedFromIconeReducaoEspacamento(MouseEvent event) {
+        String conteudo = this.areaEscreverMusica.getText();
+        conteudo = conteudo.replaceAll("  @", " @");
+        this.areaEscreverMusica.setText(conteudo);
+        this.areaPreVisualizarEscreverMusica.setText(MusicaUtil.limparParaImpressao(conteudo));
+    }
+
+    @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
         boolean conteudoIdentico = MusicaUtil.isConteudoIdentico(this.musica,
                 this.fldIntroducao.getText(), this.areaEscreverMusica.getText());
@@ -283,13 +311,9 @@ public class EscreverMusicaController implements Initializable {
                         "Cancelamento", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
-            final AnchorPane content = this.controladorOrigem.getContentPane();
-
-            //Limpa o conteúdo anterior e carrega a página
+            //Carrega a página anterior
             AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
-            pai.getChildren().clear();
-            pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentEscreverMusica, pai.getChildren());
         }
     }
 }

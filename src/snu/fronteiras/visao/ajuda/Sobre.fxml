@@ -15,15 +15,15 @@
                 <Image url="@../../images/logo.png" />
             </image>
         </ImageView>
-        <Label layoutX="213.0" layoutY="14.0" prefWidth="373.0" text="Sistema desenvolvido para melhorar a gerência das músicas de um ministério de música, especificamente do Ministério de Música Nova Unção. Qualquer dúvida, sugestão ou, comentário, favor entrar em contato com o administrador e desenvolvedor do sistema, Washington Luis de Souza Ramos através do e-mail washington.ramos@outlook.com." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+        <Label layoutX="213.0" layoutY="14.0" prefHeight="200.0" prefWidth="373.0" text="Sistema desenvolvido para melhorar a gerência das músicas de um ministério de música, especificamente do Ministério de Música Nova Unção. Qualquer dúvida, sugestão e/ou comentário, favor entrar em contato com o administrador e desenvolvedor do sistema, Washington Luis de Souza Ramos através do e-mail washington.ramos@outlook.com." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
             <effect>
-                <Glow />
+                <Glow level="0.5" />
             </effect>
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label fx:id="lblVersao" layoutX="213.0" layoutY="210.0" prefHeight="-1.0" prefWidth="-1.0" text="Versão:" textFill="BLACK" wrapText="true">
+        <Label fx:id="lblVersao" layoutX="213.0" layoutY="215.0" prefHeight="-1.0" prefWidth="-1.0" text="Versão:" textFill="BLACK" wrapText="true">
             <effect>
                 <Glow />
             </effect>
@@ -31,7 +31,7 @@
                 <Font size="18.0" fx:id="x1" />
             </font>
         </Label>
-        <Label fx:id="lblResultadoVersao" font="$x1" layoutX="280.0" layoutY="210.0" prefHeight="-1.0" prefWidth="-1.0" text="" textFill="BLACK" wrapText="true">
+        <Label fx:id="lblResultadoVersao" font="$x1" layoutX="280.0" layoutY="215.0" prefHeight="-1.0" prefWidth="-1.0" text="" textFill="BLACK" wrapText="true">
             <effect>
                 <Glow />
             </effect>

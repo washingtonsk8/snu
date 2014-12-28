@@ -516,7 +516,7 @@ public class AtualizarIntegranteController implements Initializable {
     private void onMouseClickedFromImgInicio(MouseEvent event) {
         FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
-    
+
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
         //Carrega a página anterior

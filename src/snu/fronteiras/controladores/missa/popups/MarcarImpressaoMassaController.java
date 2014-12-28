@@ -5,15 +5,23 @@
  */
 package snu.fronteiras.controladores.missa.popups;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -26,12 +34,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import org.apache.log4j.Logger;
 import snu.controladores.MusicaJpaController;
-import snu.entidades.missa.Missa;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.HomeController;
+import snu.fronteiras.controladores.geral.ProgressoController;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 
@@ -63,7 +74,7 @@ public class MarcarImpressaoMassaController implements Initializable {
 
     private List<Musica> musicasSelecionadas;
 
-    private Missa missa;
+    private List<Musica> musicasNaoImpressas;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(MarcarImpressaoMassaController.class.getName());
@@ -72,8 +83,8 @@ public class MarcarImpressaoMassaController implements Initializable {
         this.musicasSelecionadas = new ArrayList<>();
     }
 
-    public void initData(Missa missa) {
-        this.missa = missa;
+    public void initData(List<Musica> musicasNaoImpressas) {
+        this.musicasNaoImpressas = musicasNaoImpressas;
 
         this.listMarcarImpressaoMassa.setCellFactory(new Callback<ListView<Musica>, ListCell<Musica>>() {
             @Override
@@ -94,7 +105,7 @@ public class MarcarImpressaoMassaController implements Initializable {
         });
 
         this.listMarcarImpressaoMassa.setItems(
-                FXCollections.observableArrayList(this.missa.getMusicasUtilizadas()));
+                FXCollections.observableArrayList(this.musicasNaoImpressas));
     }
 
     /**
@@ -123,25 +134,91 @@ public class MarcarImpressaoMassaController implements Initializable {
     private void onActionFromBtnCancelarSelecoes(ActionEvent event) {
         this.musicasSelecionadas.clear();
         this.listMarcarImpressaoMassa.setItems(
-                FXCollections.observableArrayList(this.missa.getMusicasUtilizadas()));
+                FXCollections.observableArrayList(this.musicasNaoImpressas));
         atualizarLista();
     }
 
     @FXML
     private void onActionFromBtnOk(ActionEvent event) {
-        MusicaJpaController musicaJpaController = MusicaJpaController.getInstancia();
-        try {
-            musicaJpaController.marcarComoImpressas(this.musicasSelecionadas);
 
-            Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
-                    "As Músicas foram atualizadas com sucesso!", "Sucesso!", "Informação");
-            this.popupMarcarImpressaoMassa.getScene().getWindow().hide();
-        } catch (Exception ex) {
-            log.error("Erro ao marcar músicas como impressas", ex);
-            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
-                    "Erro ao marcar músicas como impressas!\nFavor entrar em contato com o Administrador.",
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar popup de Progresso", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar popup de Progresso."
+                    + "\nFavor entrar em contato com o Administrador.",
                     "Erro!", "Erro", ex);
         }
+
+        ProgressoController progressoController = fxmlLoader.getController();
+        progressoController.initData("Realizando a atualização das músicas. Aguarde...");
+        progressoController.setProgresso(-1.0);
+
+        final Stage dialogStage = new Stage();
+        dialogStage.setTitle("Por Favor Aguarde...");
+        dialogStage.toFront();
+        dialogStage.setResizable(false);
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(this.popupMarcarImpressaoMassa.getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+
+        final Task task = new Task<Void>() {
+            @Override
+            public Void call() {
+                MusicaJpaController musicaJpaController = MusicaJpaController.getInstancia();
+                try {
+                    musicaJpaController.marcarComoImpressas(musicasSelecionadas);
+                } catch (Exception ex) {
+                    log.error("Erro ao marcar músicas como impressas.");
+                    Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                            "Erro ao marcar músicas como impressas.",
+                            "Erro!", "Erro", ex);
+                }
+                return null;
+            }
+        };
+
+        dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if (task.isRunning()) {
+                    event.consume();
+                }
+            }
+        });
+
+        task.stateProperty().addListener(new ChangeListener<Task.State>() {
+            @Override
+            public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                switch (state) {
+                    case RUNNING:
+                        dialogStage.showAndWait();
+                        break;
+                    case SUCCEEDED:
+                        Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
+                                "As Músicas foram atualizadas com sucesso!", "Sucesso!", "Informação");
+                        dialogStage.close();
+                        popupMarcarImpressaoMassa.getScene().getWindow().hide();
+                        break;
+                    case CANCELLED:
+                    case FAILED:
+                        Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                                "Erro ao marcar músicas como impressas.",
+                                "Erro!", "Erro");
+                        dialogStage.close();
+                        break;
+                    case SCHEDULED:
+                    case READY:
+                        break;
+                    default:
+                        dialogStage.close();
+                        break;
+                }
+            }
+        });
+        new Thread(task).start();
     }
 
     @FXML

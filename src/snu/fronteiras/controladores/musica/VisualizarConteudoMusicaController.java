@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -112,12 +111,8 @@ public class VisualizarConteudoMusicaController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        final Parent root = this.controladorOrigem.getContentVisualizarMusica();
-
-        //Limpa o conteúdo anterior e carrega a página
+        //Carrega a página anterior
         AnchorPane pai = ((AnchorPane) this.contentVisualizarConteudoMusica.getParent());
-        pai.getChildren().clear();
-        pai.getChildren().add(root);
-        EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
+        EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentVisualizarConteudoMusica, pai.getChildren());
     }
 }

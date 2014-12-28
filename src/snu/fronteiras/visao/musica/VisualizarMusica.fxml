@@ -90,7 +90,7 @@
         </Button>
         <ImageView fx:id="iconeVisualizarConteudo" fitHeight="18.0" fitWidth="18.0" layoutX="616.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeArquivo.png" />
+                <Image smooth="false" url="@../../images/icons/iconeArquivo.png" />
             </image>
         </ImageView>    
         <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

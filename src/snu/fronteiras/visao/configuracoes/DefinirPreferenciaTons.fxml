@@ -84,7 +84,7 @@
         <Slider fx:id="sldTonsAB" layoutX="142.0" layoutY="280.0" prefHeight="30.0" prefWidth="40.0" />
         <ImageView fx:id="iconeOk" fitHeight="16.0" fitWidth="16.0" layoutX="240.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+                <Image smooth="false" url="@../../images/icons/iconeOk.png" />
             </image>
         </ImageView>
     </children>

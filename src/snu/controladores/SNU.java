@@ -54,7 +54,7 @@ public class SNU extends Application {
 
             configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
             configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistema();
-            
+
             if (configuracoesSistema == null) {
                 ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
                 novasConfiguracoesSistema.setVersao(VERSAO);

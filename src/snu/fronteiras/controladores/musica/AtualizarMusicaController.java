@@ -764,7 +764,6 @@ public class AtualizarMusicaController implements Initializable, ControladorDeCo
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
         escreverMusicaController.initData(musica, this);
-        pai.getChildren().clear();
         pai.getChildren().add(root);
         EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }

@@ -209,7 +209,6 @@ public class MontarMissaSelecaoController implements Initializable {
         //Limpa o conteúdo anterior e carrega a página
         AnchorPane pai = ((AnchorPane) this.contentMontarMissaSelecao.getParent());
         montarMissaOrganizacaoController.initData(this.musicasSelecionadas, this, this.controladorOrigem);
-        pai.getChildren().clear();
         pai.getChildren().add(root);
         EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
     }

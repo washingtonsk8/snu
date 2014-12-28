@@ -51,7 +51,7 @@
         </Label>
         <ImageView fx:id="iconeOk" fitHeight="20.0" fitWidth="20.0" layoutX="698.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+                <Image smooth="false" url="@../../images/icons/iconeOk.png" />
             </image>
         </ImageView>    
         <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -64,6 +64,27 @@
                 <Image smooth="false" url="@../../images/icons/home.png" />
             </image>
         </ImageView>
+      <Label fx:id="lblEspacamentoEntreAcordes" alignment="CENTER" layoutX="686.0" layoutY="390.0" prefHeight="50.0" prefWidth="100.0" text="Espaçamento entre acordes" textAlignment="LEFT" textFill="BLACK" wrapText="true">
+         <effect>
+            <Glow />
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+         <tooltip>
+            <Tooltip text="Disponível somente com detecção de acordes realizada" />
+         </tooltip>
+      </Label>
+      <ImageView fx:id="iconeAumentoEspacamento" fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" onMouseClicked="#onMouseClickedFromIconeAumentoEspacamento" pickOnBounds="true" preserveRatio="true" x="696.0" y="445.0">
+         <image>
+            <Image url="@../../images/icons/iconeAdicionar.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="iconeReducaoEspacamento" fitHeight="23.0" fitWidth="23.0" mouseTransparent="true" onMouseClicked="#onMouseClickedFromIconeReducaoEspacamento" pickOnBounds="true" preserveRatio="true" x="746.0" y="446.0">
+         <image>
+            <Image url="@../../images/icons/iconeReduzir.png" />
+         </image>
+      </ImageView>
     </children>
     <stylesheets>
         <URL value="@../../css/contents.css" />

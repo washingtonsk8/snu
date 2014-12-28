@@ -47,18 +47,18 @@
         </TableView>
         <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="563.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+                <Image smooth="false" url="@../../images/icons/iconeLimparCampos.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconePesquisar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconePesquisar.png" />
+                <Image url="@../../images/icons/iconePesquisar.png" />
             </image>
         </ImageView>
         <Button fx:id="btnCriarNovo" cache="true" font="$x2" layoutX="14.0" layoutY="149.0" mnemonicParsing="false" onAction="#onActionFromBtnCriarNovo" prefHeight="40.0" prefWidth="130.0" text="Criar Novo" textFill="BLACK" />
         <ImageView fx:id="iconeCriarNovo" fitHeight="18.0" fitWidth="18.0" layoutX="23.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAdicionar.png" />
+                <Image url="@../../images/icons/iconeAdicionar.png" />
             </image>
         </ImageView>
         <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">

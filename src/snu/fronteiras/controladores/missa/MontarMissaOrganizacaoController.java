@@ -222,7 +222,7 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 }
             }
         });
-        
+
         BotoesImagemUtil.definirComportamento(this.imgInicio);
         BotoesImagemUtil.definirComportamento(this.imgVoltar);
     }
@@ -1025,7 +1025,6 @@ public class MontarMissaOrganizacaoController implements Initializable {
             //Limpa o conteúdo anterior e carrega a página
             AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
             montarMissaFinalizacaoController.initData(this.missa, this.mapaMusicasMissa, this, this.controladorPesquisa);
-            pai.getChildren().clear();
             pai.getChildren().add(root);
             EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
         }
@@ -1034,8 +1033,8 @@ public class MontarMissaOrganizacaoController implements Initializable {
     public AnchorPane getContent() {
         return this.contentMontarMissaOrganizacao;
     }
-    
-    public MontarMissaSelecaoController getControladorOrigem(){
+
+    public MontarMissaSelecaoController getControladorOrigem() {
         return this.controladorOrigem;
     }
 
@@ -1046,13 +1045,9 @@ public class MontarMissaOrganizacaoController implements Initializable {
                 "Voltar para tela de Seleção de Músicas", "Confirmação");
 
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
-            final AnchorPane content = this.controladorOrigem.getContent();
-
-            //Limpa o conteúdo anterior e carrega a página
+            //Carrega a página anterior
             AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
-            pai.getChildren().clear();
-            pai.getChildren().add(content);
-            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(content);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentMontarMissaOrganizacao, pai.getChildren());
         }
     }
 }

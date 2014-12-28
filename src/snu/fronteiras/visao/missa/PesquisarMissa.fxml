@@ -44,12 +44,12 @@
         <DatePicker fx:id="dpDataAcontecimento" layoutX="200.0" layoutY="90.0" onAction="#onActionFromDpDataAcontecimento" prefWidth="150.0" promptText="DD/MM/AAAA" />
         <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="562.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+                <Image smooth="false" url="@../../images/icons/iconeLimparCampos.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconePesquisar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconePesquisar.png" />
+                <Image smooth="false" url="@../../images/icons/iconePesquisar.png" />
             </image>
         </ImageView>
         <Button fx:id="btnMontarMissa" layoutX="14.0" layoutY="135.0" mnemonicParsing="false" onAction="#onActionFromBtnMontarMissa" prefHeight="40.0" prefWidth="180.0" text="Montar Nova Missa" textFill="BLACK">

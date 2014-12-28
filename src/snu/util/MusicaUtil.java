@@ -148,7 +148,7 @@ public class MusicaUtil {
             }
         }
         //Remove as irregularidades e retorna
-        return trocarPelasPreferencias(removerIrregularidades(conteudoSaida.toString())); 
+        return trocarPelasPreferencias(removerIrregularidades(conteudoSaida.toString()));
     }
 
     private static String removerIrregularidades(String entrada) {

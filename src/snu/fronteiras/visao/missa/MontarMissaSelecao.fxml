@@ -65,17 +65,17 @@
         <Button fx:id="btnLimpar" font="$x1" layoutX="556.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
         <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="562.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+                <Image smooth="false" url="@../../images/icons/iconeLimparCampos.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconePesquisar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconePesquisar.png" />
+                <Image smooth="false" url="@../../images/icons/iconePesquisar.png" />
             </image>
         </ImageView>
         <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAvancar.png" />
+                <Image smooth="false" url="@../../images/icons/iconeAvancar.png" />
             </image>
         </ImageView>        
         <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

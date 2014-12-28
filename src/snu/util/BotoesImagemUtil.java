@@ -18,7 +18,6 @@ public class BotoesImagemUtil {
     private static final Double TAMANHO_ORIGINAL_IMAGEM = 1.0;
     private static final Double TAMANHO_AUMENTADO_IMAGEM = 1.15;
     private static final Double TAMANHO_AUMENTADO_IMAGEM_TELA_INICIAL = 1.05;
-    
 
     private static boolean isMouseSobre(final ImageView imagem, MouseEvent evento) {
         return (evento.getX() > 0 && evento.getX() < (imagem.getFitWidth() * imagem.getScaleX()))
@@ -62,7 +61,7 @@ public class BotoesImagemUtil {
             }
         });
     }
-    
+
     public static void definirComportamentoTelaInicial(final ImageView imagem) {
         imagem.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override

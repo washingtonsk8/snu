@@ -33,7 +33,7 @@
         <ListView fx:id="listSelecionarAutor" layoutX="276.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromListSelecionarAutor" prefHeight="320.0" prefWidth="210.0" />
         <ImageView fx:id="iconeAdicionarNovo" fitHeight="16.0" fitWidth="16.0" layoutX="55.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAdicionar.png" />
+                <Image smooth="false" url="@../../../images/icons/iconeAdicionar.png" />
             </image>
         </ImageView>
     </children>

@@ -35,7 +35,7 @@
         <Button fx:id="btnSalvar" font="$x1" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
         <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
             <image>
-                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+                <Image smooth="false" url="@../../images/icons/iconeOk.png" />
             </image>
         </ImageView>        
         <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

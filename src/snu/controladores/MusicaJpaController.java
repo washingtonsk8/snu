@@ -59,7 +59,7 @@ public class MusicaJpaController implements Serializable {
 
     public void create(Musica musica) {
         if (musica.getAssociacoes() == null) {
-            musica.setAssociacoes(new ArrayList<AssociacaoIntegranteMusica>());
+            musica.setAssociacoes(new ArrayList<>());
         }
         EntityManager em = null;
         try {

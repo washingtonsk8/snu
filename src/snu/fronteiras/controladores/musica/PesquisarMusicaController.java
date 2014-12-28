@@ -66,7 +66,7 @@ import snu.util.StringUtil;
  * @author Washington Luis
  */
 public class PesquisarMusicaController implements Initializable {
-    
+
     @FXML
     private AnchorPane contentPesquisarMusica;
     @FXML
@@ -161,72 +161,72 @@ public class PesquisarMusicaController implements Initializable {
     private Button btnCriarNova;
     @FXML
     private ImageView iconeCriarNova;
-    
+
     private List<Pair<TipoMusica, CheckBox>> parTiposMusicaCheckBoxes;
-    
+
     private List<TipoMusica> tiposMusica;
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(PesquisarMusicaController.class.getName());
-    
+
     private void initComponents() {
         this.tiposMusica = new ArrayList<>();
-        
+
         this.tblMusicas.setRowFactory(
                 new Callback<TableView<Musica>, TableRow<Musica>>() {
                     @Override
                     public TableRow<Musica> call(TableView<Musica> tableView) {
                         final TableRow<Musica> linha = new TableRow<>();
                         final ContextMenu menuContexto = new ContextMenu();
-                        
+
                         ImageView iconeVisualizar = new ImageView("/snu/fronteiras/images/icons/iconeVisualizar.png");
                         iconeVisualizar.setFitHeight(10.);
                         iconeVisualizar.setFitWidth(15.);
                         MenuItem itemVisualizarMusica = new MenuItem("Visualizar", iconeVisualizar);
                         itemVisualizarMusica.setOnAction(new EventHandler<ActionEvent>() {
-                            
+
                             @Override
                             public void handle(ActionEvent event) {
                                 carregarVisualizacaoMusica(linha.itemProperty().get());
                             }
                         });
-                        
+
                         ImageView iconeAtualizar = new ImageView("/snu/fronteiras/images/icons/iconeEditar.png");
                         iconeAtualizar.setFitHeight(12.);
                         iconeAtualizar.setFitWidth(12.);
                         MenuItem itemAtualizarMusica = new MenuItem("Atualizar", iconeAtualizar);
                         itemAtualizarMusica.setOnAction(new EventHandler<ActionEvent>() {
-                            
+
                             @Override
                             public void handle(ActionEvent event) {
                                 carregarAtualizacaoMusica(linha.itemProperty().get());
                             }
                         });
-                        
+
                         ImageView iconeRemover = new ImageView("/snu/fronteiras/images/icons/iconeRemover.png");
                         iconeRemover.setFitHeight(12.);
                         iconeRemover.setFitWidth(12.);
                         MenuItem itemRemoverMusica = new MenuItem("Remover", iconeRemover);
                         itemRemoverMusica.setOnAction(new EventHandler<ActionEvent>() {
-                            
+
                             @Override
                             public void handle(ActionEvent event) {
                                 removerMusicaSelecionada(linha.itemProperty().get());
                             }
                         });
-                        
+
                         ImageView iconeImpressao = new ImageView("/snu/fronteiras/images/icons/iconeImpressao.png");
                         iconeImpressao.setFitHeight(12.);
                         iconeImpressao.setFitWidth(12.);
                         MenuItem itemGerarImpressao = new MenuItem("Gerar Impressão", iconeImpressao);
                         itemGerarImpressao.setOnAction(new EventHandler<ActionEvent>() {
-                            
+
                             @Override
                             public void handle(ActionEvent event) {
                                 gerarImpressaoMusicaSelecionada(linha.itemProperty().get());
                             }
                         });
-                        
+
                         menuContexto.getItems().addAll(itemVisualizarMusica,
                                 itemAtualizarMusica, itemRemoverMusica, itemGerarImpressao);
 
@@ -246,20 +246,20 @@ public class PesquisarMusicaController implements Initializable {
                         return linha;
                     }
                 });
-        
+
         this.clnAutor.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
                 return new SimpleStringProperty(musica.getValue().getAutor().getNome());
             }
         });
-        
+
         this.clnTitulo.setCellValueFactory(new PropertyValueFactory<>("nome"));
         this.clnTags.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
                 String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getTags());
-                
+
                 if (!celula.isEmpty()) {
                     return new SimpleStringProperty(celula);
                 } else {
@@ -267,16 +267,16 @@ public class PesquisarMusicaController implements Initializable {
                 }
             }
         });
-        
+
         this.clnTipos.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
                 String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getTipos());
-                
+
                 return new SimpleStringProperty(celula);
             }
         });
-        
+
         this.clnEstaImpressa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
@@ -304,15 +304,15 @@ public class PesquisarMusicaController implements Initializable {
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ORACAO, this.checkOracao));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.ESPECIAL, this.checkEspecial));
         this.parTiposMusicaCheckBoxes.add(new Pair<>(TipoMusica.OUTRA, this.checkOutra));
-        
+
         final ToggleGroup grupo = new ToggleGroup();
-        
+
         this.radioEstaImpressa.setToggleGroup(grupo);
         this.radioNaoEstaImpressa.setToggleGroup(grupo);
-        
+
         BotoesImagemUtil.definirComportamento(this.imgInicio);
     }
-    
+
     private void pesquisarPorParametros() {
         ParametrosPesquisaMusica parametrosPesquisa = new ParametrosPesquisaMusica();
         parametrosPesquisa.setNomeAutor(this.fldAutor.getText());
@@ -320,13 +320,13 @@ public class PesquisarMusicaController implements Initializable {
         parametrosPesquisa.setTipos(this.tiposMusica);
         parametrosPesquisa.setNomeMusica(this.fldTitulo.getText());
         parametrosPesquisa.setTrecho(this.fldTrecho.getText());
-        
+
         if (this.radioEstaImpressa.isSelected()) {
             parametrosPesquisa.setImpressa(Boolean.TRUE);
         } else if (this.radioNaoEstaImpressa.isSelected()) {
             parametrosPesquisa.setImpressa(Boolean.FALSE);
         }
-        
+
         try {
             List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
                     .findMusicasByParametrosPesquisa(parametrosPesquisa);
@@ -339,12 +339,12 @@ public class PesquisarMusicaController implements Initializable {
                     "Erro!", "Erro", ex);
         }
     }
-    
+
     private void carregarCriacaoMusica() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/CriarMusica.fxml"));
         try {
             Parent root = (Parent) fxmlLoader.load();
-            
+
             CriarMusicaController criarMusicaController = fxmlLoader.getController();
 
             //Limpa o conteúdo anterior e carrega a página
@@ -359,13 +359,13 @@ public class PesquisarMusicaController implements Initializable {
                     "Erro!", "Erro", ex);
         }
     }
-    
+
     private void carregarAtualizacaoMusica(Musica musicaSelecionada) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/AtualizarMusica.fxml"));
-        
+
         try {
             Parent root = (Parent) fxmlLoader.load();
-            
+
             AtualizarMusicaController atualizarMusicaController = fxmlLoader.getController();
 
             //Limpa o conteúdo anterior e carrega a página
@@ -380,13 +380,13 @@ public class PesquisarMusicaController implements Initializable {
                     "Erro!", "Erro", ex);
         }
     }
-    
+
     private void carregarVisualizacaoMusica(Musica musicaSelecionada) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/VisualizarMusica.fxml"));
-        
+
         try {
             Parent root = (Parent) fxmlLoader.load();
-            
+
             VisualizarMusicaController visualizarMusicaController = fxmlLoader.getController();
 
             //Limpa o conteúdo anterior e carrega a página
@@ -401,13 +401,13 @@ public class PesquisarMusicaController implements Initializable {
                     + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
         }
     }
-    
+
     private void removerMusicaSelecionada(Musica musicaSelecionada) {
         Dialogs.DialogResponse resposta;
         resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente excluir a Música \"" + musicaSelecionada.getTitulo() + "\"?",
                 "Exclusão de Música", "Confirmação");
-        
+
         if (resposta.equals(Dialogs.DialogResponse.YES)) {
             try {
                 MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
@@ -423,17 +423,17 @@ public class PesquisarMusicaController implements Initializable {
             }
         }
     }
-    
+
     private void gerarImpressaoMusicaSelecionada(Musica musicaSelecionada) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/GerarImpressaoMusica.fxml"));
-        
+
         try {
             AnchorPane root = (AnchorPane) fxmlLoader.load();
 
             //Inicializa os dados passando a música por parâmetro
             GerarImpressaoMusicaController gerarImpressaoMusicaController = fxmlLoader.getController();
             gerarImpressaoMusicaController.initData(musicaSelecionada);
-            
+
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Gerar Impressão de Música");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -460,32 +460,32 @@ public class PesquisarMusicaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
     }
-    
+
     @FXML
     private void onMouseClickedFromContentPesquisarMusica(MouseEvent event) {
         this.contentPesquisarMusica.requestFocus();
     }
-    
+
     @FXML
     private void onActionFromFldAutor(ActionEvent event) {
         pesquisarPorParametros();
     }
-    
+
     @FXML
     private void onActionFromFldTitulo(ActionEvent event) {
         pesquisarPorParametros();
     }
-    
+
     @FXML
     private void onActionFromFldTags(ActionEvent event) {
         pesquisarPorParametros();
     }
-    
+
     @FXML
     private void onActionFromFldTrecho(ActionEvent event) {
         pesquisarPorParametros();
     }
-    
+
     @FXML
     private void onActionFromCheckEntrada(ActionEvent event) {
         if (this.checkEntrada.isSelected()) {
@@ -494,7 +494,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ENTRADA);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckAtoPenitencial(ActionEvent event) {
         if (this.checkAtoPenitencial.isSelected()) {
@@ -503,7 +503,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ATO_PENITENCIAL);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckGloria(ActionEvent event) {
         if (this.checkGloria.isSelected()) {
@@ -512,7 +512,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.GLORIA);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckAclamacao(ActionEvent event) {
         if (this.checkAclamacao.isSelected()) {
@@ -521,7 +521,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ACLAMACAO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckOfertorio(ActionEvent event) {
         if (this.checkOfertorio.isSelected()) {
@@ -530,7 +530,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.OFERTORIO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckPaz(ActionEvent event) {
         if (this.checkPaz.isSelected()) {
@@ -539,7 +539,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.PAZ);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckSanto(ActionEvent event) {
         if (this.checkSanto.isSelected()) {
@@ -548,7 +548,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.SANTO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckComunhao(ActionEvent event) {
         if (this.checkComunhao.isSelected()) {
@@ -557,7 +557,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.COMUNHAO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckAcaoDeGracas(ActionEvent event) {
         if (this.checkAcaoDeGracas.isSelected()) {
@@ -566,7 +566,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ACAO_DE_GRACAS);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckFinal(ActionEvent event) {
         if (this.checkFinal.isSelected()) {
@@ -575,7 +575,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.FINAL);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckReflexao(ActionEvent event) {
         if (this.checkReflexao.isSelected()) {
@@ -584,7 +584,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.REFLEXAO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckLouvor(ActionEvent event) {
         if (this.checkLouvor.isSelected()) {
@@ -593,7 +593,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.LOUVOR);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckAdoracao(ActionEvent event) {
         if (this.checkAdoracao.isSelected()) {
@@ -602,7 +602,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ADORACAO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckPalestra(ActionEvent event) {
         if (this.checkPalestra.isSelected()) {
@@ -611,7 +611,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.PALESTRA);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckResposta(ActionEvent event) {
         if (this.checkResposta.isSelected()) {
@@ -620,7 +620,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.RESPOSTA);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckOracao(ActionEvent event) {
         if (this.checkOracao.isSelected()) {
@@ -629,7 +629,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ORACAO);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckEspecial(ActionEvent event) {
         if (this.checkEspecial.isSelected()) {
@@ -638,7 +638,7 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.ESPECIAL);
         }
     }
-    
+
     @FXML
     private void onActionFromCheckOutra(ActionEvent event) {
         if (this.checkOutra.isSelected()) {
@@ -647,37 +647,37 @@ public class PesquisarMusicaController implements Initializable {
             this.tiposMusica.remove(TipoMusica.OUTRA);
         }
     }
-    
+
     @FXML
     private void onMouseClickedFromLblTags(MouseEvent event) {
         this.fldTags.requestFocus();
     }
-    
+
     @FXML
     private void onMouseClickedFromLblAutor(MouseEvent event) {
         this.fldAutor.requestFocus();
     }
-    
+
     @FXML
     private void onMouseClickedFromLblTitulo(MouseEvent event) {
         this.fldTitulo.requestFocus();
     }
-    
+
     @FXML
     private void onMouseClickedFromLblTipos(MouseEvent event) {
         this.checkEntrada.requestFocus();
     }
-    
+
     @FXML
     private void onMouseClickedFromLblTrecho(MouseEvent event) {
         this.fldTrecho.requestFocus();
     }
-    
+
     @FXML
     private void onActionFromBtnCriarNova(ActionEvent event) {
         carregarCriacaoMusica();
     }
-    
+
     @FXML
     private void onActionFromBtnLimpar(ActionEvent event) {
         this.fldAutor.setText(null);
@@ -692,35 +692,35 @@ public class PesquisarMusicaController implements Initializable {
             parTipoMusicaCheckBox.getValue().setSelected(false);
         }
     }
-    
+
     @FXML
     private void onActionFromBtnPesquisar(ActionEvent event) {
         pesquisarPorParametros();
     }
-    
+
     @FXML
     private void onActionFromRadioEstaImpressa(ActionEvent event) {
     }
-    
+
     @FXML
     private void onActionFromRadioNaoEstaImpressa(ActionEvent event) {
     }
-    
+
     @FXML
     private void onMouseClickedFromTblMusicas(MouseEvent event) {
         this.tblMusicas.requestFocus();
     }
-    
+
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
         FXMLDocumentController.getInstancia().iniciarPaginaInicial();
     }
-    
+
     @FXML
     private void onKeyReleasedFromFldTrecho(KeyEvent event) {
         definirPesquisaTrecho();
     }
-    
+
     public void definirPesquisaTrecho() {
         definirPesquisaTrecho(!StringUtil.isVazia(this.fldTrecho.getText()));
     }
@@ -773,21 +773,23 @@ public class PesquisarMusicaController implements Initializable {
             }
         }
     }
-    
+
     public AnchorPane getContent() {
         return this.contentPesquisarMusica;
     }
-    
+
     public void atualizar() {
-        pesquisarPorParametros();
+        if (!tblMusicas.getItems().isEmpty()) {
+            pesquisarPorParametros();
+        }
     }
-    
+
     public void atualizarTabela() {
         final List<Musica> itens = this.tblMusicas.getItems();
         if (itens == null || itens.isEmpty()) {
             return;
         }
-        
+
         final Musica item = this.tblMusicas.getItems().get(0);
         itens.remove(0);
         Platform.runLater(new Runnable() {

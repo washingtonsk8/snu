@@ -102,8 +102,8 @@ public class EfeitosUtil {
     }
 
     /**
-     * Roda efeito FADE OUT na tela passada por parâmetro
-     * e remove a tela atual dos filhos do pai
+     * Roda efeito FADE OUT na tela passada por parâmetro e remove a tela atual
+     * dos filhos do pai
      *
      * @param tela
      * @param componentes
@@ -113,7 +113,7 @@ public class EfeitosUtil {
         ft.setFromValue(1.);
         ft.setToValue(0.);
         ft.play();
-        
+
         //Remove esta tela do vetor de componentes
         ft.setOnFinished(new EventHandler<ActionEvent>() {
             @Override

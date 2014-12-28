@@ -70,7 +70,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initComponents();
     }
-    
+
     public Stage getStage() {
         return (Stage) this.contentAnchorPane.getScene().getWindow();
     }
