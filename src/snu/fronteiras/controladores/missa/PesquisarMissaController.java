@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.missa;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -232,7 +233,13 @@ public class PesquisarMissaController implements Initializable {
         parametrosPesquisa.setDataAcontecimento(DataUtil.toDate(this.dpDataAcontecimento.getValue()));
 
         this.missas = FXCollections.observableArrayList(MissaJpaController.getInstancia().
-                findByParametrosPesquisa(parametrosPesquisa));
+                findByParametrosPesquisa(parametrosPesquisa)).sorted(new Comparator<Missa>() {
+
+            @Override
+            public int compare(Missa m1, Missa m2) {
+                return m2.getDataAcontecimento().compareTo(m1.getDataAcontecimento());
+            }
+        });
         this.tblMissas.setItems(this.missas);
     }
 

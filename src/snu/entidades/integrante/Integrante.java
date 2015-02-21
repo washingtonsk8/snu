@@ -39,11 +39,11 @@ public class Integrante implements Serializable {
 
     private String email;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_entrada")
     private Date dataEntrada;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_nascimento")
     private Date dataNascimento;
 

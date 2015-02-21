@@ -51,10 +51,12 @@ public class MissaJpaController implements Serializable {
     }
 
     public void create(Missa missa) {
-        if (missa.getMusicasUtilizadas() == null) {
-            missa.setMusicasUtilizadas(new HashSet<Musica>());
-        }
         EntityManager em = null;
+        if (missa.getMusicasUtilizadas() == null) {
+            missa.setMusicasUtilizadas(new HashSet<>());
+        }
+        missa.setDataCriacao(new Date());
+        missa.setDataUltimaAtualizacao(new Date());
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -79,6 +81,7 @@ public class MissaJpaController implements Serializable {
 
     public void edit(Missa missa) throws NonexistentEntityException, Exception {
         EntityManager em = null;
+        missa.setDataUltimaAtualizacao(new Date());
         try {
             em = getEntityManager();
             em.getTransaction().begin();

@@ -44,6 +44,7 @@ public class ProcessadorDeConsultas {
      * @throws java.io.IOException
      */
     public void processar(String consulta) throws IOException {
+        MusicaJpaController musicaController = MusicaJpaController.getInstancia();
         IndexadorController indexadorController = IndexadorController.getInstancia();
 
         List<String> tokens = tokenizeString(indexadorController.getBrazilianAnalyzer(),
@@ -56,7 +57,7 @@ public class ProcessadorDeConsultas {
         VocabuloJpaController vocabuloController = VocabuloJpaController.getInstancia();
 
         //Verifica a quantidade de músicas presentes no banco
-        Integer quantidadeDocumentos = MusicaJpaController.getInstancia().getMusicaCount();
+        Integer quantidadeDocumentos = musicaController.getMusicaCount();
 
         /*
          Para cada token encontrado, procura-se o vocábulo no banco
@@ -113,12 +114,11 @@ public class ProcessadorDeConsultas {
         //Ordena a lista por maior similaridade
         Collections.sort(similaridadesDocumentos);
 
-        this.listaOrdenada = new ArrayList<>();
-        MusicaJpaController musicaController = MusicaJpaController.getInstancia();
+        List<Long> idsDocumentos = new ArrayList<>();
         for (Pair<Long, Double> par : similaridadesDocumentos) {
-            Musica musicaOrdenada = musicaController.findMusicaByIdDocumento(par.getFirst());
-            this.listaOrdenada.add(musicaOrdenada);
+            idsDocumentos.add(par.getFirst());
         }
+        this.listaOrdenada = musicaController.findMusicaByIdsDocumentos(idsDocumentos);
     }
 
     /**

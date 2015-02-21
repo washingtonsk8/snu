@@ -6,6 +6,7 @@
 package snu.entidades.musica;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entidade que mantém os Autores das músicas
@@ -37,6 +40,14 @@ public class Autor implements Serializable {
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true,
             targetEntity = Musica.class, fetch = FetchType.LAZY)
     private List<Musica> musicasDeAutoria;
+    
+    @Column(name = "data_criacao", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+    
+    @Column(name = "data_ultima_atualizacao", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAtualizacao;
 
     public Long getId() {
         return id;
@@ -60,6 +71,22 @@ public class Autor implements Serializable {
 
     public void setMusicasDeAutoria(List<Musica> musicasDeAutoria) {
         this.musicasDeAutoria = musicasDeAutoria;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Date getDataUltimaAtualizacao() {
+        return dataUltimaAtualizacao;
+    }
+
+    public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
     @Override

@@ -54,11 +54,11 @@ public class ConfiguracoesSistema implements Serializable {
     @Column(name = "preferencia_Asus_Bbem", columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean preferenciaAsusBbem;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_ultima_exportacao")
     private Date dataUltimaExportacao;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_ultima_importacao")
     private Date dataUltimaImportacao;
 

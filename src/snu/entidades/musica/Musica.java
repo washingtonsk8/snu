@@ -7,6 +7,7 @@ package snu.entidades.musica;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -24,6 +25,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import snu.entidades.missa.Missa;
 
 /**
@@ -81,7 +84,15 @@ public class Musica implements Serializable {
 
     @Column(nullable = false, columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean impressa;
-
+    
+    @Column(name = "data_criacao", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+    
+    @Column(name = "data_ultima_atualizacao", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAtualizacao;
+    
     public Musica() {
         this.associacoes = new ArrayList<>();
         this.tags = new ArrayList<>();
@@ -153,6 +164,22 @@ public class Musica implements Serializable {
         this.impressa = impressa;
     }
 
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Date getDataUltimaAtualizacao() {
+        return dataUltimaAtualizacao;
+    }
+
+    public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+    }
+    
     public List<TipoMusica> getTipos() {
         List<TipoMusica> retorno = new ArrayList<>();
         for (EntidadeTipoMusica entidadeTipoMusica : this.tipos) {

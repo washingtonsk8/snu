@@ -34,7 +34,7 @@ public class Missa implements Serializable {
     private String nome;
 
     @Column(name = "data_acontecimento", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataAcontecimento;
 
     @ManyToMany(mappedBy = "missasPresente")
@@ -42,6 +42,14 @@ public class Missa implements Serializable {
 
     @Column(name = "descricao_email", columnDefinition = "LONGTEXT")
     private String descricaoEmail;
+    
+    @Column(name = "data_criacao", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+    
+    @Column(name = "data_ultima_atualizacao", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAtualizacao;
 
     public Long getId() {
         return id;
@@ -81,6 +89,22 @@ public class Missa implements Serializable {
 
     public void setDescricaoEmail(String descricaoEmail) {
         this.descricaoEmail = descricaoEmail;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Date getDataUltimaAtualizacao() {
+        return dataUltimaAtualizacao;
+    }
+
+    public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
     @Override

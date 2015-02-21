@@ -5,6 +5,7 @@
  */
 package snu.controladores;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
@@ -59,6 +61,18 @@ public class SNU extends Application {
                 ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
                 novasConfiguracoesSistema.setVersao(VERSAO);
 
+                Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
+                        + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
+
+                final DirectoryChooser seletorDiretorio = new DirectoryChooser();
+                seletorDiretorio.setInitialDirectory(new File("C:\\"));
+                seletorDiretorio.setTitle("Escolha do diretório do SGBD");
+                String diretorioSGBD = "C:";
+                final File diretorio = seletorDiretorio.showDialog(stage);
+                if (diretorio != null) {
+                    diretorioSGBD = diretorio.getAbsolutePath();
+                }
+                novasConfiguracoesSistema.setDiretorioSGBD(diretorioSGBD);
                 novasConfiguracoesSistema.setTemplateDescricaoEmail("<saudação diária>,\n"
                         + "\n"
                         + "segue abaixo a relação de músicas para a missa do dia <data>.\n"

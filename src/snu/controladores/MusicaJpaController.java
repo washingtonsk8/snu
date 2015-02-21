@@ -8,6 +8,7 @@ package snu.controladores;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.persistence.EntityManager;
@@ -58,10 +59,12 @@ public class MusicaJpaController implements Serializable {
     }
 
     public void create(Musica musica) {
+        EntityManager em = null;
         if (musica.getAssociacoes() == null) {
             musica.setAssociacoes(new ArrayList<>());
         }
-        EntityManager em = null;
+        musica.setDataCriacao(new Date());
+        musica.setDataUltimaAtualizacao(new Date());
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -76,6 +79,7 @@ public class MusicaJpaController implements Serializable {
 
     public void edit(Musica musica) throws NonexistentEntityException, Exception {
         EntityManager em = null;
+        musica.setDataUltimaAtualizacao(new Date());
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -182,10 +186,11 @@ public class MusicaJpaController implements Serializable {
     /**
      * Encontra uma música a partir do id de documento
      *
-     * @param idDocumentoMusica
+     * @param idsDocumentosMusica
      * @return
      */
-    public Musica findMusicaByIdDocumento(Long idDocumentoMusica) {
+    public List<Musica> findMusicaByIdsDocumentos(List<Long> idsDocumentosMusica) {
+        List<Musica> listaRetorno = new ArrayList();
         EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -193,8 +198,11 @@ public class MusicaJpaController implements Serializable {
         Root<Musica> musica = cq.from(Musica.class);
         Join<Musica, DocumentoMusica> joinDocumentoMusica = musica.join("documentoMusica", JoinType.LEFT);
 
-        cq.select(musica).distinct(true).where(cb.equal(joinDocumentoMusica.get("id"), idDocumentoMusica));
-        return em.createQuery(cq).getSingleResult();
+        for (Long idDocumentoMusica : idsDocumentosMusica) {
+            cq.select(musica).distinct(true).where(cb.equal(joinDocumentoMusica.get("id"), idDocumentoMusica));
+            listaRetorno.add(em.createQuery(cq).getSingleResult());
+        }
+        return listaRetorno;
     }
 
     /**

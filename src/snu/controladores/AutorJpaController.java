@@ -7,6 +7,7 @@ package snu.controladores;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,10 +60,12 @@ public class AutorJpaController implements Serializable {
     }
 
     public void create(Autor autor) {
-        if (autor.getMusicasDeAutoria() == null) {
-            autor.setMusicasDeAutoria(new ArrayList<Musica>());
-        }
         EntityManager em = null;
+        if (autor.getMusicasDeAutoria() == null) {
+            autor.setMusicasDeAutoria(new ArrayList<>());
+        }
+        autor.setDataCriacao(new Date());
+        autor.setDataUltimaAtualizacao(new Date());
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -92,6 +95,7 @@ public class AutorJpaController implements Serializable {
 
     public void edit(Autor autor) throws NonexistentEntityException, Exception {
         EntityManager em = null;
+        autor.setDataUltimaAtualizacao(new Date());
         try {
             em = getEntityManager();
             em.getTransaction().begin();
