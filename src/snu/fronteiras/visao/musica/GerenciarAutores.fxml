@@ -39,8 +39,9 @@
         <Button fx:id="btnRemoverAutor" font="$x1" layoutX="172.0" layoutY="198.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverAutor" prefHeight="40.0" prefWidth="100.0" text="Remover" textFill="BLACK" />
         <TableView fx:id="tblAutores" layoutX="286.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromTblAutores" prefHeight="350.0" prefWidth="500.0">
             <columns>
-                <TableColumn fx:id="clnNomeAutor" maxWidth="5000.0" minWidth="10.0" prefWidth="266.0" text="Nome do Autor" />
-                <TableColumn fx:id="clnQuantidadeMusicas" maxWidth="5000.0" minWidth="10.0" prefWidth="230.0" text="Quantidade de Músicas de sua autoria" />
+                <TableColumn fx:id="clnNomeAutor" maxWidth="5000.0" minWidth="10.0" prefWidth="240.0" text="Nome do Autor" />
+                <TableColumn fx:id="clnQuantidadeMusicas" maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Músicas de Autoria" />
+                <TableColumn fx:id="clnCriacao" prefWidth="130.0" text="Data de Criação" />
             </columns>
         </TableView>
         <Label fx:id="lblInformacaoQuantidades" font="$x1" layoutX="286.0" layoutY="420.0" text="" textFill="BLACK" />

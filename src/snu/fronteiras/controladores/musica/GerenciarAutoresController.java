@@ -39,6 +39,7 @@ import snu.exceptions.NonexistentEntityException;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
+import snu.util.DataUtil;
 import snu.util.Dialogs;
 import snu.util.StringUtil;
 
@@ -72,6 +73,8 @@ public class GerenciarAutoresController implements Initializable {
     @FXML
     private TableColumn<QuantidadeAutoriaDTO, String> clnQuantidadeMusicas;
     @FXML
+    private TableColumn<QuantidadeAutoriaDTO, String> clnCriacao;
+    @FXML
     private Label lblInformacaoQuantidades;
     @FXML
     private ImageView imgInicio;
@@ -97,6 +100,7 @@ public class GerenciarAutoresController implements Initializable {
             QuantidadeAutoriaDTO quantidadeAutoriaDTO = new QuantidadeAutoriaDTO();
             quantidadeAutoriaDTO.setAutor(entidadeAutor);
             quantidadeAutoriaDTO.setQuantidadeMusicasDeAutoria(autorController.getMusicasAutoriaCount(entidadeAutor.getId()));
+            quantidadeAutoriaDTO.setDataCriacao(entidadeAutor.getDataCriacao());
             this.autores.add(quantidadeAutoriaDTO);
         }
 
@@ -111,6 +115,29 @@ public class GerenciarAutoresController implements Initializable {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String> quantidadeAutoriaDTO) {
                 return new SimpleStringProperty(quantidadeAutoriaDTO.getValue().getQuantidadeMusicasDeAutoria().toString());
+            }
+        });
+        
+        this.clnCriacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<QuantidadeAutoriaDTO, String> quantidadeAutoriaDTO) {
+                return new SimpleStringProperty(DataUtil.formatarDataHora(
+                        quantidadeAutoriaDTO.getValue().getDataCriacao()));
+            }
+        });
+        
+        this.clnQuantidadeMusicas.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Integer.valueOf(o1).compareTo(Integer.valueOf(o2));
+            }
+        });
+        
+        this.clnCriacao.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return DataUtil.stringToDateHour(o1)
+                        .compareTo(DataUtil.stringToDateHour(o2));
             }
         });
 

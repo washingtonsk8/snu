@@ -5,6 +5,7 @@
  */
 package snu.dto;
 
+import java.util.Date;
 import snu.entidades.musica.Autor;
 
 /**
@@ -17,6 +18,7 @@ public class QuantidadeAutoriaDTO {
 
     private Autor autor;
     private Integer quantidadeMusicasDeAutoria;
+    private Date dataCriacao;
 
     public Autor getAutor() {
         return autor;
@@ -33,4 +35,12 @@ public class QuantidadeAutoriaDTO {
     public void setQuantidadeMusicasDeAutoria(Integer quantidadeMusicasDeAutoria) {
         this.quantidadeMusicasDeAutoria = quantidadeMusicasDeAutoria;
     }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }    
 }

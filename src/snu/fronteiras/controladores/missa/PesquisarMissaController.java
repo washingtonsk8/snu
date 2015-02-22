@@ -82,6 +82,8 @@ public class PesquisarMissaController implements Initializable {
     @FXML
     private TableColumn<Missa, String> clnDataAcontecimento;
     @FXML
+    private TableColumn<Missa, String> clnCriacao;
+    @FXML
     private Button btnPesquisar;
     @FXML
     private Font x1;
@@ -140,6 +142,13 @@ public class PesquisarMissaController implements Initializable {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
                 return new SimpleStringProperty(DataUtil.formatarData(associacao.getValue().getDataAcontecimento()));
+            }
+        });
+
+        this.clnCriacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> missa) {
+                return new SimpleStringProperty(DataUtil.formatarDataHora(missa.getValue().getDataCriacao()));
             }
         });
 
@@ -235,11 +244,11 @@ public class PesquisarMissaController implements Initializable {
         this.missas = FXCollections.observableArrayList(MissaJpaController.getInstancia().
                 findByParametrosPesquisa(parametrosPesquisa)).sorted(new Comparator<Missa>() {
 
-            @Override
-            public int compare(Missa m1, Missa m2) {
-                return m2.getDataAcontecimento().compareTo(m1.getDataAcontecimento());
-            }
-        });
+                    @Override
+                    public int compare(Missa m1, Missa m2) {
+                        return m2.getDataAcontecimento().compareTo(m1.getDataAcontecimento());
+                    }
+                });
         this.tblMissas.setItems(this.missas);
     }
 

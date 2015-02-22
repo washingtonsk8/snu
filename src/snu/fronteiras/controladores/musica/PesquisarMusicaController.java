@@ -8,6 +8,7 @@ package snu.fronteiras.controladores.musica;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -55,6 +56,7 @@ import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
 import snu.fronteiras.controladores.musica.popups.GerarImpressaoMusicaController;
 import snu.util.BotoesImagemUtil;
+import snu.util.DataUtil;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
@@ -138,7 +140,9 @@ public class PesquisarMusicaController implements Initializable {
     @FXML
     private TableColumn<Musica, String> clnTags;
     @FXML
-    private TableColumn<Musica, String> clnEstaImpressa;
+    private TableColumn<Musica, String> clnImpressa;
+    @FXML
+    private TableColumn<Musica, String> clnCriacao;
     @FXML
     private Label lblEstaImpressa;
     @FXML
@@ -254,17 +258,28 @@ public class PesquisarMusicaController implements Initializable {
             }
         });
 
+        this.clnAutor.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return StringUtil.removerAcentos(o1).compareTo(StringUtil.removerAcentos(o2));
+            }
+        });
+
         this.clnTitulo.setCellValueFactory(new PropertyValueFactory<>("nome"));
+
+        this.clnTitulo.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return StringUtil.removerAcentos(o1).compareTo(StringUtil.removerAcentos(o2));
+            }
+        });
+        
         this.clnTags.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
                 String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getTags());
 
-                if (!celula.isEmpty()) {
-                    return new SimpleStringProperty(celula);
-                } else {
-                    return new SimpleStringProperty("Não há tags associadas");
-                }
+                return new SimpleStringProperty(celula);
             }
         });
 
@@ -276,11 +291,34 @@ public class PesquisarMusicaController implements Initializable {
                 return new SimpleStringProperty(celula);
             }
         });
+        
+        this.clnTipos.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return TipoMusica.getPorValor(o1.split(";")[0])
+                        .compareTo(TipoMusica.getPorValor(o2.split(";")[0]));
+            }
+        });
 
-        this.clnEstaImpressa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
+        this.clnImpressa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
                 return new SimpleStringProperty(musica.getValue().isImpressa() ? "Sim" : "Não");
+            }
+        });
+
+        this.clnCriacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
+                return new SimpleStringProperty(DataUtil.formatarData(musica.getValue().getDataCriacao()));
+            }
+        });
+        
+        this.clnCriacao.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return DataUtil.stringToDate(o1)
+                        .compareTo(DataUtil.stringToDate(o2));
             }
         });
 

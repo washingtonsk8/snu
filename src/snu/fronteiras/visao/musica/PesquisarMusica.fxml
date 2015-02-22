@@ -30,7 +30,7 @@
             </effect>
         </Label>
         <TextField fx:id="fldTrecho" layoutX="446.0" layoutY="60.0" onAction="#onActionFromFldTrecho" onKeyReleased="#onKeyReleasedFromFldTrecho" prefWidth="340.0" />
-        <Label fx:id="lblAutor" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="90.0" font="$x1" onMouseClicked="#onMouseClickedFromLblAutor" prefWidth="130.0" text="Autor:" textFill="BLACK">
+        <Label fx:id="lblAutor" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="90.0" onMouseClicked="#onMouseClickedFromLblAutor" prefWidth="130.0" text="Autor:" textFill="BLACK">
             <effect>
                 <Glow />
             </effect>
@@ -73,11 +73,12 @@
         <Button fx:id="btnPesquisar" cache="true" font="$x2" layoutX="676.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="110.0" text="Pesquisar" textFill="BLACK" />
         <TableView fx:id="tblMusicas" layoutX="14.0" layoutY="300.0" onMouseClicked="#onMouseClickedFromTblMusicas" prefHeight="280.0" prefWidth="772.0">
             <columns>
-                <TableColumn fx:id="clnAutor" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Autor" />
-                <TableColumn fx:id="clnTitulo" maxWidth="5000.0" minWidth="10.0" prefWidth="185.0" text="Título" />
-                <TableColumn fx:id="clnTipos" maxWidth="5000.0" minWidth="10.0" prefWidth="175.0" text="Tipos" />
-                <TableColumn fx:id="clnTags" maxWidth="5000.0" minWidth="10.0" prefWidth="160.0" text="Tags Associadas" />
-                <TableColumn fx:id="clnEstaImpressa" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Está Impressa?" />
+                <TableColumn fx:id="clnAutor" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Autor" />
+                <TableColumn fx:id="clnTitulo" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="185.0" text="Título" />
+                <TableColumn fx:id="clnTipos" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="160.0" text="Tipos" />
+                <TableColumn fx:id="clnTags" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" sortable="false" text="Tags Associadas" />
+                <TableColumn fx:id="clnCriacao" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="82.0" text="Criação" />
+                <TableColumn fx:id="clnImpressa" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="62.0" text="Impressa?" />
             </columns>
         </TableView>
         <Label fx:id="lblEstaImpressa" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="210.0" prefWidth="130.0" text="Está impressa?" textFill="BLACK">

@@ -5,6 +5,8 @@
  */
 package snu.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,6 +15,8 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import org.apache.log4j.Logger;
+import snu.fronteiras.controladores.HomeController;
 
 /**
  * Utilitário para realizar operações com datas
@@ -20,6 +24,10 @@ import java.util.Locale;
  * @author Washington Luis
  */
 public class DataUtil {
+
+    //Inicializando o Logger
+
+    private static final Logger log = Logger.getLogger(DataUtil.class.getName());
 
     /**
      * Calcula a idade de acordo com uma data passada
@@ -98,5 +106,49 @@ public class DataUtil {
         }
         Instant instant = data.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
+    }
+
+    /**
+     * Converte a data passada de string para data do tipo Date
+     *
+     * @param data
+     * @return
+     */
+    public static Date stringToDate(String data) {
+        if (data == null) {
+            return null;
+        }
+        try {
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            return format.parse(data);
+        } catch (ParseException ex) {
+            log.error("Erro ao converter data", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao converter data."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+        return null;
+    }
+
+    /**
+     * Converte a data passada de string para data do tipo Date
+     *
+     * @param data
+     * @return
+     */
+    public static Date stringToDateHour(String data) {
+        if (data == null) {
+            return null;
+        }
+        try {
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            return format.parse(data);
+        } catch (ParseException ex) {
+            log.error("Erro ao converter data", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao converter data."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+        return null;
     }
 }

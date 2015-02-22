@@ -90,7 +90,16 @@ public enum TipoMusica {
     private TipoMusica(String valor) {
         this.valor = valor;
     }
-
+    
+    public static TipoMusica getPorValor(String valor){
+        for(TipoMusica tipo : TipoMusica.values()){
+            if(tipo.valor.equals(valor)){
+                return tipo;
+            }
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         return valor;
