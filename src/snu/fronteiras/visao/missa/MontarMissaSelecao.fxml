@@ -57,8 +57,9 @@
         <Button fx:id="btnPesquisar" font="$x1" layoutX="676.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="110.0" text="Pesquisar" textFill="BLACK" />
         <TableView fx:id="tblMusicas" layoutX="14.0" layoutY="250.0" onDragDetected="#onDragDetectedFromTblMusicas" prefHeight="280.0" prefWidth="772.0">
             <columns>
-                <TableColumn fx:id="clnTituloMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="466.0" text="Título da Música" />
-                <TableColumn fx:id="clnTipoMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="303.0" text="Tipos" />
+                <TableColumn fx:id="clnTituloMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="430.0" text="Título da Música" />
+                <TableColumn fx:id="clnTipoMusica" maxWidth="5000.0" minWidth="10.0" prefWidth="220.0" text="Tipos" />
+                <TableColumn fx:id="clnCriacao" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Criação" />
             </columns>
         </TableView>
         <Button fx:id="btnAvancar" font="$x1" layoutX="676.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="110.0" text="Avançar" textFill="BLACK" />

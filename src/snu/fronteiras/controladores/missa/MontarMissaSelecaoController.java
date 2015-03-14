@@ -48,6 +48,7 @@ import snu.entidades.musica.TipoMusica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
 import snu.util.BotoesImagemUtil;
+import snu.util.DataUtil;
 import snu.util.Dialogs;
 import snu.util.EfeitosUtil;
 import snu.util.ListaUtil;
@@ -75,6 +76,8 @@ public class MontarMissaSelecaoController implements Initializable {
     private TableColumn<Musica, String> clnTituloMusica;
     @FXML
     private TableColumn<Musica, String> clnTipoMusica;
+    @FXML
+    private TableColumn<Musica, String> clnCriacao;
     @FXML
     private Button btnPesquisar;
     @FXML
@@ -127,6 +130,21 @@ public class MontarMissaSelecaoController implements Initializable {
                 String celula = ListaUtil.getListaSeparadaPorPontoVirgula(musica.getValue().getTipos());
 
                 return new SimpleStringProperty(celula);
+            }
+        });
+        
+         this.clnCriacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Musica, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Musica, String> musica) {
+                return new SimpleStringProperty(DataUtil.formatarData(musica.getValue().getDataCriacao()));
+            }
+        });
+        
+        this.clnCriacao.setComparator(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return DataUtil.stringToDate(o1)
+                        .compareTo(DataUtil.stringToDate(o2));
             }
         });
 
