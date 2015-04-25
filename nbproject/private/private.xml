@@ -3,27 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/GerenciarAutoresController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/visao/musica/GerenciarAutores.fxml</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/util/DataUtil.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/missa/PesquisarMissaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/configuracoes/ConfiguracoesSistema.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/missa/Missa.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/musica/Autor.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/popups/GerarImpressaoMusicaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/AutorJpaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/PDFController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/controladores/musica/PesquisarMusicaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/SNU.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/musica/Musica.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/MissaJpaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/dto/ParametrosPesquisaMissa.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/util/MusicaUtil.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/bd/BD.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/entidades/integrante/Integrante.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/controladores/MusicaJpaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/META-INF/persistence.xml</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/dto/QuantidadeAutoriaDTO.java</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/dto/Pair.java</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/fronteiras/controladores/musica/popups/RemoverDeteccoesController.java</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/fronteiras/visao/musica/popups/RemoverDeteccoes.fxml</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/fronteiras/controladores/musica/EscreverMusicaController.java</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/fronteiras/controladores/musica/CriarMusicaController.java</file>
+            <file>file:/C:/Users/WashingtonLuis/Documents/NetBeansProjects/snu/src/snu/fronteiras/controladores/musica/popups/SelecionarAutorController.java</file>
         </group>
     </open-files>
 </project-private>

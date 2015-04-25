@@ -1733,3 +1733,298 @@ Caused by: org.hibernate.MappingException: Repeated column in mapping for entity
 2015-02-22 13:52  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
 2015-03-14 13:58  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
 2015-03-14 14:03  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 13:13  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Integrante
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Missa
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Musica
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: documentomusica_listainvertida
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: documentomusica_vocabulario
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: missas_musicas
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_associacoes
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_autores
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_tags
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_tipos
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: sys
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Integrante
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Missa
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Musica
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: documentomusica_listainvertida
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: documentomusica_vocabulario
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: missas_musicas
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_associacoes
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_autores
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_tags
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_tipos
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: sys
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Integrante
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Missa
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: Musica
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: documentomusica_listainvertida
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: documentomusica_vocabulario
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: missas_musicas
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_associacoes
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_autores
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_tags
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_tipos
+2015-04-21 13:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: sys
+2015-04-21 13:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 13:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 13:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 13:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 13:23  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 13:23  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:23  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:23  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:23 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 13:23 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 13:23 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 13:23 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 13:26  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 13:26  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:26  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:26  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:26 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 13:26 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 13:26 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 13:26 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 13:27  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 13:28  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 13:28  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:28  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:28  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:28 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 13:28 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 13:28 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 13:28 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 13:31  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 13:40  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 13:40  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:40  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:40  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:40 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 13:40 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 13:40 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 13:40 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 13:41  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 13:42  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 13:42  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:42  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:42  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 13:42 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 13:42 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 13:42 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 13:42 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 13:43  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 14:34  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 14:35  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:35  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:35  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:35 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 14:35 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 14:35 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 14:35 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 14:43  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 14:43  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:43  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:43  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:43 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 14:43 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 14:43 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 14:43 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 14:44  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 14:57  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 14:57  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:57  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:57  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 14:57 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 14:57 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 14:57 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 14:57 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:06  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 15:06  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:06  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:06  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:06 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 15:06 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 15:06 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 15:06 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:06  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 15:08  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 15:08  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:08  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:08  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:08 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 15:08 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 15:08 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 15:08 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:13  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 15:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:13  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 15:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 15:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 15:13 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:41  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 15:41  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:41  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:41  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:41 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 15:41 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 15:41 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 15:41 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:44  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 15:44  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:44  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:44  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:44 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 15:44 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 15:44 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 15:44 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:46  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-21 15:46  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-21 15:46  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:46  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:46  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-21 15:46 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-21 15:46 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-21 15:46 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-21 15:46 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-21 15:47  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-25 17:00  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 17:00  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:00  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:00  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:00 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 17:00 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 17:00 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 17:00 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 17:03  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 17:03  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:03  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:03  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:03 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 17:03 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 17:03 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 17:03 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 17:09  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 17:09  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:09  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:09  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:09 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 17:09 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 17:09 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 17:09 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 17:32  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 17:33  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:33  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:33  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 17:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 17:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 17:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 17:48  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 17:48  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:48  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:48  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:48 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 17:48 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 17:48 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 17:48 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 17:49  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-25 17:52  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 17:52  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:52  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:52  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 17:52 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 17:52 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 17:52 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 17:52 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 18:21  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 18:21  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:21  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:21  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:21 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 18:21 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 18:21 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 18:21 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 18:25  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 18:25  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:25  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:25  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:25 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 18:25 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 18:25 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 18:25 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 18:26  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-25 18:27  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 18:27  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:27  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:27  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:27 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 18:27 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 18:27 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 18:27 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 18:28  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2015-04-25 18:33  INFO [JavaFX Application Thread] (SNU.java:51) - Iniciando a aplicação...
+2015-04-25 18:33  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:33  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:33  INFO [JavaFX Application Thread] (DatabaseMetadata.java:146) - HHH000262: Table not found: musica_documento
+2015-04-25 18:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: create table musica_documento (id bigint not null auto_increment, conteudo LONGTEXT, frequencia_maxima_token NOT NULL DEFAULT 0, introducao varchar(255), quantidade_tokens NOT NULL DEFAULT 0, primary key (id))
+2015-04-25 18:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 0,
+        introducao varchar(255),
+        quantidade_tokens N' at line 4
+2015-04-25 18:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:236) - HHH000388: Unsuccessful: alter table Musica add index FK_9is9rwuk6td3rh2sseu84in06 (documentomusica_id), add constraint FK_9is9rwuk6td3rh2sseu84in06 foreign key (documentomusica_id) references musica_documento (id)
+2015-04-25 18:33 ERROR [JavaFX Application Thread] (SchemaUpdate.java:237) - Cannot add foreign key constraint
+2015-04-25 18:35  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...

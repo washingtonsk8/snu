@@ -5,6 +5,7 @@
  */
 package snu.fronteiras.controladores.musica;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -12,19 +13,26 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.log4j.Logger;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
+import snu.fronteiras.controladores.musica.popups.RemoverDeteccoesController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
@@ -98,6 +106,9 @@ public class EscreverMusicaController implements Initializable {
 
     private boolean acordesDetectados;
 
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(EscreverMusicaController.class.getName());
+    
     private void initComponents() {
         this.fldPreVisualizarIntroducao.toBack();
         this.areaPreVisualizarEscreverMusica.toBack();
@@ -176,7 +187,7 @@ public class EscreverMusicaController implements Initializable {
         if (conteudoMusica != null && !this.acordesDetectados) {
             this.acordesDetectados = conteudoMusica.contains("@");
         }
-        this.btnDetectarAcordes.setDisable(this.acordesDetectados);        
+        this.btnDetectarAcordes.setDisable(this.acordesDetectados);
         this.iconeAumentoEspacamento.setMouseTransparent(!this.acordesDetectados);
         this.iconeReducaoEspacamento.setMouseTransparent(!this.acordesDetectados);
     }
@@ -203,10 +214,12 @@ public class EscreverMusicaController implements Initializable {
 
         this.iconeAumentoEspacamento.setMouseTransparent(false);
         this.iconeReducaoEspacamento.setMouseTransparent(false);
-        
+
         //Desabilitar botão para eliminar possível recursão de detecção
         this.btnDetectarAcordes.setDisable(true);
         this.acordesDetectados = true;
+
+        abrirPopupRemocaoDeteccoes();
     }
 
     @FXML
@@ -231,7 +244,7 @@ public class EscreverMusicaController implements Initializable {
         if (StringUtil.hasAlgo(conteudoMusica)) {
             this.areaEscreverMusica.setText(conteudoMusica.replace("@", ""));
         }
-        
+
         this.iconeAumentoEspacamento.setMouseTransparent(true);
         this.iconeReducaoEspacamento.setMouseTransparent(true);
 
@@ -315,5 +328,34 @@ public class EscreverMusicaController implements Initializable {
             AnchorPane pai = ((AnchorPane) this.contentEscreverMusica.getParent());
             EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentEscreverMusica, pai.getChildren());
         }
+    }
+
+    private void abrirPopupRemocaoDeteccoes() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/RemoverDeteccoes.fxml"));
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela para Remoção de Detecções", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                    "Erro ao carregar tela para Remoção de Detecções."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        //Inicializa os dados passando a música por parâmetro
+        RemoverDeteccoesController removerDeteccoesController = fxmlLoader.getController();
+        removerDeteccoesController.initData(this.areaEscreverMusica.getText());
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Remoção de Detecções");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(HomeController.getInstancia().getStage().getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        dialogStage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeConfiguracao.png"));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+        
+        this.areaEscreverMusica.setText(removerDeteccoesController.getConteudoMusica());        
     }
 }
