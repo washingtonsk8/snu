@@ -17,7 +17,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import snu.util.MusicaUtil;
 import snu.util.StringUtil;
 
 /**

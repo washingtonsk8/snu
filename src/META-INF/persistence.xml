@@ -17,7 +17,7 @@
         <properties>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull"/>
             <property name="javax.persistence.jdbc.password" value="snu#1.0rocks!"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="snu"/>
