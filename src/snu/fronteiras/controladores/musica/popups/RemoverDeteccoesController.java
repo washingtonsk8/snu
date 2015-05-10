@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,7 +38,7 @@ public class RemoverDeteccoesController implements Initializable {
     private ListView<CheckBox> listaRemocaoDeteccoes;
 
     private Set<String> setRemocaoDeteccoes;
-    
+
     private String conteudoMusica;
 
     private void initComponents() {
@@ -64,8 +66,14 @@ public class RemoverDeteccoesController implements Initializable {
         detectarAnomalias();
     }
 
+    /**
+     * Detecta as anomalias de uma música. Anomalias são detecções de acordes
+     * feitas de modo errado fazendo com que palavras normais sejam consideradas
+     * acordes.
+     */
     private void detectarAnomalias() {
         String[] linhas = this.conteudoMusica.split("\n");
+        Pattern p = Pattern.compile("[a-zA-Z]");
 
         for (String linha : linhas) {
             if (!linha.contains("@")) {
@@ -80,10 +88,11 @@ public class RemoverDeteccoesController implements Initializable {
              provavelmente essa linha não é uma linha composta de acordes.
              */
             while (i < palavras.length && linhaDeAcordes) {
-                if (!StringUtil.isVazia(palavras[i]) && !palavras[i].startsWith("@")) {
+                Matcher m = p.matcher(palavras[i]);
+                if (m.find() && !palavras[i].contains("@")) {
                     javafx.scene.control.CheckBox novaAnomalia = new CheckBox(linha);
                     novaAnomalia.setSelected(true);
-                    if(this.setRemocaoDeteccoes.add(linha)){
+                    if (this.setRemocaoDeteccoes.add(linha)) {
                         this.listaRemocaoDeteccoes.getItems().add(novaAnomalia);
                     }
                     linhaDeAcordes = false;

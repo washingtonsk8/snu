@@ -108,7 +108,7 @@ public class EscreverMusicaController implements Initializable {
 
     //Inicializando o Logger
     private static final Logger log = Logger.getLogger(EscreverMusicaController.class.getName());
-    
+
     private void initComponents() {
         this.fldPreVisualizarIntroducao.toBack();
         this.areaPreVisualizarEscreverMusica.toBack();
@@ -219,7 +219,9 @@ public class EscreverMusicaController implements Initializable {
         this.btnDetectarAcordes.setDisable(true);
         this.acordesDetectados = true;
 
-        abrirPopupRemocaoDeteccoes();
+        if (MusicaUtil.hasAnomalias(this.areaEscreverMusica.getText())) {
+            abrirPopupRemocaoDeteccoes();
+        }
     }
 
     @FXML
@@ -355,7 +357,7 @@ public class EscreverMusicaController implements Initializable {
         dialogStage.getIcons().add(new Image("/snu/fronteiras/images/icons/iconeConfiguracao.png"));
         // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();
-        
-        this.areaEscreverMusica.setText(removerDeteccoesController.getConteudoMusica());        
+
+        this.areaEscreverMusica.setText(removerDeteccoesController.getConteudoMusica());
     }
 }
