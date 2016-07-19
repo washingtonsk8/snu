@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="contentHome" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.HomeController">
+    <children>
+        <ImageView fx:id="logoSistema" fitHeight="340.0" fitWidth="272.0" layoutX="264.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+      <ImageView fx:id="iconeIntegrantes" fitHeight="77.0" fitWidth="120.0" layoutX="118.0" layoutY="102.0" onMouseClicked="#onClickFromIconeIntegrantes" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/iconeIntegrantes.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="iconeMusicas" fitHeight="77.0" fitWidth="120.0" layoutX="58.0" layoutY="247.0" onMouseClicked="#onClickFromIconeMusicas" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/iconeMusicas.png" />
+         </image>
+      </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

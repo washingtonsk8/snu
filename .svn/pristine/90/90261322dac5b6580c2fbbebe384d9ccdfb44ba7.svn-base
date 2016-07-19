@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentVisualizarConteudoMusica" onMouseClicked="#onMouseClickedFromContentVisualizarConteudoMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.VisualizarConteudoMusicaController">
+    <children>
+        <Label fx:id="lblVisualizarConteudoMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Conteúdo" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblIntroducao" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblIntroducao" prefWidth="-1.0" text="Intro:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <TextField fx:id="fldIntroducao" layoutX="64.0" layoutY="60.0" prefWidth="600.0" />
+        <TextArea fx:id="areaVisualizarMusica" layoutX="64.0" layoutY="100.0" prefHeight="480.0" prefWidth="600.0" wrapText="true" />
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
+            </image>
+        </ImageView>    
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

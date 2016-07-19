@@ -314,12 +314,12 @@ public class PesquisarMissaController implements Initializable {
     }
 
     private void removerMissaSelecionada(Missa missaSelecionada) {
-        Dialogs.DialogResponse resposta;
+        boolean resposta;
         resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente excluir a Missa \"" + missaSelecionada.getNome() + "\"?",
                 "Exclusão de Missa", "Confirmação");
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             try {
                 MissaJpaController.getInstancia().destroy(missaSelecionada.getId());
                 Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),

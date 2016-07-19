@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.FXMLDocumentController">
+  <children>
+    <MenuBar fx:id="menubar" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" prefWidth="800.0">
+      <menus>
+        <Menu mnemonicParsing="false" onShowing="#onShowingFromMenuHome" text="" fx:id="menuHome">
+          <graphic>
+            <ImageView fx:id="imgHome" disable="false" fitHeight="18.0" fitWidth="18.0" focusTraversable="false" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" smooth="true">
+              <image>
+                <Image url="@../images/icons/1394262136_home_sticker.png" />
+              </image>
+            </ImageView>
+          </graphic>
+          <items>
+            <CustomMenuItem mnemonicParsing="false" text="Unspecified Action" fx:id="itemAuxiliarCarregamentoPaginaInicial" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Integrante" fx:id="menuIntegrante">
+          <items>
+            <MenuItem id="itemCadastrarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar Novo" fx:id="itemCadastrarIntegrante" />
+            <MenuItem id="itemVisualizarDados" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosIntegrante" text="Visualizar Dados" fx:id="itemVisualizarDados" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarIntegrante" text="Atualizar Dados" fx:id="itemAtualizarIntegrante" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemRemoverIntegrante" text="Remover" fx:id="itemRemoverIntegrante" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Música" fx:id="menuMusica">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemCriarMusica" text="Criar" fx:id="itemCriarMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosMusica" text="Visualizar Dados" fx:id="itemVisualizarDadosMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemAtualizarDadosMusica" text="Atualizar Dados" fx:id="itemAtualizarDadosMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemRemoverMusica" text="Remover" fx:id="itemRemoverMusica" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemGerarImpressao" text="Gerar Impressão" fx:id="itemGerarImpressao" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemGerenciarAutores" text="Gerenciar Autores" fx:id="itemGerenciarAutores" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Missa" fx:id="menuMissa">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemMontarMissa" text="Montar" fx:id="itemMontarMissa" />
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromPesquisarMissa" text="Pesquisar" fx:id="itemPesquisarMissa" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Utilitários" fx:id="menuUtilitarios">
+          <items>
+            <Menu mnemonicParsing="false" text="Backup" fx:id="menuBackup">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onActionFromItemImportarDados" text="Importar Dados" fx:id="itemImportarDados" />
+                <MenuItem mnemonicParsing="false" onAction="#onActionFromItemExportarDados" text="Exportar Dados" fx:id="itemExportarDados" />
+              </items>
+            </Menu>
+          </items>
+        </Menu>
+        <Menu id="menuConfiguracoes" mnemonicParsing="false" text="Configurações" fx:id="menuConfiguracoes">
+          <items>
+            <Menu mnemonicParsing="false" text="Música" fx:id="menuConfiguracoesMusica">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onActionFromItemTemplateEmail" text="Template de E-mail" fx:id="itemTemplateEmail" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Banco de Dados" fx:id="menuBancoDados">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onActionFromItemEscolhaDiretorioBancoDados" text="Escolha do diretório padrão" fx:id="itemEscolhaDiretorioBancoDados" />
+              </items>
+            </Menu>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ajuda">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onActionFromItemSobre" text="Sobre" fx:id="itemSobre" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane id="contentAnchor" fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="main">
+      <stylesheets>
+        <URL value="@../css/fxmldocument.css" />
+        <URL value="@../css/contents.css" />
+      </stylesheets>
+    </AnchorPane>
+  </children>
+  <stylesheets>
+    <URL value="@../css/fxmldocument.css" />
+  </stylesheets>
+</AnchorPane>

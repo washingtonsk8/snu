@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.FXMLDocumentController">
+    <children>
+        <MenuBar fx:id="menubar" blendMode="DARKEN" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="12.0" prefWidth="800.0">
+            <menus>
+                <Menu fx:id="menuIntegrante" mnemonicParsing="false" text="Integrante">
+                    <items>
+                        <MenuItem fx:id="itemCadastrarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemCadastrarIntegrante" text="Cadastrar" />
+                        <MenuItem fx:id="itemVisualizarDados" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosIntegrante" text="Visualizar Dados" />
+                        <MenuItem fx:id="itemAtualizarIntegrante" mnemonicParsing="false" onAction="#onActionFromItemAtualizarIntegrante" text="Atualizar Dados" />
+                        <MenuItem fx:id="itemRemoverIntegrante" mnemonicParsing="false" onAction="#onActionFromItemRemoverIntegrante" text="Remover" />
+                    </items>
+                </Menu>
+                <Menu fx:id="menuMusica" mnemonicParsing="false" text="Música">
+                    <items>
+                        <MenuItem fx:id="itemCriarMusica" mnemonicParsing="false" onAction="#onActionFromItemCriarMusica" text="Criar" />
+                        <MenuItem fx:id="itemVisualizarDadosMusica" mnemonicParsing="false" onAction="#onActionFromItemVisualizarDadosMusica" text="Visualizar Dados" />
+                        <MenuItem fx:id="itemAtualizarDadosMusica" mnemonicParsing="false" onAction="#onActionFromItemAtualizarDadosMusica" text="Atualizar Dados" />
+                        <MenuItem fx:id="itemRemoverMusica" mnemonicParsing="false" onAction="#onActionFromItemRemoverMusica" text="Remover" />
+                        <MenuItem fx:id="itemGerarImpressao" mnemonicParsing="false" onAction="#onActionFromItemGerarImpressao" text="Gerar Impressão" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="itemGerenciarAutores" mnemonicParsing="false" onAction="#onActionFromItemGerenciarAutores" text="Gerenciar Autores" />
+                    </items>
+                </Menu>
+                <Menu fx:id="menuMissa" mnemonicParsing="false" text="Missa">
+                    <items>
+                        <MenuItem fx:id="itemMontarMissa" mnemonicParsing="false" onAction="#onActionFromItemMontarMissa" text="Montar" />
+                        <MenuItem fx:id="itemPesquisarMissa" mnemonicParsing="false" onAction="#onActionFromPesquisarMissa" text="Pesquisar" />
+                        <MenuItem fx:id="itemLimparDadosMissa" mnemonicParsing="false" onAction="#onActionFromItemLimparDadosMissa" text="Limpar Dados" />
+                    </items>
+                </Menu>
+                <Menu fx:id="menuConfiguracoes" mnemonicParsing="false" text="Configurações">
+                    <items>
+                        <Menu id="menuConfiguracoesMissa" fx:id="menuConfiguracoesMissa" mnemonicParsing="false" text="Missa">
+                            <items>
+                                <MenuItem fx:id="itemTemplateEmail" mnemonicParsing="false" onAction="#onActionFromItemTemplateEmail" text="Template de E-mail" />
+                            </items>
+                        </Menu>
+                        <Menu fx:id="menuBancoDados" mnemonicParsing="false" text="Banco de Dados">
+                            <items>
+                                <MenuItem fx:id="itemEscolherDiretorioBancoDados" mnemonicParsing="false" onAction="#onActionFromItemEscolherDiretorioBancoDados" text="Escolher diretório padrão" />
+                                <Menu fx:id="menuBackup" mnemonicParsing="false" text="Backup">
+                                    <items>
+                                        <MenuItem fx:id="itemImportarDados" mnemonicParsing="false" onAction="#onActionFromItemImportarDados" text="Importar Dados" />
+                                        <MenuItem fx:id="itemExportarDados" mnemonicParsing="false" onAction="#onActionFromItemExportarDados" text="Exportar Dados" />
+                                    </items>
+                                </Menu>
+                            </items>
+                        </Menu>
+                        <MenuItem fx:id="itemDefinirPreferenciaTons" mnemonicParsing="false" onAction="#onActionFromItemDefinirPreferenciaTons" text="Definir Preferência de Tons" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ajuda">
+                    <items>
+                        <MenuItem fx:id="itemVerificarLog" mnemonicParsing="false" onAction="#onActionFromItemVerificarLog" text="Verificar Arquivo de Log" />
+                        <MenuItem fx:id="itemSobre" mnemonicParsing="false" onAction="#onActionFromItemSobre" text="Sobre" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane fx:id="contentAnchorPane" layoutX="0.0" layoutY="23.0" prefHeight="577.0" prefWidth="800.0" styleClass="main">
+            <stylesheets>
+                <URL value="@../css/contents.css" />
+            </stylesheets>
+        </AnchorPane>
+    </children>
+    <stylesheets>
+        <URL value="@../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

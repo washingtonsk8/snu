@@ -106,12 +106,11 @@ public class SNU extends Application {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    Dialogs.DialogResponse resposta;
-                    resposta = Dialogs.showConfirmDialog(
+                    boolean resposta = Dialogs.showConfirmDialog(
                             HomeController.getInstancia().getStage(),
                             "Deseja realmente sair do sistema?",
                             "Confirmação", "Confirmação");
-                    if (resposta != Dialogs.DialogResponse.YES) {
+                    if (!resposta) {
                         event.consume();
                     } else {
                         log.info("Finalizando a aplicação...");

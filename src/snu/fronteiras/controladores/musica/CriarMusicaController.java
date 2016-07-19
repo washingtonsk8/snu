@@ -604,11 +604,11 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
         int indiceSelecionado = this.tblAssociacoes.getSelectionModel().getSelectedIndex();
 
         if (indiceSelecionado >= 0) {
-            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+            boolean resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "Deseja realmente excluir a Associação?", "Exclusão de Associação",
                     "Confirmação");
 
-            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            if (resposta) {
                 this.itensAssociacao.remove(indiceSelecionado);
 
                 //Define a lista de associações atual na tabela
@@ -729,7 +729,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
             List<Musica> musicasEncontradas = MusicaJpaController.getInstancia()
                     .findMusicasMesmoNome(this.fldTitulo.getText());
             if (!musicasEncontradas.isEmpty()) {
-                Dialogs.DialogResponse resposta;
+                boolean resposta;
                 if (musicasEncontradas.size() == 1) {
                     resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                             "Foi encontrada a seguinte Música com o mesmo nome:\n"
@@ -751,7 +751,7 @@ public class CriarMusicaController implements Initializable, ControladorDeConteu
                             textoQuestionamento.toString(), "Criação de Música com mesmo nome", "Confirmação");
                 }
 
-                return resposta.equals(Dialogs.DialogResponse.YES);
+                return resposta;
             }
             return true;
         } catch (Exception ex) {

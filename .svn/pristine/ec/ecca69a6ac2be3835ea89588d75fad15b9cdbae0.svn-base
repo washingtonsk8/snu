@@ -1,0 +1,119 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.entidades.musica;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+/**
+ * Classe que define uma música na visão do ministério
+ *
+ * @author Washington Luis
+ */
+@Entity
+public class Musica implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String autor;
+    private String titulo;
+    private List<String> leiturasAssociadas;
+    private Tom tom;
+    private Afinacao afinacao;
+    private List<TipoMusica> tipos;
+    
+    @OneToMany(mappedBy = "musica")
+    private List<AssociacaoIntegranteMusica> associacoes;    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public List<String> getLeiturasAssociadas() {
+        return leiturasAssociadas;
+    }
+
+    public void setLeiturasAssociadas(List<String> leiturasAssociadas) {
+        this.leiturasAssociadas = leiturasAssociadas;
+    }
+
+    public Tom getTom() {
+        return tom;
+    }
+
+    public void setTom(Tom tom) {
+        this.tom = tom;
+    }
+
+    public Afinacao getAfinacao() {
+        return afinacao;
+    }
+
+    public void setAfinacao(Afinacao afinacao) {
+        this.afinacao = afinacao;
+    }
+
+    public List<TipoMusica> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<TipoMusica> tipos) {
+        this.tipos = tipos;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Musica)) {
+            return false;
+        }
+        Musica other = (Musica) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Musica{" + "id=" + id + ", autor=" + autor + ", titulo=" + titulo + ", leiturasAssociadas=" + leiturasAssociadas + ", tom=" + tom + ", afinacao=" + afinacao + ", tipos=" + tipos + '}';
+    }
+}

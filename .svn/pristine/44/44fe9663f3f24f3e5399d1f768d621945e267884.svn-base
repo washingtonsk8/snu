@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentMontarMissaOrganizacao" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.missa.MontarMissaOrganizacaoController">
+    <children>        
+        <Label fx:id="lblMontarMissaOrganizacao" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Montar Missa - Organização" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblInformacaoPasso" alignment="CENTER_LEFT" layoutX="14.0" layoutY="530.0" prefHeight="20.0" prefWidth="80.0" text="Passo 2 de 3" textAlignment="LEFT" textFill="BLUE">
+            <font>
+                <Font size="14.0" fx:id="x1" />
+            </font>
+        </Label>
+        <Label fx:id="lblInformacaoFuncionamento" layoutX="486.0" layoutY="60.0" prefHeight="-1.0" prefWidth="300.0" text="Arraste as Músicas previamente selecionadas para as suas respectivas posições." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" fx:id="x2" />
+            </font>
+        </Label>
+        <Label fx:id="lblEntrada" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="140.0" onMouseClicked="#onMouseClickedFromLblEntrada" prefWidth="120.0" text="Entrada:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblOfertorio" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="260.0" onMouseClicked="#onMouseClickedFromLblOfertorio" prefWidth="120.0" text="Ofertório:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblAtoPenitencial" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="170.0" onMouseClicked="#onMouseClickedFromLblAtoPenitencial" prefWidth="120.0" text="Ato Penitencial:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblGloria" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="200.0" onMouseClicked="#onMouseClickedFromLblGloria" prefWidth="120.0" text="Glória:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblSanto" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="290.0" onMouseClicked="#onMouseClickedFromLblSanto" prefWidth="120.0" text="Santo:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblAclamacao" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="230.0" onMouseClicked="#onMouseClickedFromLblAclamacao" prefWidth="120.0" text="Aclamação:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblPaz" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="320.0" onMouseClicked="#onMouseClickedFromLblPaz" prefWidth="120.0" text="Paz:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblComunhao" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="350.0" onMouseClicked="#onMouseClickedFromLblComunhao" prefWidth="120.0" text="Comunhão:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblFinal" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="410.0" onMouseClicked="#onMouseClickedFromLblFinal" prefWidth="120.0" text="Final:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblAcaoDeGracas" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="380.0" onMouseClicked="#onMouseClickedFromLblAcaoDeGracas" prefWidth="120.0" text="Ação de Graças:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblEspeciais" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="440.0" onMouseClicked="#onMouseClickedFromLblEspeciais" prefWidth="120.0" text="Especiais:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1e90ff00" height="64.0" layoutX="14.0" layoutY="60.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="MITER" strokeMiterLimit="4.0" strokeType="CENTERED" strokeWidth="0.7" width="455.0">
+            <effect>
+                <Glow />
+            </effect>
+        </Rectangle>
+        <Label fx:id="lblNomeMissa" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="65.0" onMouseClicked="#onMouseClickedFromLblNomeMissa" prefWidth="120.0" text="Nome da Missa:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblDataMissa" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="95.0" onMouseClicked="#onMouseClickedFromLblDataMissa" prefWidth="120.0" text="Data da Missa:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldNomeMissa" layoutX="150.0" layoutY="65.0" prefWidth="300.0" promptText="Ex.: Missa do 1º Domingo Comum" />
+        <ListView fx:id="listaMusicasSelecionadas" layoutX="486.0" layoutY="140.0" onDragDetected="#onDragDetectedFromListaMusicasSelecionadas" prefHeight="350.0" prefWidth="300.0" />
+        <TextField fx:id="fldMusicaEntrada" disable="false" editable="false" layoutX="150.0" layoutY="140.0" onDragDropped="#onDragDroppedFldMusicaEntrada" onDragEntered="#onDragEnteredFldMusicaEntrada" onDragExited="#onDragExitedFldMusicaEntrada" onDragOver="#onDragOverFldMusicaEntrada" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaAtoPenitencial" disable="false" editable="false" layoutX="150.0" layoutY="170.0" onDragDropped="#onDragDroppedFldMusicaAtoPenitencial" onDragEntered="#onDragEnteredFldMusicaAtoPenitencial" onDragExited="#onDragExitedFldMusicaAtoPenitencial" onDragOver="#onDragOverFldMusicaAtoPenitencial" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaGloria" disable="false" editable="false" layoutX="150.0" layoutY="200.0" onDragDropped="#onDragDroppedFldMusicaGloria" onDragEntered="#onDragEnteredFldMusicaGloria" onDragExited="#onDragExitedFldMusicaGloria" onDragOver="#onDragOverFldMusicaGloria" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaAclamacao" disable="false" editable="false" layoutX="150.0" layoutY="230.0" onDragDropped="#onDragDroppedFldMusicaAclamacao" onDragEntered="#onDragEnteredFldMusicaAclamacao" onDragExited="#onDragExitedFldMusicaAclamacao" onDragOver="#onDragOverFldMusicaAclamacao" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaOfertorio" disable="false" editable="false" layoutX="150.0" layoutY="260.0" onDragDropped="#onDragDroppedFldMusicaOfertorio" onDragEntered="#onDragEnteredFldMusicaOfertorio" onDragExited="#onDragExitedFldMusicaOfertorio" onDragOver="#onDragOverFldMusicaOfertorio" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaSanto" disable="false" editable="false" layoutX="150.0" layoutY="290.0" onDragDropped="#onDragDroppedFldMusicaSanto" onDragEntered="#onDragEnteredFldMusicaSanto" onDragExited="#onDragExitedFldMusicaSanto" onDragOver="#onDragOverFldMusicaSanto" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaPaz" disable="false" editable="false" layoutX="150.0" layoutY="320.0" onDragDropped="#onDragDroppedFldMusicaPaz" onDragEntered="#onDragEnteredFldMusicaPaz" onDragExited="#onDragExitedFldMusicaPaz" onDragOver="#onDragOverFldMusicaPaz" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaComunhao" disable="false" editable="false" layoutX="150.0" layoutY="350.0" onDragDropped="#onDragDroppedFldMusicaComunhao" onDragEntered="#onDragEnteredFldMusicaComunhao" onDragExited="#onDragExitedFldMusicaComunhao" onDragOver="#onDragOverFldMusicaComunhao" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaAcaoDeGracas" disable="false" editable="false" layoutX="150.0" layoutY="380.0" onDragDropped="#onDragDroppedFldMusicaAcaoDeGracas" onDragEntered="#onDragEnteredFldMusicaAcaoDeGracas" onDragExited="#onDragExitedFldMusicaAcaoDeGracas" onDragOver="#onDragOverFldMusicaAcaoDeGracas" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextField fx:id="fldMusicaFinal" disable="false" editable="false" layoutX="150.0" layoutY="410.0" onDragDropped="#onDragDroppedFldMusicaFinal" onDragEntered="#onDragEnteredFldMusicaFinal" onDragExited="#onDragExitedFldMusicaFinal" onDragOver="#onDragOverFldMusicaFinal" prefWidth="270.0" promptText="Arraste para aqui uma Música" />
+        <TextArea fx:id="areaMusicasEspeciais" editable="false" layoutX="150.0" layoutY="440.0" onDragDropped="#onDragDroppedAreaMusicasEspeciais" onDragEntered="#onDragEnteredAreaMusicasEspeciais" onDragExited="#onDragExitedAreaMusicasEspeciais" onDragOver="#onDragOverAreaMusicasEspeciais" prefHeight="50.0" prefWidth="270.0" promptText="Arraste para aqui as Músicas que não se encaixam nas opções acima" wrapText="true" />
+        <Button fx:id="btnVoltar" font="$x1" layoutX="556.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnVoltar" prefHeight="40.0" prefWidth="100.0" text="Voltar" textFill="BLACK" />
+        <Button fx:id="btnAvancar" font="$x1" layoutX="676.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnAvancar" prefHeight="40.0" prefWidth="110.0" text="Avançar" textFill="BLACK" />
+        <Button fx:id="btnRemoverMusicaEntrada" layoutX="422.0" layoutY="140.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaEntrada" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaAtoPenitencial" layoutX="422.0" layoutY="170.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaAtoPenitencial" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaGloria" layoutX="422.0" layoutY="200.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaGloria" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaAclamacao" layoutX="422.0" layoutY="230.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaAclamacao" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaOfertorio" layoutX="422.0" layoutY="260.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaOfertorio" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaSanto" layoutX="422.0" layoutY="290.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaSanto" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaPaz" layoutX="422.0" layoutY="320.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaPaz" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaComunhao" layoutX="422.0" layoutY="350.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaComunhao" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaAcaoDeGracas" layoutX="422.0" layoutY="380.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaAcaoDeGracas" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicaFinal" layoutX="422.0" layoutY="410.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicaFinal" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRemoverMusicasEspeciais" layoutX="422.0" layoutY="450.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionFromBtnRemoverMusicasEspeciais" prefHeight="22.0" prefWidth="28.0" text="">
+            <graphic>
+                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                    <effect>
+                        <Glow />
+                    </effect>
+                    <image>
+                        <Image url="@../../images/icons/excluir_vermelho.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Label layoutX="135.0" layoutY="90.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <ImageView id="" fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+            </image>
+        </ImageView>
+        <DatePicker fx:id="dpDataMissa" layoutX="150.0" layoutY="95.0" onAction="#onActionFromDpDataMissa" prefWidth="150.0" promptText="DD/MM/AAAA" />
+        <ImageView fx:id="iconeAvancar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeAvancar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeVoltar" fitHeight="18.0" fitWidth="18.0" layoutX="565.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

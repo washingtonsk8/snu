@@ -1,0 +1,285 @@
+2014-04-18 15:19  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-04-18 15:19  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-04-21 16:36  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-05-31 18:22  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-05-31 18:22  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-01 10:35  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-01 10:35  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-01 10:44  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-01 10:45  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-01 10:51  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-01 19:32  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-01 20:03  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-01 20:17  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-01 20:19  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 15:33  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 15:35  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 15:35  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 15:37  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 15:47  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 15:48  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 15:48  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 15:49  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 16:00  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 16:01  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 16:02  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 16:07  INFO [JavaFX Application Thread] (SNU.java:52) - Iniciando a aplicação...
+2014-06-08 16:08  INFO [JavaFX Application Thread] (SNU.java:116) - Finalizando a aplicação...
+2014-06-08 16:24  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:24 ERROR [JavaFX Application Thread] (SNU.java:131) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:93)
+	at snu.controladores.ConfiguracoesSistemaJpaController.edit(ConfiguracoesSistemaJpaController.java:65)
+	at snu.controladores.SNU.start(SNU.java:89)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:81)
+	... 13 more
+Caused by: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:268)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:185)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:51)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1216)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:383)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:133)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:76)
+	... 13 more
+Caused by: java.sql.BatchUpdateException: Data truncated for column 'versao' at row 1
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:1666)
+	at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1082)
+	at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268)
+	... 21 more
+2014-06-08 16:36  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:36 ERROR [JavaFX Application Thread] (SNU.java:131) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:93)
+	at snu.controladores.ConfiguracoesSistemaJpaController.edit(ConfiguracoesSistemaJpaController.java:65)
+	at snu.controladores.SNU.start(SNU.java:89)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:81)
+	... 13 more
+Caused by: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:268)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:185)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:51)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1216)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:383)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:133)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:76)
+	... 13 more
+Caused by: java.sql.BatchUpdateException: Data truncated for column 'versao' at row 1
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:1666)
+	at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1082)
+	at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268)
+	... 21 more
+2014-06-08 16:39  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:39 ERROR [JavaFX Application Thread] (SNU.java:131) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:93)
+	at snu.controladores.ConfiguracoesSistemaJpaController.edit(ConfiguracoesSistemaJpaController.java:65)
+	at snu.controladores.SNU.start(SNU.java:89)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:81)
+	... 13 more
+Caused by: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:268)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:185)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:51)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1216)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:383)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:133)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:76)
+	... 13 more
+Caused by: java.sql.BatchUpdateException: Data truncated for column 'versao' at row 1
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:1666)
+	at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1082)
+	at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268)
+	... 21 more
+2014-06-08 16:40  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:41  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:42 FATAL [JavaFX Application Thread] (FXMLDocumentController.java:618) - Caiu em DEFAULT CASE
+2014-06-08 16:42  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 16:44  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:44 ERROR [JavaFX Application Thread] (SNU.java:131) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:93)
+	at snu.controladores.ConfiguracoesSistemaJpaController.edit(ConfiguracoesSistemaJpaController.java:65)
+	at snu.controladores.SNU.start(SNU.java:89)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:81)
+	... 13 more
+Caused by: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:268)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:185)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:51)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1216)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:383)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:133)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:76)
+	... 13 more
+Caused by: java.sql.BatchUpdateException: Data truncated for column 'versao' at row 1
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:1666)
+	at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1082)
+	at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268)
+	... 21 more
+2014-06-08 16:46  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 16:46 ERROR [JavaFX Application Thread] (SNU.java:131) - Erro ao iniciar a unidade de persistencia (SNUPU)
+javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:93)
+	at snu.controladores.ConfiguracoesSistemaJpaController.edit(ConfiguracoesSistemaJpaController.java:65)
+	at snu.controladores.SNU.start(SNU.java:89)
+	at com.sun.javafx.application.LauncherImpl$5.run(LauncherImpl.java:319)
+	at com.sun.javafx.application.PlatformImpl$5.run(PlatformImpl.java:216)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:179)
+	at com.sun.javafx.application.PlatformImpl$4$1.run(PlatformImpl.java:176)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl$4.run(PlatformImpl.java:176)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:76)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.access$100(WinApplication.java:17)
+	at com.sun.glass.ui.win.WinApplication$3$1.run(WinApplication.java:67)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:81)
+	... 13 more
+Caused by: org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:268)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:185)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:51)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1216)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:383)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:133)
+	at org.hibernate.ejb.TransactionImpl.commit(TransactionImpl.java:76)
+	... 13 more
+Caused by: java.sql.BatchUpdateException: Data truncated for column 'versao' at row 1
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:1666)
+	at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1082)
+	at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70)
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268)
+	... 21 more
+2014-06-08 17:21  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 17:21  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 17:45  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 17:46  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 17:46  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 17:51  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 17:55  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 17:55  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 17:56  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 17:57  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 18:04  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 18:04  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 18:06  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 18:07  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 18:08  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 18:09  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 18:10  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 18:11  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-08 18:21  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-08 18:22  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 12:58  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 13:01  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 13:02  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 13:02  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 13:05  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 13:07  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 13:07  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 13:11  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 13:15  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 13:19  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 13:19  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 13:21  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 20:18  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 20:18  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 20:20  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 20:22  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 20:23  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 20:24  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 20:25  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 20:31  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 20:31  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 20:39  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...
+2014-06-10 20:41  INFO [JavaFX Application Thread] (SNU.java:53) - Iniciando a aplicação...
+2014-06-10 20:41  INFO [JavaFX Application Thread] (SNU.java:117) - Finalizando a aplicação...

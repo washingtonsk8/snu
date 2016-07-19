@@ -1,0 +1,224 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.controladores;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import snu.bd.GerenciadorDeEntidades;
+import snu.controladores.exceptions.NonexistentEntityException;
+import snu.entidades.musica.Musica;
+import snu.entidades.musica.indexador.ObjetoListaInvertida;
+import snu.entidades.musica.indexador.ObjetoListaInvertida_;
+import snu.entidades.musica.indexador.Vocabulo;
+
+/**
+ *
+ * @author Washington Luis
+ */
+public class ObjetoListaInvertidaJpaController implements Serializable {
+
+    /**
+     * Fábrica Singleton do sistema
+     */
+    private final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private static ObjetoListaInvertidaJpaController instancia;
+
+    /**
+     * Construtor da classe Singleton
+     */
+    private ObjetoListaInvertidaJpaController() {
+    }
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public void create(ObjetoListaInvertida objetoListaInvertida) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Vocabulo vocabulo = objetoListaInvertida.getVocabulo();
+            if (vocabulo != null) {
+                vocabulo = em.getReference(vocabulo.getClass(), vocabulo.getId());
+                objetoListaInvertida.setVocabulo(vocabulo);
+            }
+            em.persist(objetoListaInvertida);
+            if (vocabulo != null) {
+                vocabulo.getListaInvertida().add(objetoListaInvertida);
+                vocabulo = em.merge(vocabulo);
+            }
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void edit(ObjetoListaInvertida objetoListaInvertida) throws NonexistentEntityException, Exception {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            ObjetoListaInvertida persistentObjetoListaInvertida = em.find(ObjetoListaInvertida.class, objetoListaInvertida.getId());
+            Vocabulo vocabuloOld = persistentObjetoListaInvertida.getVocabulo();
+            Vocabulo vocabuloNew = objetoListaInvertida.getVocabulo();
+            if (vocabuloNew != null) {
+                vocabuloNew = em.getReference(vocabuloNew.getClass(), vocabuloNew.getId());
+                objetoListaInvertida.setVocabulo(vocabuloNew);
+            }
+            objetoListaInvertida = em.merge(objetoListaInvertida);
+            if (vocabuloOld != null && !vocabuloOld.equals(vocabuloNew)) {
+                vocabuloOld.getListaInvertida().remove(objetoListaInvertida);
+                vocabuloOld = em.merge(vocabuloOld);
+            }
+            if (vocabuloNew != null && !vocabuloNew.equals(vocabuloOld)) {
+                vocabuloNew.getListaInvertida().add(objetoListaInvertida);
+                vocabuloNew = em.merge(vocabuloNew);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            String msg = ex.getLocalizedMessage();
+            if (msg == null || msg.length() == 0) {
+                Long id = objetoListaInvertida.getId();
+                if (findObjetoListaInvertida(id) == null) {
+                    throw new NonexistentEntityException("The objetoListaInvertida with id " + id + " no longer exists.");
+                }
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void destroy(Long id) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            ObjetoListaInvertida objetoListaInvertida;
+            try {
+                objetoListaInvertida = em.getReference(ObjetoListaInvertida.class, id);
+                objetoListaInvertida.getId();
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The objetoListaInvertida with id " + id + " no longer exists.", enfe);
+            }
+            Vocabulo vocabulo = objetoListaInvertida.getVocabulo();
+            if (vocabulo != null) {
+                vocabulo.getListaInvertida().remove(objetoListaInvertida);
+                vocabulo = em.merge(vocabulo);
+            }
+            em.remove(objetoListaInvertida);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public List<ObjetoListaInvertida> findObjetoListaInvertidaEntities() {
+        return findObjetoListaInvertidaEntities(true, -1, -1);
+    }
+
+    public List<ObjetoListaInvertida> findObjetoListaInvertidaEntities(int maxResults, int firstResult) {
+        return findObjetoListaInvertidaEntities(false, maxResults, firstResult);
+    }
+
+    private List<ObjetoListaInvertida> findObjetoListaInvertidaEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(ObjetoListaInvertida.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public ObjetoListaInvertida findObjetoListaInvertida(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(ObjetoListaInvertida.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void destroyByMusicaId(Long idMusica) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+
+            /**
+             * Buscando todos os objetos que contém dado ID de música
+             */
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<ObjetoListaInvertida> cq = cb.createQuery(ObjetoListaInvertida.class);
+            Root<ObjetoListaInvertida> objetoListaInvertidaRoot = cq.from(ObjetoListaInvertida.class);
+            cq.select(objetoListaInvertidaRoot)
+                    .where(cb.equal(objetoListaInvertidaRoot.<Long>get(ObjetoListaInvertida_.idMusica), idMusica));
+            Query query = em.createQuery(cq);
+            List<ObjetoListaInvertida> objetosToRemover = query.getResultList();
+
+            //Inicia a transação
+            em.getTransaction().begin();
+
+            for (ObjetoListaInvertida objetoListaInvertida : objetosToRemover) {
+                Vocabulo vocabulo = objetoListaInvertida.getVocabulo();
+                if (vocabulo != null) {
+                    vocabulo.getListaInvertida().remove(objetoListaInvertida);
+                    vocabulo = em.merge(vocabulo);
+                }
+            }
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public int getObjetoListaInvertidaCount() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Root<ObjetoListaInvertida> rt = cq.from(ObjetoListaInvertida.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
+    public static ObjetoListaInvertidaJpaController getInstancia() {
+        if (instancia == null) {
+            instancia = new ObjetoListaInvertidaJpaController();
+        }
+        return instancia;
+    }
+}

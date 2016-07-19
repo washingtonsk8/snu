@@ -5,10 +5,17 @@
  */
 package snu.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  *
@@ -76,65 +83,90 @@ public class Dialogs {
          */
         OK_CANCEL;
     }
-
-    public static void showInformationDialog(Stage stage, String mensagem, String cabecalho) {
-        showInformationDialog(stage, mensagem, cabecalho, null);
+    
+    public static void showInformationDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(cabecalho);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
-    public static void showInformationDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
-        org.controlsfx.dialog.Dialogs.create()
-                .owner(stage)
-                .title(titulo)
-                .masthead(cabecalho)
-                .message(mensagem)
-                .showInformation();
+    public static void showInformationDialog(Stage stage, String mensagem, String cabecalho) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(cabecalho);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
     public static void showWarningDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
-        org.controlsfx.dialog.Dialogs.create()
-                .owner(stage)
-                .title(titulo)
-                .masthead(cabecalho)
-                .message(mensagem)
-                .showWarning();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(cabecalho);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
-    public static DialogResponse showConfirmDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
-        Action resposta = org.controlsfx.dialog.Dialogs.create()
-                .owner(stage)
-                .title(titulo)
-                .masthead(cabecalho)
-                .message(mensagem)
-                .actions(Dialog.ACTION_YES, Dialog.ACTION_NO)
-                .showConfirm();
-        return resposta == Dialog.ACTION_YES ? DialogResponse.YES : DialogResponse.NO;
+    public static boolean showConfirmDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(cabecalho);
+        alert.setContentText(mensagem);
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == ButtonType.OK;
     }
 
     public static void showErrorDialog(Stage stage, String mensagem, String cabecalho, String titulo) {
-        org.controlsfx.dialog.Dialogs.create()
-                .owner(stage)
-                .title(titulo)
-                .masthead(cabecalho)
-                .message(mensagem)
-                .showError();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(cabecalho);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
     public static void showErrorDialog(Stage stage, String mensagem, String cabecalho, String titulo, Exception excecao) {
-        org.controlsfx.dialog.Dialogs.create()
-                .owner(stage)
-                .title(titulo)
-                .masthead(cabecalho)
-                .message(mensagem)
-                .showException(excecao);
+        Dialogs.showErrorDialog(stage, mensagem, cabecalho, titulo, excecao);
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(cabecalho);
+        alert.setContentText(mensagem);
+
+        // Create expandable Exception.
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        excecao.printStackTrace(pw);
+        String exceptionText = sw.toString();
+
+        Label label = new Label("The exception stacktrace was:");
+
+        TextArea textArea = new TextArea(exceptionText);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(label, 0, 0);
+        expContent.add(textArea, 0, 1);
+
+        alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
     }
 
     public static String showInputDialog(Stage stage, String mensagem, String cabecalho, String titulo, String entrada) {
-        Optional<String> resposta = org.controlsfx.dialog.Dialogs.create()
-                .owner(stage)
-                .title(titulo)
-                .masthead(cabecalho)
-                .message(mensagem)
-                .showTextInput(entrada);
-        return resposta.isPresent() ? resposta.get() : null;
+        TextInputDialog dialog = new TextInputDialog(entrada);
+        dialog.setTitle(titulo);
+        dialog.setHeaderText(cabecalho);
+        dialog.setContentText(mensagem);
+
+        Optional<String> result = dialog.showAndWait();
+        return result.isPresent() ? result.get() : null;
     }
 }

@@ -1,0 +1,51 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.bd;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+/**
+ * Gerencia em GERAL as entidades do sistema
+ *
+ * @author Washington Luis
+ */
+public class GerenciadorDeEntidades {
+
+    /**
+     * Fábrica de gerenciador de entidades
+     */
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SNUPU");
+    private static GerenciadorDeEntidades instancia;
+
+    /**
+     * Construtor padrão da classe Singleton
+     */
+    public GerenciadorDeEntidades() {
+    }
+
+    /**
+     * Retorna a fábrica da classe
+     *
+     * @return
+     */
+    public EntityManagerFactory getFabrica() {
+        return this.emf;
+    }
+
+    /**
+     * Retorna a instância Singleton
+     *
+     * @return
+     */
+    public static synchronized GerenciadorDeEntidades getInstancia() {
+        if (instancia == null) {
+            instancia = new GerenciadorDeEntidades();
+        }
+        return instancia;
+    }
+
+}

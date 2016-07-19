@@ -1,0 +1,183 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.entidades;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Classe que define um integrante do ministério de música Nova Unção
+ *
+ * @author Washington Luis
+ */
+@Entity
+public class Integrante implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_integrante")
+    private Long id;
+    private String nome;
+    private Sexo sexo;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_nascimento")
+    private Date dataNascimento;
+    
+    private Integer idade;
+    
+    @Column(name = "telefone_residencial")
+    private String telefoneResidencial;
+    
+    @Column(name = "telefone_celular")
+    private String telefoneCelular;
+    
+    @Column(name = "telefone_comercial")
+    private String telefoneComercial;
+    private String endereco;
+    private TipoIntegrante tipo;
+    
+    @Column(name = "tipo_adicional")
+    private TipoIntegrante tipoAdicional;
+
+    public Integrante() {
+    }
+
+    public Integrante(String nome, Sexo sexo, Date dataNascimento, Integer idade, String telefoneResidencial, String telefoneCelular, String telefoneComercial, String endereco, TipoIntegrante tipo, TipoIntegrante tipoAdicional) {
+        this.nome = nome;
+        this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
+        this.idade = idade;
+        this.telefoneResidencial = telefoneResidencial;
+        this.telefoneCelular = telefoneCelular;
+        this.telefoneComercial = telefoneComercial;
+        this.endereco = endereco;
+        this.tipo = tipo;
+        this.tipoAdicional = tipoAdicional;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public String getTelefoneResidencial() {
+        return telefoneResidencial;
+    }
+
+    public void setTelefoneResidencial(String telefoneResidencial) {
+        this.telefoneResidencial = telefoneResidencial;
+    }
+
+    public String getTelefoneCelular() {
+        return telefoneCelular;
+    }
+
+    public void setTelefoneCelular(String telefoneCelular) {
+        this.telefoneCelular = telefoneCelular;
+    }
+
+    public String getTelefoneComercial() {
+        return telefoneComercial;
+    }
+
+    public void setTelefoneComercial(String telefoneComercial) {
+        this.telefoneComercial = telefoneComercial;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public TipoIntegrante getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoIntegrante tipo) {
+        this.tipo = tipo;
+    }
+
+    public TipoIntegrante getTipoAdicional() {
+        return tipoAdicional;
+    }
+
+    public void setTipoAdicional(TipoIntegrante tipoAdicional) {
+        this.tipoAdicional = tipoAdicional;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Integrante)) {
+            return false;
+        }
+        Integrante other = (Integrante) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Integrante{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", idade=" + idade + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular=" + telefoneCelular + ", telefoneComercial=" + telefoneComercial + ", endereco=" + endereco + ", tipo=" + tipo + ", tipoAdicional=" + tipoAdicional + '}';
+    }
+
+}

@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri Dec 05 23:12:17 BRST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014a-1d27-85dc-0000041c4508 
+on database directory C:\Users\User\Documents\NetBeansProjects\SNU\snu with class loader java.net.URLClassLoader@43556938 
+Loaded from file:/C:/Users/User/Documents/NetBeansProjects/SNU/dist/run44866829/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_11-b12
+user.dir=C:\Users\User\Documents\NetBeansProjects\SNU
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

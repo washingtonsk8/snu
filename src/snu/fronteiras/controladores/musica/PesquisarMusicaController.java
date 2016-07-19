@@ -441,12 +441,12 @@ public class PesquisarMusicaController implements Initializable {
     }
 
     private void removerMusicaSelecionada(Musica musicaSelecionada) {
-        Dialogs.DialogResponse resposta;
+        boolean resposta;
         resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente excluir a Música \"" + musicaSelecionada.getTitulo() + "\"?",
                 "Exclusão de Música", "Confirmação");
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             try {
                 MusicaJpaController.getInstancia().destroy(musicaSelecionada.getId());
                 Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),

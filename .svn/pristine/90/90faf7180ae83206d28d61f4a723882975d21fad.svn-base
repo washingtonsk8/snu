@@ -1,0 +1,209 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores.musica.popups;
+
+import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.util.Callback;
+import javafx.util.Duration;
+import snu.controladores.AutorJpaController;
+import snu.entidades.musica.Musica;
+import snu.entidades.musica.Autor;
+
+/**
+ * Classe controladora do FXML
+ *
+ * @author Washington Luis
+ */
+public class SelecionarAutorController implements Initializable {
+
+    @FXML
+    private AnchorPane popupSelecionarAutor;
+    @FXML
+    private Font x1;
+    @FXML
+    private ListView<Autor> listSelecionarAutor;
+    @FXML
+    private TextField fldPesquisarAutor;
+    @FXML
+    private ImageView imgPesquisaAutor;
+    @FXML
+    private Button btnAdicionarAutor;
+
+    private ObservableList<Autor> autores;
+
+    private Musica musica;
+
+    private void initComponents() {
+
+        this.autores = FXCollections.observableArrayList(AutorJpaController.getInstancia().findAutorEntities());
+
+        this.listSelecionarAutor.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        final Timeline animation = new Timeline(
+                new KeyFrame(Duration.seconds(.1),
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                listSelecionarAutor.edit(listSelecionarAutor.getSelectionModel().getSelectedIndex());
+                            }
+                        }));
+        animation.setCycleCount(1);
+
+        this.listSelecionarAutor.setCellFactory(new Callback<ListView<Autor>, ListCell<Autor>>() {
+            @Override
+            public ListCell<Autor> call(ListView<Autor> autores) {
+                ListCell<Autor> celulas = new ListCell<Autor>() {
+                    @Override
+                    protected void updateItem(Autor autor, boolean bln) {
+                        super.updateItem(autor, bln);
+                        if (autor != null) {
+                            setText(autor.getNome());
+                        }
+                    }
+                };
+                return celulas;
+            }
+        });
+
+        Collections.sort(this.autores, new Comparator<Autor>() {
+            @Override
+            public int compare(Autor autor1, Autor autor2) {
+                return autor1.getNome().compareTo(autor2.getNome());
+            }
+        });
+        this.listSelecionarAutor.setItems(this.autores);
+
+        this.btnAdicionarAutor.setVisible(false);
+    }
+
+    /**
+     * Inicializa os dados principais da classe
+     *
+     * @param musica
+     */
+    public void initData(Musica musica) {
+        this.musica = musica;
+    }
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
+    }
+
+    @FXML
+    private void onActionFromFldPesquisarAutor(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromListSelecionarAutor(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            Autor autorSelecionado = this.listSelecionarAutor.getSelectionModel().getSelectedItem();
+
+            if (autorSelecionado != null) {
+                this.musica.setAutor(autorSelecionado);
+                this.popupSelecionarAutor.getScene().getWindow().hide();
+            }
+        }
+    }
+
+    @FXML
+    private void onActionFromBtnAdicionarAutor(ActionEvent event) {
+        String nomeAutor = this.fldPesquisarAutor.getText();
+
+        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null,
+                "Tem certeza que deseja adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
+                "Adição de Autor",
+                "Confirmação");
+
+        //Checa a resposta
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            Autor novoAutor = new Autor();
+            novoAutor.setNome(nomeAutor);
+
+            //Persiste no banco
+            AutorJpaController.getInstancia().create(novoAutor);
+
+            this.musica.setAutor(novoAutor);
+
+            this.popupSelecionarAutor.getScene().getWindow().hide();
+        }
+    }
+
+    @FXML
+    private void onKeyReleasedFromFldPesquisarAutor(KeyEvent event) {
+        String textoPesquisa = this.fldPesquisarAutor.getText().toLowerCase();
+        if (!textoPesquisa.isEmpty()) {
+            ObservableList<Autor> autoresFiltrados = FXCollections.observableArrayList();
+
+            for (Autor autor : this.autores) {
+                String nomeAutor = autor.getNome().toLowerCase();
+                if (nomeAutor.contains(textoPesquisa)) {
+                    autoresFiltrados.add(autor);
+                }
+            }
+
+            //Habilita a visualização do botão de adição de autor inexistente
+            if (autoresFiltrados.isEmpty()) {
+                this.btnAdicionarAutor.setVisible(true);
+            } else {
+                this.btnAdicionarAutor.setVisible(false);
+            }
+
+            this.listSelecionarAutor.setItems(autoresFiltrados);
+            atualizarLista();
+        } else {
+            this.listSelecionarAutor.setItems(this.autores);
+            this.btnAdicionarAutor.setVisible(false);
+        }
+    }
+
+    private void atualizarLista() {
+        final List<Autor> itens = this.listSelecionarAutor.getItems();
+        if (itens == null || itens.isEmpty()) {
+            return;
+        }
+
+        final Autor item = this.listSelecionarAutor.getItems().get(0);
+        itens.remove(0);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                itens.add(0, item);
+            }
+        });
+    }
+
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentSobre" prefHeight="253.32086345214339" prefWidth="600.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.ajuda.SobreController">
+    <children>
+        <ImageView fitHeight="250.0" fitWidth="180.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/logo.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="213.0" layoutY="14.0" prefWidth="373.0" text="Sistema desenvolvido para melhorar a gerência das músicas de um ministério de música, especificamente do Ministério de Música Nova Unção. Qualquer dúvida, sugestão ou, comentário, favor entrar em contato com o administrador e desenvolvedor do sistema, Washington Luis de Souza Ramos através do e-mail washington.ramos@outlook.com." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblVersao" layoutX="213.0" layoutY="210.0" prefHeight="-1.0" prefWidth="-1.0" text="Versão:" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="18.0" fx:id="x1" />
+            </font>
+        </Label>
+        <Label fx:id="lblResultadoVersao" font="$x1" layoutX="280.0" layoutY="210.0" prefHeight="-1.0" prefWidth="-1.0" text="" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

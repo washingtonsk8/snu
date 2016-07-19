@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.bd;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import snu.controladores.SNU;
+
+/**
+ * Classe necessária para realizar operações com o mysqldump (Backup e Restore).
+ *
+ * @author Washington Luis
+ */
+public class BDDump {
+
+    private static final String usuarioBD = "snu";
+    private static final String senhaBD = "snu#1.0rocks!";
+
+    /**
+     * Realiza o backup do banco no diretório escolhido
+     *
+     * @param diretorioArquivo
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static boolean doBakup(String diretorioArquivo) throws IOException, InterruptedException {
+        Date dataAtual = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+
+        String nomeArquivo = "bkp_snu_" + dateFormat.format(dataAtual);
+
+        String comando = "\"" + SNU.configuracoesSistema.getDiretorioSGBD() + "\\mysqldump\" -u" + usuarioBD + " -p" + senhaBD + " --add-drop-database -B snu -r " + "\"" + diretorioArquivo + "\\" + nomeArquivo + ".sql\"";
+
+        Process processo = Runtime.getRuntime().exec(comando);
+        int resultadoProcesso = processo.waitFor();
+        return resultadoProcesso == 0;
+    }
+
+    /**
+     * Realiza o restore para o banco a partir do arquivo escolhido
+     *
+     * @param caminhoArquivo
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static boolean doRestore(String caminhoArquivo) throws IOException, InterruptedException {
+        String[] comandos = new String[]{SNU.configuracoesSistema.getDiretorioSGBD() + "\\mysql ", "--user=" + usuarioBD, "--password=" + senhaBD, "-e", "source " + caminhoArquivo};
+
+        Process processo = Runtime.getRuntime().exec(comandos);
+        int resultadoProcesso = processo.waitFor();
+        return resultadoProcesso == 0;
+    }
+}

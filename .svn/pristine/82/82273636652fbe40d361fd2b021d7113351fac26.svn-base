@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="popupSelecionarAutor" prefHeight="400.0" prefWidth="500.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.musica.popups.SelecionarAutorController">
+    <children>   
+        <Label layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Selecionar Autor" textFill="BLACK">
+            <font>
+                <Font size="14.0" fx:id="x1" />
+            </font>
+            <stylesheets>
+                <URL value="@../../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label font="$x1" layoutX="14.0" layoutY="60.0" prefHeight="-1.0" prefWidth="240.0" text="Selecione um Autor na lista ao lado ou adicione um novo caso o Autor escolhido não esteja listado." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldPesquisarAutor" layoutX="49.0" layoutY="130.0" onAction="#onActionFromFldPesquisarAutor" onKeyReleased="#onKeyReleasedFromFldPesquisarAutor" prefWidth="205.0" />
+        <ImageView fx:id="imgPesquisaAutor" fitHeight="26.0" fitWidth="26.0" layoutX="14.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/search.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="btnAdicionarAutor" layoutX="49.0" layoutY="162.0" mnemonicParsing="false" onAction="#onActionFromBtnAdicionarAutor" prefHeight="22.0" prefWidth="130.0" text="Adicionar Novo" textFill="BLACK" />
+        <ListView fx:id="listSelecionarAutor" layoutX="276.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromListSelecionarAutor" prefHeight="320.0" prefWidth="210.0" />
+        <ImageView fx:id="iconeAdicionarNovo" fitHeight="16.0" fitWidth="16.0" layoutX="55.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../../images/icons/iconeAdicionar.png" />
+            </image>
+        </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@../../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

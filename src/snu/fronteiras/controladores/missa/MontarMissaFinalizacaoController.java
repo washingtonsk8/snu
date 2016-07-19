@@ -154,11 +154,11 @@ public class MontarMissaFinalizacaoController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+        boolean resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "A montagem da Missa será perdida. Deseja realmente ir para o Início?",
                 "Ir para tela de Início", "Confirmação");
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             FXMLDocumentController.getInstancia().iniciarPaginaInicial();
         }
     }

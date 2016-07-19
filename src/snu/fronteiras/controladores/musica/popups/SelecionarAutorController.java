@@ -113,12 +113,12 @@ public class SelecionarAutorController implements Initializable {
     private void adicionarAutor() {
         String nomeAutor = this.fldPesquisarAutor.getText();
 
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+        boolean resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente adicionar o(a) Autor(a) \"" + nomeAutor + "\"?",
                 "Adição de Autor", "Confirmação");
 
         //Checa a resposta
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             Autor novoAutor = new Autor();
             novoAutor.setNome(nomeAutor);
 

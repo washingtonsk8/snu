@@ -1,0 +1,171 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.controladores;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import snu.bd.GerenciadorDeEntidades;
+import snu.exceptions.NonexistentEntityException;
+import snu.entidades.configuracoes.ConfiguracoesSistema;
+
+/**
+ * Classe que controla todas as conexões com o banco da entidade
+ * ConfiguracoesSistema
+ *
+ * @author Washington Luiss
+ */
+public class ConfiguracoesSistemaJpaController implements Serializable {
+
+    /**
+     * Fábrica Singleton do sistema
+     */
+    private transient final EntityManagerFactory emf = GerenciadorDeEntidades.getInstancia().getFabrica();
+    private volatile static ConfiguracoesSistemaJpaController instancia;
+
+    /**
+     * Construtor da classe Singleton
+     */
+    private ConfiguracoesSistemaJpaController() {
+    }
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public void create(ConfiguracoesSistema configuracoesSistema) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(configuracoesSistema);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void edit(ConfiguracoesSistema configuracoesSistema) throws NonexistentEntityException, Exception {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            configuracoesSistema = em.merge(configuracoesSistema);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            String msg = ex.getLocalizedMessage();
+            if (msg == null || msg.length() == 0) {
+                Long id = configuracoesSistema.getId();
+                if (findConfiguracoesSistema(id) == null) {
+                    throw new NonexistentEntityException("The configuracoesSistema with id " + id + " no longer exists.");
+                }
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void destroy(Long id) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            ConfiguracoesSistema configuracoesSistema;
+            try {
+                configuracoesSistema = em.getReference(ConfiguracoesSistema.class, id);
+                configuracoesSistema.getId();
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The configuracoesSistema with id " + id + " no longer exists.", enfe);
+            }
+            em.remove(configuracoesSistema);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public List<ConfiguracoesSistema> findConfiguracoesSistemaEntities() {
+        return findConfiguracoesSistemaEntities(true, -1, -1);
+    }
+
+    public List<ConfiguracoesSistema> findConfiguracoesSistemaEntities(int maxResults, int firstResult) {
+        return findConfiguracoesSistemaEntities(false, maxResults, firstResult);
+    }
+
+    private List<ConfiguracoesSistema> findConfiguracoesSistemaEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(ConfiguracoesSistema.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public ConfiguracoesSistema findConfiguracoesSistema(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(ConfiguracoesSistema.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public ConfiguracoesSistema findConfiguracoesSistemaByVersao(Double versao) {
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<ConfiguracoesSistema> cq = cb.createQuery(ConfiguracoesSistema.class);
+        Root<ConfiguracoesSistema> configuracaoSistema = cq.from(ConfiguracoesSistema.class);
+        cq.select(configuracaoSistema).distinct(true).where(cb.equal(configuracaoSistema.get("versao"), versao));
+        List<ConfiguracoesSistema> configuracoesSistema = em.createQuery(cq).getResultList();
+        return configuracoesSistema.isEmpty() ? null : configuracoesSistema.get(0);
+    }
+
+    public int getConfiguracoesSistemaCount() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Root<ConfiguracoesSistema> rt = cq.from(ConfiguracoesSistema.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
+    public static ConfiguracoesSistemaJpaController getInstancia() {
+        if (instancia == null) {
+            instancia = new ConfiguracoesSistemaJpaController();
+        }
+        return instancia;
+    }
+}

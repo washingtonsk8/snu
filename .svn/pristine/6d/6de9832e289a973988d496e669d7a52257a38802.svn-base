@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Jul 20 13:08:30 BRT 2014:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835): instância a816c00e-0147-5488-1406-000003d673c0
+no diretório de banco de dados C:\Users\User\Documents\NetBeansProjects\SNU\snu  
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_65-b19
+user.dir=C:\Users\User\Documents\NetBeansProjects\SNU
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''

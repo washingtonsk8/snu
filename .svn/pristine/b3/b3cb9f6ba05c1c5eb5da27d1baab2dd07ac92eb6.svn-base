@@ -1,0 +1,152 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package snu.dto;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author Washington Luis
+ */
+public class PairTest {
+    
+    public PairTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of setFirst method, of class Pair.
+     */
+    @Test
+    public void testSetFirst() {
+        System.out.println("setFirst");
+        Object first = null;
+        Pair instance = new Pair();
+        instance.setFirst(first);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setSecond method, of class Pair.
+     */
+    @Test
+    public void testSetSecond() {
+        System.out.println("setSecond");
+        Object second = null;
+        Pair instance = new Pair();
+        instance.setSecond(second);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getFirst method, of class Pair.
+     */
+    @Test
+    public void testGetFirst() {
+        System.out.println("getFirst");
+        Pair instance = new Pair();
+        Object expResult = null;
+        Object result = instance.getFirst();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getSecond method, of class Pair.
+     */
+    @Test
+    public void testGetSecond() {
+        System.out.println("getSecond");
+        Pair instance = new Pair();
+        Object expResult = null;
+        Object result = instance.getSecond();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of set method, of class Pair.
+     */
+    @Test
+    public void testSet() {
+        System.out.println("set");
+        Object first = null;
+        Object second = null;
+        Pair instance = new Pair();
+        instance.set(first, second);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of equals method, of class Pair.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object o = null;
+        Pair instance = new Pair();
+        boolean expResult = false;
+        boolean result = instance.equals(o);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compareTo method, of class Pair.
+     */
+    @Test
+    public void testCompareTo() {
+        System.out.println("compareTo");
+        Pair instance = new Pair();
+        int expResult = 0;
+        int result = instance.compareTo(null);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hashCode method, of class Pair.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        Pair instance = new Pair();
+        int expResult = 0;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentPesquisarMissa" onMouseClicked="#onMouseClickedFromContentPesquisarMissa" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.missa.PesquisarMissaController">
+    <children>
+        <Label fx:id="lblPesquisarMissa" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Pesquisar Missa" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblNomeMissa" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblNomeMissa" prefWidth="175.0" text="Nome:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" fx:id="x2" />
+            </font>
+        </Label>
+        <TextField fx:id="fldNomeMissa" layoutX="200.0" layoutY="60.0" onAction="#onActionFromFldNomeMissa" prefWidth="370.0" />
+        <Label fx:id="lblDataAcontecimentoMissa" alignment="CENTER_RIGHT" font="$x2" layoutX="14.0" layoutY="90.0" onMouseClicked="#onMouseClickedFromLblDataAcontecimentoMissa" prefWidth="175.0" text="Data de Acontecimento:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Button fx:id="btnPesquisar" layoutX="676.0" layoutY="135.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="110.0" text="Pesquisar" textFill="BLACK">
+            <font>
+                <Font size="14.0" fx:id="x1" />
+            </font>
+        </Button>
+        <TableView fx:id="tblMissas" layoutX="14.0" layoutY="200.0" onMouseClicked="#onMouseClickedFromTblMissas" prefHeight="380.0" prefWidth="772.0">
+            <columns>
+                <TableColumn fx:id="clnNomeMissa" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="450.0" text="Nome da Missa" />
+                <TableColumn fx:id="clnDataAcontecimento" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="170.0" sortType="DESCENDING" text="Data de Acontecimento" />
+                <TableColumn fx:id="clnCriacao" editable="false" prefWidth="150.0" sortable="false" text="Data de Criação" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnLimpar" font="$x1" layoutX="556.0" layoutY="135.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+        <DatePicker fx:id="dpDataAcontecimento" layoutX="200.0" layoutY="90.0" onAction="#onActionFromDpDataAcontecimento" prefWidth="150.0" promptText="DD/MM/AAAA" />
+        <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="562.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="@../../images/icons/iconeLimparCampos.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconePesquisar" fitHeight="18.0" fitWidth="18.0" layoutX="683.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="@../../images/icons/iconePesquisar.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="btnMontarMissa" layoutX="14.0" layoutY="135.0" mnemonicParsing="false" onAction="#onActionFromBtnMontarMissa" prefHeight="40.0" prefWidth="180.0" text="Montar Nova Missa" textFill="BLACK">
+            <font>
+                <Font size="14.0" fx:id="x11" />
+            </font>
+        </Button>
+        <TextArea fx:id="areaApresentacaoMissa" depthTest="DISABLE" focusTraversable="false" prefHeight="0.0" prefWidth="0.0" visible="false" />
+        <ImageView fx:id="iconeMontarMissa" fitHeight="18.0" fitWidth="18.0" layoutX="22.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/icons/iconeAdicionar.png" />
+            </image>
+        </ImageView>       
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
+            </image>
+        </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

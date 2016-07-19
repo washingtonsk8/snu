@@ -1,0 +1,344 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores.missa;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
+import javafx.util.Duration;
+import org.apache.log4j.Logger;
+import snu.controladores.MissaJpaController;
+import snu.dto.ParametrosPesquisaMissa;
+import snu.entidades.missa.Missa;
+import snu.entidades.musica.Musica;
+import snu.exceptions.NonexistentEntityException;
+import snu.fronteiras.controladores.FXMLDocumentController;
+import snu.fronteiras.controladores.HomeController;
+import snu.util.BotoesImagemUtil;
+import snu.util.DataUtil;
+import snu.util.Dialogs;
+import snu.util.EfeitosUtil;
+import snu.util.StringUtil;
+
+/**
+ * Classe controladora do FXML
+ *
+ * @author Washington Luis
+ */
+public class PesquisarMissaController implements Initializable {
+
+    @FXML
+    private AnchorPane contentPesquisarMissa;
+    @FXML
+    private Label lblPesquisarMissa;
+    @FXML
+    private TextField fldNomeMissa;
+    @FXML
+    private TableView<Missa> tblMissas;
+    @FXML
+    private TableColumn<Missa, String> clnNomeMissa;
+    @FXML
+    private TableColumn<Missa, String> clnDataAcontecimento;
+    @FXML
+    private Button btnPesquisar;
+    @FXML
+    private Font x1;
+    @FXML
+    private Label lblNomeMissa;
+    @FXML
+    private Font x2;
+    @FXML
+    private Label lblDataAcontecimentoMissa;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private ImageView imgInicio;
+    @FXML
+    private DatePicker dpDataAcontecimento;
+    @FXML
+    private ImageView iconeLimpar;
+    @FXML
+    private ImageView iconePesquisar;
+    @FXML
+    private Button btnMontarMissa;
+    @FXML
+    private Font x11;
+    @FXML
+    private ImageView iconeMontarMissa;
+
+    private Popup popup;
+
+    private ObservableList<Missa> missas = FXCollections.observableArrayList();
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(PesquisarMissaController.class.getName());
+
+    private void initComponents() {
+        this.popup = new Popup();
+        this.popup.setAutoHide(true);
+
+        BotoesImagemUtil.definirComportamento(this.imgInicio);
+
+        this.clnNomeMissa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
+                String nomeMissa = associacao.getValue().getNome();
+                return new SimpleStringProperty(StringUtil.hasAlgo(nomeMissa) ? nomeMissa : "Indefinido");
+            }
+        });
+
+        this.clnDataAcontecimento.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Missa, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Missa, String> associacao) {
+                return new SimpleStringProperty(DataUtil.formatarData(associacao.getValue().getDataAcontecimento()));
+            }
+        });
+
+        this.tblMissas.setRowFactory(
+                new Callback<TableView<Missa>, TableRow<Missa>>() {
+                    @Override
+                    public TableRow<Missa> call(TableView<Missa> tableView) {
+                        final TableRow<Missa> linha = new TableRow<>();
+                        final ContextMenu menuContexto = new ContextMenu();
+
+                        ImageView iconeVisualizar = new ImageView("/snu/fronteiras/images/icons/iconeVisualizar.png");
+                        iconeVisualizar.setFitHeight(10.);
+                        iconeVisualizar.setFitWidth(15.);
+                        MenuItem itemVisualizarMissa = new MenuItem("Visualizar", iconeVisualizar);
+                        itemVisualizarMissa.setOnAction(new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                carregarVisualizacaoMissa(linha.itemProperty().get());
+                            }
+                        });
+
+                        ImageView iconeRemover = new ImageView("/snu/fronteiras/images/icons/iconeRemover.png");
+                        iconeRemover.setFitHeight(12.);
+                        iconeRemover.setFitWidth(12.);
+                        MenuItem itemRemoverMissa = new MenuItem("Remover", iconeRemover);
+                        itemRemoverMissa.setOnAction(new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                removerMissaSelecionada(linha.itemProperty().get());
+                            }
+                        });
+
+                        menuContexto.getItems().addAll(itemVisualizarMissa, itemRemoverMissa);
+
+                        //Seleciona antes de mostrar o menu de contexto
+                        menuContexto.setOnShowing(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent event) {
+                                tblMissas.getSelectionModel().select(linha.getItem());
+                            }
+                        });
+
+                        //Somente exibe o menu para os valores não-nulos
+                        linha.contextMenuProperty().bind(
+                                Bindings.when(Bindings.isNotNull(linha.itemProperty()))
+                                .then(menuContexto)
+                                .otherwise((ContextMenu) null));
+                        return linha;
+                    }
+                });
+    }
+
+    private void pesquisarPorParametros() {
+        ParametrosPesquisaMissa parametrosPesquisa = new ParametrosPesquisaMissa();
+
+        parametrosPesquisa.setNomeMissa(this.fldNomeMissa.getText());
+        parametrosPesquisa.setDataAcontecimento(DataUtil.toDate(this.dpDataAcontecimento.getValue()));
+
+        this.missas = FXCollections.observableArrayList(MissaJpaController.getInstancia().
+                findByParametrosPesquisa(parametrosPesquisa));
+        this.tblMissas.setItems(this.missas);
+    }
+
+    private void carregarVisualizacaoMissa(Missa missaSelecionada) {
+
+        if (StringUtil.hasAlgo(missaSelecionada.getDescricaoEmail())) {
+            TextArea areaApresentacaoMissa = new TextArea(missaSelecionada.getDescricaoEmail());
+            areaApresentacaoMissa.setMinWidth(500);
+            areaApresentacaoMissa.setPrefHeight(350);
+            areaApresentacaoMissa.setEditable(false);
+            areaApresentacaoMissa.setEffect(EfeitosUtil.getEfeitoGeral());
+            Window proprietaria = HomeController.getInstancia().getStage().getScene().getWindow();
+
+            this.popup.getContent().clear();
+            this.popup.getContent().add(areaApresentacaoMissa);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.6), areaApresentacaoMissa);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.playFromStart();
+
+            this.popup.show(this.tblMissas, proprietaria.getX() + 150, proprietaria.getY() + 250);
+        } else {
+            Dialogs.showWarningDialog(HomeController.getInstancia().getStage(),
+                    "A descrição de e-mail desta Missa está vazia.", "Descrição Vazia!", "Aviso");
+        }
+    }
+
+    private void removerMissaSelecionada(Missa missaSelecionada) {
+        Dialogs.DialogResponse resposta;
+        resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+                "Deseja realmente excluir a Missa \"" + missaSelecionada.getNome() + "\"?",
+                "Exclusão de Missa", "Confirmação");
+
+        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            try {
+                MissaJpaController.getInstancia().destroy(missaSelecionada.getId());
+                Dialogs.showInformationDialog(HomeController.getInstancia().getStage(),
+                        "A Missa foi removida com sucesso!", "Sucesso!", "Informação");
+                this.tblMissas.getItems().remove(missaSelecionada);
+                atualizarTabela();
+            } catch (NonexistentEntityException ex) {
+                log.error("Erro ao excluir Missa", ex);
+                Dialogs.showErrorDialog(HomeController.getInstancia().getStage(),
+                        "Erro ao excluir a Missa selecionada."
+                        + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+            }
+        }
+    }
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblNomeMissa(MouseEvent event) {
+        this.fldNomeMissa.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblDataAcontecimentoMissa(MouseEvent event) {
+        this.dpDataAcontecimento.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromDpDataAcontecimento(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMouseClickedFromContentPesquisarMissa(MouseEvent event) {
+        this.contentPesquisarMissa.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromFldNomeMissa(ActionEvent event) {
+        pesquisarPorParametros();
+    }
+
+    @FXML
+    private void onMouseClickedFromTblMissas(MouseEvent event) {
+        this.tblMissas.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromImgInicio(MouseEvent event) {
+        FXMLDocumentController.getInstancia().iniciarPaginaInicial();
+    }
+
+    @FXML
+    private void onActionFromBtnLimpar(ActionEvent event) {
+        this.fldNomeMissa.setText(null);
+        this.dpDataAcontecimento.setValue(null);
+    }
+
+    @FXML
+    private void onActionFromBtnPesquisar(ActionEvent event) {
+        pesquisarPorParametros();
+    }
+
+    @FXML
+    private void onActionFromBtnMontarMissa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaSelecao.fxml"));
+
+        try {
+            Parent root = (Parent) fxmlLoader.load();
+
+            MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
+            montarMissaSelecaoController.initData(this);
+
+            //Limpa o conteúdo anterior e carrega a página
+            this.contentPesquisarMissa.getChildren().clear();
+            this.contentPesquisarMissa.getChildren().add(root);
+            EfeitosUtil.rodarEfeitoCarregamentoFadeIn(root);
+
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Montagem de Missa", ex);
+            Dialogs.showErrorDialog(HomeController.getInstancia().getStage(), "Erro ao carregar tela de Montagem de Missa."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+    }
+
+    public AnchorPane getContent() {
+        return this.contentPesquisarMissa;
+    }
+
+    public void atualizar() {
+        pesquisarPorParametros();
+    }
+
+    public void atualizarTabela() {
+        final List<Missa> itens = this.tblMissas.getItems();
+        if (itens == null || itens.isEmpty()) {
+            return;
+        }
+
+        final Missa item = this.tblMissas.getItems().get(0);
+        itens.remove(0);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                itens.add(0, item);
+            }
+        });
+    }
+}

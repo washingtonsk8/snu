@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="contentHome" prefHeight="570.0" prefWidth="800.0" styleClass="mainFxmlClass, main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.HomeController">
+  <children>
+    <Label id="lblLogoSistema" ellipsisString="..." layoutX="196.0" layoutY="151.0" prefHeight="267.25" prefWidth="407.25" text="Sistema Nova Unção" textAlignment="CENTER" textFill="BLACK" textOverrun="CENTER_ELLIPSIS" underline="false" wrapText="true">
+      <effect>
+        <Glow level="0.48867924528301887">
+          <input>
+            <Lighting specularConstant="0.7126984126984127" specularExponent="23.174603174603178" surfaceScale="2.6111111111111107">
+              <bumpInput>
+                <Shadow />
+              </bumpInput>
+              <light>
+                <javafx.scene.effect.Light.Distant />
+              </light>
+            </Lighting>
+          </input>
+        </Glow>
+      </effect>
+      <font>
+        <Font name="System Bold" size="60.0" />
+      </font>
+    </Label>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000010" height="267.0" layoutX="189.0" layoutY="151.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="CENTERED" strokeWidth="0.5" width="407.5">
+      <effect>
+        <GaussianBlur />
+      </effect>
+    </Rectangle>
+  </children>
+  <stylesheets>
+    <URL value="@../css/home.css" />
+    <URL value="@../css/contents.css" />
+  </stylesheets>
+</AnchorPane>

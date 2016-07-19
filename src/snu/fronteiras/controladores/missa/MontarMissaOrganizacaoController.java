@@ -976,11 +976,11 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgInicio(MouseEvent event) {
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+        boolean resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "As associações serão perdidas. Deseja realmente ir para o Início?",
                 "Ir para tela de Início", "Confirmação");
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             FXMLDocumentController.getInstancia().iniciarPaginaInicial();
         }
     }
@@ -1040,11 +1040,11 @@ public class MontarMissaOrganizacaoController implements Initializable {
 
     @FXML
     private void onMouseClickedFromImgVoltar(MouseEvent event) {
-        Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
+        boolean resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "As associações serão perdidas. Deseja realmente voltar?",
                 "Voltar para tela de Seleção de Músicas", "Confirmação");
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             //Carrega a página anterior
             AnchorPane pai = ((AnchorPane) this.contentMontarMissaOrganizacao.getParent());
             EfeitosUtil.rodarEfeitoCarregamentoFadeOut(this.contentMontarMissaOrganizacao, pai.getChildren());

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentVisualizarDadosMusica" onMouseClicked="#onMouseClickedFromContentVisualizarDadosMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.VisualizarDadosMusicaController">
+  <Label fx:id="lblVisualizarDadosMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Visualizar Dados" textAlignment="LEFT" wrapText="false">
+    <stylesheets>
+      <URL value="@../../css/contents.css" />
+      <URL value="@../../css/musica/visualizardadosmusica.css" />
+    </stylesheets>
+  </Label>
+  <TextField fx:id="fldAutor" layoutX="160.0" layoutY="60.0" onAction="#onActionFromFldAutor" prefWidth="200.0" />
+  <Label fx:id="lblTitulo" alignment="CENTER_RIGHT" layoutX="370.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblTitulo" prefWidth="60.0" text="Título:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+    <font>
+      <Font size="16.0" fx:id="x1" />
+    </font>
+  </Label>
+  <TextField fx:id="fldTitulo" layoutX="446.0" layoutY="60.0" onAction="#onActionFromFldTitulo" prefWidth="330.0" />
+  <Label fx:id="lblTrecho" alignment="CENTER_RIGHT" font="$x1" layoutX="370.0" layoutY="90.0" onMouseClicked="#onMouseClickedFromLblTrecho" prefWidth="60.0" text="Trecho:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+  </Label>
+  <CheckBox fx:id="checkEntrada" layoutX="160.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckEntrada" text="Entrada">
+    <font>
+      <Font size="14.0" fx:id="x2" />
+    </font>
+  </CheckBox>
+  <CheckBox fx:id="checkPerdao" font="$x2" layoutX="268.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckPerdao" text="Perdão" />
+  <CheckBox fx:id="checkGloria" font="$x2" layoutX="376.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckGloria" text="Glória" />
+  <CheckBox fx:id="checkAclamacao" font="$x2" layoutX="484.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckAclamacao" text="Aclamação" />
+  <CheckBox fx:id="checkOfertorio" font="$x2" layoutX="592.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckOfertorio" text="Ofertório" />
+  <CheckBox fx:id="checkPaz" font="$x2" layoutX="700.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionFromCheckPaz" text="Paz" />
+  <CheckBox fx:id="checkSanto" font="$x2" layoutX="160.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromCheckSanto" text="Santo" />
+  <CheckBox fx:id="checkComunhao" font="$x2" layoutX="266.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromCheckComunhao" text="Comunhão" />
+  <CheckBox fx:id="checkAcaoDeGracas" font="$x2" layoutX="375.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromCheckAcaoDeGracas" text="A. de Graças" />
+  <CheckBox fx:id="checkReflexao" font="$x2" layoutX="592.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromCheckReflexao" text="Reflexão" />
+  <CheckBox fx:id="checkFinal" font="$x2" layoutX="484.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromCheckFinal" text="Final" />
+  <CheckBox fx:id="checkLouvor" font="$x2" layoutX="700.0" layoutY="170.0" mnemonicParsing="false" onAction="#onActionFromCheckLouvor" text="Louvor" />
+  <CheckBox fx:id="checkAdoracao" font="$x2" layoutX="160.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromCheckAdoracao" text="Adoração" />
+  <CheckBox fx:id="checkPalestra" font="$x2" layoutX="266.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromCheckPalestra" text="Palestra" />
+  <CheckBox fx:id="checkResposta" font="$x2" layoutX="375.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromCheckResposta" text="Resposta" />
+  <CheckBox fx:id="checkOracao" font="$x2" layoutX="484.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromCheckOracao" text="Oração" />
+  <CheckBox fx:id="checkEspecial" font="$x2" layoutX="592.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromCheckEspecial" text="Especial" />
+  <CheckBox fx:id="checkOutra" font="$x2" layoutX="700.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionFromCheckOutra" text="Outra" />
+  <Label fx:id="lblLeitura" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="90.0" onMouseClicked="#onMouseClickedFromLblLeitura" prefWidth="130.0" text="Leitura Associada:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+  </Label>
+  <Label fx:id="lblAutor" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblAutor" prefWidth="130.0" text="Autor:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+  </Label>
+  <Label fx:id="lblTipos" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="120.0" onMouseClicked="#onMouseClickedFromLblTipos" prefWidth="130.0" text="Tipos:" textFill="BLACK">
+    <effect>
+      <Glow />
+    </effect>
+  </Label>
+  <TextField fx:id="fldLeitura" layoutX="160.0" layoutY="90.0" onAction="#onActionFromFldLeitura" prefWidth="200.0" />
+  <TextField fx:id="fldTrecho" layoutX="446.0" layoutY="90.0" onAction="#onActionFromFldTrecho" prefWidth="330.0" />
+  <TableView fx:id="tblMusicas" layoutX="14.0" layoutY="300.0" onMouseClicked="#onMouseClickedFromTblMusicas" prefHeight="250.0" prefWidth="762.0">
+    <columns>
+      <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Autor" fx:id="clnAutor" />
+      <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="210.0" text="Título" fx:id="clnTitulo" />
+      <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="200.0" text="Tipos" fx:id="clnTipos" />
+      <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="200.0" text="Leituras Associadas" fx:id="clnLeituras" />
+    </columns>
+  </TableView>
+  <Button fx:id="btnPesquisar" cache="true" font="$x2" layoutX="676.0" layoutY="240.0" mnemonicParsing="false" onAction="#onActionFromBtnPesquisar" prefHeight="40.0" prefWidth="100.0" text="Pesquisar" textFill="BLACK" />
+  <stylesheets>
+    <URL value="@../../css/musica/visualizardadosmusica.css" />
+    <URL value="@../../css/contents.css" />
+  </stylesheets>
+</AnchorPane>

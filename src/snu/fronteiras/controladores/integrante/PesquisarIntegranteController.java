@@ -260,7 +260,7 @@ public class PesquisarIntegranteController implements Initializable {
     }
 
     private void removerIntegranteSelecionado(Integrante integranteSelecionado) {
-        Dialogs.DialogResponse resposta;
+        boolean resposta;
         if (integranteSelecionado.getSexo().equals(Sexo.FEMININO)) {
             resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "Deseja realmente excluir a Integrante \"" + integranteSelecionado.getPrimeiroNome() + "\"?",
@@ -271,7 +271,7 @@ public class PesquisarIntegranteController implements Initializable {
                     "Exclusão de Integrante", "Confirmação");
         }
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             IntegranteJpaController integranteController = IntegranteJpaController.getInstancia();
             try {
                 integranteController.destroy(integranteSelecionado.getId());

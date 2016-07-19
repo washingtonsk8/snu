@@ -1,0 +1,747 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import org.apache.log4j.Logger;
+import snu.bd.BD;
+import snu.controladores.ConfiguracoesSistemaJpaController;
+import snu.controladores.SNU;
+import snu.fronteiras.controladores.geral.ProgressoController;
+import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
+import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
+import snu.fronteiras.controladores.missa.LimparDadosMissasController;
+import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
+import snu.fronteiras.controladores.musica.CriarMusicaController;
+import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
+import snu.geral.TipoPagina;
+import snu.util.Dialogs;
+import snu.util.EfeitosUtil;
+import snu.util.SeletorArquivosUtil;
+
+/**
+ * Classe que controla a tela principal do programa
+ *
+ * @author Washington Luis
+ */
+public class FXMLDocumentController implements Initializable {
+
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane contentAnchorPane;
+    @FXML
+    private MenuBar menubar;
+    @FXML
+    private Menu menuIntegrante;
+    @FXML
+    private MenuItem itemCadastrarIntegrante;
+    @FXML
+    private MenuItem itemAtualizarIntegrante;
+    @FXML
+    private MenuItem itemRemoverIntegrante;
+    @FXML
+    private Menu menuMusica;
+    @FXML
+    private MenuItem itemSobre;
+    @FXML
+    private MenuItem itemVisualizarDados;
+    @FXML
+    private MenuItem itemRemoverMusica;
+    @FXML
+    private MenuItem itemGerenciarAutores;
+    @FXML
+    private MenuItem itemCriarMusica;
+    @FXML
+    private MenuItem itemVisualizarDadosMusica;
+    @FXML
+    private MenuItem itemAtualizarDadosMusica;
+    @FXML
+    private MenuItem itemGerarImpressao;
+    @FXML
+    private Menu menuMissa;
+    @FXML
+    private MenuItem itemMontarMissa;
+    @FXML
+    private MenuItem itemPesquisarMissa;
+    @FXML
+    private Menu menuConfiguracoes;
+    @FXML
+    private Menu menuBackup;
+    @FXML
+    private MenuItem itemImportarDados;
+    @FXML
+    private MenuItem itemExportarDados;
+    @FXML
+    private MenuItem itemTemplateEmail;
+    @FXML
+    private Menu menuBancoDados;
+    @FXML
+    private MenuItem itemEscolherDiretorioBancoDados;
+    @FXML
+    private Menu menuHome;
+    @FXML
+    private ImageView imgHome;
+    @FXML
+    private CustomMenuItem itemAuxiliarCarregamentoPaginaInicial;
+    @FXML
+    private MenuItem itemLimparDadosMissa;
+    @FXML
+    private MenuItem itemVerificarLog;
+    @FXML
+    private MenuItem itemDefinirPreferenciaTons;
+    @FXML
+    private Menu menuConfiguracoesMissa;
+
+    private FXMLLoader templatePesquisaIntegranteLoader;
+
+    private FXMLLoader templatePesquisaMusicaLoader;
+
+    private FXMLLoader templatePesquisaMissaLoader;
+
+    /**
+     * Fábrica Singleton do sistema
+     */
+    private static FXMLDocumentController instancia;
+
+    //Inicializando o Logger
+    private static final Logger log = Logger.getLogger(FXMLDocumentController.class.getName());
+
+    private void iniciarControladorPesquisaIntegrante() {
+        this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
+
+        try {
+            this.templatePesquisaIntegranteLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Template de Pesquisa de Integrante", ex);
+            Dialogs.showErrorDialog(getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+        }
+    }
+
+    private void iniciarControladorPesquisaMusica() {
+        this.templatePesquisaMusicaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/TemplatePesquisaMusica.fxml"));
+
+        try {
+            this.templatePesquisaMusicaLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Template de Pesquisa de Música", ex);
+            Dialogs.showErrorDialog(getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+        }
+    }
+
+    private void iniciarControladorPesquisaMissa() {
+        this.templatePesquisaMissaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/VisualizarDadosMissa.fxml"));
+
+        try {
+            this.templatePesquisaMissaLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Template de Pesquisa de Missa", ex);
+            Dialogs.showErrorDialog(getStage(),
+                    "Erro de processamento interno.\nFavor entrar em contato com o Administrador.", "Erro interno!", "Erro", ex);
+        }
+    }
+
+    public void iniciarPaginaInicial() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/Home.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela inicial", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela inicial."
+                    + "\nFavor entrar em contato com o Administrador.", "Erro!", "Erro", ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    private void initComponents() {
+        instancia = this;
+        iniciarControladorPesquisaIntegrante();
+        iniciarControladorPesquisaMusica();
+        iniciarControladorPesquisaMissa();
+        iniciarPaginaInicial();
+    }
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
+    }
+
+    public FXMLLoader getTemplatePesquisaIntegranteLoader() {
+        return templatePesquisaIntegranteLoader;
+    }
+
+    public FXMLLoader getTemplatePesquisaMusicaLoader() {
+        return templatePesquisaMusicaLoader;
+    }
+
+    public FXMLLoader getTemplatePesquisaMissaLoader() {
+        return templatePesquisaMissaLoader;
+    }
+
+    @FXML
+    private void onShowingFromMenuHome(Event event) {
+        event.consume();
+        iniciarPaginaInicial();
+    }
+
+    @FXML
+    private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Cadastro de Integrante", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Cadastro de Integrante."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
+        cadastrarIntegranteController.initData(this);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemVisualizarDadosIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+
+        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
+
+        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemRemoverIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
+
+        final Parent root = (Parent) this.templatePesquisaIntegranteLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemCriarMusica(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/CriarMusica.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Criação de Música", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Criação de Música."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        CriarMusicaController criarIntegranteController = fxmlLoader.getController();
+        criarIntegranteController.initData(this);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemVisualizarDadosMusica(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemAtualizarDadosMusica(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
+
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemRemoverMusica(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
+
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemGerarImpressao(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_GERACAO_IMPRESSAO);
+
+        final Parent root = (Parent) this.templatePesquisaMusicaLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemGerenciarAutores(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/GerenciarAutores.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Gerência de Autores", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Gerência de Autores."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemMontarMissa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaSelecao.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Montagem de Missa", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Montagem de Missa."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
+        montarMissaSelecaoController.initData(this);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromPesquisarMissa(ActionEvent event) {
+        final Parent root = (Parent) this.templatePesquisaMissaLoader.getRoot();
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemLimparDadosMissa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/LimparDadosMissas.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de limpeza de dados de Missas", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Limpeza de Dados de Missa."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Limpeza de Dados de Missas");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+
+        LimparDadosMissasController limparDadosMissaController = fxmlLoader.getController();
+        limparDadosMissaController.setFocusToContent();
+
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+    }
+
+    @FXML
+    private void onActionFromItemImportarDados(ActionEvent event) {
+        String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("importarDados");
+        if (contextoUltimaSelecao == null) {
+            contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
+        }
+        final DirectoryChooser seletorDiretorio = new DirectoryChooser();
+        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorDiretorio.setTitle("Escolha do diretório para exportação");
+        final File diretorioExportacao = seletorDiretorio.showDialog(FXMLDocumentController.getInstancia().getStage());
+        if (diretorioExportacao != null) {
+            SeletorArquivosUtil.mapSeletores.put("exportarDados", diretorioExportacao.getAbsolutePath());
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+            Parent root = null;
+            try {
+                root = (Parent) fxmlLoader.load();
+            } catch (IOException ex) {
+                log.error("Erro ao carregar popup de Progresso", ex);
+                Dialogs.showErrorDialog(getStage(), "Erro ao carregar popup de Progresso."
+                        + "\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
+            }
+
+            ProgressoController progressoController = fxmlLoader.getController();
+            progressoController.initData("Importando os dados do arquivo. Aguarde...");
+            progressoController.setProgresso(-1.0);
+
+            final Stage dialogStage = new Stage();
+            dialogStage.setTitle("Por Favor Aguarde...");
+            dialogStage.toFront();
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+
+            final Task task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    try {
+                        if (!BD.doRestore(diretorioExportacao.toString())) {
+                            cancel(true);
+                        }
+                    } catch (IOException | InterruptedException ex) {
+                        log.error("Erro ao realizar restore para o banco", ex);
+                        cancel(true);
+                    }
+                    return null;
+                }
+            };
+
+            dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                @Override
+                public void handle(WindowEvent event) {
+                    if (task.isRunning()) {
+                        event.consume();
+                    }
+                }
+            });
+
+            task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                @Override
+                public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                    switch (state) {
+                        case RUNNING:
+                            dialogStage.showAndWait();
+                            break;
+                        case SUCCEEDED:
+                            Dialogs.showInformationDialog(getStage(), "Dados importados com sucesso!",
+                                    "Sucesso!", "Informação");
+                            dialogStage.close();
+                            initComponents();
+                            break;
+                        case CANCELLED:
+                        case FAILED:
+                            Dialogs.showErrorDialog(getStage(), "Erro ao importar dados."
+                                    + "\nFavor entrar em contato com o Administrador.",
+                                    "Erro!", "Erro");
+                            dialogStage.close();
+                            break;
+                        case SCHEDULED:
+                        case READY:
+                            break;
+                        default:
+                            dialogStage.close();
+                            break;
+                    }
+                }
+            });
+            new Thread(task).start();
+        }
+    }
+
+    @FXML
+    private void onActionFromItemExportarDados(ActionEvent event) {
+        String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("exportarDados");
+        if (contextoUltimaSelecao == null) {
+            contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
+        }
+        final DirectoryChooser seletorDiretorio = new DirectoryChooser();
+        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorDiretorio.setTitle("Escolha do diretório para exportação");
+        final File diretorioExportacao = seletorDiretorio.showDialog(FXMLDocumentController.getInstancia().getStage());
+        if (diretorioExportacao != null) {
+            SeletorArquivosUtil.mapSeletores.put("exportarDados", diretorioExportacao.getAbsolutePath());
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/geral/Progresso.fxml"));
+            Parent root = null;
+            try {
+                root = (Parent) fxmlLoader.load();
+            } catch (IOException ex) {
+                log.error("Erro ao carregar popup de Progresso", ex);
+                Dialogs.showErrorDialog(getStage(), "Erro ao carregar popup de Progresso."
+                        + "\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
+            }
+
+            ProgressoController progressoController = fxmlLoader.getController();
+            progressoController.initData("Exportando os dados para o arquivo. Aguarde...");
+            progressoController.setProgresso(-1.0);
+
+            final Stage dialogStage = new Stage();
+            dialogStage.setTitle("Por Favor Aguarde...");
+            dialogStage.toFront();
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+
+            final Task task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    try {
+                        if (!BD.doBakup(diretorioExportacao.toString())) {
+                            cancel(true);
+                        }
+                    } catch (IOException | InterruptedException ex) {
+                        log.error("Erro ao realizar backup do banco", ex);
+                        cancel(true);
+                    }
+                    return null;
+                }
+            };
+
+            dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    if (task.isRunning()) {
+                        event.consume();
+                    }
+                }
+            });
+
+            task.stateProperty().addListener(new ChangeListener<Task.State>() {
+                @Override
+                public void changed(ObservableValue<? extends Task.State> observableValue, Task.State oldState, Task.State state) {
+                    switch (state) {
+                        case RUNNING:
+                            dialogStage.showAndWait();
+                            break;
+                        case SUCCEEDED:
+                            Dialogs.showInformationDialog(getStage(), "Dados exportados com sucesso!",
+                                    "Sucesso!", "Informação");
+                            dialogStage.close();
+                            initComponents();
+                            break;
+                        case CANCELLED:
+                        case FAILED:
+                            Dialogs.showErrorDialog(getStage(), "Erro ao exportar dados."
+                                    + "\nFavor entrar em contato com o Administrador.",
+                                    "Erro!", "Erro");
+                            dialogStage.close();
+                            break;
+                        case SCHEDULED:
+                        case READY:
+                            break;
+                        default:
+                            dialogStage.close();
+                            break;
+                    }
+                }
+            });
+            new Thread(task).start();
+        }
+    }
+
+    @FXML
+    private void onActionFromItemDefinirPreferenciaTons(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/DefinirPreferenciaTons.fxml"));
+        AnchorPane root;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Definir Preferência de Tons");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela para Definição de Preferência de Tons", ex);
+            Dialogs.showErrorDialog(FXMLDocumentController.getInstancia().getStage(),
+                    "Erro ao carregar tela para Definição de Preferência de Tons."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+    }
+
+    @FXML
+    private void onActionFromItemTemplateEmail(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/ConfiguracaoTemplateEmail.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Configuração de Template de E-mail", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Configuração de Template de E-mail."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemEscolherDiretorioBancoDados(ActionEvent event) {
+        String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("diretorioBD");
+        if (contextoUltimaSelecao == null) {
+            contextoUltimaSelecao = "C:";
+        }
+        DirectoryChooser seletorDiretorio = new DirectoryChooser();
+        seletorDiretorio.setInitialDirectory(new File(contextoUltimaSelecao));
+        seletorDiretorio.setTitle("Escolha do diretório do SGBD");
+        File diretorio = seletorDiretorio.showDialog(getStage());
+        if (diretorio != null) {
+            SeletorArquivosUtil.mapSeletores.put("diretorioBD", diretorio.getAbsolutePath());
+            String diretorioSGBD = diretorio.toString();
+            SNU.configuracoesSistema.setDiretorioSGBD(diretorioSGBD);
+            try {
+                ConfiguracoesSistemaJpaController.getInstancia().edit(SNU.configuracoesSistema);
+            } catch (Exception ex) {
+                log.error("Erro ao atualizar as configurações do sistema", ex);
+                Dialogs.showErrorDialog(getStage(), "Erro ao atualizar o diretório do Sistema de Gerenciamento de Banco de Dados."
+                        + "\nFavor entrar em contato com o Administrador.",
+                        "Erro!", "Erro", ex);
+            }
+        }
+    }
+
+    @FXML
+    private void onActionFromItemVerificarLog(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/VerificarLog.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de Verificação de Log", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de Verificação de Log."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+        EfeitosUtil.rodarEfeitoCarregamento(root);
+    }
+
+    @FXML
+    private void onActionFromItemSobre(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/Sobre.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            log.error("Erro ao carregar tela de informações sobre o software", ex);
+            Dialogs.showErrorDialog(getStage(), "Erro ao carregar tela de informações sobre o software."
+                    + "\nFavor entrar em contato com o Administrador.",
+                    "Erro!", "Erro", ex);
+        }
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Sobre");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(this.anchorPane.getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+    }
+
+    public Stage getStage() {
+        return (Stage) this.contentAnchorPane.getScene().getWindow();
+    }
+
+    /**
+     * Obtém a instância Singleton
+     *
+     * @return
+     */
+    public static FXMLDocumentController getInstancia() {
+        return instancia;
+    }
+}

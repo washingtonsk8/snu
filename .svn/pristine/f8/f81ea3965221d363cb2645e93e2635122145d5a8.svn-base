@@ -1,0 +1,361 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import snu.fronteiras.controladores.integrante.CadastrarIntegranteController;
+import snu.fronteiras.controladores.integrante.TemplatePesquisaIntegranteController;
+import snu.fronteiras.controladores.missa.MontarMissaSelecaoController;
+import snu.fronteiras.controladores.musica.CriarMusicaController;
+import snu.fronteiras.controladores.musica.TemplatePesquisaMusicaController;
+import snu.geral.TipoPagina;
+
+/**
+ * Classe que controla a tela principal do programa
+ *
+ * @author Washington Luis
+ */
+public class FXMLDocumentController implements Initializable {
+
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane contentAnchorPane;
+    @FXML
+    private MenuBar menubar;
+    @FXML
+    private Menu menuIntegrante;
+    @FXML
+    private MenuItem itemCadastrarIntegrante;
+    @FXML
+    private MenuItem itemAtualizarIntegrante;
+    @FXML
+    private MenuItem itemRemoverIntegrante;
+    @FXML
+    private Menu menuMusica;
+    @FXML
+    private MenuItem itemSobre;
+    @FXML
+    private MenuItem itemVisualizarDados;
+    @FXML
+    private MenuItem itemRemoverMusica;
+    @FXML
+    private MenuItem itemGerenciarAutores;
+    @FXML
+    private Menu menuUtilitarios;
+    @FXML
+    private MenuItem itemCriarMusica;
+    @FXML
+    private MenuItem itemVisualizarDadosMusica;
+    @FXML
+    private MenuItem itemAtualizarDadosMusica;
+    @FXML
+    private MenuItem itemGerarImpressao;
+    @FXML
+    private Menu menuMissa;
+    @FXML
+    private MenuItem itemMontarMissa;
+    @FXML
+    private MenuItem itemPesquisarMissa;
+    @FXML
+    private Menu menuConfiguracoes;
+    @FXML
+    private Menu menuBackup;
+    @FXML
+    private MenuItem itemImportarDados;
+    @FXML
+    private MenuItem itemExportarDados;
+    @FXML
+    private Menu menuConfiguracoesMusica;
+    @FXML
+    private MenuItem itemTemplateEmail;
+
+    private FXMLLoader templatePesquisaIntegranteLoader;
+
+    private FXMLLoader templatePesquisaMusicaLoader;
+
+    private FXMLLoader templatePesquisaMissaLoader;
+
+    private void iniciarControladorPesquisaIntegrante() {
+        this.templatePesquisaIntegranteLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/TemplatePesquisaIntegrante.fxml"));
+
+        try {
+            this.templatePesquisaIntegranteLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void iniciarControladorPesquisaMusica() {
+        this.templatePesquisaMusicaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/TemplatePesquisaMusica.fxml"));
+
+        try {
+            this.templatePesquisaMusicaLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void iniciarControladorPesquisaMissa() {
+        this.templatePesquisaMissaLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/VisualizarDadosMissa.fxml"));
+
+        try {
+            this.templatePesquisaMissaLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void iniciarPaginaInicial() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/Home.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
+    private void initComponents() {
+        iniciarControladorPesquisaIntegrante();
+        iniciarControladorPesquisaMusica();
+        iniciarControladorPesquisaMissa();
+        iniciarPaginaInicial();
+    }
+
+    /**
+     * Inicializa as ações do controlador
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initComponents();
+    }
+
+    public FXMLLoader getTemplatePesquisaIntegranteLoader() {
+        return templatePesquisaIntegranteLoader;
+    }
+
+    public FXMLLoader getTemplatePesquisaMusicaLoader() {
+        return templatePesquisaMusicaLoader;
+    }
+
+    public FXMLLoader getTemplatePesquisaMissaLoader() {
+        return templatePesquisaMissaLoader;
+    }
+    
+    @FXML
+    private void onActionFromItemCadastrarIntegrante(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/integrante/CadastrarIntegrante.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        CadastrarIntegranteController cadastrarIntegranteController = fxmlLoader.getController();
+        cadastrarIntegranteController.initData(this);
+        
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
+    @FXML
+    private void onActionFromItemVisualizarDadosIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemAtualizarIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemRemoverIntegrante(ActionEvent event) {
+        TemplatePesquisaIntegranteController controlador = this.templatePesquisaIntegranteLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaIntegranteLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemCriarMusica(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/CriarMusica.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        CriarMusicaController criarIntegranteController = fxmlLoader.getController();
+        criarIntegranteController.initData(this);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
+    @FXML
+    private void onActionFromItemVisualizarDadosMusica(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_VISUALIZACAO_DADOS);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemAtualizarDadosMusica(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_ATUALIZACAO_DADOS);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemRemoverMusica(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_REMOCAO);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemGerarImpressao(ActionEvent event) {
+        TemplatePesquisaMusicaController controlador = this.templatePesquisaMusicaLoader.getController();
+        controlador.setTipoPagina(TipoPagina.PESQUISA_GERACAO_IMPRESSAO);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMusicaLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemGerenciarAutores(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/GerenciarAutores.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
+    @FXML
+    private void onActionFromItemMontarMissa(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/missa/MontarMissaSelecao.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        MontarMissaSelecaoController montarMissaSelecaoController = fxmlLoader.getController();
+        montarMissaSelecaoController.initData(this);
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
+    @FXML
+    private void onActionFromPesquisarMissa(ActionEvent event) {
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add((Parent) this.templatePesquisaMissaLoader.getRoot());
+    }
+
+    @FXML
+    private void onActionFromItemImportarDados(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromItemExportarDados(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromTemplateEmail(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/configuracoes/ConfiguracaoTemplateEmail.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Limpa o conteúdo anterior e carrega a página
+        this.contentAnchorPane.getChildren().clear();
+        this.contentAnchorPane.getChildren().add(root);
+    }
+
+    @FXML
+    private void onActionFromItemSobre(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/ajuda/Sobre.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Sobre");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) this.anchorPane).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+    }
+
+}

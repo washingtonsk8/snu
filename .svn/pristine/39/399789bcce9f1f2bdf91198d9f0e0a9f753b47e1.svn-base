@@ -1,0 +1,1273 @@
+2014-12-27 16:05  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:05  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:05  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:05  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.integrante
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missa
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_listainvertida
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_vocabulario
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missas_musicas
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_associacoes
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_autores
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_documento
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tags
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tipos
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.sys
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:05  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:05  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:05  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:05  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:05  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:05  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:05  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:05  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:06  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:06  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:06  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:06  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:06  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:06  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:06  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:06  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:06  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:06  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.integrante
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missa
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_listainvertida
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_vocabulario
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missas_musicas
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_associacoes
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_autores
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_documento
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tags
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tipos
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.sys
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:06  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:06  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:10  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:11  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:11  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:11  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:11  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:11  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:11  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:11  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:11  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:11  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:11  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:11  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:11  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:11  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:11  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:11  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.integrante
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missa
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_listainvertida
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_vocabulario
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missas_musicas
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_associacoes
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_autores
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_documento
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tags
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tipos
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.sys
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:11  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:11  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:12  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:37  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:37  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:37  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:37  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:37  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:37  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:37  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:37  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:37  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:37  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:37  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:37  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:37  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:37  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:37  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.integrante
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missa
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_listainvertida
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_vocabulario
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missas_musicas
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_associacoes
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_autores
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_documento
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tags
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tipos
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.sys
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:37  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:37  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:38  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:52  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:52  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.integrante
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missa
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_listainvertida
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_vocabulario
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missas_musicas
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_associacoes
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_autores
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_documento
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tags
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tipos
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.sys
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:52  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:52  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:52  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:52  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:52  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:53  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:54  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:54  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:54  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:54  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:54  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:54  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:54  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:54  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:54  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:54  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:54  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:54  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:54  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:54  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:54  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:54  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:54  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 16:56  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 16:57  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 16:57  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 16:57  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 16:57  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 16:57  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 16:57  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 16:57  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 16:57  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 16:57  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 16:57  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 16:57  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 16:57  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 16:57  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 16:57  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 16:57  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 16:57  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 16:57  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:02  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:02  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:02  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:02  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:02  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:02  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:02  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:02  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:02  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:02  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:02  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:02  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:02  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:02  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:02  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:02  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:02  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:08  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:08  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:08  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:08  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:08  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:08  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:08  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:08  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:08  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:08  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:08  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:08  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:08  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:08  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:09  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:09  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:09  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:09  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:09  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:09  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:09  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:09  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:09  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:09  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:09  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:09  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:09  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:13  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:13  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:13  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:13  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:13  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:13  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:13  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:13  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:13  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:13  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:13  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:13  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:13  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:13  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:13  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:13  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:13  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:18  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:18  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:18  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:18  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:18  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:18  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:18  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:18  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:18  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:18  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:18  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:18  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:18  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:18  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:18  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:18  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:18  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:22  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:22  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:22  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:22  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:22  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:22  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:22  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:22  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:22  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:22  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:22  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:22  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:22  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:22  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:22  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:22  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:22  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:25  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:25  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:25  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:25  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:25  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:25  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:25  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:25  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:25  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:25  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:25  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:25  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:25  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:25  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:25  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:25  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:25  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:30  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:30  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:30  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:30  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:30  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:30  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:30  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:30  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:30  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:30  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:30  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:30  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:30  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:30  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:30  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:30  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:30  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:32  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 17:32  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:32  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:32  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:32  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:32  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:32  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:32  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:32  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:32  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:32  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:32  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:32  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:32  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:32  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:32  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:32  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:32  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:35  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 17:35  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:35  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:35  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:35  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:35  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:35  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:35  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:35  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:35  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu_teste?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:35  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:35  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:35  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:35  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:35  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:35  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.integrante
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missa
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_listainvertida
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.documentomusica_vocabulario
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.missas_musicas
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_associacoes
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_autores
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_documento
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tags
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.musica_tipos
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu_teste.sys
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:35  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:35  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:38  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-27 17:42  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:42  INFO [JavaFX Application Thread] (Version.java:37) - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+2014-12-27 17:42  INFO [JavaFX Application Thread] (Version.java:41) - HHH000412: Hibernate Core {4.2.6.Final}
+2014-12-27 17:42  INFO [JavaFX Application Thread] (Environment.java:238) - HHH000206: hibernate.properties not found
+2014-12-27 17:42  INFO [JavaFX Application Thread] (Environment.java:345) - HHH000021: Bytecode provider name : javassist
+2014-12-27 17:42  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:98) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-12-27 17:42  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:134) - HHH000115: Hibernate connection pool size: 20
+2014-12-27 17:42  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:137) - HHH000006: Autocommit mode: true
+2014-12-27 17:42  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:151) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/snu?zeroDateTimeBehavior=convertToNull]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (DriverManagerConnectionProviderImpl.java:156) - HHH000046: Connection properties: {user=snu, password=****, autocommit=true, release_mode=auto}
+2014-12-27 17:42  INFO [JavaFX Application Thread] (Dialect.java:130) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2014-12-27 17:42  INFO [JavaFX Application Thread] (LobCreatorBuilder.java:94) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TransactionFactoryInitiator.java:73) - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+2014-12-27 17:42  INFO [JavaFX Application Thread] (ASTQueryTranslatorFactory.java:48) - HHH000397: Using ASTQueryTranslatorFactory
+2014-12-27 17:42  INFO [JavaFX Application Thread] (SchemaUpdate.java:182) - HHH000228: Running hbm2ddl schema update
+2014-12-27 17:42  INFO [JavaFX Application Thread] (SchemaUpdate.java:193) - HHH000102: Fetching database metadata
+2014-12-27 17:42  INFO [JavaFX Application Thread] (SchemaUpdate.java:205) - HHH000396: Updating schema
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.integrante
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [endereco, nome, telefone_comercial, funcao_primaria, funcao_secundaria, data_entrada, data_nascimento, telefone_residencial, id, telefone_celular, sexo, email, ministerio]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missa
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [descricao_email, data_acontecimento, nome, id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [link_video, tom, documentomusica_id, impressa, autor_id, nome, id, afinacao]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk8a0bc2fceb682c53, fk8a0bc2fc61bd7213, primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_listainvertida
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [documentomusica_id, vocabulo_id, musica_id, frequencia_token, id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkce3e87cd22451d7]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkce3e87cd22451d7, primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.documentomusica_vocabulario
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [id, token]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.missas_musicas
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [missa_id, musica_id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk620b800619705b4f, fk620b8006ea1d3538]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk620b800619705b4f, fk620b8006ea1d3538, primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_associacoes
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [tom, integrante_id, musica_id, id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk4d5d02a428d0375e, fk4d5d02a4495641e1]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fk4d5d02a428d0375e, fk4d5d02a4495641e1, primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_autores
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [nome, id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_documento
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [frequencia_maxima_token, conteudo, introducao, quantidade_tokens, id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tags
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [musica_id, id, descricao]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary, fk_4t409okcw37o9jmr4vvjsssun]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.musica_tipos
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [valor, musica_id, id]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: [fkc039b89c495641e1]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [fkc039b89c495641e1, primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:65) - HHH000261: Table found: snu.sys
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:66) - HHH000037: Columns: [preferencia_fsus_gbem, data_ultima_exportacao, preferencia_csus_dbem, diretorio_sgbd, preferencia_dsus_ebem, id, preferencia_asus_bbem, data_ultima_importacao, preferencia_gsus_abem, template_descricao_email, versao]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:68) - HHH000108: Foreign keys: []
+2014-12-27 17:42  INFO [JavaFX Application Thread] (TableMetadata.java:69) - HHH000126: Indexes: [primary]
+2014-12-27 17:42  INFO [JavaFX Application Thread] (SchemaUpdate.java:242) - HHH000232: Schema update complete
+2014-12-27 17:51  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-27 17:51  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 11:01  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 11:10  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 11:16  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 11:16  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 11:20  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 11:21  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 11:26  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 11:48  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 12:45  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 12:49  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 12:51  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 12:51  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 12:59  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 13:00  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 13:01  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 13:02  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 13:08  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 13:10  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...
+2014-12-28 15:09  INFO [JavaFX Application Thread] (SNU.java:49) - Iniciando a aplicação...
+2014-12-28 15:14  INFO [JavaFX Application Thread] (SNU.java:103) - Finalizando a aplicação...

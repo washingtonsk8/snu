@@ -163,12 +163,12 @@ public class GerenciarAutoresController implements Initializable {
         String textoPesquisa = this.fldPesquisarAutor.getText();
 
         if (StringUtil.hasAlgo(textoPesquisa)) {
-            Dialogs.DialogResponse resposta;
+            boolean resposta;
             resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                     "Deseja realmente adicionar o(a) Autor(a) \"" + textoPesquisa + "\" ao sistema?",
                     "Adição de Autor", "Confirmação");
 
-            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+            if (resposta) {
                 Autor novoAutor = new Autor();
                 novoAutor.setNome(textoPesquisa);
 
@@ -314,14 +314,14 @@ public class GerenciarAutoresController implements Initializable {
     @FXML
     private void onActionFromBtnRemoverAutor(ActionEvent event) {
         QuantidadeAutoriaDTO quantidadeAutoriaDtoSelecionado = this.tblAutores.getSelectionModel().getSelectedItem();
-        Dialogs.DialogResponse resposta;
+        boolean resposta;
         resposta = Dialogs.showConfirmDialog(HomeController.getInstancia().getStage(),
                 "Deseja realmente excluir o(a) Autor(a) \""
                 + quantidadeAutoriaDtoSelecionado.getAutor().getNome() + "\" do sistema?"
                 + "\n\nATENÇÃO: Ao excluí-lo(a), todas as músicas de sua autoria serão excluídas também!",
                 "Exclusão de Autor", "Confirmação");
 
-        if (resposta.equals(Dialogs.DialogResponse.YES)) {
+        if (resposta) {
             try {
                 AutorJpaController.getInstancia().destroy(quantidadeAutoriaDtoSelecionado.getAutor().getId());
                 this.autores.remove(quantidadeAutoriaDtoSelecionado);

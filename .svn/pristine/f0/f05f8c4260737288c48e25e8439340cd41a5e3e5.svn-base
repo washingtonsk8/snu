@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentMontarMissaFinalizacao" onMouseClicked="#onMouseClickedFromContentMontarMissaFinalizacao" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.missa.MontarMissaFinalizacaoController">
+    <children>
+        <Label fx:id="lblMontarMissaFinalizacao" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Montar Missa - Finalização" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblInformacaoPasso" alignment="CENTER_LEFT" layoutX="14.0" layoutY="560.0" prefHeight="20.0" prefWidth="80.0" text="Passo 3 de 3" textAlignment="LEFT" textFill="BLUE">
+            <font>
+                <Font size="14.0" fx:id="x1" />
+            </font>
+        </Label>
+        <Label fx:id="lblInformacaoFuncionamento" layoutX="14.0" layoutY="60.0" prefHeight="45.0" prefWidth="772.0" text="Abaixo encontra-se um template que pode ser utilizado na composição de um e-mail a ser enviado para a igreja. Clique em &quot;Ok&quot; para confirmar os dados informados e salvá-los, ou &quot;Voltar&quot; para realizar alguma alteração." textAlignment="JUSTIFY" textFill="BLACK" wrapText="true">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextArea fx:id="areaDescricaoEmail" layoutX="14.0" layoutY="115.0" prefHeight="405.0" prefWidth="772.0" wrapText="true" />
+        <Button fx:id="btnOk" font="$x1" layoutX="686.0" layoutY="540.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK" />
+        <ImageView fx:id="iconeOk" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+            </image>
+        </ImageView>        
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
+            </image>
+        </ImageView>
+    </children>  
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

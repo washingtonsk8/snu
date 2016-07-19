@@ -1,0 +1,686 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snu.fronteiras.controladores.musica;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import snu.controladores.IntegranteJpaController;
+import snu.controladores.MusicaJpaController;
+import snu.entidades.integrante.Integrante;
+import snu.entidades.musica.Afinacao;
+import snu.entidades.musica.AssociacaoIntegranteMusica;
+import snu.entidades.musica.Musica;
+import snu.entidades.musica.TipoMusica;
+import snu.entidades.musica.Tom;
+import snu.entidades.musica.Autor;
+import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
+import snu.fronteiras.controladores.musica.popups.SelecionarAutorController;
+import snu.util.EfeitosUtil;
+import snu.util.StringUtil;
+
+/**
+ * FXML Controller class
+ *
+ * @author Washington Luis
+ */
+public class AtualizarMusicaController implements Initializable, ControladorDeConteudoInterface {
+
+    @FXML
+    private Label lblLeituras;
+    @FXML
+    private Font x1;
+    @FXML
+    private Label lblAutor;
+    @FXML
+    private Label lblTitulo;
+    @FXML
+    private Label lblTom;
+    @FXML
+    private Label lblAfinacao;
+    @FXML
+    private Label lblAssociacoes;
+    @FXML
+    private TableView<AssociacaoIntegranteMusica> tblAssociacoes;
+    @FXML
+    private Label lblTipos;
+    @FXML
+    private Font x2;
+    @FXML
+    private Font x3;
+    @FXML
+    private TableColumn<AssociacaoIntegranteMusica, String> clnNome;
+    @FXML
+    private TableColumn<AssociacaoIntegranteMusica, String> clnTom;
+    @FXML
+    private TextField fldAutor;
+    @FXML
+    private TextField fldTitulo;
+    @FXML
+    private TextField fldLeituras;
+    @FXML
+    private ComboBox<Tom> comboTom;
+    @FXML
+    private ComboBox<Afinacao> comboAfinacao;
+    @FXML
+    private CheckBox checkEntrada;
+    @FXML
+    private CheckBox checkPerdao;
+    @FXML
+    private CheckBox checkGloria;
+    @FXML
+    private CheckBox checkAclamacao;
+    @FXML
+    private CheckBox checkOfertorio;
+    @FXML
+    private CheckBox checkPaz;
+    @FXML
+    private CheckBox checkSanto;
+    @FXML
+    private CheckBox checkComunhao;
+    @FXML
+    private CheckBox checkAcaoDeGracas;
+    @FXML
+    private CheckBox checkFinal;
+    @FXML
+    private CheckBox checkReflexao;
+    @FXML
+    private CheckBox checkLouvor;
+    @FXML
+    private CheckBox checkAdoracao;
+    @FXML
+    private CheckBox checkPalestra;
+    @FXML
+    private CheckBox checkResposta;
+    @FXML
+    private CheckBox checkOracao;
+    @FXML
+    private CheckBox checkEspecial;
+    @FXML
+    private CheckBox checkOutra;
+    @FXML
+    private Button btnEscreverConteudo;
+    @FXML
+    private Button btnAdicionarAssociacao;
+    @FXML
+    private Button btnRemoverAssociacao;
+    @FXML
+    private ComboBox<String> comboNomeAssociacao;
+    @FXML
+    private ComboBox<Tom> comboTomAssociacao;
+    @FXML
+    private Label lblNomeAssociacao;
+    @FXML
+    private Label lblTomAssociacao;
+    @FXML
+    private AnchorPane contentAtualizarMusica;
+
+    private List<CheckBox> tiposMusica;
+
+    private ObservableList<AssociacaoIntegranteMusica> itensAssociacao;
+
+    private List<Integrante> integrantesAssociados;
+
+    private Musica musica;
+
+    private final ObservableList<Tom> tonsMusica
+            = FXCollections.observableArrayList(Tom.C, Tom.C_SUSTENIDO, Tom.D,
+                    Tom.D_SUSTENIDO, Tom.E, Tom.F, Tom.F_SUSTENIDO, Tom.G,
+                    Tom.G_SUSTENIDO, Tom.A, Tom.A_SUSTENIDO, Tom.B);
+
+    private final ObservableList<Afinacao> afinacoesMusica
+            = FXCollections.observableArrayList(Afinacao.CFBbEbGC, Afinacao.DGCFAD,
+                    Afinacao.DbGbBEAbDb, Afinacao.EADGBE, Afinacao.EbAbDbGbBbEb);
+    @FXML
+    private Button btnSelecionarAutor;
+
+    @FXML
+    private AnchorPane popupSelecionarAutor;
+
+    /**
+     * Inicializa os componentes
+     */
+    private void initComponents() {
+        ObservableList<String> nomesIntegrantes = FXCollections.observableArrayList();
+
+        this.musica = new Musica();
+        this.itensAssociacao = FXCollections.observableArrayList();
+        this.integrantesAssociados = IntegranteJpaController.getInstancia().findIntegranteEntities();
+        this.tiposMusica = new ArrayList<>();
+
+        this.comboTom.setItems(this.tonsMusica);//Coloca os tons na combo
+        this.comboAfinacao.setItems(this.afinacoesMusica);//Coloca as afinações na combo
+        this.comboAfinacao.getSelectionModel().select(Afinacao.EADGBE);//Define uma afinação padrão
+
+        //Coloca os tons na combo para associação
+        this.comboTomAssociacao.setItems(this.tonsMusica);
+
+        //Definir impossibilidade de edição do campo autor
+        this.fldAutor.setEditable(false);
+
+        //Faz pesquisa no banco pelos integrantes presentes e pega o nome
+        for (Integrante integrante : this.integrantesAssociados) {
+            nomesIntegrantes.add(integrante.getNome());
+        }
+
+        //Coloca os nomes dos integrantes na combo
+        this.comboNomeAssociacao.setItems(nomesIntegrantes);
+
+        //Organiza a apresentação dos dados nas colunas da tabela de associação
+        this.clnNome.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AssociacaoIntegranteMusica, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<AssociacaoIntegranteMusica, String> associacao) {
+                return new SimpleStringProperty(associacao.getValue().getIntegrante().getNome());
+            }
+        });
+        this.clnTom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AssociacaoIntegranteMusica, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<AssociacaoIntegranteMusica, String> associacao) {
+                return new SimpleStringProperty(associacao.getValue().getTom().toString());
+            }
+        });
+
+        //Adicionando as checkboxes na lista
+        this.tiposMusica.add(this.checkEntrada);
+        this.tiposMusica.add(this.checkPerdao);
+        this.tiposMusica.add(this.checkGloria);
+        this.tiposMusica.add(this.checkAclamacao);
+        this.tiposMusica.add(this.checkOfertorio);
+        this.tiposMusica.add(this.checkPaz);
+        this.tiposMusica.add(this.checkSanto);
+        this.tiposMusica.add(this.checkComunhao);
+        this.tiposMusica.add(this.checkAcaoDeGracas);
+        this.tiposMusica.add(this.checkFinal);
+        this.tiposMusica.add(this.checkReflexao);
+        this.tiposMusica.add(this.checkLouvor);
+        this.tiposMusica.add(this.checkAdoracao);
+        this.tiposMusica.add(this.checkPalestra);
+        this.tiposMusica.add(this.checkResposta);
+        this.tiposMusica.add(this.checkOracao);
+        this.tiposMusica.add(this.checkEspecial);
+        this.tiposMusica.add(this.checkOutra);
+
+        this.btnSelecionarAutor.requestFocus();
+    }
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        initComponents();
+    }
+
+    /**
+     * Retorna o contentPane principal da classe
+     *
+     * @return
+     */
+    @Override
+    public AnchorPane getContentPane() {
+        return contentAtualizarMusica;
+    }
+
+    @FXML
+    private void onMouseClickedFromLblLeituras(MouseEvent event) {
+        this.fldLeituras.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblAutor(MouseEvent event) {
+        this.fldAutor.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblTitulo(MouseEvent event) {
+        this.fldTitulo.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblTom(MouseEvent event) {
+        this.comboTom.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblAfinacao(MouseEvent event) {
+        this.comboAfinacao.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblAssociacoes(MouseEvent event) {
+        this.tblAssociacoes.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromLblTipos(MouseEvent event) {
+        this.checkEntrada.requestFocus();
+    }
+
+    @FXML
+    private void onMouseClickedFromContentAtualizarMusica(MouseEvent event) {
+        this.contentAtualizarMusica.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromFldAutor(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromFldTitulo(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromFldLeituras(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromComboTom(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromComboAfinacao(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionFromCheckEntrada(ActionEvent event) {
+        if (this.checkEntrada.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.ENTRADA);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.ENTRADA);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckPerdao(ActionEvent event) {
+        if (this.checkPerdao.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.PERDAO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.PERDAO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckGloria(ActionEvent event) {
+        if (this.checkGloria.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.GLORIA);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.GLORIA);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckAclamacao(ActionEvent event) {
+        if (this.checkAclamacao.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.ACLAMACAO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.ACLAMACAO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckOfertorio(ActionEvent event) {
+        if (this.checkOfertorio.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.OFERTORIO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.OFERTORIO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckPaz(ActionEvent event) {
+        if (this.checkPaz.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.PAZ);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.PAZ);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckSanto(ActionEvent event) {
+        if (this.checkSanto.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.SANTO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.SANTO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckComunhao(ActionEvent event) {
+        if (this.checkComunhao.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.COMUNHAO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.COMUNHAO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckAcaoDeGracas(ActionEvent event) {
+        if (this.checkAcaoDeGracas.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.ACAO_DE_GRACAS);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.ACAO_DE_GRACAS);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckFinal(ActionEvent event) {
+        if (this.checkFinal.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.FINAL);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.FINAL);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckReflexao(ActionEvent event) {
+        if (this.checkReflexao.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.REFLEXAO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.REFLEXAO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckLouvor(ActionEvent event) {
+        if (this.checkLouvor.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.LOUVOR);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.LOUVOR);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckAdoracao(ActionEvent event) {
+        if (this.checkAdoracao.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.ADORACAO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.ADORACAO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckPalestra(ActionEvent event) {
+        if (this.checkPalestra.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.PALESTRA);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.PALESTRA);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckResposta(ActionEvent event) {
+        if (this.checkResposta.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.RESPOSTA);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.RESPOSTA);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckOracao(ActionEvent event) {
+        if (this.checkOracao.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.ORACAO);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.ORACAO);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckEspecial(ActionEvent event) {
+        if (this.checkEspecial.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.ESPECIAL);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.ESPECIAL);
+        }
+    }
+
+    @FXML
+    private void onActionFromCheckOutra(ActionEvent event) {
+        if (this.checkOutra.isSelected()) {
+            this.musica.getTipos().add(TipoMusica.OUTRA);
+        } else {
+            this.musica.getTipos().remove(TipoMusica.OUTRA);
+        }
+    }
+
+    @FXML
+    private void onActionFromBtnAdicionarAssociacao(ActionEvent event) {
+        int indiceIntegrante = this.comboNomeAssociacao.getSelectionModel().getSelectedIndex();
+        Tom tomSelecionado = this.comboTomAssociacao.getValue();
+        if (tomSelecionado != null && indiceIntegrante >= 0) {
+            //Cria uma nova associação
+            AssociacaoIntegranteMusica novaAssociacao = new AssociacaoIntegranteMusica();
+            novaAssociacao.setMusica(this.musica);
+            novaAssociacao.setIntegrante(this.integrantesAssociados.get(indiceIntegrante));
+            novaAssociacao.setTom(tomSelecionado);
+
+            //Adiciona a nova associação na lista de associações desta classe
+            this.itensAssociacao.add(novaAssociacao);
+
+            //Define a lista de associações atual na tabela
+            this.tblAssociacoes.setItems(this.itensAssociacao);
+
+            //Troca a seleção para nenhum valor para serem adicionados novas associações
+            this.comboNomeAssociacao.getSelectionModel().select(null);
+            this.comboTomAssociacao.getSelectionModel().select(null);
+
+            //Atualiza a tabela
+            atualizarTabela();
+        } else {
+            Dialogs.showWarningDialog(null, "Favor selecionar um Integrante e um Tom para associar", "Valores inválidos", "Aviso");
+        }
+    }
+
+    @FXML
+    private void onActionFromBtnRemoverAssociacao(ActionEvent event) {
+        int indiceSelecionado = this.tblAssociacoes.getSelectionModel().getSelectedIndex();
+
+        if (indiceSelecionado >= 0) {
+            Dialogs.DialogResponse resposta = Dialogs.showConfirmDialog(null, "Tem certeza que deseja excluir a Associação?", "Exclusão de Associação", "Confirmação");
+
+            if (resposta.equals(Dialogs.DialogResponse.YES)) {
+
+                this.itensAssociacao.remove(indiceSelecionado);
+
+                //Define a lista de associações atual na tabela
+                this.tblAssociacoes.setItems(this.itensAssociacao);
+
+                atualizarTabela();
+            }
+        } else {
+            Dialogs.showWarningDialog(null, "Favor selecionar uma Associação para a exclusão", "Associação não selecionada", "Aviso");
+        }
+    }
+
+    @FXML
+    private void onActionFromComboNomeAssociacao(ActionEvent event) {
+        this.comboNomeAssociacao.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromComboTomAssociacao(ActionEvent event) {
+        this.comboTomAssociacao.requestFocus();
+    }
+
+    @FXML
+    private void onActionFromBtnEscreverConteudo(ActionEvent event) {
+        //Apaga efeitos anteriores
+        this.btnEscreverConteudo.setEffect(null);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/EscreverMusica.fxml"));
+
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        EscreverMusicaController escreverMusicaController = fxmlLoader.getController();
+
+        //Limpa o conteúdo anterior e carrega a página
+        AnchorPane pai = ((AnchorPane) this.contentAtualizarMusica.getParent());
+        escreverMusicaController.initData(musica, this);
+        pai.getChildren().clear();
+        pai.getChildren().add(root);
+    }
+
+    private boolean validarCampos() {
+        boolean validadeDosCampos = true;
+        if (StringUtil.isVazia(this.fldAutor.getText())) {
+            this.fldAutor.setEffect(EfeitosUtil.getEfeitoInvalido());
+            validadeDosCampos = false;
+        } else {
+            this.fldAutor.setEffect(null);
+        }
+        if (StringUtil.isVazia(this.fldTitulo.getText())) {
+            this.fldTitulo.setEffect(EfeitosUtil.getEfeitoInvalido());
+            validadeDosCampos = false;
+        } else {
+            this.fldTitulo.setEffect(null);
+        }
+        if (this.comboTom.getValue() == null) {
+            this.comboTom.setEffect(EfeitosUtil.getEfeitoInvalido());
+            validadeDosCampos = false;
+        } else {
+            this.comboTom.setEffect(null);
+        }
+        if (this.comboAfinacao.getValue() == null) {
+            this.comboAfinacao.setEffect(EfeitosUtil.getEfeitoInvalido());
+            validadeDosCampos = false;
+        } else {
+            this.comboAfinacao.setEffect(null);
+        }
+        if (this.musica.getTipos().isEmpty()) {
+            for (CheckBox checkBox : tiposMusica) {
+                checkBox.setEffect(EfeitosUtil.getEfeitoInvalido());
+            }
+            validadeDosCampos = false;
+        } else {
+            for (CheckBox checkBox : tiposMusica) {
+                checkBox.setEffect(null);
+            }
+        }
+        return validadeDosCampos;
+    }
+
+    @FXML
+    private void onActionFromBtnSalvar(ActionEvent event) {
+        if (validarCampos()) {
+            this.musica.setAutor(new Autor());//TODO: Consertar
+            this.musica.setTitulo(this.fldTitulo.getText());
+            this.musica.setAssociacoes(this.itensAssociacao);
+            this.musica.setTom(this.comboTom.getValue());
+            this.musica.setAfinacao(this.comboAfinacao.getValue());
+            this.musica.setLeiturasAssociadas(Arrays.asList(this.fldLeituras.getText().split(";")));
+
+            if (this.musica.getId() == null) {
+                //Persistindo no banco
+                MusicaJpaController.getInstancia().create(this.musica);
+            } else {
+                try {
+                    //Atualizando no banco
+                    MusicaJpaController.getInstancia().edit(this.musica);
+                } catch (Exception ex) {
+                    Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (this.musica.getConteudo() == null || this.musica.getConteudo().isEmpty()) {
+                Dialogs.showWarningDialog(null, "Não esqueça de escrever o conteúdo da música", "Conselho", "Informação");
+                this.btnEscreverConteudo.setEffect(EfeitosUtil.getEfeitoAviso());
+            }
+
+            Dialogs.showInformationDialog(null, "A música foi salva com sucesso!", "Sucesso", "Informação");
+        } else {
+            Dialogs.showWarningDialog(null, "Favor corrigir os campos assinalados!", "Campos Inválidos", "Aviso");
+        }
+    }
+
+    private void atualizarTabela() {
+        final List<AssociacaoIntegranteMusica> itens = this.tblAssociacoes.getItems();
+        if (itens == null || itens.isEmpty()) {
+            return;
+        }
+
+        final AssociacaoIntegranteMusica item = this.tblAssociacoes.getItems().get(0);
+        itens.remove(0);
+        try {//Dorme um pouco para visualizarmos as alterações
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                itens.add(0, item);
+            }
+        });
+    }
+
+    @FXML
+    private void onActionFromBtnSelecionarAutor(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/snu/fronteiras/visao/musica/popups/SelecionarAutor.fxml"));
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(AtualizarMusicaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Inicializa os dados passando a música por parâmetro
+        SelecionarAutorController selecionarAutorController = fxmlLoader.getController();
+        selecionarAutorController.initData(this.musica);
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Seleção de Autor");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+        dialogStage.setScene(new Scene(root));
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+
+        //Após a seleção do autor, atualiza o campo
+        Autor autorSelecionado = this.musica.getAutor();
+        if (autorSelecionado != null) {
+            this.fldAutor.setText(autorSelecionado.getNome());
+        }
+        this.fldTitulo.requestFocus();//Coloca o foco no campo de título
+    }
+
+}

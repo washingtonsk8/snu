@@ -202,41 +202,4 @@ public class MusicaUtil {
         boolean conteudoIdentico = conteudoMusica != null ? conteudoMusica.equals(conteudo) : conteudo == null;
         return introducaoIdentica && conteudoIdentico;
     }
-
-    /**
-     * Detecta as anomalias de uma música. Anomalias são detecções de acordes
-     * feitas de modo errado fazendo com que palavras normais sejam consideradas
-     * acordes.
-     *
-     * @param conteudoMusica
-     * @return
-     */
-    public static boolean hasAnomalias(String conteudoMusica) {
-        String[] linhas = conteudoMusica.split("\n");
-        Pattern p = Pattern.compile("[a-zA-Z]");
-
-        for (String linha : linhas) {
-            if (!linha.contains("@")) {
-                continue;
-            }
-            String[] palavras = linha.split(" ");
-            int i = 0;
-            boolean linhaDeAcordes = true;
-
-            /*
-             Se a linha conter pelo menos uma palavra que não seja um acorde,
-             provavelmente essa linha não é uma linha composta de acordes.
-             */
-            while (i < palavras.length && linhaDeAcordes) {
-                Matcher m = p.matcher(palavras[i]);
-                if(StringUtil.hasAlgo(palavras[i])){
-                    if (m.find() && !palavras[i].contains("@")) {
-                        return true;
-                    }                    
-                }
-                i++;
-            }
-        }
-        return false;
-    }
 }

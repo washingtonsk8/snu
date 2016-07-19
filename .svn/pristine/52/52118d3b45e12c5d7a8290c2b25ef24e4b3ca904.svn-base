@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="impressao_musica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="657b57b7-bf7f-415f-b2ba-64001ce0da86">
+    <property name="ireport.zoom" value="1.5"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="conteudoMusica" class="java.lang.String"/>
+    <parameter name="tituloMusica" class="java.lang.String"/>
+    <parameter name="tiposMusica" class="java.lang.String"/>
+    <parameter name="introducaoMusica" class="java.lang.String"/>
+    <parameter name="cantorMusica" class="java.lang.String"/>
+    <parameter name="tomMusica" class="java.lang.String"/>
+    <parameter name="caminhoImagem" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="26" splitType="Stretch">
+            <textField>
+                <reportElement x="437" y="0" width="78" height="16" uuid="61b59b36-670a-4074-9c36-577e7c9ac6e5"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Tahoma"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="515" y="0" width="40" height="16" uuid="39fac1d0-d374-4e74-865c-d1c55e481064"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="dd/MM/yyyy">
+                <reportElement x="1" y="0" width="100" height="16" uuid="107616ab-6a54-4205-8a6d-6bc0d10c543a"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Tahoma"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="101" y="1" width="336" height="15" uuid="505db46f-2c08-4696-87f7-63e932e5fefc">
+                    <printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() > 1]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Tahoma"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{tituloMusica}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="101" y="1" width="336" height="15" uuid="cf40891a-5b84-4a7e-93ac-eba8b2d4a52d">
+                    <printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() == 1]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Tahoma"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{cantorMusica}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="77" splitType="Stretch">
+            <printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() == 1]]></printWhenExpression>
+            <textField>
+                <reportElement x="1" y="0" width="554" height="66" uuid="2705428e-ad68-4b52-a072-e3100b63a324"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Tahoma" size="20" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{tituloMusica}]]></textFieldExpression>
+            </textField>
+            <frame>
+                <reportElement x="1" y="0" width="75" height="75" uuid="e469366f-648b-4f78-9cf4-eb62869e662b"/>
+                <image>
+                    <reportElement x="0" y="0" width="75" height="75" uuid="d96e675e-4da8-4baa-b7db-d8786065e11d"/>
+                    <imageExpression><![CDATA[$P{caminhoImagem}]]></imageExpression>
+                </image>
+            </frame>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="639" splitType="Immediate">
+            <staticText>
+                <reportElement x="0" y="0" width="39" height="19" uuid="f46ca4f4-420a-4b34-81df-c01506962ce7"/>
+                <textElement textAlignment="Justified" verticalAlignment="Middle">
+                    <font fontName="Tahoma" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Tom:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="39" y="0" width="516" height="19" uuid="9adb0227-6989-4393-8253-131c54dd8e14"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Tahoma" size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{tomMusica}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="19" width="39" height="18" uuid="054d06f1-7791-4f26-ac04-a469080da752"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Tahoma" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Intro:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="39" y="19" width="516" height="18" uuid="dcca9bc2-6fee-4ad3-b4fe-d823529652b0"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Tahoma" size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{introducaoMusica}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true" isBlankWhenNull="true">
+                <reportElement x="0" y="44" width="555" height="595" isPrintWhenDetailOverflows="true" uuid="bbb19f42-a85e-43da-8f6f-1d130c4e411b"/>
+                <textElement>
+                    <font fontName="Tahoma" size="12" isPdfEmbedded="false"/>
+                    <paragraph lineSpacing="1_1_2"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{conteudoMusica}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="21" splitType="Stretch">
+            <staticText>
+                <reportElement x="1" y="1" width="100" height="20" uuid="ceb2dda5-f3c9-4de7-a397-0709d538bf85"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Gerado pelo SNU]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="279" y="1" width="276" height="20" uuid="a1bcc78c-b121-4772-a339-68fca429dac6"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Tipo(s): " + $P{tiposMusica}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
+</jasperReport>

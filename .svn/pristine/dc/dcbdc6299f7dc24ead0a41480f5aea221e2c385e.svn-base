@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package snu.fronteiras.controladores.musica.popups;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import snu.entidades.musica.Musica;
+
+/**
+ * FXML Controller class
+ *
+ * @author Washington Luis
+ */
+public class GerarImpressaoMusicaController implements Initializable {
+    @FXML
+    private AnchorPane popupGerarImpressaoMusica;
+    @FXML
+    private Font x1;
+
+    private void initComponents(){
+        
+    }
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+        
+     /**
+     * Inicializa os dados principais da classe
+     *
+     * @param musicaSelecionada
+     */
+    public void initData(Musica musicaSelecionada) {
+        //TODO
+    }
+}

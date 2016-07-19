@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentEscreverMusica" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="snu.fronteiras.controladores.musica.EscreverMusicaController">
+  <Label fx:id="lblEscreverMusica" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Escrever Música" textAlignment="LEFT" wrapText="false">
+    <stylesheets>
+      <URL value="@../../css/contents.css" />
+      <URL value="@../../css/musica/escrevermusica.css" />
+    </stylesheets>
+  </Label>
+  <TextArea fx:id="areaEscreverMusica" layoutX="14.0" layoutY="60.0" prefHeight="510.0" prefWidth="650.0" wrapText="true" />
+  <Button fx:id="btnOk" layoutX="686.0" layoutY="530.0" mnemonicParsing="false" onAction="#onActionFromBtnOk" prefHeight="40.0" prefWidth="100.0" text="Ok" textFill="BLACK">
+    <font>
+      <Font size="14.0" fx:id="x1" />
+    </font>
+  </Button>
+  <Button fx:id="btnCancelar" font="$x1" layoutX="686.0" layoutY="480.0" mnemonicParsing="false" onAction="#onActionFromBtnCancelar" prefHeight="40.0" prefWidth="100.0" text="Cancelar" textFill="BLACK" />
+  <Button id="btnDetectarNotas" fx:id="btnDetectarAcordes" font="$x1" layoutX="686.0" layoutY="400.0" mnemonicParsing="false" onAction="#onActionFromBtnDetectarAcordes" prefHeight="60.0" prefWidth="100.0" text="Detectar Acordes" textAlignment="CENTER" textFill="BLACK" wrapText="true" />
+  <stylesheets>
+    <URL value="@../../css/contents.css" />
+    <URL value="@../../css/musica/escrevermusica.css" />
+  </stylesheets>
+</AnchorPane>

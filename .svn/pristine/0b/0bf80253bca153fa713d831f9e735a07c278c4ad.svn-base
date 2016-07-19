@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contentCadastrarIntegrante" onMouseClicked="#onMouseClickedFromContentCadastrarIntegrante" prefHeight="570.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.integrante.CadastrarIntegranteController">
+    <children>
+        <Label fx:id="lblCadastrarIntegrante" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Cadastrar Integrante" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <Label fx:id="lblNome" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#onMouseClickedFromLblNome" prefWidth="150.0" text="Nome:" textFill="BLACK" textOverrun="ELLIPSIS">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="16.0" fx:id="x1" />
+            </font>
+        </Label>
+        <TextField fx:id="fldNome" layoutX="185.0" layoutY="60.0" onAction="#onActionFromFldNome" onKeyTyped="#onKeyTypedFromFldNome" prefWidth="400.0" />
+        <Label fx:id="lblSexo" alignment="CENTER_RIGHT" focusTraversable="false" font="$x1" layoutX="14.0" layoutY="95.0" onMouseClicked="#onMouseClickedFromLblSexo" prefWidth="150.0" text="Sexo:" textFill="BLACK" textOverrun="ELLIPSIS">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <RadioButton fx:id="radioFeminino" layoutX="185.0" layoutY="98.0" mnemonicParsing="false" onAction="#onActionFromRadioFeminino" prefHeight="-1.0" text="Feminino">
+            <font>
+                <Font size="12.0" fx:id="x4" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radioMasculino" font="$x4" layoutX="285.0" layoutY="98.0" mnemonicParsing="false" onAction="#onActionFromRadioMasculino" prefHeight="-1.0" text="Masculino" />
+        <Label fx:id="lblDataNascimento" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="130.0" onMouseClicked="#onMouseClickedFromLblDataNascimento" prefWidth="150.0" text="Data de Nascimento:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblIdade" disable="true" layoutX="350.0" layoutY="130.0" onMouseClicked="#onMouseClickedFromIdade" prefHeight="25.0" prefWidth="150.0" text="">
+            <font>
+                <Font size="14.0" fx:id="x2" />
+            </font>
+        </Label>
+        <Label fx:id="lblEndereco" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="165.0" onMouseClicked="#onMouseClickedFromLblEndereco" prefWidth="150.0" text="Endereço:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldEndereco" layoutX="185.0" layoutY="165.0" onAction="#onActionFromFldEndereco" onKeyTyped="#onKeyTypedFromFldEndereco" prefWidth="400.0" />
+        <Label fx:id="lblTelefoneResidencial" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="200.0" onMouseClicked="#onMouseClickedFromLblTelefoneResidencial" prefWidth="150.0" text="Tel. Residencial:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldTelefoneResidencial" layoutX="185.0" layoutY="200.0" onAction="#onActionFromFldTelefoneResidencial" onKeyReleased="#onKeyReleasedFromFldTelefoneResidencial" prefWidth="150.0" />
+        <Label fx:id="lblTelefoneCelular" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="235.0" onMouseClicked="#onMouseClickedFromLblTelefoneCelular" prefWidth="150.0" text="Tel. Celular:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldTelefoneCelular" layoutX="185.0" layoutY="235.0" onAction="#onActionFromFldTelefoneCelular" onKeyReleased="#onKeyReleasedFromFldTelefoneCelular" prefWidth="150.0" />
+        <Label fx:id="lblTelefoneComercial" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="270.0" onMouseClicked="#onMouseClickedFromLblTelefoneComercial" prefWidth="150.0" text="Tel. Comercial:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldTelefoneComercial" layoutX="185.0" layoutY="270.0" onAction="#onActionFromFldTelefoneComercial" onKeyReleased="#onKeyReleasedFromFldTelefoneComercial" prefWidth="150.0" />
+        <Label fx:id="lblDataEntrada" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="340.0" onMouseClicked="#onMouseClickedFromLblDataEntrada" prefWidth="150.0" text="Data de Entrada:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label fx:id="lblIdadeMinisterial" disable="true" font="$x2" layoutX="350.0" layoutY="375.0" onMouseClicked="#onMouseClickedFromIdadeMinisterial" prefHeight="25.0" prefWidth="150.0" text="" />
+        <Label fx:id="lblEmail" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="305.0" onMouseClicked="#onMouseClickedFromLblEmail" prefWidth="150.0" text="E-mail:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldEmail" layoutX="185.0" layoutY="305.0" onAction="#onActionFromFldEmail" onContextMenuRequested="#onRequestedFromFldEmail" onKeyReleased="#onKeyReleasedFromFldEmail" prefWidth="400.0" />
+        <Label fx:id="lblFuncaoPrincipal" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="375.0" onMouseClicked="#onMouseClickedFromLblFuncaoPrincipal" prefWidth="149.9998779296875" text="Função Principal:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <ComboBox fx:id="comboFuncaoPrincipal" layoutX="185.0" layoutY="375.0" onAction="#onActionFromComboFuncaoPrincipal" prefHeight="25.0" prefWidth="150.0" />
+        <Label fx:id="lblFuncaoSecundaria" alignment="CENTER_RIGHT" disable="true" font="$x1" layoutX="14.0" layoutY="410.0" onMouseClicked="#onMouseClickedFromLblFuncaoSecundaria" opacity="0.6" prefWidth="150.0" text="Função Secundária:" textFill="BLACK">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <ComboBox fx:id="comboFuncaoSecundaria" disable="true" layoutX="185.0" layoutY="410.0" onAction="#onActionFromComboFuncaoSecundaria" opacity="0.6" prefHeight="25.0" prefWidth="150.0" />
+        <Label layoutX="165.0" layoutY="55.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font size="20.0" fx:id="x3" />
+            </font>
+        </Label>
+        <Label font="$x3" layoutX="165.0" layoutY="90.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Label font="$x3" layoutX="165.0" layoutY="370.0" minHeight="16.0" prefHeight="16.0" text="*" textFill="RED">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <Button fx:id="btnLimpar" cache="true" font="$x2" layoutX="566.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnLimpar" prefHeight="40.0" prefWidth="100.0" text="Limpar" textFill="BLACK" />
+        <Button fx:id="btnSalvar" cache="true" font="$x2" layoutX="686.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionFromBtnSalvar" prefHeight="40.0" prefWidth="100.0" text="Salvar" textFill="BLACK" />
+        <ImageView fx:id="imgInicio" fitHeight="26.0" fitWidth="34.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/home.png" />
+            </image>
+        </ImageView>
+        <DatePicker fx:id="dpDataEntrada" layoutX="185.0" layoutY="340.0" onAction="#onActionFromDpDataEntrada" prefHeight="25.0" prefWidth="150.0" promptText="DD/MM/AAAA" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+        <DatePicker fx:id="dpDataNascimento" layoutX="185.0" layoutY="130.0" onAction="#onActionFromDpDataNascimento" prefHeight="25.0" prefWidth="150.0" promptText="DD/MM/AAAA" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+        <Label fx:id="lblMinisterio" alignment="CENTER_RIGHT" font="$x1" layoutX="14.0" layoutY="445.0" onMouseClicked="#onMouseClickedFromLblMinisterio" prefWidth="149.9998779296875" text="Ministério:" textFill="BLACK" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <effect>
+                <Glow />
+            </effect>
+        </Label>
+        <TextField fx:id="fldMinisterio" layoutX="185.0" layoutY="445.0" onAction="#onActionFromFldMinisterio" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+        <ImageView fx:id="iconeSalvar" fitHeight="20.0" fitWidth="20.0" layoutX="694.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeOk.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="iconeLimpar" fitHeight="18.0" fitWidth="18.0" layoutX="573.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image smooth="false" url="file:/C:/Users/User/Documents/NetBeansProjects/SNU/src/snu/fronteiras/images/icons/iconeLimparCampos.png" />
+            </image>
+        </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>

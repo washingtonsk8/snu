@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane fx:id="contentVerificarLog" onMouseClicked="#onMouseClickedFromContentVisualizarLog" prefHeight="600.0" prefWidth="800.0" styleClass="main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="snu.fronteiras.controladores.ajuda.VerificarLogController">
+    <children>
+        <Label fx:id="lblVerificarLog" layoutX="14.0" layoutY="14.0" styleClass="titulo" text="Arquivo de Log" textAlignment="LEFT" wrapText="false">
+            <stylesheets>
+                <URL value="@../../css/contents.css" />
+            </stylesheets>
+        </Label>
+        <TextArea fx:id="areaArquivoLog" disable="false" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="520.0" prefWidth="772.0" promptText="Arquivo de Log Vazio!" wrapText="true" />
+        <ImageView fx:id="imgVoltar" fitHeight="20.0" fitWidth="20.0" layoutX="724.0" layoutY="17.0" onMouseClicked="#onMouseClickedFromImgVoltar" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+            <image>
+                <Image url="@../../images/icons/iconeVoltar.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imgInicio" fitHeight="24.0" fitWidth="24.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#onMouseClickedFromImgInicio" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image smooth="false" url="@../../images/icons/home.png" />
+            </image>
+        </ImageView> 
+    </children>
+    <stylesheets>
+        <URL value="@../../css/contents.css" />
+    </stylesheets>
+</AnchorPane>
