@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import snu.entidades.musica.Musica;
 import snu.fronteiras.controladores.FXMLDocumentController;
 import snu.fronteiras.controladores.HomeController;
+import snu.fronteiras.controladores.musica.popups.RemoverDeteccoesController;
 import snu.fronteiras.interfaces.ControladorDeConteudoInterface;
 import snu.util.BotoesImagemUtil;
 import snu.util.Dialogs;
@@ -97,6 +98,8 @@ public class EscreverMusicaController implements Initializable {
     private Musica musica;
 
     private boolean acordesDetectados;
+    
+    private RemoverDeteccoesController removerDeteccoesController;
 
     private void initComponents() {
         this.fldPreVisualizarIntroducao.toBack();
@@ -199,7 +202,10 @@ public class EscreverMusicaController implements Initializable {
 
         String conteudoMusica = this.areaEscreverMusica.getText();
         String conteudoMusicaComAcordesDetectados = MusicaUtil.detectarAcordes(conteudoMusica);
-        this.areaEscreverMusica.setText(conteudoMusicaComAcordesDetectados);
+        
+        //Remover anomalias
+        this.removerDeteccoesController.initData(conteudoMusicaComAcordesDetectados);        
+        this.areaEscreverMusica.setText(this.removerDeteccoesController.getConteudoMusica());
 
         this.iconeAumentoEspacamento.setMouseTransparent(false);
         this.iconeReducaoEspacamento.setMouseTransparent(false);
@@ -207,6 +213,8 @@ public class EscreverMusicaController implements Initializable {
         //Desabilitar botão para eliminar possível recursão de detecção
         this.btnDetectarAcordes.setDisable(true);
         this.acordesDetectados = true;
+        
+        
     }
 
     @FXML
