@@ -5,15 +5,15 @@
  */
 package snu.controladores;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.apache.log4j.Logger;
@@ -30,7 +30,7 @@ import snu.util.StringUtil;
  */
 public class SNU extends Application {
 
-    private static final String VERSAO = "2.0 BETA";
+    private static final String VERSAO = "2.0";
 
     private static ConfiguracoesSistemaJpaController configuracoesSistemaController;
 
@@ -50,9 +50,9 @@ public class SNU extends Application {
     public void start(Stage stage) {
         log.info("Iniciando a aplicação...");
 
-        try {
+        try {            
             //Inicializando o Gerenciador de Entidades!
-            GerenciadorDeEntidades.getInstancia();
+            GerenciadorDeEntidades.getInstancia();            
 
             configuracoesSistemaController = ConfiguracoesSistemaJpaController.getInstancia();
             configuracoesSistema = configuracoesSistemaController.findConfiguracoesSistema();
@@ -60,19 +60,8 @@ public class SNU extends Application {
             if (configuracoesSistema == null) {
                 ConfiguracoesSistema novasConfiguracoesSistema = new ConfiguracoesSistema();
                 novasConfiguracoesSistema.setVersao(VERSAO);
+                definirDiretorioSGBD(novasConfiguracoesSistema);
 
-                Dialogs.showInformationDialog(stage, "O diretório do Sistema de Gerenciamento"
-                        + " de Banco de Dados precisa ser escolhido.", "Definição do Diretório do SGBD");
-
-                final DirectoryChooser seletorDiretorio = new DirectoryChooser();
-                seletorDiretorio.setInitialDirectory(new File("C:\\"));
-                seletorDiretorio.setTitle("Escolha do diretório do SGBD");
-                String diretorioSGBD = "C:";
-                final File diretorio = seletorDiretorio.showDialog(stage);
-                if (diretorio != null) {
-                    diretorioSGBD = diretorio.getAbsolutePath();
-                }
-                novasConfiguracoesSistema.setDiretorioSGBD(diretorioSGBD);
                 novasConfiguracoesSistema.setTemplateDescricaoEmail("<saudação diária>,\n"
                         + "\n"
                         + "segue abaixo a relação de músicas para a missa do dia <data>.\n"
@@ -87,6 +76,9 @@ public class SNU extends Application {
             } else if (StringUtil.diferentes(configuracoesSistema.getVersao(), VERSAO)) {
                 //Atualiza a versão caso ainda não seja a atual
                 configuracoesSistema.setVersao(VERSAO);
+                configuracoesSistemaController.edit(configuracoesSistema);
+            } else{                
+                definirDiretorioSGBD(configuracoesSistema);                
                 configuracoesSistemaController.edit(configuracoesSistema);
             }
 
@@ -114,6 +106,7 @@ public class SNU extends Application {
                         event.consume();
                     } else {
                         log.info("Finalizando a aplicação...");
+                        System.exit(0);
                     }
                 }
             });
@@ -129,10 +122,24 @@ public class SNU extends Application {
         } catch (Exception ex) {
             log.error("Erro ao iniciar a unidade de persistencia (SNUPU)", ex);
             Dialogs.showErrorDialog(stage,
-                    "Erro ao iniciar a aplicação."
-                    + "\nEntre em contato com o administrador.", "Erro!", "Erro", ex);
+                    "Erro ao iniciar a aplicação. O MySQL está em funcionamento??"
+                    + "\nEntre em contato com o administrador para mais detalhes.", "Erro!", "Erro", ex);
         }
 
+    }
+
+    private void definirDiretorioSGBD(ConfiguracoesSistema configsSis) throws IOException {
+        //Redefinindo diretório SGBD
+        String com = "wmic service where \"PathName like '%mysql%'\" get PathName";
+        Process proc = Runtime.getRuntime().exec(com);
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+        
+        // read the output from the command
+        String sgbdPath = stdInput.readLine();//PathName string
+        sgbdPath = stdInput.readLine();//Empty string
+        sgbdPath = stdInput.readLine().split("\"")[1];//Value
+        
+        configsSis.setDiretorioSGBD(sgbdPath.substring(0, sgbdPath.lastIndexOf("\\")));
     }
 
     /**

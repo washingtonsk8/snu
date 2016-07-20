@@ -128,6 +128,7 @@ public class ConfiguracoesController implements Initializable {
 
     @FXML
     private void onClickFromIconeExportarDados(MouseEvent event) {
+        //Selecionando destino
         String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("exportarDados");
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";
@@ -252,6 +253,7 @@ public class ConfiguracoesController implements Initializable {
 
     @FXML
     private void onClickFromIconeImportarDados(MouseEvent event) {
+        //Selecionando fonte
         String contextoUltimaSelecao = SeletorArquivosUtil.mapSeletores.get("importarDados");
         if (contextoUltimaSelecao == null) {
             contextoUltimaSelecao = System.getProperty("user.home") + "/Desktop";

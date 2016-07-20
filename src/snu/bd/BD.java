@@ -30,7 +30,7 @@ public class BD {
      */
     public static boolean doBakup(String diretorioArquivo) throws IOException, InterruptedException {
         Date dataAtual = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
 
         String nomeArquivo = "bkp_snu2_" + dateFormat.format(dataAtual);
 

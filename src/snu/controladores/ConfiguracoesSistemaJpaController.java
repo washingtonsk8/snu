@@ -99,7 +99,7 @@ public class ConfiguracoesSistemaJpaController implements Serializable {
             }
         }
     }
-
+    
     public List<ConfiguracoesSistema> findConfiguracoesSistemaEntities() {
         return findConfiguracoesSistemaEntities(true, -1, -1);
     }

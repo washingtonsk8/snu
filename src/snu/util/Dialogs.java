@@ -126,8 +126,6 @@ public class Dialogs {
     }
 
     public static void showErrorDialog(Stage stage, String mensagem, String cabecalho, String titulo, Exception excecao) {
-        Dialogs.showErrorDialog(stage, mensagem, cabecalho, titulo, excecao);
-
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
         alert.setHeaderText(cabecalho);
